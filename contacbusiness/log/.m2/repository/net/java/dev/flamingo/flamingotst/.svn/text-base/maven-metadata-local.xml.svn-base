@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><metadata>
+  <groupId>net.java.dev.flamingo</groupId>
+  <artifactId>flamingotst</artifactId>
+  <version>5.0</version>
+  <versioning>
+    <versions>
+      <version>5.0</version>
+    </versions>
+    <lastUpdated>20100924071334</lastUpdated>
+  </versioning>
+</metadata>

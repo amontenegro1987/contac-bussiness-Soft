@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/contacbusiness/!svn/ver/609/trunk/contacbusiness/contac-server/modules/catalogo/src/main/java/contac/servicio/catalogo
+END
+ManagerCatalogoServiceBusinessException.java
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/svnroot/contacbusiness/!svn/ver/39/trunk/contacbusiness/contac-server/modules/catalogo/src/main/java/contac/servicio/catalogo/ManagerCatalogoServiceBusinessException.java
+END
+ProductoExistenciaFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svnroot/contacbusiness/!svn/ver/606/trunk/contacbusiness/contac-server/modules/catalogo/src/main/java/contac/servicio/catalogo/ProductoExistenciaFacade.java
+END
+ManagerCatalogoServiceRemote.java
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svnroot/contacbusiness/!svn/ver/39/trunk/contacbusiness/contac-server/modules/catalogo/src/main/java/contac/servicio/catalogo/ManagerCatalogoServiceRemote.java
+END
+ManagerCatalogoServiceBusiness.java
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svnroot/contacbusiness/!svn/ver/526/trunk/contacbusiness/contac-server/modules/catalogo/src/main/java/contac/servicio/catalogo/ManagerCatalogoServiceBusiness.java
+END
+ManagerProductoServiceBusinessRemote.java
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/svnroot/contacbusiness/!svn/ver/39/trunk/contacbusiness/contac-server/modules/catalogo/src/main/java/contac/servicio/catalogo/ManagerProductoServiceBusinessRemote.java
+END
+ManagerCatalogoServiceBusinessImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 167
+/svnroot/contacbusiness/!svn/ver/526/trunk/contacbusiness/contac-server/modules/catalogo/src/main/java/contac/servicio/catalogo/ManagerCatalogoServiceBusinessImpl.java
+END
+ManagerProductoServiceBusinessException.java
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svnroot/contacbusiness/!svn/ver/122/trunk/contacbusiness/contac-server/modules/catalogo/src/main/java/contac/servicio/catalogo/ManagerProductoServiceBusinessException.java
+END
+ManagerProductoServiceBusiness.java
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svnroot/contacbusiness/!svn/ver/606/trunk/contacbusiness/contac-server/modules/catalogo/src/main/java/contac/servicio/catalogo/ManagerProductoServiceBusiness.java
+END
+ProductoNoEncontradoException.java
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svnroot/contacbusiness/!svn/ver/74/trunk/contacbusiness/contac-server/modules/catalogo/src/main/java/contac/servicio/catalogo/ProductoNoEncontradoException.java
+END
+ManagerProductoServiceBusinessImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 167
+/svnroot/contacbusiness/!svn/ver/609/trunk/contacbusiness/contac-server/modules/catalogo/src/main/java/contac/servicio/catalogo/ManagerProductoServiceBusinessImpl.java
+END

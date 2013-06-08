@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/contacbusiness/!svn/ver/589/trunk/contacbusiness/contac-commons/contac-commons-components/src/main/java/contac/commons/app
+END
+BusquedaClienteController.java
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svnroot/contacbusiness/!svn/ver/362/trunk/contacbusiness/contac-commons/contac-commons-components/src/main/java/contac/commons/app/BusquedaClienteController.java
+END
+Constantes.java
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svnroot/contacbusiness/!svn/ver/565/trunk/contacbusiness/contac-commons/contac-commons-components/src/main/java/contac/commons/app/Constantes.java
+END
+SeguridadBaseApp.java
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svnroot/contacbusiness/!svn/ver/6/trunk/contacbusiness/contac-commons/contac-commons-components/src/main/java/contac/commons/app/SeguridadBaseApp.java
+END
+BusquedaProveedorController.java
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/svnroot/contacbusiness/!svn/ver/112/trunk/contacbusiness/contac-commons/contac-commons-components/src/main/java/contac/commons/app/BusquedaProveedorController.java
+END
+BusquedaTasasCambioController.java
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svnroot/contacbusiness/!svn/ver/589/trunk/contacbusiness/contac-commons/contac-commons-components/src/main/java/contac/commons/app/BusquedaTasasCambioController.java
+END
+BusquedaAgentesVentasController.java
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/svnroot/contacbusiness/!svn/ver/580/trunk/contacbusiness/contac-commons/contac-commons-components/src/main/java/contac/commons/app/BusquedaAgentesVentasController.java
+END
+AplicationController.java
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svnroot/contacbusiness/!svn/ver/106/trunk/contacbusiness/contac-commons/contac-commons-components/src/main/java/contac/commons/app/AplicationController.java
+END
+ClasificadorController.java
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svnroot/contacbusiness/!svn/ver/526/trunk/contacbusiness/contac-commons/contac-commons-components/src/main/java/contac/commons/app/ClasificadorController.java
+END
+ManagerServiceClientApp.java
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svnroot/contacbusiness/!svn/ver/531/trunk/contacbusiness/contac-commons/contac-commons-components/src/main/java/contac/commons/app/ManagerServiceClientApp.java
+END
+BusquedaProductoController.java
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svnroot/contacbusiness/!svn/ver/97/trunk/contacbusiness/contac-commons/contac-commons-components/src/main/java/contac/commons/app/BusquedaProductoController.java
+END
+BaseController.java
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svnroot/contacbusiness/!svn/ver/562/trunk/contacbusiness/contac-commons/contac-commons-components/src/main/java/contac/commons/app/BaseController.java
+END
+ConnectionException.java
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svnroot/contacbusiness/!svn/ver/22/trunk/contacbusiness/contac-commons/contac-commons-components/src/main/java/contac/commons/app/ConnectionException.java
+END

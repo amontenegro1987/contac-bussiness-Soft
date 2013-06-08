@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svnroot/contacbusiness/!svn/ver/616/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app
+END
+pnlRegistroOrdenesSalidaInventario.java
+K 25
+svn:wc:ra_dav:version-url
+V 199
+/svnroot/contacbusiness/!svn/ver/540/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlRegistroOrdenesSalidaInventario.java
+END
+pnlRegistroOrdenesEntradaInventario.form
+K 25
+svn:wc:ra_dav:version-url
+V 200
+/svnroot/contacbusiness/!svn/ver/545/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlRegistroOrdenesEntradaInventario.form
+END
+pnlRegistroOrdenesSalidaInventario.form
+K 25
+svn:wc:ra_dav:version-url
+V 199
+/svnroot/contacbusiness/!svn/ver/538/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlRegistroOrdenesSalidaInventario.form
+END
+pnlOrdenEntradaInventario.java
+K 25
+svn:wc:ra_dav:version-url
+V 190
+/svnroot/contacbusiness/!svn/ver/616/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlOrdenEntradaInventario.java
+END
+pnlOrdenEntradaInventario.form
+K 25
+svn:wc:ra_dav:version-url
+V 190
+/svnroot/contacbusiness/!svn/ver/538/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlOrdenEntradaInventario.form
+END
+pnlOrdenLevantamientoFisico.java
+K 25
+svn:wc:ra_dav:version-url
+V 192
+/svnroot/contacbusiness/!svn/ver/616/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlOrdenLevantamientoFisico.java
+END
+pnlOrdenLevantamientoFisico.form
+K 25
+svn:wc:ra_dav:version-url
+V 192
+/svnroot/contacbusiness/!svn/ver/531/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlOrdenLevantamientoFisico.form
+END
+pnlOrdenTrasladoInventario.java
+K 25
+svn:wc:ra_dav:version-url
+V 191
+/svnroot/contacbusiness/!svn/ver/616/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlOrdenTrasladoInventario.java
+END
+pnlAplicarAjusteLevantamientoInventarioFisico.java
+K 25
+svn:wc:ra_dav:version-url
+V 210
+/svnroot/contacbusiness/!svn/ver/605/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlAplicarAjusteLevantamientoInventarioFisico.java
+END
+pnlOrdenTrasladoInventario.form
+K 25
+svn:wc:ra_dav:version-url
+V 191
+/svnroot/contacbusiness/!svn/ver/531/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlOrdenTrasladoInventario.form
+END
+pnlRegistroLevantamientoFisico.java
+K 25
+svn:wc:ra_dav:version-url
+V 195
+/svnroot/contacbusiness/!svn/ver/605/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlRegistroLevantamientoFisico.java
+END
+pnlAplicarAjusteLevantamientoInventarioFisico.form
+K 25
+svn:wc:ra_dav:version-url
+V 210
+/svnroot/contacbusiness/!svn/ver/605/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlAplicarAjusteLevantamientoInventarioFisico.form
+END
+pnlRegistroLevantamientoFisico.form
+K 25
+svn:wc:ra_dav:version-url
+V 195
+/svnroot/contacbusiness/!svn/ver/605/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlRegistroLevantamientoFisico.form
+END
+pnlRegistroOrdenesTrasladoInventario.java
+K 25
+svn:wc:ra_dav:version-url
+V 201
+/svnroot/contacbusiness/!svn/ver/540/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlRegistroOrdenesTrasladoInventario.java
+END
+pnlRegistroOrdenesTrasladoInventario.form
+K 25
+svn:wc:ra_dav:version-url
+V 201
+/svnroot/contacbusiness/!svn/ver/538/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlRegistroOrdenesTrasladoInventario.form
+END
+pnlOrdenSalidaInventario.java
+K 25
+svn:wc:ra_dav:version-url
+V 189
+/svnroot/contacbusiness/!svn/ver/616/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlOrdenSalidaInventario.java
+END
+pnlMovimientoInventario.java
+K 25
+svn:wc:ra_dav:version-url
+V 188
+/svnroot/contacbusiness/!svn/ver/615/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlMovimientoInventario.java
+END
+pnlOrdenSalidaInventario.form
+K 25
+svn:wc:ra_dav:version-url
+V 189
+/svnroot/contacbusiness/!svn/ver/540/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlOrdenSalidaInventario.form
+END
+pnlMovimientoInventario.form
+K 25
+svn:wc:ra_dav:version-url
+V 188
+/svnroot/contacbusiness/!svn/ver/609/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlMovimientoInventario.form
+END
+pnlRegistroOrdenesEntradaInventario.java
+K 25
+svn:wc:ra_dav:version-url
+V 200
+/svnroot/contacbusiness/!svn/ver/540/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlRegistroOrdenesEntradaInventario.java
+END

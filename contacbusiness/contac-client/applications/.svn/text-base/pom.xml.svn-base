@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+
+    <parent>
+        <artifactId>contac-client</artifactId>
+        <groupId>contac</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>contac</groupId>
+    <artifactId>applications</artifactId>
+    <name>CONTAC PROJECT - APPLICATIONS</name>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>contac-app</module>
+        <module>administracion-app</module>
+        <module>proveedores-app</module>
+        <module>inventarios-app</module>
+        <module>clientes-app</module>
+        <module>facturacion-app</module>
+    </modules>
+
+</project>

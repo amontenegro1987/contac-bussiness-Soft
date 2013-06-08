@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<project>
+
+    <parent>
+        <artifactId>contac-commons</artifactId>
+        <groupId>contac</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>contac</groupId>
+    <artifactId>contac-commons-app</artifactId>
+    <name>CONTAC PROJECT - COMMONS APP</name>
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- ================================================= -->
+    <!-- DEPENDENCIES                                      -->
+    <!-- ================================================= -->
+    <dependencies>
+
+        <!-- CONTAC PROJECT DEPENDENCIES -->
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>servicio</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>administracion</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>catalogo</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>proveedores</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>seguridad</artifactId>
+        </dependency>
+            
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>modelo</artifactId>
+        </dependency>
+
+        <!-- LOGGER LOG4J -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+
+    </dependencies>
+    
+</project>

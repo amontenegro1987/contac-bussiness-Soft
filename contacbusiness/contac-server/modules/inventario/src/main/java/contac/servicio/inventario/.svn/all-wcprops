@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/contacbusiness/!svn/ver/616/trunk/contacbusiness/contac-server/modules/inventario/src/main/java/contac/servicio/inventario
+END
+ManagerInventarioServiceRemote.java
+K 25
+svn:wc:ra_dav:version-url
+V 167
+/svnroot/contacbusiness/!svn/ver/121/trunk/contacbusiness/contac-server/modules/inventario/src/main/java/contac/servicio/inventario/ManagerInventarioServiceRemote.java
+END
+ManagerInventarioServiceBusinessException.java
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svnroot/contacbusiness/!svn/ver/616/trunk/contacbusiness/contac-server/modules/inventario/src/main/java/contac/servicio/inventario/ManagerInventarioServiceBusinessException.java
+END
+ManagerInventarioServiceBusiness.java
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svnroot/contacbusiness/!svn/ver/609/trunk/contacbusiness/contac-server/modules/inventario/src/main/java/contac/servicio/inventario/ManagerInventarioServiceBusiness.java
+END
+ManagerInventarioServiceBusinessImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svnroot/contacbusiness/!svn/ver/616/trunk/contacbusiness/contac-server/modules/inventario/src/main/java/contac/servicio/inventario/ManagerInventarioServiceBusinessImpl.java
+END
