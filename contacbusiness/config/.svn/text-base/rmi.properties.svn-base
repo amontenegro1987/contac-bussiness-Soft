@@ -1,0 +1,4 @@
+#####################################################
+# Contac Business Software. All rights reserved 2012.
+#####################################################
+service_host=rmi://localhost:1099/contacLoginManager

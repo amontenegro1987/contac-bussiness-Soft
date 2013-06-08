@@ -1,0 +1,55 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.swinglabs</groupId>
+	<artifactId>swingx</artifactId>
+	<packaging>jar</packaging>
+	<name>SwingX</name>
+	<version>0.9.1</version>
+    <url>http://www.swinglabs.org/</url>
+    <licenses>
+        <license>
+            <name>Lesser General Public License (LGPL)</name>
+            <url>http://www.gnu.org/copyleft/lesser.html</url>
+        </license>
+    </licenses>
+    <scm>
+        <url>https://swingx.dev.java.net/source/browse/swingx/</url>
+    </scm>
+    <description>Contains extensions to the Swing GUI toolkit, including new and enhanced components that provide functionality commonly required by rich client applications.</description>
+    <dependencies>
+		<dependency>
+			<groupId>com.jhlabs</groupId>
+			<artifactId>filters</artifactId>
+			<version>2.0.235</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+    <profiles>
+		<profile>
+    		<activation>
+      			<jdk>1.5</jdk>
+    		</activation>
+    		<dependencies>
+				<dependency>
+                    <groupId>org.swinglabs</groupId>
+                    <artifactId>swing-worker</artifactId>
+                    <version>1.1</version>
+                    <scope>compile</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.swinglabs</groupId>
+                    <artifactId>swing-layout</artifactId>
+                    <version>1.0.3</version>
+                    <scope>compile</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.swinglabs</groupId>
+                    <artifactId>multiplegradientpaint</artifactId>
+                    <version>1.0</version>
+                    <scope>compile</scope>
+                </dependency>    
+            </dependencies>
+        </profile>
+    </profiles>
+</project>

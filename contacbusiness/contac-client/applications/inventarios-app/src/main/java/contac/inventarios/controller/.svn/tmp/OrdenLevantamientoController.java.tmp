@@ -1,0 +1,390 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package contac.inventarios.controller;
+
+import contac.internationalization.LanguageLocale;
+import contac.modelo.entity.*;
+import contac.servicio.inventario.ManagerInventarioServiceBusiness;
+import contac.servicio.inventario.ManagerInventarioServiceBusinessException;
+import org.apache.log4j.Logger;
+
+import java.math.BigDecimal;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
+
+/**
+ *
+ * @author Alex
+ * Administración Levantamiento Inventario Físico controller
+ * Date: 25-05-2012
+ * 
+ */
+public class OrdenLevantamientoController extends InventarioBaseController{
+    
+    //Apache Log4j
+    private static final Logger logger = Logger.getLogger(OrdenLevantamientoController.class);
+    
+    //Message Resource Bundle
+    private ResourceBundle messageBundle = ResourceBundle.getBundle("contac/inventarios/app/mensajes/Mensajes",
+            LanguageLocale.getInstance().getLocale());
+    
+     //*************************************************************************************
+    //PROPERTIES BEAN FORM
+    //*************************************************************************************
+    private long noMovimiento;
+    private Date fechaAlta;
+    private Date fechaSolicitud;
+    private String personaEntrega;
+    private String descripcion;
+    private Moneda moneda;
+    private double montoTotal;
+    private List<OrdenLevantamientoFisico> ordenesLevantamiento;
+    List<ArticuloLevantamientoFisico> articulos;
+    private OrdenLevantamientoFisico ordenLevantamiento;
+    private TiposEntrada tipoEntrada;
+    private Almacen almacen;
+
+    public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+        this.almacen = almacen;
+    }
+
+    public List<ArticuloLevantamientoFisico> getArticulos() {
+        return articulos;
+    }
+
+    public void setArticulos(List<ArticuloLevantamientoFisico> articulos) {
+        this.articulos = articulos;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Date getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+
+    public Date getFechaSolicitud() {
+        return fechaSolicitud;
+    }
+
+    public void setFechaSolicitud(Date fechaSolicitud) {
+        this.fechaSolicitud = fechaSolicitud;
+    }
+
+    public Moneda getMoneda() {
+        return moneda;
+    }
+
+    public void setMoneda(Moneda moneda) {
+        this.moneda = moneda;
+    }
+
+    public double getMontoTotal() {
+        return montoTotal;
+    }
+
+    public void setMontoTotal(double montoTotal) {
+        this.montoTotal = montoTotal;
+    }
+
+    public long getNoMovimiento() {
+        return noMovimiento;
+    }
+
+    public void setNoMovimiento(long noMovimiento) {
+        this.noMovimiento = noMovimiento;
+    }
+
+    public OrdenLevantamientoFisico getOrdenLevantamiento() {
+        return ordenLevantamiento;
+    }
+      /*
+    public void setOrdenLevantamiento(ArticuloLevantamientoFisico ordenLevantamiento) {
+        this.ordenLevantamiento = ordenLevantamiento;
+    }
+          */
+    public List<ArticuloLevantamientoFisico> getArticuloLevantamientoFisico() {
+        return articulos;
+    }
+           /*
+    public void setOrdenesLevantamiento(List<OrdenLevantamientoFisico> ordenesLevantamiento) {
+        this.ordenesLevantamiento = ordenesLevantamiento;
+    }           */
+    public void setOrdenesLevantamiento(ArticuloLevantamientoFisico articuloLevantamientoFisico) {
+        this.ordenLevantamiento = ordenLevantamiento;
+    }
+
+    public String getPersonaEntrega() {
+        return personaEntrega;
+    }
+
+    public void setPersonaEntrega(String personaEntrega) {
+        this.personaEntrega = personaEntrega;
+    }
+
+    public TiposEntrada getTipoEntrada() {
+        return tipoEntrada;
+    }
+
+    public void setTipoEntrada(TiposEntrada tipoEntrada) {
+        this.tipoEntrada = tipoEntrada;
+    }
+    
+    //init values
+    public void init(){
+  
+        logger.debug("Iniciando carga de datos controller");
+        
+        //Editar orden de Entrada
+        set_edit(false);
+        
+        setNoMovimiento(VALUE_INT_ZERO_DEFINED);
+        setFechaAlta(new Date());
+        setFechaSolicitud(new Date());
+        setPersonaEntrega(VALUE_STRING_NOT_DEFINED);
+        setMoneda(null);
+        setMontoTotal(VALUE_INT_NOT_DEFINED);
+        setArticulos(new ArrayList<ArticuloLevantamientoFisico>());
+        setTipoEntrada(null);
+        setAlmacen(null);
+        
+        try{
+            //Cargar listado de almacenes
+            setAlmacenes(buscarAlmacenes());
+            
+        }catch(Exception e){
+            logger.error(e.getMessage(), e);
+            
+        }
+      }
+    
+    //Init modification values
+    public void initModificacion(){
+       
+        logger.debug("Iniciando carga de datos para modificador controller");
+        //Init values
+        init();
+        
+        //Editar orden de entrada
+        set_edit(true);
+        
+        setNoMovimiento(ordenLevantamiento.getNoMovimiento());
+        setFechaAlta(ordenLevantamiento.getFechaAlta());
+        setFechaSolicitud(ordenLevantamiento.getFechaSolicitud());
+        setPersonaEntrega(ordenLevantamiento.getPersonaEntrega());
+        setDescripcion(ordenLevantamiento.getDescripcion());
+        setMoneda(ordenLevantamiento.getMoneda());
+        setMontoTotal(ordenLevantamiento.getMontoTotal().doubleValue());
+        setAlmacen(ordenLevantamiento.getAlmacen());
+
+        //<Articulos>
+        List<ArticuloLevantamientoFisico> articulosList = new ArrayList<ArticuloLevantamientoFisico>();
+        articulosList.addAll(ordenLevantamiento.getArticulos());
+        setArticulos(articulosList);
+    }
+    
+     //Init registros de ordenes de Levantamiento inventario fisico
+    public void initRegistrosOrdenesEntradaInventario() throws Exception {
+<<<<<<< .mine
+        setOrdenesLevantamiento(buscarOrdenesLevantamientoFisico());
+=======
+        setOrdenesLevantamiento((ArticuloLevantamientoFisico) buscarOrdenesLevantamiento());
+>>>>>>> .r513
+    }
+    //*************************************************************************************
+    //ACTION EVENTS
+    //*************************************************************************************
+
+    /**
+     * Crear encabezado de orden de entrada
+     *
+     * @throws Exception, Exception
+     */
+      public void crearOrdenLevantamiento() throws Exception {
+
+        logger.debug("Crear orden de Levantamiento de inventario Físico.");
+
+        try {
+
+            //Obtener manager de inventario
+            ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
+
+            //Creamos registro de ingreso
+            OrdenLevantamientoFisico ordenLevantamientoFisico = mgrInventario.crearOrdenLevantamientoFisico(getFechaAlta(), null,
+                    getAlmacen().getId(), getPersonaEntrega(), getDescripcion(), getArticulos());
+
+            //Guardar orden de Lentamiento
+            //setOrdenLevantamiento(ordenLevantamientoFisico);
+                    
+                } catch (ManagerInventarioServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+       /**
+     * Modificar orden de Levantamiento Inventario
+     *
+     * @throws Exception, Exception
+     */
+       public void modificarOrdenLevantantamientoFisico() throws Exception {
+
+           logger.debug("Modificar orden de Levantamiento Inventario Físico.");
+
+           try {
+
+<<<<<<< .mine
+            //Modificar registro de orden de compra
+            OrdenLevantamientoFisico ordenLevantamientoFisico = mgrInventario.modificarOrdenLevantamientoFisico(getOrdenLevantamiento().getId(),
+                    getFechaAlta(), null, getAlmacen().getId(), getPersonaEntrega(), getDescripcion(), getArticulos());
+=======
+               //Obtener manager de inventario
+               ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
+>>>>>>> .r513
+
+<<<<<<< .mine
+            //Guardar orden de entrada
+            setOrdenLevantamiento(ordenLevantamientoFisico);
+=======
+               //Modificar registro
+               OrdenLevantamientoFisico ordenLevantamientoFisico = mgrInventario.modificarOrdenLevantamientoFisico(getOrdenLevantamiento().getId(), TiposEntrada.ENTRADA_ORDINARIA.getValue(),
+                       getFechaAlta(), null, getPersonaEntrega(), getDescripcion(), getArticulos());
+>>>>>>> .r513
+
+               //Guardar orden de Levantamiento
+               //setOrdenLevantamiento(ordenLevantamiento);
+
+           } catch (ManagerInventarioServiceBusinessException e) {
+               logger.error(e.getMessage(), e);
+               throw new Exception(e.getMessage(), e);
+           }
+       }
+    /**
+     * Remover orden de Levantamiento de Inventario Físico
+     *
+     * @throws Exception, Exception
+     */
+    public void removerOrdenLevantamientoFisico() throws Exception {
+
+        logger.debug("Remover orden de Levantamiento Físico.");
+
+        try {
+
+            //Obtener manager de inventario
+            ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
+
+            //Remover registro de orden de Levantamiento Fisico
+            mgrInventario.eliminarOrdenLevantamientoFisico(ordenLevantamiento.getId());
+
+            //Actualizar registro de Levantamiento Fisico
+          //  getOrdenesLevantamiento().clear();
+          //  getOrdenesLevantamiento().addAll(buscarOrdenesLevantamiento());
+
+        } catch (ManagerInventarioServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Agregar articulo a orden de Levantamiento Físico
+     *
+     * @param producto, Producto
+     * @param cantidad, int
+     */
+
+    public void agregarArticulo(Producto producto, int cantidad, double costoUND) throws Exception {
+
+        logger.debug("Agregando Levantamiento Físico.");
+
+        try {
+
+            //Crear articulo
+            ArticuloLevantamientoFisico articulo = null;
+
+            //Buscar articulo en listado ingresado
+            for (ArticuloLevantamientoFisico entity : getArticulos()) {
+                if (entity.getCodigo().equals(producto.getCodigo()))
+                    articulo = entity;
+            }
+
+            if (articulo != null) {
+                articulo.setCodigo(producto.getCodigo());
+                articulo.setNombre(producto.getNombre());
+                articulo.setCodigoFabricante(producto.getCodigoFabricante());
+                articulo.setCosto(producto.getCostoPROM());
+                articulo.setCantidad(cantidad);
+                articulo.setCostoTotal(articulo.getCosto().multiply(new BigDecimal(cantidad)));
+                articulo.setUnidadMedida(producto.getUnidadMedida().getNombre());
+                articulo.setProducto(producto);
+            } else {
+                articulo = new ArticuloLevantamientoFisico();
+                articulo.setCodigo(producto.getCodigo());
+                articulo.setNombre(producto.getNombre());
+
+                articulo.setCosto(producto.getCostoUND());
+                articulo.setCantidad(cantidad);
+                articulo.setCostoTotal(articulo.getCosto().multiply(new BigDecimal(cantidad)));
+                articulo.setUnidadMedida(producto.getUnidadMedida().getNombre());
+                articulo.setProducto(producto);
+
+                //Adding articulo
+                getArticulos().add(articulo);
+            }
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Obteniendo listado de ordenes de Levantamiento de inventario
+     *
+     * @return List
+     */
+<<<<<<< .mine
+    private List<OrdenLevantamientoFisico> buscarOrdenesLevantamientoFisico() throws Exception {
+=======
+    private List<OrdenLevantamientoFisico> buscarOrdenesLevantamiento() throws Exception {
+>>>>>>> .r513
+
+        logger.debug("Obteniendo listado de ordenes de levantamiento fisico...!");
+
+        try {
+
+            //Obtener manager inventario service
+            ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
+
+            //Retornar listado de ordenes de ingreso ordinaria
+            List<String> estados = new ArrayList<String>();
+            estados.add(EstadosMovimiento.INGRESADO.getEstado());
+
+            return mgrInventario.buscarOrdenesLevantamientoFisicoPorEstados(estados);
+
+        } catch (ManagerInventarioServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+}

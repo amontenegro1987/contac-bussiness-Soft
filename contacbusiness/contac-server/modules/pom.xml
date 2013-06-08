@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <parent>
+        <artifactId>contac-server</artifactId>
+        <groupId>contac</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>contac</groupId>
+    <artifactId>modules</artifactId>
+    <name>CONTAC PROJECT - MODULES</name>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <!-- ================================================= -->
+    <!-- DEPENDENCIES                                      -->
+    <!-- ================================================= -->
+    <modules>
+        <module>modelo</module>
+        <module>seguridad</module>
+        <module>administracion</module>
+        <module>catalogo</module>
+        <module>proveedores</module>
+        <module>inventario</module>
+        <module>clientes</module>
+        <module>reportes</module>
+        <module>facturacion</module>
+    </modules>
+
+</project>

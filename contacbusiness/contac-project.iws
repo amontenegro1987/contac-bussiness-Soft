@@ -1,0 +1,1530 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CCaseConfig">
+    <option name="checkoutReserved" value="false" />
+    <option name="markExternalChangeAsUpToDate" value="true" />
+    <option name="checkInUseHijack" value="true" />
+    <option name="useUcmModel" value="true" />
+    <option name="synchOutside" value="false" />
+    <option name="isHistoryResticted" value="true" />
+    <option name="useIdenticalSwitch" value="true" />
+    <option name="synchActivitiesOnRefresh" value="true" />
+    <option name="lastScr" value="" />
+    <option name="scrTextFileName" value="" />
+    <option name="historyRevisionsNumber" value="4" />
+  </component>
+  <component name="ChangeListManager">
+    <list readonly="true" id="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-client/applications/administracion-app/administracion-app.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-server/modules/administracion/administracion.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-client/applications/applications.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-server/modules/catalogo/catalogo.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-client/applications/contac-app/contac-app.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-commons/contac-commons-app/contac-commons-app.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-commons/contac-commons-components/contac-commons-components.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-commons/contac-commons.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-project.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-commons/contac-resources/contac-resources.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-server/contac-server.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-server/modules/facturacion/facturacion.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-server/modules/inventario/inventario.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-server/modules/modelo/modelo.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-server/modules/modules.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-server/modules/proveedores/proveedores.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-server/modules/reportes/reportes.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-server/modules/seguridad/seguridad.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-server/servicio/servicio.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/eao/agenteVentasEAO/AgenteVentasEAO.java" afterPath="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/eao/agenteVentasEAO/AgenteVentasEAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/eao/agenteVentasEAO/AgenteVentasEAOPersistence.java" afterPath="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/eao/agenteVentasEAO/AgenteVentasEAOPersistence.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-commons/contac-commons-components/src/main/java/contac/commons/models/comboBox/AlmacenComboBoxModel.java" afterPath="$PROJECT_DIR$/contac-commons/contac-commons-components/src/main/java/contac/commons/models/comboBox/AlmacenComboBoxModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/entity/Articulo.java" afterPath="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/entity/Articulo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-commons/contac-commons-components/src/main/java/contac/commons/models/comboBox/LineaComboBoxModel.java" afterPath="$PROJECT_DIR$/contac-commons/contac-commons-components/src/main/java/contac/commons/models/comboBox/LineaComboBoxModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-server/modules/catalogo/src/main/java/contac/servicio/catalogo/ManagerProductoServiceBusinessImpl.java" afterPath="$PROJECT_DIR$/contac-server/modules/catalogo/src/main/java/contac/servicio/catalogo/ManagerProductoServiceBusinessImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-server/modules/proveedores/src/main/java/contac/servicio/proveedores/ManagerProveedoresServiceBusinessImpl.java" afterPath="$PROJECT_DIR$/contac-server/modules/proveedores/src/main/java/contac/servicio/proveedores/ManagerProveedoresServiceBusinessImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/entity/MovimientoInventario.java" afterPath="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/entity/MovimientoInventario.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/controller/OrdenLevantamientoController.java" afterPath="$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/controller/OrdenLevantamientoController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/entity/Producto.java" afterPath="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/entity/Producto.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-commons/contac-commons-components/src/main/java/contac/commons/models/comboBox/ProveedorComboBoxModel.java" afterPath="$PROJECT_DIR$/contac-commons/contac-commons-components/src/main/java/contac/commons/models/comboBox/ProveedorComboBoxModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/eao/proveedorEAO/ProveedorEAO.java" afterPath="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/eao/proveedorEAO/ProveedorEAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/eao/proveedorEAO/ProveedorEAOPersistence.java" afterPath="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/eao/proveedorEAO/ProveedorEAOPersistence.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-commons/contac-commons-util/src/main/java/contac/web/WebUtil.java" afterPath="$PROJECT_DIR$/contac-commons/contac-commons-util/src/main/java/contac/web/WebUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-client/applications/clientes-app/clientes-app.iml" afterPath="$PROJECT_DIR$/contac-client/applications/clientes-app/clientes-app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-server/modules/clientes/clientes.iml" afterPath="$PROJECT_DIR$/contac-server/modules/clientes/clientes.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-client/contac-client.iml" afterPath="$PROJECT_DIR$/contac-client/contac-client.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-commons/contac-commons-util/contac-commons-util.iml" afterPath="$PROJECT_DIR$/contac-commons/contac-commons-util/contac-commons-util.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/sql/contac-modelo-1.0_6.sql" afterPath="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/sql/contac-modelo-1.0_6.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-client/applications/facturacion-app/facturacion-app.iml" afterPath="$PROJECT_DIR$/contac-client/applications/facturacion-app/facturacion-app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-client/applications/inventarios-app/inventarios-app.iml" afterPath="$PROJECT_DIR$/contac-client/applications/inventarios-app/inventarios-app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-client/applications/proveedores-app/proveedores-app.iml" afterPath="$PROJECT_DIR$/contac-client/applications/proveedores-app/proveedores-app.iml" />
+    </list>
+    <list default="true" id="ecb58f22-6719-4911-8ea4-71ea956ebd0a" name="Failed commit: Default" comment="modulo facturacion">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contac-commons/contac-resources/src/main/resources/icons/actions/refactor.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-server/modules/facturacion/src/main/java/contac/servicio/facturacion/ManagerFacturacionServiceBusinessImpl.java" afterPath="$PROJECT_DIR$/contac-server/modules/facturacion/src/main/java/contac/servicio/facturacion/ManagerFacturacionServiceBusinessImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-server/modules/inventario/src/main/java/contac/servicio/inventario/ManagerInventarioServiceBusinessImpl.java" afterPath="$PROJECT_DIR$/contac-server/modules/inventario/src/main/java/contac/servicio/inventario/ManagerInventarioServiceBusinessImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/resources/contac/inventarios/app/mensajes/Mensajes_es.properties" afterPath="$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/resources/contac/inventarios/app/mensajes/Mensajes_es.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/persistence.properties" afterPath="$PROJECT_DIR$/config/persistence.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/producto/app/pnlAdmonProducto.form" afterPath="$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/producto/app/pnlAdmonProducto.form" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/producto/app/pnlAdmonProducto.java" afterPath="$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/producto/app/pnlAdmonProducto.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-client/applications/facturacion-app/src/main/java/contac/facturacion/app/pnlAgenteVentas.java" afterPath="$PROJECT_DIR$/contac-client/applications/facturacion-app/src/main/java/contac/facturacion/app/pnlAgenteVentas.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlAplicarAjusteLevantamientoInventarioFisico.java" afterPath="$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlAplicarAjusteLevantamientoInventarioFisico.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-client/applications/facturacion-app/src/main/java/contac/facturacion/app/pnlFacturaCliente.java" afterPath="$PROJECT_DIR$/contac-client/applications/facturacion-app/src/main/java/contac/facturacion/app/pnlFacturaCliente.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlOrdenLevantamientoFisico.java" afterPath="$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlOrdenLevantamientoFisico.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlRegistroLevantamientoFisico.java" afterPath="$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlRegistroLevantamientoFisico.java" />
+    </list>
+    <ignored path="contac-project.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <file path="/Factura.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356201717048" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/design/BkgrdOpeningEntityObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356202147457" ignored="false" />
+    <file path="/BkgrdOpeningEntityObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356202070520" ignored="false" />
+    <file path="/a.dummy" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362412763278" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/design/ShapeAbstractObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361511050986" ignored="false" />
+    <file path="/ShapeAbstractObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356201998145" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/design/DLOEntityObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356202214481" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/design/FacetEntityObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356202257808" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/design/FrameEntityObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356202301828" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/design/GlassSUEntityObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356202368906" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/design/GlazingBeadsEntityObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356202409990" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/design/OpeningEntityObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356202486867" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/design/OverallEntityObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356205886378" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/design/SashLeafEntityObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356205939273" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/design/SashTypeEntityObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356205995351" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/design/SubFacetEntityObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356206029439" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/design/ShapeOptionEntityObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356206121021" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Model/BkgrdOpeningObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356206316986" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/design/BillOfMaterialEntityObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361939644582" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/dto/BillOfMaterialDTO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361939767674" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Model/DLO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356206457179" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/dto/OrderItemsCartDTO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356672527146" ignored="false" />
+    <file path="/OrderItemsCartDTO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356588604460" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Presentation/DrawCanvas.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1366952224910" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/META-INF/persistence.xml" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364225777532" ignored="false" />
+    <file path="/persistence.xml" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361919463175" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/src/main/resources/erpiccolo.txt" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362433864382" ignored="false" />
+    <file path="/erpiccolo.txt" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362433864684" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/PersistenceManagementServiceFactory.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365399677791" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/PersistenceManagementServicePartnerFactory.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365437254779" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/pom.xml" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1366957050507" ignored="false" />
+    <file path="/pom.xml" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1366952367589" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/dto/JobItemDTO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365437424565" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/src/main/java/erpiccolo/orderEntry/view/PartOEDetails.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356586262426" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/util/ImageUtils.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356588572147" ignored="false" />
+    <file path="/ImageUtils.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370547006689" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Model/JobItemModel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364272612989" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/pom.xml" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1366957815065" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-commons/pom.xml" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356669751521" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-commons/openjanela-commons-components/pom.xml" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356669771493" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-commons/openjanela-commons-util/pom.xml" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1366953044377" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-commons/openjanela-resources/pom.xml" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356669819031" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/DesignOptionEntityObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356672315226" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/.idea/modules.xml" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356670109209" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/.idea/misc.xml" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356670109209" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/.idea/compiler.xml" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356672112789" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/.idea/workspace.xml" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365403634612" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/.idea/encodings.xml" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1356670109209" ignored="false" />
+    <file path="/Dummy.txt" changelist="ecb58f22-6719-4911-8ea4-71ea956ebd0a" time="1370726421931" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela_subversion/openjanela/openjanela-app/src/main/java/Presentation/PredefineDesignDialog.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1358668606373" ignored="false" />
+    <file path="/PredefineDesignDialog.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363225594190" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela_subversion/openjanela/openjanela-app/src/main/java/openjanela/app/configuration/controller/PredefineDesignController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1358664631848" ignored="false" />
+    <file path="/PredefineDesignController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1358664630506" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/org/openjanela/component/DefaultTreeNode.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361403666161" ignored="false" />
+    <file path="/DefaultTreeNode.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361404036017" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/org/openjanela/component/DefaultTreeTableModel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361403670135" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/org/openjanela/component/DefaultTreeTableNode.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361404050357" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Presentation/BomView.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361897891152" ignored="false" />
+    <file path="/BomView.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361897793647" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/openjanela/app/configuration/controller/JobItemModelController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365437218663" ignored="false" />
+    <file path="/JobItemModelController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365437210322" ignored="false" />
+    <file path="/BillOfMaterialEntityObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361939622821" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/BillOfMaterialEntityObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361933891880" ignored="false" />
+    <file path="/BillOfMaterialDTO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361939756631" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/dto/ShapeObjectDTO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361511113635" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/dto/ShapeObjectBeanUtils.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361511126003" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/FrameEntityObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361511148858" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/OpeningEntityObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361511148858" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/FacetEntityObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361511148858" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/GlazingBeadsEntityObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361511148858" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/ShapeAbstractObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365353160779" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/SashTypeEntityObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361511148858" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/SashLeafEntityObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361896778459" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/BkgrdOpeningEntityObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361511148858" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/orderEntryUtility/BOMSorter.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361587622684" ignored="false" />
+    <file path="/BOMSorter.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361587614234" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/orderEntryUtility/UOMConvertData.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361568846972" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Rules/ExecutePartRules.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365354901569" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Model/BillOfMat.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365356483040" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/src/main/java/erpiccolo/invoicing/AvailableToInvoice.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361643923599" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/src/main/java/erpiccolo/customer/view/CustomerDocs.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1366955707786" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/src/main/java/erpiccolo/orderEntry/view/ItemsPanel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363932271463" ignored="false" />
+    <file path="/ItemsPanel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361660583803" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Presentation/GlassView.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364224177640" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/design/DesignGlassEntityObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361895709539" ignored="false" />
+    <file path="/DesignGlassEntityObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361895692979" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/dto/DesignGlassDTO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361895775855" ignored="false" />
+    <file path="/DesignGlassDTO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361895774467" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/ShapeObjectID_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361896778459" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/PartsNotchingEntityObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365389915862" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/ProfileCollectionObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361898181834" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/ProfileGridMaskObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361898181834" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/AnchorsGrid_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361896778459" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/dto/ProfilesBeanUtils.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361896614993" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/openjanela/app/configuration/controller/BomViewController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364224420575" ignored="false" />
+    <file path="/BomViewController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370557305501" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/org/openjanela/component/BomTreeTableNode.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361897331784" ignored="false" />
+    <file path="/BomTreeTableNode.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370574392898" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/ProfileGridObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361898181834" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/DesignGlassEntityObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361898181834" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/ProfileGridSpokeObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361898181834" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/ProfileAbstractObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365353160779" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/ProfileGlazingBeadsEntityObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361898181834" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/ProfileMyMullionObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361898181834" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/ProfileEntityObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361898181834" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/ProfileEntityBOM_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361898181834" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/design/ProfileLimitObject_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361898181834" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/openjanela/app/configuration/controller/OrderItemsCartController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361899170539" ignored="false" />
+    <file path="/BillOfMat.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365356481156" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/design/AssemblyEntityObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361940301140" ignored="false" />
+    <file path="/AssemblyEntityObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361940299850" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-web-app/pom.xml" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362424206656" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/eao/assemblyEAO/AssemblyEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361933936304" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/eao/assemblyEAO/AssemblyPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361934115934" ignored="false" />
+    <file path="/AssemblyEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361933933878" ignored="false" />
+    <file path="/AssemblyPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361934113644" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/openjanela/app/configuration/controller/AssemblyController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361936786231" ignored="false" />
+    <file path="/AssemblyController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1361936641332" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/src/main/java/erpiccolo/Login.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362466267740" ignored="false" />
+    <file path="/Login.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362466267740" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/persistence.properties" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362356147714" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/src/main/java/erpiccolo/MainAppFrame.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362459623420" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/src/main/java/erpiccolo/ERPiccoloApp.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362459623420" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/src/main/java/erpiccolo/data/util/SQLUtility.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362459242960" ignored="false" />
+    <file path="/MainAppFrame.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370399133593" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/src/main/java/erpiccolo/DatabaseResourceConnection.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362433661453" ignored="false" />
+    <file path="/DatabaseResourceConnection.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362433650848" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/src/main/java/erpiccolo/data/scheduling/data/SchedulingPreferences.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362434474695" ignored="false" />
+    <file path="/SchedulingPreferences.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362434467654" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/src/main/java/erpiccolo/admin/model/CompanyPreferences.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362434659394" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/target/generated-sources/annotations/erpiccolo/data/scheduling/data/BillsOfMatContent_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362435926178" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-commons/openjanela-commons-util/src/main/java/org/openjanela/commons/util/security/Security.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362465536191" ignored="false" />
+    <file path="/Security.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362449186402" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-commons/openjanela-commons-util/src/main/java/org/openjanela/commons/util/configuration/DatabaseResourceConnection.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362457700969" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/src/main/resources/persistence.properties" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365394213608" ignored="false" />
+    <file path="/persistence.properties" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362457938812" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-commons/openjanela-commons-util/src/main/test/java/org/openjanela/commons/util/test/SecurityTest.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362465715952" ignored="false" />
+    <file path="/SecurityTest.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362465705688" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/src/main/java/erpiccolo/admin/model/UserAdmin.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363206647189" ignored="false" />
+    <file path="/fragment.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370496518400" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-commons/openjanela-commons-util/src/main/java/org/openjanela/commons/util/web/WebUtil.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362459952320" ignored="false" />
+    <file path="/UserAdmin.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1362465965823" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Presentation/JOpenJanelaItemDesign.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363133042166" ignored="false" />
+    <file path="/JOpenJanelaItemDesign.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363133037986" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/partner/AdjustmentRo.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363130135478" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Presentation/JOpenJanelaGlobalChanges.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363135858674" ignored="false" />
+    <file path="/JOpenJanelaGlobalChanges.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363135854405" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Presentation/FinancialSummay.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363137178384" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Presentation/ItemFrame.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1366952224911" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Presentation/TopPanel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364272615944" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/src/main/java/erpiccolo/orderEntry/view/MainOrderContainer.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363202406750" ignored="false" />
+    <file path="/TopPanel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364272563988" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Presentation/PredefineDesignDialog.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363225597936" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Presentation/SashSelectorPanel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363617539176" ignored="false" />
+    <file path="/SashSelectorPanel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363617533158" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/openjanela/app/configuration/controller/OpeningSelectorPanelController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363544669094" ignored="false" />
+    <file path="/OpeningSelectorPanelController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363544661345" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Presentation/SupplierSelectorPanel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363547693478" ignored="false" />
+    <file path="/SupplierSelectorPanel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363547690036" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/design/OpeningClassTypes.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363617071422" ignored="false" />
+    <file path="/OpeningClassTypes.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363617068028" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Presentation/CostPricePanel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363938636060" ignored="false" />
+    <file path="/CostPricePanel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363938635649" ignored="false" />
+    <file path="/*.regexp" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370572541957" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/admin/TypePriceCategory.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363900126475" ignored="false" />
+    <file path="/TypePriceCategory.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363900126475" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/eao/admin/typePriceCategoryEAO/TypePriceCategoryEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363900244287" ignored="false" />
+    <file path="/TypePriceCategoryEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363900242775" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/eao/admin/typePriceCategoryEAO/TypePriceCategoryPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363900381593" ignored="false" />
+    <file path="/TypePriceCategoryPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363900374898" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/openjanela/app/configuration/controller/FinancialSummaryController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363900821043" ignored="false" />
+    <file path="/FinancialSummaryController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1363900819367" ignored="false" />
+    <file path="/ItemFrame.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364223081541" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/org/openjanela/data/ApplicationBaseApp.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365396900353" ignored="false" />
+    <file path="/ApplicationBaseApp.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364178884766" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/openjanela/app/configuration/controller/GlassViewController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364224430964" ignored="false" />
+    <file path="/GlassViewController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364224383768" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Operations/CreateShapeMethods.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364226569962" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Model/ShapeObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1366952224911" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Operations/CreateOpenings.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364270190941" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Presentation/OptionSelectorPanel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364259712232" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/eao/partner/rulesEAO/RulesPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364241319495" ignored="false" />
+    <file path="/RulesPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364241298095" ignored="false" />
+    <file path="/RulesEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364241238448" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/eao/partner/rulesEAO/RulesEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364241238448" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Model/ProfileParts/ProfileParts.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364259670996" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/partner/OptionDefinitions.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364259962194" ignored="false" />
+    <file path="/OptionDefinitions.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364259961820" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Presentation/OptionAnswerDialog.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364269890131" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/partner/OptionAnswersPK.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364260655921" ignored="false" />
+    <file path="/OptionAnswersPK.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364260655620" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/partner/OptionAnswers.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364260967837" ignored="false" />
+    <file path="/OptionAnswers.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364260949304" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/eao/partner/optionsEAO/OptionAnswersEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364261150569" ignored="false" />
+    <file path="/OptionAnswersEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364261148226" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/eao/partner/optionsEAO/OptionAnswersPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364261396848" ignored="false" />
+    <file path="/OptionAnswersPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364261365461" ignored="false" />
+    <file path="/OptionAnswerDialog.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364269887221" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Rules/ExecuteOptionRules.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364270190357" ignored="false" />
+    <file path="/ExecuteOptionRules.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364269649188" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/partner/OptionAnswersPK_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364262813863" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/partner/OptionAnswers_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364262813863" ignored="false" />
+    <file path="/OpenJanelaAppTest_2.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364268011195" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/test/java/org/openjanela/test/OpenJanelaAppTest_2.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364268014246" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/openjanela/app/configuration/controller/OptionAnswerController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364267567038" ignored="false" />
+    <file path="/OptionAnswerController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364267560851" ignored="false" />
+    <file path="/ClasificadorPnl.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364267907200" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Presentation/GlassSelectorPanel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364270190941" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Presentation/ShapeSelectorPanel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364270190941" ignored="false" />
+    <file path="/JobItemModel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1364272604891" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/parts/Parts.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365359319238" ignored="false" />
+    <file path="/Parts.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365359319238" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/parts/PartsFamily_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365389915862" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/parts/Parts_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365389915863" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/parts/PartsCostPricePK_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365389915862" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/parts/PartsCostPrice_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365389915862" ignored="false" />
+    <file path="/ExecutePartRules.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365354879649" ignored="false" />
+    <file path="/ShapeObject.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365355286131" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Operations/FindBiggestDLO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365355323747" ignored="false" />
+    <file path="/FindBiggestDLO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365355322166" ignored="false" />
+    <file path="/AddMullionV.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365356559719" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Operations/AddMullionV.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365356561967" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/main/java/Operations/AddMullionH.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365357079900" ignored="false" />
+    <file path="/AddMullionH.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365357076308" ignored="false" />
+    <file path="/PersistenceManagementServicePartnerFactory.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365361865543" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/HibernateProperties.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365360694020" ignored="false" />
+    <file path="/HibernateProperties.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365360665829" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/pom.xml" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365361703224" ignored="false" />
+    <file path="/PersistenceManagementServiceFactory.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365362069739" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/target/generated-sources/annotations/erpiccolo/orderEntry/model/PartsCostPrice_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365389981117" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/parts/PartsFamily.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365395552020" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/eao/partner/partsFamilyEAO/PartsFamilyEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365396727540" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/eao/partner/partsFamilyEAO/PartsFamilyPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365396909029" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-app/src/test/java/org/openjanela/test/OpenjanelaAppTest_3.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365434234953" ignored="false" />
+    <file path="/OpenjanelaAppTest_3.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365402871592" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-commons/openjanela-commons-util/src/main/java/org/openjanela/commons/util/zip/GZipUtility.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365432495841" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-commons/openjanela-commons-util/src/main/java/org/openjanela/commons/util/zip/GZipFile.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365436891233" ignored="false" />
+    <file path="/GZipFile.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365436889900" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/src/main/java/openjanela/model/entities/partner/JobItem.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365435911738" ignored="false" />
+    <file path="/JobItem.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365435891302" ignored="false" />
+    <file path="/JobItemDTO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365437413293" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/partner/JobItem_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1365437445320" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-commons/openjanela-commons-util/src/main/java/org/openjanela/commons/util/reports/JRXReportGenerated.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1366955094446" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-commons/openjanela-commons-util/src/main/java/org/openjanela/commons/util/reports/JRPrintReport.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1366954939971" ignored="false" />
+    <file path="/JRPrintReport.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1366954937581" ignored="false" />
+    <file path="/JRXReportGenerated.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1366954693428" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-commons/openjanela-commons-util/src/main/java/org/openjanela/commons/util/ui/JRViewer.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1366954519880" ignored="false" />
+    <file path="/JRViewer.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1366954613318" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/openjanela-commons/openjanela-commons-util/src/main/java/org/openjanela/commons/util/ui/JRViewerPanel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1366954613318" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/src/test/org/openjanela/erpiccolo/test/PrintReportTest.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1366957588364" ignored="false" />
+    <file path="/PrintReportTest.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1366957553612" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/openjanela/erpiccolo/.classpath" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1366957708742" ignored="false" />
+    <file path="/Mensajes_es.properties" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370584178782" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/data/scheduling/data/StationCapInfo.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370376927647" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/inventory/model/StockAllocations.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370373902282" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/inventory/model/StockRequisition.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370373902282" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/customer/view/CustomerDocs.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370376979855" ignored="false" />
+    <file path="/StationCapInfo.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370376924874" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/data/scheduling/data/getBOMPartInfo.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370377441852" ignored="false" />
+    <file path="/Articulo.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370377469844" ignored="false" />
+    <file path="/Producto.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370377547159" ignored="false" />
+    <file path="/ProveedorEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370377774854" ignored="false" />
+    <file path="/ProveedorEAOPersistence.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370409392264" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/orderEntry/view/OrderSchedulingViewDialog.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370380302736" ignored="false" />
+    <file path="/OrderSchedulingViewDialog.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370380282807" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/data/stationviews/data/Stations.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370395129021" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/stationviews/views/QCViewMonitor.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370493022870" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/batching/view/QCMonitorView.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370551574573" ignored="false" />
+    <file path="/QCMonitorView.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370546326007" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/stationviews/StationViewMain.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370396642151" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/batching/view/StationView.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370396839956" ignored="false" />
+    <file path="/StationView.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370400474016" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/batching/view/StationViewMain.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370551498761" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/MainAppFrame.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370409120557" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/batching/controller/StationViewController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370401384779" ignored="false" />
+    <file path="/StationViewController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370401383714" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/entities/production/ProductionLine.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370401676360" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/META-INF/persistence.xml" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370496539914" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/entities/production/ProductionLineStation.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370402070137" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/entities/production/ProductionLineStationPK.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370401951245" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/entities/production/ProductionStationViews.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370407042793" ignored="false" />
+    <file path="/ProductionLineStationPK.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370401928462" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/entities/production/BarcodeTrackPK.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370402074415" ignored="false" />
+    <file path="/ProductionLineStation.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370402055231" ignored="false" />
+    <file path="/ProductionStationViews.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370407039150" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/production/productionLineStationEAO/ProductionLineStationEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370403344870" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/production/productionLineStationEAO/ProductionLineStationPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370403475248" ignored="false" />
+    <file path="/ProductionLineStationEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370403343552" ignored="false" />
+    <file path="/ProductionLineStationPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370403469532" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/production/productionStationViewsEAO/ProductionStationViewEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370402653623" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/production/productionStationViewsEAO/ProductionStationViewsPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370404232667" ignored="false" />
+    <file path="/ProductionStationViewEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370404141609" ignored="false" />
+    <file path="/ProductionStationViewsPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370404225407" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-app/src/main/java/org/openjanela/data/ApplicationMainBaseApp.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370538893631" ignored="false" />
+    <file path="/ApplicationMainBaseApp.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370538893203" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/production/productionStationViewsEAO/ProductionStationViewsEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370404142856" ignored="false" />
+    <file path="/StationViewMain.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370551328706" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/production/BarcodeTrackPK_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370406057109" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/entities/production/ProductionStations.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370406691641" ignored="false" />
+    <file path="/ProductionStations.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370406687293" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/production/ProductionStations_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370406781020" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/production/ProductionStationViews_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370407158765" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/entities/production/StationsViews.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370407580659" ignored="false" />
+    <file path="/StationsViews.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370407375677" ignored="false" />
+    <file path="/ManagerProveedoresServiceBusinessImpl.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370409422497" ignored="false" />
+    <file path="/ProveedorComboBoxModel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370409507247" ignored="false" />
+    <file path="/LineaComboBoxModel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370409729360" ignored="false" />
+    <file path="/ManagerProductoServiceBusinessImpl.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370410032006" ignored="false" />
+    <file path="/MovimientoInventario.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370410584956" ignored="false" />
+    <file path="/ManagerInventarioServiceBusinessImpl.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370412046164" ignored="false" />
+    <file path="/AlmacenComboBoxModel.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370412827559" ignored="false" />
+    <file path="/pnlAgenteVentas.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370413163192" ignored="false" />
+    <file path="/AgenteVentasEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370413451325" ignored="false" />
+    <file path="/AgenteVentasEAOPersistence.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370413464653" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/batching/controller/QualityControlController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370544504715" ignored="false" />
+    <file path="/QualityControlController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370544504399" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/design/confirmAssemblyEAO/ConfirmAssemblyPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370536566169" ignored="false" />
+    <file path="/ConfirmAssemblyPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370502519936" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/design/confirmAssemblyEAO/ConfirmAssemblyEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370536541120" ignored="false" />
+    <file path="/ConfirmAssemblyEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370502496372" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/batching/controller/CreateBatchesController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370558220355" ignored="false" />
+    <file path="/CreateBatchesController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370558220355" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/inventory/warehousesEAO/WarehousesEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370487151689" ignored="false" />
+    <file path="/WarehousesEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370487150481" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/inventory/warehousesEAO/WarehousesPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370487328877" ignored="false" />
+    <file path="/WarehousesPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370487324505" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/entities/inventory/Warehouses.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370488140624" ignored="false" />
+    <file path="/Warehouses.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370488135408" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/target/generated-sources/annotations/openjanela/model/entities/inventory/Warehouses_.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370488232187" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/entities/production/TypeRejectCodes.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370489850720" ignored="false" />
+    <file path="/TypeRejectCodes.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370489846932" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/production/typeRejectCodesEAO/TypeRejectCodesEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370488896880" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/production/typeRejectCodesEAO/TypeRejectCodesPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370489038882" ignored="false" />
+    <file path="/TypeRejectCodesEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370488880257" ignored="false" />
+    <file path="/TypeRejectCodesPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370489035613" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/design/confirmedItemsEAO/ConfirmedItemsPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370492131989" ignored="false" />
+    <file path="/QCViewMonitor.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370492907929" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/entities/production/ConfirmedAssembliesShipped.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370500923278" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/entities/production/ConfirmedItemsShipped.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370503323660" ignored="false" />
+    <file path="/ConfirmedItemsShipped.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370503312084" ignored="false" />
+    <file path="/ConfirmedAssembliesShipped.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370500922488" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/production/confirmItemsShippedEAO/ConfirmItemsShippedEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370495416839" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/production/confirmItemsShippedEAO/ConfirmItemsShippedPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370495435593" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/production/confirmAssemblyShippedEAO/ConfirmAssemblyShippedEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370495451219" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/production/confirmAssemblyShippedEAO/ConfirmAssemblyShippedPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370495749374" ignored="false" />
+    <file path="/ConfirmAssemblyShippedPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370496253444" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/production/confirmedAssembliesShippedEAO/ConfirmAssemblyShippedEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370495765961" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/production/confirmedAssembliesShippedEAO/ConfirmAssemblyShippedPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370495765961" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/production/confirmedAssembliesShippedEAO/ConfirmedAssembliesShippedEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370529012845" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/production/confirmedAssembliesShippedEAO/ConfirmedAssembliesShippedPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370537326674" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/production/confirmedItemsShippedEAO/ConfirmItemsShippedPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370495814291" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/production/confirmedItemsShippedEAO/ConfirmItemsShippedEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370495814307" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/production/confirmedItemsShippedEAO/ConfirmedItemsShippedEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370501155104" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/production/confirmedItemsShippedEAO/ConfirmedItemsShippedPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370501310990" ignored="false" />
+    <file path="/ConfirmedAssembliesShippedEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370529006081" ignored="false" />
+    <file path="/ConfirmedItemsShippedEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370496317386" ignored="false" />
+    <file path="/ConfirmedItemsShippedPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370501307424" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/entities/inventory/WarehouseBin.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370497591436" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/entities/inventory/WarehouseBinPK.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370497591436" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/entities/inventory/WarehouseLoc.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370497591436" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/entities/inventory/WarehouseLocPK.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370497190765" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/entities/inventory/WarehouseRack.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370497452757" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/entities/inventory/WarehouseRackPK.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370497448345" ignored="false" />
+    <file path="/WarehouseBin.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370496949187" ignored="false" />
+    <file path="/WarehouseBinPK.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370496863242" ignored="false" />
+    <file path="/WarehouseLoc.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370497113165" ignored="false" />
+    <file path="/WarehouseLocPK.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370497170932" ignored="false" />
+    <file path="/WarehouseRack.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370497316532" ignored="false" />
+    <file path="/WarehouseRackPK.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370497423563" ignored="false" />
+    <file path="/ConfirmedAssembliesShippedPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370533259940" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/inventory/warehouseRackEAO/WarehouseRackEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370549427955" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/inventory/warehouseRackEAO/WarehouseRackPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370549562624" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/inventory/warehouseLocationEAO/WarehouseLocationEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370549674642" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/inventory/warehouseLocationEAO/WarehouseLocationPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370549680875" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-app/src/main/java/util/ImageUtils.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370547009377" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/inventory/warehouseBinEAO/WarehouseBinEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370549645775" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/inventory/warehouseBinEAO/WarehouseBinPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370549667863" ignored="false" />
+    <file path="/WarehouseBinEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370549533300" ignored="false" />
+    <file path="/WarehouseBinPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370549665353" ignored="false" />
+    <file path="/WarehouseLocationEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370549259721" ignored="false" />
+    <file path="/WarehouseLocationPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370549382422" ignored="false" />
+    <file path="/WarehouseRackEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370549425960" ignored="false" />
+    <file path="/WarehouseRackPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370549483315" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-app/src/main/java/openjanela/app/configuration/controller/BomViewController.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370557309488" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/orderEntry/orderEAO/OrderEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370557934193" ignored="false" />
+    <file path="/OrderEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370557934193" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-model/src/main/java/openjanela/model/eao/orderEntry/orderEAO/OrderPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370558148681" ignored="false" />
+    <file path="/OrderPersistenceEAO.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370558034295" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/batching/CreateBatchesView.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370566688145" ignored="false" />
+    <file path="/CreateBatchesView.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370566687204" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/batching/BatchContents.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370571697440" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/batching/BatchDetails.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370571697440" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/batching/BatchPlan.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370571697440" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/batching/BatchView.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370571697440" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/batching/Batch.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370571697440" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/batching/PLWIPStationView.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370579373207" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/inventory/view/StockReqMain.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370571697440" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/batching/ProdLineDetails.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370573498077" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/batching/ProdLineView.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370580788283" ignored="false" />
+    <file path="/ProdLineDetails.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370573479340" ignored="false" />
+    <file path="/ProdLineView.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370580602688" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-app/src/main/java/org/openjanela/component/BomTreeTableNode.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370574392897" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/erpiccolo/src/main/java/erpiccolo/batching/model/ProductionLinesTableNode.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370576710295" ignored="false" />
+    <file path="/ProductionLinesTableNode.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370576704297" ignored="false" />
+    <file path="$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/openjanela-app/src/main/java/Presentation/BomView.java" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370575498869" ignored="false" />
+    <file path="/contac-modelo-1.0_6.sql" changelist="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" time="1370622646421" ignored="false" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="DebuggerManager">
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint url="file://$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlMovimientoInventario.java" line="533" class="contac.inventarios.movimiento.inventario.app.pnlMovimientoInventario" package="contac.inventarios.movimiento.inventario.app">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </line_breakpoints>
+    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <breakpoint_rules />
+    <ui_properties />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="contac-project" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/contac-commons/contac-commons-components/src/main/java/contac/commons/models/comboBox/ProveedorComboBoxModel.java" />
+        <option value="$PROJECT_DIR$/contac-commons/contac-commons-components/src/main/java/contac/commons/models/comboBox/LineaComboBoxModel.java" />
+        <option value="$PROJECT_DIR$/contac-server/modules/catalogo/src/main/java/contac/servicio/catalogo/ManagerProductoServiceBusinessImpl.java" />
+        <option value="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/entity/MovimientoInventario.java" />
+        <option value="$PROJECT_DIR$/contac-server/modules/inventario/src/main/java/contac/servicio/inventario/ManagerInventarioServiceBusinessImpl.java" />
+        <option value="$PROJECT_DIR$/contac-commons/contac-commons-components/src/main/java/contac/commons/models/comboBox/AlmacenComboBoxModel.java" />
+        <option value="$PROJECT_DIR$/contac-client/applications/facturacion-app/src/main/java/contac/facturacion/app/pnlAgenteVentas.java" />
+        <option value="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/eao/agenteVentasEAO/AgenteVentasEAO.java" />
+        <option value="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/eao/agenteVentasEAO/AgenteVentasEAOPersistence.java" />
+        <option value="$PROJECT_DIR$/contac-server/modules/facturacion/src/main/java/contac/servicio/facturacion/ManagerFacturacionServiceBusinessImpl.java" />
+        <option value="$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/controller/OrdenLevantamientoController.java" />
+        <option value="$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/resources/contac/inventarios/app/mensajes/Mensajes_es.properties" />
+        <option value="$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlRegistroLevantamientoFisico.java" />
+        <option value="$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlAplicarAjusteLevantamientoInventarioFisico.java" />
+        <option value="$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/sql/contac-modelo-1.0_6.sql" />
+        <option value="$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlOrdenLevantamientoFisico.java" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="createModuleGroups" value="true" />
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+      </PATH>
+    </treeState>
+  </component>
+  <component name="MavenRunner">
+    <option name="jreName" value="#JAVA_INTERNAL" />
+  </component>
+  <component name="ModuleEditorState">
+    <option name="LAST_EDITED_MODULE_NAME" />
+    <option name="LAST_EDITED_TAB_NAME" />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1616" />
+    <option name="height" value="916" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <OptionsSetting value="true" id="Undo Check Out" />
+    <OptionsSetting value="true" id="Get Latest Version" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contac-project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contac-project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contacbusiness" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contac-project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contacbusiness" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contac-client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contac-project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contacbusiness" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contac-client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="applications" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contac-project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contacbusiness" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contac-client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="applications" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="inventarios-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contac-project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contacbusiness" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contac-client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="applications" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="inventarios-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contac-project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contacbusiness" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contac-client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="applications" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="inventarios-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contac-project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contacbusiness" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contac-client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="applications" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="inventarios-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="inventarios" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contac-project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contacbusiness" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contac-client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="applications" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="inventarios-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="inventarios" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Favorites" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.lastSelected" value="reference.settings.project.maven.repository.indices" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="dynamic.classpath" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-commons\contac-resources\src\main\resources\icons\actions" />
+      <recent name="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-commons\contac-resources\src\main\resources\icons" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="contac.servicio.catalogo" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.SplashS">
+    <configuration default="false" name="SplashS" type="Application" factoryName="Application" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="contac.servicio.app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="contac.servicio.app.SplashS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="contac-app" />
+      <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="51778" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="LoadingConfigTest" type="Application" factoryName="Application" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="contac.commons.util.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="contac.commons.util.test.LoadingConfigTest" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="contac-commons-util" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="LoadingLog4jTest" type="Application" factoryName="Application" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="contac.commons.util.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="contac.commons.util.test.LoadingLog4jTest" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="contac-commons-util" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" output_log_level="null" package_name="" scope="Class">
+      <option name="BCName" value="" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browserFamily" value="FIREFOX" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="moduleName" value="" />
+      <option name="trusted" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <list size="3">
+      <item index="0" class="java.lang.String" itemvalue="Application.SplashS" />
+      <item index="1" class="java.lang.String" itemvalue="Application.LoadingConfigTest" />
+      <item index="2" class="java.lang.String" itemvalue="Application.LoadingLog4jTest" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Application.SplashS" />
+      </list>
+    </recent_temporary>
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SliceManager">
+    <option name="analysisUIOptions">
+      <AnalysisUIOptions />
+    </option>
+  </component>
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="true">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="DETECT_NESTED_COPIES" value="true" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <configuration useDefault="true">C:\Users\EMontenegro\AppData\Roaming\Subversion</configuration>
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-client" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-client" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-client\applications" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-client\applications" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-client\applications\administracion-app" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-client\applications\administracion-app" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-client\applications\clientes-app" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-client\applications\clientes-app" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-client\applications\contac-app" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-client\applications\contac-app" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-client\applications\facturacion-app" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-client\applications\facturacion-app" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-client\applications\inventarios-app" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-client\applications\inventarios-app" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-client\applications\proveedores-app" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-client\applications\proveedores-app" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-commons" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-commons" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-commons\contac-commons-app" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-commons\contac-commons-app" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-commons\contac-commons-components" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-commons\contac-commons-components" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-commons\contac-commons-util" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-commons\contac-commons-util" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-commons\contac-resources" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-commons\contac-resources" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules\administracion" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules\administracion" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules\catalogo" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules\catalogo" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules\clientes" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules\clientes" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules\facturacion" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules\facturacion" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules\inventario" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules\inventario" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules\modelo" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules\modelo" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules\proveedores" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules\proveedores" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules\reportes" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules\reportes" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules\seguridad" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\modules\seguridad" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\servicio" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness\contac-server\servicio" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness" />
+          <option name="myCopyRoot" value="C:\desarrollo\contacbusiness\trunk\contacbusiness" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="aed73ee3-92f1-4cf8-a2cd-ee6221b8df6c" name="Default" comment="" />
+      <created>1329797311878</created>
+      <updated>1329797311878</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1616" height="916" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.56992084" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3288201" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.50990754" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32760897" sideWeight="0.0" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26023778" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298153" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3288201" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35976788" sideWeight="0.73976225" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28005284" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3288201" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967743" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="JavaRebel Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="JavaRebel" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5046113" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39973786" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="CHECK_NEW_TODO" value="true" />
+    <option name="myTodoPanelSettings">
+      <value>
+        <are-packages-shown value="false" />
+        <are-modules-shown value="false" />
+        <flatten-packages value="false" />
+        <is-autoscroll-to-source value="false" />
+      </value>
+    </option>
+    <option name="PERFORM_UPDATE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_COMMIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
+    <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="false" />
+    <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
+    <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
+    <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
+    <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
+    <option name="SHORT_DIFF_HORISONTALLY" value="true" />
+    <option name="SHORT_DIFF_EXTRA_LINES" value="2" />
+    <option name="SOFT_WRAPS_IN_SHORT_DIFF" value="true" />
+    <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
+    <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+    <option name="SHOW_FILE_HISTORY_DETAILS" value="true" />
+    <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
+    <option name="SHOW_DIRTY_RECURSIVELY" value="false" />
+    <option name="LIMIT_HISTORY" value="true" />
+    <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
+    <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
+    <option name="LAST_COMMIT_MESSAGE" value="modulo facturacion" />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
+    <option name="FILE_HISTORY_DIALOG_COMMENTS_SPLITTER_PROPORTION" value="0.8" />
+    <option name="FILE_HISTORY_DIALOG_SPLITTER_PROPORTION" value="0.5" />
+    <option name="ACTIVE_VCS_NAME" />
+    <option name="UPDATE_GROUP_BY_PACKAGES" value="false" />
+    <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
+    <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
+    <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
+    <MESSAGE value="modulo facturacion" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/controller/OrdenLevantamientoController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="328" column="95" selection-start="10633" selection-end="10633" vertical-scroll-proportion="0.35665295">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contac-server/modules/inventario/src/main/java/contac/servicio/inventario/ManagerInventarioServiceBusinessImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1773" column="110" selection-start="83406" selection-end="83406" vertical-scroll-proportion="0.29903978" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlRegistroLevantamientoFisico.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="92" column="48" selection-start="3696" selection-end="3696" vertical-scroll-proportion="0.2620424">
+          <folding>
+            <element signature="e#4761#4791#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/sql/contac-modelo-1.0_6.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="27" selection-start="1714" selection-end="1714" vertical-scroll-proportion="0.46646342" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/sql/contac-modelo-1.0_5.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/sql/contac-modelo-1.0_4.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.7978227" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/sql/contac-modelo-1.0_3.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/sql/contac-modelo-1.0_2.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/sql/contac-modelo-1.0_1.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="68" column="84" selection-start="7113" selection-end="7113" vertical-scroll-proportion="0.6827372" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contac-server/modules/modelo/src/main/java/contac/modelo/eao/estadoMovimientoEAO/EstadoMovimientoEAOPersistence.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="0" selection-start="743" selection-end="743" vertical-scroll-proportion="0.41975307" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-13.249657">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contac-server/modules/catalogo/src/main/java/contac/servicio/catalogo/ManagerProductoServiceBusiness.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="170" column="0" selection-start="7313" selection-end="7313" vertical-scroll-proportion="0.7863129" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contac-server/modules/inventario/src/main/java/contac/servicio/inventario/ManagerInventarioServiceBusiness.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="398" column="0" selection-start="17154" selection-end="17154" vertical-scroll-proportion="0.023743017" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlAplicarAjusteLevantamientoInventarioFisico.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="29" selection-start="2695" selection-end="2695" vertical-scroll-proportion="0.023319615">
+          <folding>
+            <element signature="method#initValues#0;class#pnlAplicarAjusteLevantamientoInventarioFisico#0" expanded="false" />
+            <element signature="method#initComponents#0;class#pnlAplicarAjusteLevantamientoInventarioFisico#0" expanded="false" />
+            <element signature="method#btnCalcularAjusteActionPerformed#0;class#pnlAplicarAjusteLevantamientoInventarioFisico#0" expanded="false" />
+            <element signature="method#btnAplicarActionPerformed#0;class#pnlAplicarAjusteLevantamientoInventarioFisico#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/movimiento/inventario/app/pnlOrdenLevantamientoFisico.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="296" column="173" selection-start="10855" selection-end="10855" vertical-scroll-proportion="0.16353384">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/desarrollo_openjanela/cloudforge/openjanela/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>JPA</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.6</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>contac-project</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.6</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
+

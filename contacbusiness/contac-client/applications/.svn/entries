@@ -1,0 +1,65 @@
+10
+
+dir
+616
+https://contacbusiness.svn.sourceforge.net/svnroot/contacbusiness/trunk/contacbusiness/contac-client/applications
+https://contacbusiness.svn.sourceforge.net/svnroot/contacbusiness
+
+
+
+2012-11-23T16:10:25.034139Z
+616
+emortiz
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+d8ca482e-f1b3-4d2b-806d-eaf5dee0f4a2
+
+administracion-app
+dir
+
+applications.iml
+file
+0
+
+
+add
+
+clientes-app
+dir
+
+contac-app
+dir
+
+facturacion-app
+dir
+
+inventarios-app
+dir
+
+pom.xml
+file
+
+
+
+
+
+1814dbb2a1f90b163a52c6f1af36e960
+2012-02-28T15:12:01.286072Z
+476
+emortiz
+
+proveedores-app
+dir
+

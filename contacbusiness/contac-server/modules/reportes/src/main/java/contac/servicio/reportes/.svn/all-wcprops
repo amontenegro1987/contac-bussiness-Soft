@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/contacbusiness/!svn/ver/312/trunk/contacbusiness/contac-server/modules/reportes/src/main/java/contac/servicio/reportes
+END
+ManagerGeneradorReporteServiceBusiness.java
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/svnroot/contacbusiness/!svn/ver/311/trunk/contacbusiness/contac-server/modules/reportes/src/main/java/contac/servicio/reportes/ManagerGeneradorReporteServiceBusiness.java
+END
+ManagerGeneradorReporteServiceRemote.java
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svnroot/contacbusiness/!svn/ver/311/trunk/contacbusiness/contac-server/modules/reportes/src/main/java/contac/servicio/reportes/ManagerGeneradorReporteServiceRemote.java
+END
+ManagerGeneradorReporteServiceBusinessImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svnroot/contacbusiness/!svn/ver/312/trunk/contacbusiness/contac-server/modules/reportes/src/main/java/contac/servicio/reportes/ManagerGeneradorReporteServiceBusinessImpl.java
+END
+ManagerGeneradorReporteServiceBusinessException.java
+K 25
+svn:wc:ra_dav:version-url
+V 180
+/svnroot/contacbusiness/!svn/ver/311/trunk/contacbusiness/contac-server/modules/reportes/src/main/java/contac/servicio/reportes/ManagerGeneradorReporteServiceBusinessException.java
+END
