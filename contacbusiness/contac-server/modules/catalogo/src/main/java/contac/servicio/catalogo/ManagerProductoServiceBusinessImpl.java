@@ -216,6 +216,11 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
             //Buscando productos por parametros
             List<Producto> productos = this.productoEAO.find(codigo, nombre, codigoFabricante);
 
+            //Initialize Unidad de Medida del listaoo de productos
+            for (Producto producto : productos) {
+                Hibernate.initialize(producto.getUnidadMedida());
+            }
+
             return productos;
 
         } catch (GenericPersistenceEAOException e) {
