@@ -7,6 +7,8 @@ package contac.inventarios.movimiento.inventario.app;
 import contac.commons.app.BaseController;
 import contac.commons.components.pnlBusquedaProducto;
 import contac.commons.form.label.JOptionErrorPane;
+import contac.commons.form.layout.XYConstraints;
+import contac.commons.form.layout.XYLayout;
 import contac.commons.form.panel.GenericFrame;
 import contac.commons.form.panel.GenericPanel;
 import contac.commons.form.render.DecimalFormatRenderer;
@@ -21,10 +23,16 @@ import contac.modelo.entity.ArticuloLevantamientoFisico;
 import contac.modelo.entity.Producto;
 import contac.text.TextUtil;
 import org.apache.log4j.Logger;
+import org.jdesktop.swingx.JXDatePicker;
+import org.jdesktop.swingx.JXHeader;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Locale;
@@ -37,6 +45,9 @@ public class pnlOrdenLevantamientoFisico extends GenericPanel {
 
     //Apache log4j
     private static final Logger logger = Logger.getLogger(pnlOrdenLevantamientoFisico.class);
+
+    //Resource Bundle internationalization
+    private static ResourceBundle resourceBundle = ResourceBundle.getBundle("contac/inventarios/app/mensajes/Mensajes_es");
 
     //Controller
     private OrdenLevantamientoController controller;
@@ -109,9 +120,13 @@ public class pnlOrdenLevantamientoFisico extends GenericPanel {
 
     @Override
     public void initValues() {
+
         //************************************************************
         //Init data values components
         //************************************************************
+
+        //Init almacenes combo box data model
+        cmbAlmacen.setModel(new AlmacenComboBoxModel(controller.getAlmacenes()));
 
         //Evaluar edit datos para registrar
         if (!controller.is_edit()) {
@@ -211,6 +226,9 @@ public class pnlOrdenLevantamientoFisico extends GenericPanel {
         tblArticulos.scrollRectToVisible(tblArticulos.getCellRect(tblArticulos.getRowCount() - 1, 0, true));
     }
 
+    /**
+     * Register Listener values
+     */
     private void registerListeners() {
 
         //cmbAlmacen
@@ -251,6 +269,11 @@ public class pnlOrdenLevantamientoFisico extends GenericPanel {
                     e.consume();
                 }
             }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                txtCodigoKeyPressed(e);
+            }
         });
 
         //txtCantidad
@@ -266,7 +289,150 @@ public class pnlOrdenLevantamientoFisico extends GenericPanel {
                     txtCodigo.selectAll();
                 }
             }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                txtCantidadKeyPressed(e);
+            }
+
         });
+
+        //Buscar producto action performed
+        btnBuscarProducto.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnBuscarProductoActionPerformed(e);
+            }
+        });
+
+        //Aceptar action performed
+        btnAceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnAceptarActionPerformed(e);
+            }
+        });
+
+        //Cancelar action performed
+        btnCancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnCancelarActionPerformed(e);
+            }
+        });
+    }
+
+    /**
+     * Init Components design values
+     */
+    private void initComponents() {
+
+        //Setting default Layout
+        this.setLayout(new BorderLayout());
+
+        //***************************************************************************************
+        //Init Header Panel
+        //***************************************************************************************
+        header = new JXHeader();
+        header.setTitle(resourceBundle.getString("CONTAC.FORM.ORDENLEVANTAMIENTO.TITTLE")); // NOI18N
+        header.setForeground(new java.awt.Color(255, 153, 0));
+        header.setTitleForeground(new java.awt.Color(255, 153, 0));
+        header.setPreferredSize(new Dimension(50, 35));
+
+        //Adding header to panel
+        this.add(header, BorderLayout.NORTH);
+
+        //***************************************************************************************
+        //Init Header Components Panel
+        //***************************************************************************************
+        lblNoEntrada = new JLabel(resourceBundle.getString("CONTAC.FORM.ORDENENTRADA.NOENTRADA"));
+        lblNoEntrada.setHorizontalAlignment(JLabel.LEFT);
+
+        lblAlmacen = new JLabel(resourceBundle.getString("CONTAC.FORM.ORDENENTRADA.ALMACEN"));
+        lblAlmacen.setHorizontalAlignment(JLabel.LEFT);
+
+        lblFechaAlta = new JLabel(resourceBundle.getString("CONTAC.FORM.ORDENENTRADA.FECHAALTA"));
+        lblFechaAlta.setHorizontalAlignment(JLabel.LEFT);
+
+        lblDescripcion = new JLabel(resourceBundle.getString("CONTAC.FORM.ORDENENTRADA.DESCRIPCION"));
+        lblDescripcion.setHorizontalAlignment(JLabel.LEFT);
+
+        txtNoEntrada = new JTextField();
+        txtNoEntrada.setEditable(false);
+
+        txtDescripcion = new JTextField();
+        dtpFechaAlta = new JXDatePicker();
+        cmbAlmacen = new JComboBox();
+
+        //Create Panel Header Component
+        JPanel pnlHeaderComp = new JPanel(new XYLayout());
+        pnlHeaderComp.add(lblNoEntrada, new XYConstraints(5, 5, 90, 23));
+        pnlHeaderComp.add(txtNoEntrada, new XYConstraints(98, 5, 120, 23));
+        pnlHeaderComp.add(lblAlmacen, new XYConstraints(221, 5, 70, 23));
+        pnlHeaderComp.add(cmbAlmacen, new XYConstraints(294, 5, 200, 23));
+        pnlHeaderComp.add(lblFechaAlta, new XYConstraints(497, 5, 70, 23));
+        pnlHeaderComp.add(dtpFechaAlta, new XYConstraints(570, 5, 120, 23));
+        pnlHeaderComp.add(lblDescripcion, new XYConstraints(5, 30, 90, 23));
+        pnlHeaderComp.add(txtDescripcion, new XYConstraints(98, 30, 592, 23));
+
+        //***************************************************************************************
+        //Init Articulos Table Panel
+        //***************************************************************************************
+        tblArticulos = new org.jdesktop.swingx.JXTable();
+        JScrollPane spArticulos = new JScrollPane();
+        spArticulos.getViewport().add(tblArticulos);
+
+        JPanel pnlArticulos = new JPanel(new BorderLayout());
+        pnlArticulos.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        pnlArticulos.add(spArticulos, BorderLayout.CENTER);
+
+        //***************************************************************************************
+        //Init Add Articulo Actions panel
+        //***************************************************************************************
+        txtCodigo = new javax.swing.JTextField();
+        txtCodigo.setToolTipText(resourceBundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.CODIGO"));
+        txtCodigo.setPreferredSize(new Dimension(120, 23));
+
+        txtNombre = new javax.swing.JTextField();
+        txtNombre.setToolTipText(resourceBundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.NOMBRE"));
+        txtNombre.setPreferredSize(new Dimension(250, 23));
+
+        txtCantidad = new javax.swing.JTextField();
+        txtNombre.setToolTipText(resourceBundle.getString("CONTAC.FORM.ORDENENTRADA.CANTIDAD"));
+        txtCantidad.setPreferredSize(new Dimension(90, 23));
+
+        btnBuscarProducto = new JButton(new ImageIcon(getClass().getResource("/contac/resources/icons/folder_find.png")));
+        btnBuscarProducto.setPreferredSize(new Dimension(30, 23));
+
+        JPanel pnlAddProducto = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        pnlAddProducto.add(txtCodigo);
+        pnlAddProducto.add(btnBuscarProducto);
+        pnlAddProducto.add(txtNombre);
+        pnlAddProducto.add(txtCantidad);
+
+        //Adding to Main Panel
+        JPanel pnlMainOrder = new JPanel(new BorderLayout());
+        pnlMainOrder.add(pnlHeaderComp, BorderLayout.NORTH);
+        pnlMainOrder.add(pnlArticulos, BorderLayout.CENTER);
+        pnlMainOrder.add(pnlAddProducto, BorderLayout.SOUTH);
+
+        this.add(pnlMainOrder, BorderLayout.CENTER);
+
+        //***************************************************************************************
+        //Init Actions panel
+        //**************************************************************************************
+        btnAceptar = new javax.swing.JButton(resourceBundle.getString("CONTAC.FORM.BTNACEPTAR"));
+        btnAceptar.setPreferredSize(new Dimension(90, 23));
+
+        btnCancelar = new javax.swing.JButton(resourceBundle.getString("CONTAC.FORM.BTNCANCELAR"));
+        btnCancelar.setPreferredSize(new Dimension(90, 23));
+
+        JPanel pnlAction = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        pnlAction.setBorder(new EtchedBorder());
+        pnlAction.add(btnAceptar);
+        pnlAction.add(btnCancelar);
+
+        this.add(pnlAction, BorderLayout.SOUTH);
     }
 
     /**
@@ -289,181 +455,6 @@ public class pnlOrdenLevantamientoFisico extends GenericPanel {
             productoSelected = producto;
         }
     }
-
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        header = new org.jdesktop.swingx.JXHeader();
-        pnlOrdenLevantamientoInventario = new javax.swing.JPanel();
-        lblNoEntrada = new javax.swing.JLabel();
-        lblDescripcion = new javax.swing.JLabel();
-        txtDescripcion = new javax.swing.JTextField();
-        txtNoEntrada = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        cmbAlmacen = new javax.swing.JComboBox();
-        lblFechaAlta = new javax.swing.JLabel();
-        dtpFechaAlta = new org.jdesktop.swingx.JXDatePicker();
-        jSeparator3 = new javax.swing.JSeparator();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblArticulos = new org.jdesktop.swingx.JXTable();
-        txtCodigo = new javax.swing.JTextField();
-        btnBuscarProducto = new javax.swing.JButton();
-        txtNombre = new javax.swing.JTextField();
-        txtCantidad = new javax.swing.JTextField();
-        btnAceptar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
-
-        setLayout(new java.awt.BorderLayout());
-
-        header.setForeground(new java.awt.Color(255, 153, 0));
-        header.setPreferredSize(new java.awt.Dimension(51, 35));
-        header.setScrollableTracksViewportWidth(false);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("contac/inventarios/app/mensajes/Mensajes_es"); // NOI18N
-        header.setTitle(bundle.getString("CONTAC.FORM.ORDENENTRADA.TITLE")); // NOI18N
-        header.setTitleForeground(new java.awt.Color(255, 153, 0));
-        add(header, java.awt.BorderLayout.PAGE_START);
-
-        lblNoEntrada.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblNoEntrada.setText("NO. Entrada:*");
-
-        lblDescripcion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblDescripcion.setText("Descripción:*");
-
-        txtNoEntrada.setEditable(false);
-
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Almacen:*");
-
-        cmbAlmacen.setModel(new AlmacenComboBoxModel(controller.getAlmacenes()));
-
-        lblFechaAlta.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblFechaAlta.setText("Fecha alta:*");
-
-        jScrollPane1.setViewportView(tblArticulos);
-
-        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtCodigoKeyPressed(evt);
-            }
-        });
-
-        btnBuscarProducto.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/folder_find.png")));
-        btnBuscarProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarProductoActionPerformed(evt);
-            }
-        });
-
-        txtNombre.setEditable(false);
-
-        txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtCantidadKeyPressed(evt);
-            }
-        });
-
-        btnAceptar.setText(bundle.getString("CONTAC.FORM.BTNACEPTAR")); // NOI18N
-        btnAceptar.setActionCommand(bundle.getString("CONTAC.FORM.BTNACEPTAR")); // NOI18N
-        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptarActionPerformed(evt);
-            }
-        });
-
-        btnCancelar.setText(bundle.getString("CONTAC.FORM.BTNCANCELAR")); // NOI18N
-        btnCancelar.setActionCommand("");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlOrdenLevantamientoInventarioLayout = new javax.swing.GroupLayout(pnlOrdenLevantamientoInventario);
-        pnlOrdenLevantamientoInventario.setLayout(pnlOrdenLevantamientoInventarioLayout);
-        pnlOrdenLevantamientoInventarioLayout.setHorizontalGroup(
-            pnlOrdenLevantamientoInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlOrdenLevantamientoInventarioLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(pnlOrdenLevantamientoInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblNoEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlOrdenLevantamientoInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlOrdenLevantamientoInventarioLayout.createSequentialGroup()
-                        .addComponent(txtNoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dtpFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 849, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(393, 393, 393))
-            .addGroup(pnlOrdenLevantamientoInventarioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 1320, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(pnlOrdenLevantamientoInventarioLayout.createSequentialGroup()
-                .addGroup(pnlOrdenLevantamientoInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlOrdenLevantamientoInventarioLayout.createSequentialGroup()
-                        .addGap(407, 407, 407)
-                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlOrdenLevantamientoInventarioLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addComponent(btnBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlOrdenLevantamientoInventarioLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 936, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(300, Short.MAX_VALUE))
-        );
-        pnlOrdenLevantamientoInventarioLayout.setVerticalGroup(
-            pnlOrdenLevantamientoInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlOrdenLevantamientoInventarioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlOrdenLevantamientoInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlOrdenLevantamientoInventarioLayout.createSequentialGroup()
-                        .addGroup(pnlOrdenLevantamientoInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dtpFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlOrdenLevantamientoInventarioLayout.createSequentialGroup()
-                        .addComponent(lblNoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(13, 13, 13)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlOrdenLevantamientoInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlOrdenLevantamientoInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addGroup(pnlOrdenLevantamientoInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAceptar)
-                    .addComponent(btnCancelar))
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
-
-        add(pnlOrdenLevantamientoInventario, java.awt.BorderLayout.CENTER);
-    }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         try {
@@ -583,74 +574,6 @@ public class pnlOrdenLevantamientoFisico extends GenericPanel {
         }
     }
 
-    private void btBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {
-
-        //--<Open Busqueda producto JDialog for selecting clasificador>
-        Producto producto = new pnlBusquedaProducto(mdi, true).getProductoSelected();
-
-        if (producto != null) {
-            txtCodigo.setText(producto.getCodigo());
-            txtNombre.setText(producto.getNombre());
-            txtCantidad.requestFocusInWindow();
-
-            //Updating producto selected
-            productoSelected = producto;
-        }
-    }
-
-    private void btAceptarActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-
-            //Valida datos form
-            validaDatosForm();
-
-            //Setting values
-            controller.setFechaAlta(dtpFechaAlta.getDate());
-            controller.setDescripcion(txtDescripcion.getText());
-            controller.setAlmacen((Almacen) ((AlmacenComboBoxModel) cmbAlmacen.getModel()).getSelectedItem().getObject());
-
-            if (!controller.is_edit()) {
-                //Guardar orden de entrada
-                controller.crearOrdenLevantamiento();
-
-                //Actualizar numero de entrada consecutivo generado
-                txtNoEntrada.setText(String.valueOf(controller.getOrdenLevantamiento().getNoMovimiento()));
-
-                //Show confirmation message
-                JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.ORDENENTRADA.INGRESO.EXITOSO"),
-                        messageBundle.getString("CONTAC.FORM.ORDENENTRADA.INGRESO.EXITOSO"));
-
-                //Change btnModificar label
-                btnAceptar.setText(messageBundle.getString("CONTAC.FORM.BTNMODIFICAR"));
-
-                //Setting controller edit data
-                controller.set_edit(true);
-
-            } else {
-                //Modificar orden de entrada
-                controller.modificarOrdenLevantantamientoFisico();
-
-                //Show confirmation message
-                JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.ORDENLevantamiento"
-                        + ""
-                        + ".MODIFICA.EXITOSO"),
-                        messageBundle.getString("CONTAC.FORM.ORDENENTRADA.MODIFICA.EXITOSO"));
-            }
-
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            JOptionErrorPane.showMessageError(null, messageBundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.ERROR.REGISTRO"),
-                    e.getMessage());
-        }
-    }
-
-    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {
-        //Init formulario
-        controller.init();
-        //Init values formulario
-        initValues();
-    }
-
     //Validate data form
     private void validaDatosForm() throws Exception {
 
@@ -687,13 +610,10 @@ public class pnlOrdenLevantamientoFisico extends GenericPanel {
     private javax.swing.JComboBox cmbAlmacen;
     private org.jdesktop.swingx.JXDatePicker dtpFechaAlta;
     private org.jdesktop.swingx.JXHeader header;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JLabel lblAlmacen;
     private javax.swing.JLabel lblDescripcion;
     private javax.swing.JLabel lblFechaAlta;
     private javax.swing.JLabel lblNoEntrada;
-    private javax.swing.JPanel pnlOrdenLevantamientoInventario;
     private org.jdesktop.swingx.JXTable tblArticulos;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtCodigo;
