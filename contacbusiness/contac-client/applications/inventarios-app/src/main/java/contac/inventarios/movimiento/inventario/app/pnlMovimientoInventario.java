@@ -80,23 +80,29 @@ public class pnlMovimientoInventario extends GenericPanel {
         dtpFechaHasta.setFormats("dd/MM/yyyy");
 
         //Column names JTable
-        String[] columnNames = {"C\u00f3digo", "Almac\u00e9n", "Cantidad Inicial", "Ingreso", "Salida", "Existencia"};
+        String[] columnNames = {"Id", "C\u00f3digo", "Almac\u00e9n", "Cantidad Inicial", "Ingreso", "Salida", "Existencia"};
         NotEditableTableModel tableModel = new NotEditableTableModel(columnNames, 0);
 
         for (ProductoExistencia existencia : controller.getExistencias()) {
-            Object[] row = new Object[6];
-            row[0] = existencia.getId().getAlmacen().getCodigo();
-            row[1] = existencia.getId().getAlmacen().getDescripcion();
-            row[2] = existencia.getCantidad();
-            row[3] = existencia.getIngreso();
-            row[4] = existencia.getSalida();
-            row[5] = existencia.getExistencia();
+            Object[] row = new Object[7];
+            row[0] = existencia.getId().getAlmacen().getId();
+            row[1] = existencia.getId().getAlmacen().getCodigo();
+            row[2] = existencia.getId().getAlmacen().getDescripcion();
+            row[3] = existencia.getCantidad();
+            row[4] = existencia.getIngreso();
+            row[5] = existencia.getSalida();
+            row[6] = existencia.getExistencia();
 
             tableModel.addRow(row);
         }
 
         //Setting table model
         existenciasTbl.setModel(tableModel);
+
+        TableColumnModel columnModel = existenciasTbl.getColumnModel();
+        columnModel.getColumn(0).setMinWidth(0);
+        columnModel.getColumn(0).setMaxWidth(0);
+        columnModel.getColumn(0).setWidth(0);
 
         //Setting default focus
         txtCodigo.requestFocusInWindow();

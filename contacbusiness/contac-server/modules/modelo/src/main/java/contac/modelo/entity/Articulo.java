@@ -68,6 +68,13 @@ public abstract class Articulo implements java.io.Serializable {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * PROPERTY NAME: cantidad anterior para evaluacion de existencias
+     */
+    private long cantidadAnterior;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * PROPERTY NAME: costo
      */
     private BigDecimal costo;
@@ -243,6 +250,29 @@ public abstract class Articulo implements java.io.Serializable {
      */
     public void setCantidad(long cantidad) {
         this.cantidad = cantidad;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * Obtener la cantidad anterior del articulo
+     *
+     * @return int
+     */
+    @Transient
+    public long getCantidadAnterior() {
+        return cantidadAnterior;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * Setear la cantidad de Articulo
+     *
+     * @return int
+     */
+    public void setCantidadAnterior(long cantidadAnterior) {
+        this.cantidadAnterior = cantidadAnterior;
     }
 
     /**

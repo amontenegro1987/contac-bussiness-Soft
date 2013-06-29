@@ -203,7 +203,7 @@ public class pnlOrdenEntradaInventario extends GenericPanel {
         TableColumnModel columnModel = tblArticulosEntrada.getColumnModel();
 
         String[] articuloColumnRemove = new String[]{"Id", "Producto", "Orden Entrada", "Movimiento Inventario", "Renglon",
-                "No Documento", "Ctime", "Cuser", "Mtime", "Muser", "Create", "Update"};
+                "No Documento", "Cantidad Anterior", "Ctime", "Cuser", "Mtime", "Muser", "Create", "Update"};
 
         for (String columnLabel : articuloColumnRemove) {
             columnModel.removeColumn(columnModel.getColumn(columnModel.getColumnIndex(columnLabel)));
@@ -397,15 +397,15 @@ public class pnlOrdenEntradaInventario extends GenericPanel {
         //Create Panel Header Component
         JPanel pnlHeaderComp = new JPanel(new XYLayout());
         pnlHeaderComp.add(lblNoEntrada, new XYConstraints(5, 5, 90, 23));
-        pnlHeaderComp.add(txtNoEntrada, new XYConstraints(98, 5, 120, 23));
-        pnlHeaderComp.add(lblAlmacen, new XYConstraints(221, 5, 80, 23));
-        pnlHeaderComp.add(cmbAlmacen, new XYConstraints(304, 5, 200, 23));
-        pnlHeaderComp.add(lblFechaAlta, new XYConstraints(507, 5, 70, 23));
-        pnlHeaderComp.add(dtpFechaAlta, new XYConstraints(580, 5, 120, 23));
-        pnlHeaderComp.add(lblTipoEntrada, new XYConstraints(5, 30, 90, 23));
-        pnlHeaderComp.add(cmbTipoEntrada, new XYConstraints(98, 30, 160, 23));
-        pnlHeaderComp.add(lblDescripcion, new XYConstraints(261, 30, 80, 23));
-        pnlHeaderComp.add(txtDescripcion, new XYConstraints(344, 30, 356, 23));
+        pnlHeaderComp.add(txtNoEntrada, new XYConstraints(100, 5, 160, 23));
+        pnlHeaderComp.add(lblAlmacen, new XYConstraints(265, 5, 90, 23));
+        pnlHeaderComp.add(cmbAlmacen, new XYConstraints(360, 5, 200, 23));
+        pnlHeaderComp.add(lblFechaAlta, new XYConstraints(565, 5, 90, 23));
+        pnlHeaderComp.add(dtpFechaAlta, new XYConstraints(660, 5, 120, 23));
+        pnlHeaderComp.add(lblTipoEntrada, new XYConstraints(5, 33, 90, 23));
+        pnlHeaderComp.add(cmbTipoEntrada, new XYConstraints(100, 33, 160, 23));
+        pnlHeaderComp.add(lblDescripcion, new XYConstraints(265, 33, 90, 23));
+        pnlHeaderComp.add(txtDescripcion, new XYConstraints(360, 33, 420, 23));
 
         //***************************************************************************************
         //Init Articulos Table Panel

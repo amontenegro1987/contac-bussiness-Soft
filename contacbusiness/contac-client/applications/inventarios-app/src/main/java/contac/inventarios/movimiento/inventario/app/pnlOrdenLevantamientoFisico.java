@@ -194,7 +194,7 @@ public class pnlOrdenLevantamientoFisico extends GenericPanel {
         TableColumnModel columnModel = tblArticulos.getColumnModel();
 
         String[] articuloColumnRemove = new String[]{"Id", "Producto", "Orden Levantamiento Fisico", "Movimiento Inventario",
-                "Renglon", "Ctime", "Cuser", "Mtime", "Muser", "Create", "Update", "Cantidad Ajuste", "Cantidad Existencia",
+                "Renglon", "Cantidad Anterior", "Ctime", "Cuser", "Mtime", "Muser", "Create", "Update", "Cantidad Ajuste", "Cantidad Existencia",
                 "No Movimiento", "Monto Ajuste"};
 
         for (String columnLabel : articuloColumnRemove) {
@@ -372,8 +372,8 @@ public class pnlOrdenLevantamientoFisico extends GenericPanel {
         pnlHeaderComp.add(cmbAlmacen, new XYConstraints(294, 5, 200, 23));
         pnlHeaderComp.add(lblFechaAlta, new XYConstraints(497, 5, 70, 23));
         pnlHeaderComp.add(dtpFechaAlta, new XYConstraints(570, 5, 120, 23));
-        pnlHeaderComp.add(lblDescripcion, new XYConstraints(5, 30, 90, 23));
-        pnlHeaderComp.add(txtDescripcion, new XYConstraints(98, 30, 592, 23));
+        pnlHeaderComp.add(lblDescripcion, new XYConstraints(5, 33, 90, 23));
+        pnlHeaderComp.add(txtDescripcion, new XYConstraints(98, 33, 592, 23));
 
         //***************************************************************************************
         //Init Articulos Table Panel
@@ -398,7 +398,7 @@ public class pnlOrdenLevantamientoFisico extends GenericPanel {
         txtNombre.setPreferredSize(new Dimension(250, 23));
 
         txtCantidad = new javax.swing.JTextField();
-        txtNombre.setToolTipText(resourceBundle.getString("CONTAC.FORM.ORDENENTRADA.CANTIDAD"));
+        txtCantidad.setToolTipText(resourceBundle.getString("CONTAC.FORM.ORDENENTRADA.CANTIDAD"));
         txtCantidad.setPreferredSize(new Dimension(90, 23));
 
         btnBuscarProducto = new JButton(new ImageIcon(getClass().getResource("/contac/resources/icons/folder_find.png")));

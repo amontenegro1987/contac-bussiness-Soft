@@ -194,7 +194,7 @@ public class pnlOrdenTrasladoInventario extends GenericPanel {
         TableColumnModel columnModel = tblArticulos.getColumnModel();
 
         String[] articuloColumnRemove = new String[]{"Id", "Producto", "Orden Traslado", "Renglon", "Ctime", "Cuser",
-                "No Documento", "Mtime", "Muser", "Create", "Update"};
+                "No Documento", "Cantidad Anterior", "Mtime", "Muser", "Create", "Update"};
 
         for (String columnLabel : articuloColumnRemove) {
             columnModel.removeColumn(columnModel.getColumn(columnModel.getColumnIndex(columnLabel)));

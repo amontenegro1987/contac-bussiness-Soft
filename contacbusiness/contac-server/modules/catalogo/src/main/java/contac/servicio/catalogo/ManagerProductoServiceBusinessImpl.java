@@ -9,6 +9,18 @@ import contac.modelo.PersistenceManagementServiceFactory;
 import contac.modelo.PersistenceManagementServiceFactoryException;
 import contac.modelo.eao.almacenEAO.AlmacenEAO;
 import contac.modelo.eao.almacenEAO.AlmacenEAOPersistence;
+import contac.modelo.eao.articuloEntradaEAO.ArticuloEntradaEAO;
+import contac.modelo.eao.articuloEntradaEAO.ArticuloEntradaEAOPersistence;
+import contac.modelo.eao.articuloFacturaEAO.ArticuloFacturaEAO;
+import contac.modelo.eao.articuloFacturaEAO.ArticuloFacturaEAOPersistence;
+import contac.modelo.eao.articuloLevantamientoFisicoEAO.ArticuloLevantamientoFisicoEAO;
+import contac.modelo.eao.articuloLevantamientoFisicoEAO.ArticuloLevantamientoFisicoEAOPersistence;
+import contac.modelo.eao.articuloProformaEAO.ArticuloProformaEAO;
+import contac.modelo.eao.articuloProformaEAO.ArticuloProformaEAOPersistence;
+import contac.modelo.eao.articuloSalidaEAO.ArticuloSalidaEAO;
+import contac.modelo.eao.articuloSalidaEAO.ArticuloSalidaEAOPersistence;
+import contac.modelo.eao.articuloTrasladoEAO.ArticuloTrasladoEAO;
+import contac.modelo.eao.articuloTrasladoEAO.ArticuloTrasladoEAOPersistence;
 import contac.modelo.eao.clasificadorEAO.ClasificadorEAO;
 import contac.modelo.eao.clasificadorEAO.ClasificadorEAOPersistence;
 import contac.modelo.eao.estadoMovimientoEAO.EstadoMovimientoEAO;
@@ -23,6 +35,8 @@ import contac.modelo.eao.movimientoInventarioEAO.MovimientoInventarioEAO;
 import contac.modelo.eao.movimientoInventarioEAO.MovimientoInventarioEAOPersistence;
 import contac.modelo.eao.productoEAO.ProductoEAO;
 import contac.modelo.eao.productoEAO.ProductoEAOPersistence;
+import contac.modelo.eao.productoModificacionEAO.ProductoModificacionEAO;
+import contac.modelo.eao.productoModificacionEAO.ProductoModificacionEAOPersistence;
 import contac.modelo.eao.proveedorEAO.ProveedorEAO;
 import contac.modelo.eao.proveedorEAO.ProveedorEAOPersistence;
 import contac.modelo.eao.unidadMedidaEAO.UnidadMedidaEAO;
@@ -35,10 +49,7 @@ import org.hibernate.Hibernate;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Manager producto servicio implementacion
@@ -53,6 +64,7 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
 
     //Acceso capa EAO
     private ProductoEAO productoEAO;
+    private ProductoModificacionEAO productoModificacionEAO;
     private ProveedorEAO proveedorEAO;
     private ClasificadorEAO clasificadorEAO;
     private LineaEAO lineaEAO;
@@ -61,6 +73,13 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
     private MovimientoInventarioEAO movimientoInventarioEAO;
     private EstadoMovimientoEAO estadoMovimientoEAO;
     private AlmacenEAO almacenEAO;
+
+    private ArticuloEntradaEAO articuloEntradaEAO;
+    private ArticuloSalidaEAO articuloSalidaEAO;
+    private ArticuloLevantamientoFisicoEAO articuloLevantamientoFisicoEAO;
+    private ArticuloTrasladoEAO articuloTrasladoEAO;
+    private ArticuloFacturaEAO articuloFacturaEAO;
+    private ArticuloProformaEAO articuloProformaEAO;
 
     /**
      * Acceso al Manager Autorizacion Service
@@ -79,6 +98,7 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
 
         //Inicializando accesos DAO
         productoEAO = new ProductoEAOPersistence();
+        productoModificacionEAO = new ProductoModificacionEAOPersistence();
         proveedorEAO = new ProveedorEAOPersistence();
         clasificadorEAO = new ClasificadorEAOPersistence();
         lineaEAO = new LineaEAOPersistence();
@@ -88,6 +108,12 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
         estadoMovimientoEAO = new EstadoMovimientoEAOPersistence();
         almacenEAO = new AlmacenEAOPersistence();
 
+        articuloEntradaEAO = new ArticuloEntradaEAOPersistence();
+        articuloSalidaEAO = new ArticuloSalidaEAOPersistence();
+        articuloLevantamientoFisicoEAO = new ArticuloLevantamientoFisicoEAOPersistence();
+        articuloTrasladoEAO = new ArticuloTrasladoEAOPersistence();
+        articuloFacturaEAO = new ArticuloFacturaEAOPersistence();
+        articuloProformaEAO = new ArticuloProformaEAOPersistence();
     }
 
     /**
@@ -232,7 +258,8 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
     }
 
     @Override
-    public ProductoExistencia buscarProductoExistenciaPorAlmacen(String codigo, Integer idAlmacen) throws ManagerProductoServiceBusinessException, RemoteException {
+    public ProductoExistencia buscarProductoExistenciaPorAlmacen(String codigo, Integer idAlmacen)
+            throws ManagerProductoServiceBusinessException, RemoteException {
 
         logger.debug("Buscar existencia de producto con parametros: [codigo]: " + codigo + ", [idAlmacen]: " + idAlmacen);
 
@@ -653,6 +680,22 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
             if (!isProductoParaRegistro(codigoNuevo))
                 throw new ManagerProductoServiceBusinessException("Error - codigo de recodificacion ya se encuentra registrado");
 
+            //**************************************************************
+            //Crear producto modificacion
+            //**************************************************************
+            ProductoModificacion productoModificacion = crearProductoModificacion(producto);
+            productoModificacionEAO.create(productoModificacion);
+
+            //**************************************************************
+            //Recodificar producto por detalles de grabacion
+            //**************************************************************
+            articuloEntradaEAO.recodificarProducto(producto.getId(), codigoNuevo);
+            articuloSalidaEAO.recodificarProducto(producto.getId(), codigoNuevo);
+            articuloTrasladoEAO.recodificarProducto(producto.getId(), codigoNuevo);
+            articuloLevantamientoFisicoEAO.recodificarProducto(producto.getId(), codigoNuevo);
+            articuloProformaEAO.recodificarProducto(producto.getId(), codigoNuevo);
+            articuloFacturaEAO.recodificarProducto(producto.getId(), codigoNuevo);
+
             //Setting codigo nuevo
             producto.setCodigo(codigoNuevo);
 
@@ -662,6 +705,38 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
         } catch (PersistenceClassNotFoundException e) {
             logger.error(e.getMessage(), e);
             throw new ManagerProductoServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerProductoServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
+    public void eliminarProducto(Integer idProducto) throws ManagerProductoServiceBusinessException, RemoteException {
+
+        logger.debug("Eliminando producto con identificador: [IDPRODUCTO]: " + idProducto);
+
+        //Init servicio
+        boolean transaction = initBusinessService(Roles.ROLCATALOGOPRODUCTOADMIN.toString());
+
+        try {
+
+            //Buscando producto por su identificador
+            Producto producto = productoEAO.findById(idProducto);
+
+            //Buscando movimientos de inventario para evaluar si cumple con la solicitud.
+            int cantMov = movimientoInventarioEAO.findCantidadMovimientosInventario(producto.getId());
+
+            if (cantMov > 0) {
+                throw new ManagerProductoServiceBusinessException("C\u00f3digo [" + producto.getCodigo() + "] " +
+                        "tiene movimientos de inventario. No se puede proceder con la eliminaci\u00f3n");
+            }
+
+            //Eliminar producto
+            productoEAO.remove(producto.getId());
+
         } catch (GenericPersistenceEAOException e) {
             logger.error(e.getMessage(), e);
             throw new ManagerProductoServiceBusinessException(e.getMessage(), e);
@@ -704,5 +779,59 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
         } finally {
             stopBusinessService(transaction);
         }
+    }
+
+    /**
+     * Create Producto Modificacion desde un Producto
+     *
+     * @param producto, Producto
+     * @return ProductoModificacion
+     * @throws Exception, Exception
+     */
+    private ProductoModificacion crearProductoModificacion(Producto producto) throws ManagerProductoServiceBusinessException {
+
+        ProductoModificacion productoModificacion = new ProductoModificacion();
+        productoModificacion.setCodigo(producto.getCodigo());
+        productoModificacion.setCodigoCbs(producto.getCodigoCbs());
+        productoModificacion.setCodigoBarra(producto.getCodigoBarra());
+        productoModificacion.setNombre(producto.getNombre());
+        productoModificacion.setCodigoFabricante(producto.getCodigoFabricante());
+        productoModificacion.setAlias(producto.getAlias());
+        productoModificacion.setMarca(producto.getMarca());
+        productoModificacion.setModelo(producto.getModelo());
+        productoModificacion.setObservaciones(producto.getObservaciones());
+        productoModificacion.setMinimo(producto.getMinimo());
+        productoModificacion.setMaximo(producto.getMaximo());
+        productoModificacion.setFechaVencimiento(producto.getFechaVencimiento());
+        productoModificacion.setCostoUND(producto.getCostoUND());
+        productoModificacion.setCostoCIF(producto.getCostoCIF());
+        productoModificacion.setCostoFOB(producto.getCostoFOB());
+        productoModificacion.setCostoPROM(producto.getCostoPROM());
+        productoModificacion.setDescuento(producto.getDescuento());
+        productoModificacion.setExento(producto.isExento());
+        productoModificacion.setPrecioESTANDAR(producto.getPrecioESTANDAR());
+        productoModificacion.setPrecioPROMOCION(producto.getPrecioPROMOCION());
+        productoModificacion.setUnidadMedida(producto.getUnidadMedida());
+        productoModificacion.setProveedor(producto.getProveedor());
+        productoModificacion.setClasificador(producto.getClasificador());
+        productoModificacion.setLinea(producto.getLinea());
+        productoModificacion.setEstado(producto.getEstado());
+        productoModificacion.setCompuesto(producto.isCompuesto());
+        productoModificacion.setEstatus(producto.getEstatus());
+        productoModificacion.setProducto(producto);
+
+        Set<ProductoCompuestoMod> prod_compuestos = new HashSet<ProductoCompuestoMod>();
+        for (ProductoCompuesto prodCompuesto : producto.getProductosCompuestos()) {
+            ProductoCompuestoMod prodCompuestoMod = new ProductoCompuestoMod();
+            prodCompuestoMod.setProducto(prodCompuesto.getProducto());
+            prodCompuestoMod.setCantidad(prodCompuesto.getCantidad());
+            prodCompuestoMod.setPrecio(prodCompuesto.getPrecio());
+            prodCompuestoMod.setPrecioTotal(prodCompuesto.getPrecioTotal());
+
+            prod_compuestos.add(prodCompuestoMod);
+        }
+        productoModificacion.setProductosCompuestos(prod_compuestos);
+
+        return productoModificacion;
     }
 }

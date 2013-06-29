@@ -16,6 +16,16 @@ import java.util.List;
 public interface MovimientoInventarioEAO extends GenericEAO<MovimientoInventario, Integer> {
 
     /**
+     * Busca la cantidad de movimientos de inventario generados
+     *
+     * @param idProducto, Identificador de Producto
+     * @return Integer
+     * @throws GenericPersistenceEAOException,
+     *          Exception
+     */
+    public Integer findCantidadMovimientosInventario(Integer idProducto) throws GenericPersistenceEAOException;
+
+    /**
      * Buscar Movimientos Inventario por su estado
      *
      * @param idEstado,   Identificador de estado de movimiento
@@ -25,7 +35,8 @@ public interface MovimientoInventarioEAO extends GenericEAO<MovimientoInventario
      * @throws GenericPersistenceEAOException,
      *          Exception
      */
-    public List<MovimientoInventario> findByEstadoMovimiento(Integer idEstado, Integer idAlmacen, Date fechaHasta) throws GenericPersistenceEAOException;
+    public List<MovimientoInventario> findByEstadoMovimiento(Integer idEstado, Integer idAlmacen, Date fechaHasta)
+            throws GenericPersistenceEAOException;
 
     /**
      * Buscar Movimientos Inventario para un producto
