@@ -255,9 +255,10 @@ public class OrdenSalidaController extends InventarioBaseController {
 
     /**
      * Agregar articulo de salida
-     * @param producto, Producto
+     *
+     * @param producto,      Producto
      * @param almacenSalida, Almacen
-     * @param cantidad, long
+     * @param cantidad,      long
      * @throws Exception, Exception
      */
     public void agregarArticulo(Producto producto, Almacen almacenSalida, long cantidad) throws Exception {
@@ -266,22 +267,31 @@ public class OrdenSalidaController extends InventarioBaseController {
 
         try {
 
-            //Validar existencias producto
-            ProductoExistencia productoExistencia = buscarProductoExistencia(producto.getCodigo(), almacenSalida.getId());
-
-            //Throws error existencias insuficientes
-            if (productoExistencia.getExistencia() < cantidad)
-                throw new Exception("Existencias insuficientes para este producto.");
-
-
             //Creando articulo para salida
             ArticuloSalida articulo = null;
 
             //Buscando articulo en listado
             for (ArticuloSalida entity : getArticulos()) {
-                if (entity.getCodigo().equals(producto.getCodigo()))
+                if (entity.getCodigo().equals(producto.getCodigo())) {
+                    if (entity.getCantidadAnterior() <= 0) {
+                        entity.setCantidadAnterior(entity.getCantidad());
+                    }
+
                     articulo = entity;
+                }
             }
+
+            //Validar existencias producto
+            ProductoExistencia productoExistencia = buscarProductoExistencia(producto.getCodigo(), almacenSalida.getId());
+
+            //Actualizar existencias con la cantidad previamente reservada
+            if (articulo != null) {
+                productoExistencia.setExistencia(productoExistencia.getExistencia() + articulo.getCantidadAnterior());
+            }
+
+            //Throws error existencias insuficientes
+            if (productoExistencia.getExistencia() < cantidad)
+                throw new Exception("Existencias insuficientes para este producto.");
 
             if (articulo != null) {
                 articulo.setCodigo(producto.getCodigo());
@@ -301,6 +311,7 @@ public class OrdenSalidaController extends InventarioBaseController {
                 articulo.setCodigoFabricante(producto.getCodigoFabricante());
                 articulo.setCosto(producto.getCostoPROM());
                 articulo.setCantidad(cantidad);
+                articulo.setCantidadAnterior(0);
                 articulo.setCostoTotal(articulo.getCosto().multiply(new BigDecimal(cantidad)));
                 articulo.setUnidadMedida(producto.getUnidadMedida().getNombre());
                 articulo.setProducto(producto);
@@ -319,6 +330,7 @@ public class OrdenSalidaController extends InventarioBaseController {
 
     /**
      * Buscar ordenes de salida por rangos de fecha
+     *
      * @param fechaDesde, Fecha desde inicia la busqueda
      * @param fechaHasta, Fecha hasta finaliza la busqueda
      * @throws Exception, Exception
@@ -355,6 +367,7 @@ public class OrdenSalidaController extends InventarioBaseController {
 
     /**
      * Buscar ordenes de salida ingresada
+     *
      * @return List
      * @throws Exception, Exception
      */

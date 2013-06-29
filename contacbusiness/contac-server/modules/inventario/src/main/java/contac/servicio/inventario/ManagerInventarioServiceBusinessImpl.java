@@ -1847,12 +1847,14 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
             calendario.setTime(new Date());
 
             if (fechaDesde == null) {
-                calendario.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.getActualMinimum(Calendar.DAY_OF_MONTH));
+                calendario.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.getActualMinimum(Calendar.DAY_OF_MONTH),
+                        0, 0, 0);
                 fechaDesde = calendario.getTime();
             }
 
             if (fechaHasta == null) {
-                calendario.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.getActualMaximum(Calendar.DAY_OF_MONTH));
+                calendario.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.getActualMaximum(Calendar.DAY_OF_MONTH),
+                        0, 0, 0);
                 fechaHasta = calendario.getTime();
             }
 

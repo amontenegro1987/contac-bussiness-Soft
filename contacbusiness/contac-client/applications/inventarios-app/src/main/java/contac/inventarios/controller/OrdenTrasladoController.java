@@ -326,20 +326,26 @@ public class OrdenTrasladoController extends InventarioBaseController {
 
         try {
 
-            //Validar existencias producto
-            ProductoExistencia productoExistencia = buscarProductoExistencia(producto.getCodigo(), almacen.getId());
-
-            //Throws error existencias insuficientes
-            if (productoExistencia.getExistencia() <= cantidad)
-                throw new Exception(messageBundle.getString("CONTAC.FORM.MSG.PRODUCTO.EXISTENCIA"));
-
             //Creando articulo para traslado
             ArticuloTraslado articulo = null;
 
             //Buscando articulo en listado
             for (ArticuloTraslado entity : getArticulos()) {
-                if (entity.getCodigo().equals(producto.getCodigo()))
+                if (entity.getCodigo().equals(producto.getCodigo())) {
+                    if (entity.getCantidadAnterior() <= 0) {
+                        entity.setCantidadAnterior(entity.getCantidad());
+                    }
+
                     articulo = entity;
+                }
+            }
+
+            //Validar existencias producto
+            ProductoExistencia productoExistencia = buscarProductoExistencia(producto.getCodigo(), almacenSalida.getId());
+
+            //Actualizar existencias con la cantidad previamente reservada
+            if (articulo != null) {
+                productoExistencia.setExistencia(productoExistencia.getExistencia() + articulo.getCantidadAnterior());
             }
 
             if (articulo != null) {

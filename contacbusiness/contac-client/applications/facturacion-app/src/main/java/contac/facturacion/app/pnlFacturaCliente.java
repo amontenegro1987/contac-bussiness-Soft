@@ -128,7 +128,7 @@ public class pnlFacturaCliente extends GenericPanel {
         if (!controller.is_edit()) {
 
             cmbTipoFactura.setEnabled(true);
-            cmbAlmacen.setEnabled(true);
+            cmbAlmacen.setEnabled(false);
             txtCodigoCliente.setEditable(true);
 
             btnBuscarAgente.setEnabled(true);
@@ -139,7 +139,7 @@ public class pnlFacturaCliente extends GenericPanel {
 
         if (controller.is_edit()) {
 
-            cmbTipoFactura.setEnabled(false);
+            cmbTipoFactura.setEnabled(true);
             cmbAlmacen.setEnabled(false);
             txtCodigoCliente.setEditable(false);
 
@@ -258,6 +258,15 @@ public class pnlFacturaCliente extends GenericPanel {
     }
 
     public void registerListeners() {
+
+        txtCodigoCliente.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (!TextUtil.isValidDigit(e.getKeyChar())) {
+                    e.consume();
+                }
+            }
+        });
 
         txtAgente.addKeyListener(new KeyAdapter() {
             @Override

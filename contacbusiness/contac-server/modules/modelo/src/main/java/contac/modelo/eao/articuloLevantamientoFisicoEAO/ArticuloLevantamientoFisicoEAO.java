@@ -16,4 +16,14 @@ import contac.modelo.entity.ArticuloLevantamientoFisico;
  * Time: 03:49 PM
  */
 public interface ArticuloLevantamientoFisicoEAO extends GenericEAO<ArticuloLevantamientoFisico, Integer> {
+
+    /**
+     * Recodificar Producto
+     *
+     * @param idProducto,  Identificador del Producto
+     * @param codigoNuevo, Codigo Nuevo del Producto
+     * @throws GenericPersistenceEAOException,
+     *          Exception
+     */
+    public void recodificarProducto(Integer idProducto, String codigoNuevo) throws GenericPersistenceEAOException;
 }

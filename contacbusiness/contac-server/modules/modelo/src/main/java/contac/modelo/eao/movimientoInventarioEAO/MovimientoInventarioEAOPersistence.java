@@ -16,6 +16,25 @@ import java.util.List;
 public class MovimientoInventarioEAOPersistence extends GenericPersistenceEAO<MovimientoInventario, Integer> implements MovimientoInventarioEAO {
 
     @Override
+    public Integer findCantidadMovimientosInventario(Integer idProducto) throws GenericPersistenceEAOException {
+
+        //Init service
+        initService();
+
+        //Cantidad total de movimientos
+        Long cant = new Long(0);
+
+        Object result = em.createQuery("select count(m.id) from MovimientoInventario m where m.producto.id = :idProducto").
+                setParameter("idProducto", idProducto).getSingleResult();
+
+        if (result != null) {
+            cant += (Long)result;
+        }
+
+        return cant.intValue();
+    }
+
+    @Override
     public List<MovimientoInventario> findByEstadoMovimiento(Integer idEstado, Integer idAlmacen, Date fechaHasta) throws GenericPersistenceEAOException {
 
         //Init Service

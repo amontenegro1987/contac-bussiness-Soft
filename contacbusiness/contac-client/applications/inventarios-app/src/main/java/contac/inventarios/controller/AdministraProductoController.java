@@ -272,6 +272,59 @@ public class AdministraProductoController extends InventarioBaseController {
     }
 
     /**
+     * Recodificar Producto a un codigo nuevo
+     *
+     * @param codigoNuevo, Codigo Nuevo
+     * @throws Exception, Exception
+     */
+    public void recodificarProducto(String codigoNuevo) throws Exception {
+
+        logger.debug("Recodificar producto");
+
+        try {
+
+            //Obtener manager de productos
+            ManagerProductoServiceBusiness mgrProducto = getMgrProductosService();
+
+            //Recodificar producto
+            mgrProducto.recodificarProducto(producto.getCodigo(), codigoNuevo);
+
+        } catch (ManagerProductoServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Eliminar Producto sin movimientos de inventario
+     *
+     * @throws Exception, Exception
+     */
+    public void eliminarProducto() throws Exception {
+
+        logger.debug("Eliminando producto");
+
+        try {
+
+            //Obtener manager de productos
+            ManagerProductoServiceBusiness mgrProducto = getMgrProductosService();
+
+            //Eliminar producto
+            mgrProducto.eliminarProducto(producto.getId());
+
+        } catch (ManagerProductoServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
+    /**
      * Agregar producto compuesto
      *
      * @param producto,       Producto
@@ -299,7 +352,7 @@ public class AdministraProductoController extends InventarioBaseController {
                     setScale(BigDecimal.ROUND_HALF_EVEN, 4));
 
             //Cantidad menor o igual a zero remover producto del listado.
-            if (cantidad <= 0)  {
+            if (cantidad <= 0) {
                 getProductos().remove(productoCompuesto);
             }
 
