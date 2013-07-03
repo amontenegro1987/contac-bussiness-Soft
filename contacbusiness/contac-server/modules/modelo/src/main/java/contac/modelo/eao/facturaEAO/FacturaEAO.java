@@ -7,6 +7,7 @@ package contac.modelo.eao.facturaEAO;
 
 import contac.modelo.eao.genericEAO.GenericEAO;
 import contac.modelo.eao.genericEAO.GenericPersistenceEAOException;
+import contac.modelo.eao.genericEAO.PersistenceClassNotFoundException;
 import contac.modelo.entity.Factura;
 
 import java.util.Date;
@@ -19,6 +20,18 @@ import java.util.List;
  * Time: 11:03 AM
  */
 public interface FacturaEAO extends GenericEAO<Factura, Integer> {
+
+    /**
+     * Buscar Factura por Numero de Factura y Almacen de Facturacion
+     *
+     * @param noFactura, Numero de factura
+     * @param idAlmacen, Codigo de Almacen
+     * @return Factura
+     * @throws GenericPersistenceEAOException,
+     *          Exception
+     */
+    public Factura findByNumero(long noFactura, Integer idAlmacen) throws GenericPersistenceEAOException,
+            PersistenceClassNotFoundException;
 
     /**
      * Buscar facturas por estado

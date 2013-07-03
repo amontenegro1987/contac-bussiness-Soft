@@ -826,6 +826,9 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
                 articulo.setNoDocumento(ordenTraslado.getNoMovimiento());
                 articulo.setRenglon(renglon);
 
+                articulo.setCreate(false);
+                articulo.setUpdate(true);
+
                 //Actualizar renglon
                 renglon += 1;
             }
@@ -989,6 +992,9 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
                 //Setting orden de traslado
                 articulo.setOrdenTraslado(ordenTraslado);
                 articulo.setNoDocumento(ordenTraslado.getNoMovimiento());
+
+                articulo.setCreate(false);
+                articulo.setUpdate(true);
 
                 //Actualizar renglon
                 renglon += 1;
@@ -1162,6 +1168,9 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
                 articulo.setOrdenSalida(ordenSalida);
                 articulo.setNoDocumento(ordenSalida.getNoMovimiento());
 
+                articulo.setCreate(false);
+                articulo.setUpdate(true);
+
                 //Calculando el costo total por item
                 costoNeto += articulo.getCosto().doubleValue() * articulo.getCantidad();
 
@@ -1287,6 +1296,9 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
                 //Setting renglon articulo
                 articulo.setRenglon(renglon);
                 articulo.setNoDocumento(ordenSalida.getNoMovimiento());
+
+                articulo.setCreate(false);
+                articulo.setUpdate(true);
 
                 //Calculando el costo total por item
                 costoNeto += articulo.getCosto().doubleValue() * articulo.getCantidad();
@@ -1417,6 +1429,9 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
                 articulo.setRenglon(renglon);
                 articulo.setNoMovimiento(noMovimiento);
 
+                articulo.setCreate(false);
+                articulo.setUpdate(true);
+
                 //Actualizar renglon
                 renglon += 1;
             }
@@ -1428,9 +1443,6 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
 
             //Persistir encabezado de levantamiento fisico
             ordenLevantamiento = ordenLevantamientoFisicoEAO.create(ordenLevantamiento);
-
-            //Calcular ajuste de levantamiento fisico
-            //ordenLevantamiento = calcularAjusteLevantamientoInventario(ordenLevantamiento.getId());
 
             return ordenLevantamiento;
 
@@ -1518,6 +1530,9 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
                 articulo.setRenglon(renglon);
                 articulo.setNoMovimiento(ordenLevantamiento.getNoMovimiento());
 
+                articulo.setCreate(false);
+                articulo.setUpdate(true);
+
                 //Actualizar renglon
                 renglon += 1;
             }
@@ -1532,9 +1547,6 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
 
             //Actualizar orden levantamiento fisico
             ordenLevantamiento = ordenLevantamientoFisicoEAO.update(ordenLevantamiento);
-
-            //Calcular ajuste levantamiento fisico
-            //ordenLevantamiento = calcularAjusteLevantamientoInventario(ordenLevantamiento.getId());
 
             return ordenLevantamiento;
 
@@ -2008,6 +2020,9 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
                 articulo.setRenglon(renglon);
                 articulo.setNoDocumento(noOrden);
 
+                articulo.setCreate(false);
+                articulo.setUpdate(true);
+
                 //Actualizar renglon
                 renglon += 1;
             }
@@ -2145,6 +2160,9 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
                 articulo.setOrdenEntrada(ordenEntrada);
                 articulo.setRenglon(renglon);
                 articulo.setNoDocumento(ordenEntrada.getNoMovimiento());
+
+                articulo.setCreate(false);
+                articulo.setUpdate(true);
 
                 //Actualizar renglon
                 renglon += 1;

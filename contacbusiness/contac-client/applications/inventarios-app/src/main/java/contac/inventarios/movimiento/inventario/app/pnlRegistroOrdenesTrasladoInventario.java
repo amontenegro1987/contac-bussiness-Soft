@@ -255,13 +255,15 @@ public class pnlRegistroOrdenesTrasladoInventario extends GenericPanel {
                     controller.anularOrdenTraslado();
 
                     //Show confirmation message
-                    JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.ORDENENTRADA.ELIMINA.EXITOSO"),
+                    JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.ORDENTRASLADO.ANULA.EXITOSO"),
                             messageBundle.getString("CONTAC.FORM.ORDENTRASLADO.ANULA.EXITOSO"));
 
                     //Actualizar listado de articulos ingresados
                     ((BeanTableModel) tblOrdenesTraslado.getModel()).fireTableDataChanged();
                 }
             }
+
+            initValues();
 
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

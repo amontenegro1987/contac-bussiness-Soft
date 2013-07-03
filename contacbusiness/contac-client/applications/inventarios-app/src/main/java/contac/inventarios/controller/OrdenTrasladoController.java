@@ -242,7 +242,11 @@ public class OrdenTrasladoController extends InventarioBaseController {
             OrdenTraslado ordenTraslado = mgrInventario.crearOrdenTraslado(getFechaAlta(), getFechaSolicitud(), getAlmacenSalida().getId(),
                     getAlmacenIngreso().getId(), getPersonaEntrega(), getPersonaRecibe(), getDescripcion(), getArticulos());
 
-            setOrdenTraslado(ordenTraslado);
+            //Setting articulos persist
+            this.ordenTraslado = ordenTraslado;
+
+            //Init Modificacion
+            initModificacion();
 
         } catch (ManagerInventarioServiceBusinessException e) {
             logger.error(e.getMessage(), e);
@@ -271,7 +275,11 @@ public class OrdenTrasladoController extends InventarioBaseController {
             OrdenTraslado ordenTraslado = mgrInventario.modificarOrdenTraslado(getOrdenTraslado().getId(), getFechaAlta(),
                     getFechaSolicitud(), getPersonaEntrega(), getPersonaRecibe(), getDescripcion(), getArticulos());
 
-            setOrdenTraslado(ordenTraslado);
+            //Setting articulos persist
+            this.ordenTraslado = ordenTraslado;
+
+            //Init Modificacion
+            initModificacion();
 
         } catch (ManagerInventarioServiceBusinessException e) {
             logger.error(e.getMessage(), e);
@@ -299,9 +307,8 @@ public class OrdenTrasladoController extends InventarioBaseController {
             //Anular orden de traslado de inventario
             mgrInventario.anularOrdenTraslado(getOrdenTraslado().getId());
 
-            //Actualizar registro de ordenes de traslado
-            getOrdenesTraslado().clear();
-            getOrdenesTraslado().addAll(buscarOrdenesTraslado());
+            //Init registro de ordenes de traslado
+            initRegistroOrdenesTraslado();
 
         } catch (ManagerInventarioServiceBusinessException e) {
             logger.error(e.getMessage(), e);
@@ -341,7 +348,7 @@ public class OrdenTrasladoController extends InventarioBaseController {
             }
 
             //Validar existencias producto
-            ProductoExistencia productoExistencia = buscarProductoExistencia(producto.getCodigo(), almacenSalida.getId());
+            ProductoExistencia productoExistencia = buscarProductoExistencia(producto.getCodigo(), almacen.getId());
 
             //Actualizar existencias con la cantidad previamente reservada
             if (articulo != null) {

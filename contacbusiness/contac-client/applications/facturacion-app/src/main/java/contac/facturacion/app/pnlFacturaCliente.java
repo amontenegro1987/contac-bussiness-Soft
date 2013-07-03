@@ -16,6 +16,8 @@ import contac.commons.components.TasasCambioPnl;
 import contac.commons.components.pnlBusquedaCliente;
 import contac.commons.components.pnlBusquedaProducto;
 import contac.commons.form.label.JOptionErrorPane;
+import contac.commons.form.layout.XYConstraints;
+import contac.commons.form.layout.XYLayout;
 import contac.commons.form.panel.GenericFrame;
 import contac.commons.form.panel.GenericPanel;
 import contac.commons.form.render.DecimalFormatRenderer;
@@ -29,15 +31,17 @@ import contac.internationalization.LanguageLocale;
 import contac.modelo.entity.*;
 import contac.text.TextUtil;
 import org.apache.log4j.Logger;
+import org.jdesktop.swingx.JXDatePicker;
+import org.jdesktop.swingx.JXHeader;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.*;
+import java.awt.event.*;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -49,12 +53,12 @@ public class pnlFacturaCliente extends GenericPanel {
     //Apache Log4j
     private static final Logger logger = Logger.getLogger(pnlFacturaCliente.class);
 
+    //Message resource bundle
+    private static final ResourceBundle messageBundle = ResourceBundle.getBundle("contac/facturacion/app/mensajes/Mensajes",
+            LanguageLocale.getInstance().getLocale());
+
     //Controller
     private FacturaClienteController controller;
-
-    //Message resource bundle
-    private ResourceBundle messageBundle = ResourceBundle.getBundle("contac/facturacion/app/mensajes/Mensajes",
-            LanguageLocale.getInstance().getLocale());
 
     /**
      * Creates new form pnlFacturaCompra
@@ -125,6 +129,12 @@ public class pnlFacturaCliente extends GenericPanel {
         //************************************************************
         //Init data values components
         //************************************************************
+        cmbTipoFactura.setModel(new TipoFacturaComboBoxModel(TiposFactura.values()));
+        cmbAlmacen.setModel(new AlmacenComboBoxModel(controller.getAlmacenes()));
+
+        txtNoFactura.setEditable(false);
+        dtpFechaAlta.setEnabled(false);
+
         if (!controller.is_edit()) {
 
             cmbTipoFactura.setEnabled(true);
@@ -204,7 +214,7 @@ public class pnlFacturaCliente extends GenericPanel {
         } else {
             txtTasaCambio.setText("");
         }
-        
+
         //Inicializar datos del producto
         txtCodigo.setText("");
         txtNombreProducto.setText("");
@@ -227,8 +237,8 @@ public class pnlFacturaCliente extends GenericPanel {
 
         String[] articuloColumnRemove = new String[]{"Id", "Producto", "Factura", "Movimiento Inventario", "Renglon",
                 "Ctime", "Cuser", "Mtime", "Muser", "Create", "Update", "Exento", "Costo", "Costo Total", "Retencion Fuente",
-                "Retencion Municipal", "Porc Retencion Fuente", "Porc Retencion Municipal", "Porc Iva", "Porc Descuento",
-                "Precio Promocion", "Precio Neto", "Iva", "No Factura"};
+                "Cantidad Anterior", "Retencion Municipal", "Porc Retencion Fuente", "Porc Retencion Municipal",
+                "Porc Iva", "Porc Descuento", "Precio Promocion", "Precio Neto", "Iva", "No Factura"};
 
         for (String columnLabel : articuloColumnRemove) {
             columnModel.removeColumn(columnModel.getColumn(columnModel.getColumnIndex(columnLabel)));
@@ -266,6 +276,11 @@ public class pnlFacturaCliente extends GenericPanel {
                     e.consume();
                 }
             }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                txtCodigoClienteKeyPressed(e);
+            }
         });
 
         txtAgente.addKeyListener(new KeyAdapter() {
@@ -274,6 +289,11 @@ public class pnlFacturaCliente extends GenericPanel {
                 if (!TextUtil.isValidDigit(e.getKeyChar())) {
                     e.consume();
                 }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                txtAgenteKeyPressed(e);
             }
         });
 
@@ -288,6 +308,11 @@ public class pnlFacturaCliente extends GenericPanel {
                     txtCantidad.requestFocusInWindow();
                     txtPrecio.selectAll();
                 }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                txtCodigoKeyPressed(e);
             }
         });
 
@@ -331,8 +356,20 @@ public class pnlFacturaCliente extends GenericPanel {
                     txtCodigo.selectAll();
                 }
             }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                txtDescuentoKeyPressed(e);
+            }
         });
-        
+
+        txtSubtotal.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                txtSubtotalKeyPressed(e);
+            }
+        });
+
         tblArticulosFactura.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -359,6 +396,68 @@ public class pnlFacturaCliente extends GenericPanel {
             }
         });
 
+        btnBuscarProducto.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnBuscarProductoActionPerformed(e);
+            }
+        });
+
+        btnBuscarCliente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnBuscarClienteActionPerformed(e);
+            }
+        });
+
+        btnBuscarAgente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnBuscarAgenteActionPerformed(e);
+            }
+        });
+
+        btnEditarFechaRegistro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnEditarFechaRegistroActionPerformed(e);
+            }
+        });
+
+        btnEditarNoFactura.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnEditarNoFacturaActionPerformed(e);
+            }
+        });
+
+        btnCalcular.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnCalcularActionPerformed(e);
+            }
+        });
+
+        btnBuscarTasaCambio.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnBuscarTasaCambioActionPerformed(e);
+            }
+        });
+
+        btnAceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnAceptarActionPerformed(e);
+            }
+        });
+
+        btnCancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnCancelarActionPerformed(e);
+            }
+        });
     }
 
     /**
@@ -367,372 +466,192 @@ public class pnlFacturaCliente extends GenericPanel {
      * WARNING: Do NOT modify this code. The content of this method is
      * always regenerated by the Form Editor.
      */
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        frmFacturaCliente = new javax.swing.JPanel();
-        lblNoFactura = new javax.swing.JLabel();
-        txtNoFactura = new javax.swing.JTextField();
-        lblAlmacen = new javax.swing.JLabel();
-        cmbAlmacen = new javax.swing.JComboBox();
-        lblFechaAlta = new javax.swing.JLabel();
-        dtpFechaAlta = new org.jdesktop.swingx.JXDatePicker();
-        txtNombreCliente = new javax.swing.JTextField();
-        btnBuscarCliente = new javax.swing.JButton();
-        lblCliente = new javax.swing.JLabel();
-        lblTipoFactura = new javax.swing.JLabel();
-        cmbTipoFactura = new javax.swing.JComboBox();
-        lblTasaCambio = new javax.swing.JLabel();
-        txtTasaCambio = new javax.swing.JTextField();
-        jSeparator3 = new javax.swing.JSeparator();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblArticulosFactura = new org.jdesktop.swingx.JXTable();
-        txtCodigoCliente = new javax.swing.JTextField();
-        txtCodigo = new javax.swing.JTextField();
-        btnBuscarProducto = new javax.swing.JButton();
-        txtNombreProducto = new javax.swing.JTextField();
-        txtCantidad = new javax.swing.JTextField();
-        txtPrecio = new javax.swing.JTextField();
-        txtDescuento = new javax.swing.JTextField();
-        lblTasaCambio1 = new javax.swing.JLabel();
-        txtSubtotal = new javax.swing.JTextField();
-        jSeparator4 = new javax.swing.JSeparator();
-        btnAceptar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
-        txtAgente = new javax.swing.JTextField();
-        lblAgente = new javax.swing.JLabel();
-        btnCalcular = new javax.swing.JButton();
-        btnBuscarAgente = new javax.swing.JButton();
-        btnEditarFechaRegistro = new javax.swing.JButton();
-        btnBuscarTasaCambio = new javax.swing.JButton();
-        header = new org.jdesktop.swingx.JXHeader();
+        //Setting default Layout
+        this.setLayout(new BorderLayout());
 
-        setLayout(new java.awt.BorderLayout());
+        //***************************************************************************************
+        //Init Header Panel
+        //***************************************************************************************
+        header = new JXHeader();
+        header.setTitle(messageBundle.getString("CONTAC.FORM.FACTURACION.TITTLE")); // NOI18N
+        header.setForeground(new java.awt.Color(255, 153, 0));
+        header.setTitleForeground(new java.awt.Color(255, 153, 0));
+        header.setPreferredSize(new Dimension(50, 35));
 
-        lblNoFactura.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("contac/facturacion/app/mensajes/Mensajes_es"); // NOI18N
-        lblNoFactura.setText(bundle.getString("CONTAC.FORM.FACTURACION.NOFACTURA")); // NOI18N
+        //Adding header to panel
+        this.add(header, BorderLayout.NORTH);
 
+        //***************************************************************************************
+        //Init Header Components Panel
+        //***************************************************************************************
+        lblNoFactura = new JLabel(messageBundle.getString("CONTAC.FORM.FACTURACION.NOFACTURA"));
+        lblNoFactura.setHorizontalAlignment(JLabel.LEFT);
+
+        lblTipoFactura = new JLabel(messageBundle.getString("CONTAC.FORM.FACTURACION.TIPOFACTURA"));
+        lblTipoFactura.setHorizontalAlignment(JLabel.LEFT);
+
+        lblAlmacen = new JLabel(messageBundle.getString("CONTAC.FORM.FACTURACION.ALMACEN"));
+        lblAlmacen.setHorizontalAlignment(JLabel.LEFT);
+
+        lblFechaAlta = new JLabel(messageBundle.getString("CONTAC.FORM.FACTURACION.FECHAALTA"));
+        lblFechaAlta.setHorizontalAlignment(JLabel.LEFT);
+
+        lblCliente = new JLabel(messageBundle.getString("CONTAC.FORM.FACTURACION.CLIENTE"));
+        lblCliente.setHorizontalAlignment(JLabel.LEFT);
+
+        lblAgente = new JLabel(messageBundle.getString("CONTAC.FORM.FACTURACION.AGENTE"));
+        lblAgente.setHorizontalAlignment(JLabel.LEFT);
+
+        lblTasaCambio = new JLabel(messageBundle.getString("CONTAC.FORM.FACTURACION.TASACAMBIO"));
+        lblTasaCambio.setHorizontalAlignment(JLabel.LEFT);
+
+        txtNoFactura = new JTextField();
+        txtNoFactura.setHorizontalAlignment(JLabel.RIGHT);
         txtNoFactura.setEditable(false);
-        txtNoFactura.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtNoFactura.setToolTipText("");
-        txtNoFactura.setMinimumSize(new java.awt.Dimension(6, 25));
-        txtNoFactura.setPreferredSize(new java.awt.Dimension(59, 30));
 
-        lblAlmacen.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblAlmacen.setText(bundle.getString("CONTAC.FORM.FACTURACION.ALMACEN")); // NOI18N
+        cmbTipoFactura = new JComboBox();
+        cmbAlmacen = new JComboBox();
 
-        cmbAlmacen.setModel(new AlmacenComboBoxModel(controller.getAlmacenes()));
-
-        lblFechaAlta.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblFechaAlta.setText(bundle.getString("CONTAC.FORM.FACTURACION.FECHAALTA")); // NOI18N
-
+        dtpFechaAlta = new JXDatePicker(new Date());
         dtpFechaAlta.setEnabled(false);
 
+        txtCodigoCliente = new JTextField();
+
+        txtNombreCliente = new JTextField();
         txtNombreCliente.setEditable(false);
-        txtNombreCliente.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtNombreCliente.setToolTipText("");
-        txtNombreCliente.setMinimumSize(new java.awt.Dimension(6, 25));
-        txtNombreCliente.setPreferredSize(new java.awt.Dimension(59, 30));
 
-        btnBuscarCliente.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/folder_find.png")));
-        btnBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarClienteActionPerformed(evt);
-            }
-        });
+        txtAgente = new JTextField();
 
-        lblCliente.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCliente.setText(bundle.getString("CONTAC.FORM.FACTURACION.CLIENTE")); // NOI18N
-
-        lblTipoFactura.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblTipoFactura.setText(bundle.getString("CONTAC.FORM.FACTURACION.TIPOFACTURA")); // NOI18N
-
-        cmbTipoFactura.setModel(new TipoFacturaComboBoxModel(TiposFactura.values()));
-
-        lblTasaCambio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblTasaCambio.setText(bundle.getString("CONTAC.FORM.FACTURACION.TASACAMBIO")); // NOI18N
-
+        txtTasaCambio = new JTextField();
         txtTasaCambio.setEditable(false);
-        txtTasaCambio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtTasaCambio.setToolTipText("");
-        txtTasaCambio.setMinimumSize(new java.awt.Dimension(6, 25));
-        txtTasaCambio.setPreferredSize(new java.awt.Dimension(59, 30));
 
-        tblArticulosFactura.setEditable(false);
-        jScrollPane1.setViewportView(tblArticulosFactura);
+        btnEditarNoFactura = new JButton();
+        btnEditarNoFactura.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/edit.png")));
 
-        txtCodigoCliente.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtCodigoClienteKeyPressed(evt);
-            }
-        });
-
-        txtCodigo.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtCodigo.setToolTipText(bundle.getString("CONTAC.FORM.FACTURACION.CODIGO")); // NOI18N
-        txtCodigo.setMinimumSize(new java.awt.Dimension(6, 25));
-        txtCodigo.setPreferredSize(new java.awt.Dimension(59, 30));
-        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtCodigoKeyPressed(evt);
-            }
-        });
-
-        btnBuscarProducto.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/folder_find.png")));
-        btnBuscarProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarProductoActionPerformed(evt);
-            }
-        });
-
-        txtNombreProducto.setEditable(false);
-        txtNombreProducto.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtNombreProducto.setToolTipText(bundle.getString("CONTAC.FORM.FACTURACION.NOMBREPRODUCTO")); // NOI18N
-        txtNombreProducto.setMinimumSize(new java.awt.Dimension(6, 25));
-        txtNombreProducto.setPreferredSize(new java.awt.Dimension(59, 30));
-
-        txtCantidad.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtCantidad.setToolTipText(bundle.getString("CONTAC.FORM.FACTURACION.CANTIDAD")); // NOI18N
-        txtCantidad.setMinimumSize(new java.awt.Dimension(6, 25));
-        txtCantidad.setPreferredSize(new java.awt.Dimension(60, 30));
-
-        txtPrecio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtPrecio.setToolTipText(bundle.getString("CONTAC.FORM.FACTURACION.PRECIO")); // NOI18N
-        txtPrecio.setMinimumSize(new java.awt.Dimension(6, 25));
-        txtPrecio.setPreferredSize(new java.awt.Dimension(60, 30));
-
-        txtDescuento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtDescuento.setToolTipText(bundle.getString("CONTAC.FORM.FACTURACION.DESCUENTO")); // NOI18N
-        txtDescuento.setMinimumSize(new java.awt.Dimension(6, 25));
-        txtDescuento.setPreferredSize(new java.awt.Dimension(60, 30));
-        txtDescuento.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtDescuentoKeyPressed(evt);
-            }
-        });
-
-        lblTasaCambio1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblTasaCambio1.setText(bundle.getString("CONTAC.FORM.TOTALFACTURACION.SUBTOTAL")); // NOI18N
-
-        txtSubtotal.setEditable(false);
-        txtSubtotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtSubtotal.setToolTipText("");
-        txtSubtotal.setMinimumSize(new java.awt.Dimension(6, 25));
-        txtSubtotal.setPreferredSize(new java.awt.Dimension(60, 30));
-        txtSubtotal.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtSubtotalKeyPressed(evt);
-            }
-        });
-
-        btnAceptar.setText(bundle.getString("CONTAC.FORM.BTNACEPTAR")); // NOI18N
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("contac/inventarios/app/mensajes/Mensajes_es"); // NOI18N
-        btnAceptar.setActionCommand(bundle1.getString("CONTAC.FORM.BTNACEPTAR")); // NOI18N
-        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptarActionPerformed(evt);
-            }
-        });
-
-        btnCancelar.setText(bundle.getString("CONTAC.FORM.BTNCANCELAR")); // NOI18N
-        btnCancelar.setActionCommand("");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-
-        txtAgente.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtAgenteKeyPressed(evt);
-            }
-        });
-
-        lblAgente.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblAgente.setText(bundle.getString("CONTAC.FORM.FACTURACION.AGENTE")); // NOI18N
-
-        btnCalcular.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/calculator.png")));
-        btnCalcular.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCalcularActionPerformed(evt);
-            }
-        });
-
-        btnBuscarAgente.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/folder_find.png")));
-        btnBuscarAgente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarAgenteActionPerformed(evt);
-            }
-        });
-
+        btnEditarFechaRegistro = new JButton();
         btnEditarFechaRegistro.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/edit.png")));
-        btnEditarFechaRegistro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarFechaRegistroActionPerformed(evt);
-            }
-        });
 
+        btnBuscarCliente = new JButton();
+        btnBuscarCliente.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/folder_find.png")));
+
+        btnBuscarAgente = new JButton();
+        btnBuscarAgente.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/folder_find.png")));
+
+        btnBuscarTasaCambio = new JButton();
         btnBuscarTasaCambio.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/folder_find.png")));
-        btnBuscarTasaCambio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarTasaCambioActionPerformed(evt);
-            }
-        });
 
-        javax.swing.GroupLayout frmFacturaClienteLayout = new javax.swing.GroupLayout(frmFacturaCliente);
-        frmFacturaCliente.setLayout(frmFacturaClienteLayout);
-        frmFacturaClienteLayout.setHorizontalGroup(
-            frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(frmFacturaClienteLayout.createSequentialGroup()
-                .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(frmFacturaClienteLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(frmFacturaClienteLayout.createSequentialGroup()
-                                .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblNoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(10, 10, 10)
-                                .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(frmFacturaClienteLayout.createSequentialGroup()
-                                        .addComponent(txtNoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblTipoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cmbTipoFactura, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(frmFacturaClienteLayout.createSequentialGroup()
-                                        .addComponent(txtCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(frmFacturaClienteLayout.createSequentialGroup()
-                                        .addComponent(lblAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cmbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(frmFacturaClienteLayout.createSequentialGroup()
-                                        .addComponent(lblAgente, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtAgente, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnBuscarAgente, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblFechaAlta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblTasaCambio, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtTasaCambio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(dtpFechaAlta, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnEditarFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnBuscarTasaCambio, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 1310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 1310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(frmFacturaClienteLayout.createSequentialGroup()
-                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(5, 5, 5)
-                                .addComponent(btnBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblTasaCambio1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1009, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(frmFacturaClienteLayout.createSequentialGroup()
-                        .addGap(426, 426, 426)
-                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        frmFacturaClienteLayout.setVerticalGroup(
-            frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(frmFacturaClienteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(frmFacturaClienteLayout.createSequentialGroup()
-                        .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(frmFacturaClienteLayout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(lblNoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtNoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(frmFacturaClienteLayout.createSequentialGroup()
-                        .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblTipoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbTipoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dtpFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnBuscarAgente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtAgente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblAgente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(frmFacturaClienteLayout.createSequentialGroup()
-                        .addComponent(btnEditarFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnBuscarTasaCambio, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblTasaCambio, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtTasaCambio, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblTasaCambio1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(frmFacturaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAceptar)
-                    .addComponent(btnCancelar))
-                .addContainerGap(88, Short.MAX_VALUE))
-        );
+        //Create Panel Header Component
 
-        add(frmFacturaCliente, java.awt.BorderLayout.CENTER);
+        JPanel pnlHeaderComp = new JPanel(new XYLayout());
+        pnlHeaderComp.add(lblNoFactura, new XYConstraints(5, 5, 90, 23));
+        pnlHeaderComp.add(txtNoFactura, new XYConstraints(100, 5, 160, 23));
+        pnlHeaderComp.add(btnEditarNoFactura, new XYConstraints(265, 5, 30, 23));
+        pnlHeaderComp.add(lblTipoFactura, new XYConstraints(300, 5, 90, 23));
+        pnlHeaderComp.add(cmbTipoFactura, new XYConstraints(395, 5, 160, 23));
+        pnlHeaderComp.add(lblAlmacen, new XYConstraints(560, 5, 90, 23));
+        pnlHeaderComp.add(cmbAlmacen, new XYConstraints(655, 5, 200, 23));
+        pnlHeaderComp.add(lblFechaAlta, new XYConstraints(860, 5, 90, 23));
+        pnlHeaderComp.add(dtpFechaAlta, new XYConstraints(955, 5, 160, 23));
+        pnlHeaderComp.add(btnEditarFechaRegistro, new XYConstraints(1120, 5, 30, 23));
+        pnlHeaderComp.add(lblCliente, new XYConstraints(5, 33, 90, 23));
+        pnlHeaderComp.add(txtCodigoCliente, new XYConstraints(100, 33, 100, 23));
+        pnlHeaderComp.add(txtNombreCliente, new XYConstraints(205, 33, 315, 23));
+        pnlHeaderComp.add(btnBuscarCliente, new XYConstraints(525, 33, 30, 23));
+        pnlHeaderComp.add(lblAgente, new XYConstraints(560, 33, 90, 23));
+        pnlHeaderComp.add(txtAgente, new XYConstraints(655, 33, 165, 23));
+        pnlHeaderComp.add(btnBuscarAgente, new XYConstraints(825, 33, 30, 23));
+        pnlHeaderComp.add(lblTasaCambio, new XYConstraints(860, 33, 90, 23));
+        pnlHeaderComp.add(txtTasaCambio, new XYConstraints(955, 33, 160, 23));
+        pnlHeaderComp.add(btnBuscarTasaCambio, new XYConstraints(1120, 33, 30, 23));
 
-        header.setForeground(new java.awt.Color(255, 153, 0));
-        header.setPreferredSize(new java.awt.Dimension(51, 35));
-        header.setScrollableTracksViewportWidth(false);
-        header.setTitle(bundle.getString("CONTAC.FORM.FACTURACION.TITTLE")); // NOI18N
-        header.setTitleForeground(new java.awt.Color(255, 153, 0));
-        add(header, java.awt.BorderLayout.PAGE_START);
-    }// </editor-fold>//GEN-END:initComponents
+        //***************************************************************************************
+        //Init Articulos Table Panel
+        //***************************************************************************************
+        tblArticulosFactura = new org.jdesktop.swingx.JXTable();
+        JScrollPane spArticulos = new JScrollPane();
+        spArticulos.getViewport().add(tblArticulosFactura);
+
+        JPanel pnlArticulos = new JPanel(new BorderLayout());
+        pnlArticulos.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        pnlArticulos.add(spArticulos, BorderLayout.CENTER);
+
+        //***************************************************************************************
+        //Init Add Articulo Actions panel
+        //***************************************************************************************
+        txtCodigo = new JTextField();
+        txtCodigo.setToolTipText(messageBundle.getString("CONTAC.FORM.FACTURACION.CODIGO"));
+        txtCodigo.setPreferredSize(new Dimension(120, 23));
+
+        btnBuscarProducto = new JButton();
+        btnBuscarProducto.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/folder_find.png")));
+
+        txtNombreProducto = new JTextField();
+        txtNombreProducto.setToolTipText(messageBundle.getString("CONTAC.FORM.FACTURACION.NOMBREPRODUCTO"));
+        txtNombreProducto.setPreferredSize(new Dimension(250, 23));
+
+        txtCantidad = new JTextField();
+        txtCantidad.setToolTipText(messageBundle.getString("CONTAC.FORM.FACTURACION.CANTIDAD"));
+        txtCantidad.setPreferredSize(new Dimension(90, 23));
+        txtCantidad.setHorizontalAlignment(JTextField.RIGHT);
+
+        txtPrecio = new JTextField();
+        txtPrecio.setToolTipText(messageBundle.getString("CONTAC.FORM.FACTURACION.PRECIO"));
+        txtPrecio.setPreferredSize(new Dimension(90, 23));
+        txtPrecio.setHorizontalAlignment(JTextField.RIGHT);
+
+        txtDescuento = new JTextField();
+        txtDescuento.setToolTipText(messageBundle.getString("CONTAC.FORM.FACTURACION.DESCUENTO"));
+        txtDescuento.setPreferredSize(new Dimension(90, 23));
+        txtDescuento.setHorizontalAlignment(JTextField.RIGHT);
+
+        lblSubtotal = new JLabel(messageBundle.getString("CONTAC.FORM.TOTALFACTURACION.SUBTOTAL"));
+
+        txtSubtotal = new JTextField();
+        txtSubtotal.setToolTipText(messageBundle.getString("CONTAC.FORM.TOTALFACTURACION.SUBTOTAL"));
+        txtSubtotal.setPreferredSize(new Dimension(120, 23));
+        txtSubtotal.setHorizontalAlignment(JTextField.RIGHT);
+        txtSubtotal.setEditable(false);
+
+        btnCalcular = new JButton();
+        btnCalcular.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/calculator.png")));
+
+        JPanel pnlAddProducto = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        pnlAddProducto.add(txtCodigo);
+        pnlAddProducto.add(btnBuscarProducto);
+        pnlAddProducto.add(txtNombreProducto);
+        pnlAddProducto.add(txtCantidad);
+        pnlAddProducto.add(txtPrecio);
+        pnlAddProducto.add(txtDescuento);
+        pnlAddProducto.add(lblSubtotal);
+        pnlAddProducto.add(txtSubtotal);
+        pnlAddProducto.add(btnCalcular);
+
+        //Adding to Main Panel
+        JPanel pnlMainOrder = new JPanel(new BorderLayout());
+        pnlMainOrder.add(pnlHeaderComp, BorderLayout.NORTH);
+        pnlMainOrder.add(pnlArticulos, BorderLayout.CENTER);
+        pnlMainOrder.add(pnlAddProducto, BorderLayout.SOUTH);
+
+        this.add(pnlMainOrder, BorderLayout.CENTER);
+
+        //***************************************************************************************
+        //Init Actions panel
+        //**************************************************************************************
+        btnAceptar = new javax.swing.JButton(messageBundle.getString("CONTAC.FORM.BTNACEPTAR"));
+        btnAceptar.setPreferredSize(new Dimension(90, 23));
+
+        btnCancelar = new javax.swing.JButton(messageBundle.getString("CONTAC.FORM.BTNCANCELAR"));
+        btnCancelar.setPreferredSize(new Dimension(90, 23));
+
+        JPanel pnlAction = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        pnlAction.setBorder(new EtchedBorder());
+        pnlAction.add(btnAceptar);
+        pnlAction.add(btnCancelar);
+
+        this.add(pnlAction, BorderLayout.SOUTH);
+    }
 
     private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
 
@@ -748,7 +667,7 @@ public class pnlFacturaCliente extends GenericPanel {
                     //Setting valores de producto
                     txtCodigo.setText(producto.getCodigo());
                     txtNombreProducto.setText(producto.getNombre());
-                    txtPrecio.setText(TextUtil.formatCurrency(producto.getCostoUND().multiply(controller.getTasaCambio())
+                    txtPrecio.setText(TextUtil.formatCurrency(producto.getPrecioESTANDAR().multiply(controller.getTasaCambio())
                             .setScale(2, BigDecimal.ROUND_HALF_EVEN).doubleValue()));
                     txtCantidad.requestFocusInWindow();
 
@@ -797,7 +716,8 @@ public class pnlFacturaCliente extends GenericPanel {
                     BigDecimal porcDescuento = new BigDecimal(txtDescuento.getText());
 
                     //Agregar articulo
-                    controller.agregarArticulo(productoSelected, renglonSelected, Integer.parseInt(txtCantidad.getText()), precioBruto, porcDescuento);
+                    controller.agregarArticulo(productoSelected, renglonSelected, Integer.parseInt(txtCantidad.getText()),
+                            precioBruto, porcDescuento);
 
                     //Actualizar listado de articulos ingresados
                     ((BeanTableModel) tblArticulosFactura.getModel()).fireTableDataChanged();
@@ -879,12 +799,32 @@ public class pnlFacturaCliente extends GenericPanel {
 
     }//GEN-LAST:event_btnBuscarAgenteActionPerformed
 
+    private void btnEditarNoFacturaActionPerformed(ActionEvent evt) {
+        try {
+
+            if (!controller.is_edit()) {
+
+                //Evaluar si usuario tiene permiso de edicion de no de factura
+                controller.editarDatosFactura();
+
+                //Habilitar campo de no de factura
+                txtNoFactura.setEditable(true);
+            }
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            //Show confirmation message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ADVERTENCIA"),
+                    e.getMessage());
+        }
+    }
+
     private void btnEditarFechaRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarFechaRegistroActionPerformed
 
         try {
 
             //Evaluar si usuario tiene permiso de edicion de fecha de factura
-            controller.editarFechaFactura();
+            controller.editarDatosFactura();
 
             //Habilitar campo de fecha de factura
             dtpFechaAlta.setEnabled(true);
@@ -903,11 +843,15 @@ public class pnlFacturaCliente extends GenericPanel {
         //Open pnl busqueda tasas de cambio
         TasaCambio tasaCambio = new TasasCambioPnl(mdi, true).getTasaCambioSelected();
 
-        if (tasaCambio != null)
+        if (tasaCambio != null) {
             txtTasaCambio.setText(tasaCambio.getTasaConversion().toString());
 
-        //Setting tasa cambio selected
-        tasaCambioSelected = tasaCambio;
+            //Setting tasa cambio selected
+            tasaCambioSelected = tasaCambio;
+
+            //Setting tasa cambio controller
+            controller.setTasaCambio(tasaCambioSelected.getTasaConversion());
+        }
 
     }//GEN-LAST:event_btnBuscarTasaCambioActionPerformed
 
@@ -997,6 +941,7 @@ public class pnlFacturaCliente extends GenericPanel {
             validaDatosForm();
 
             //Setting values
+            controller.setNoFactura(txtNoFactura.getText().equals("") ? 0 : Integer.parseInt(txtNoFactura.getText()));
             controller.setTipoFactura((TiposFactura) ((TipoFacturaComboBoxModel) cmbTipoFactura.getModel()).getSelectedItem().getObject());
             controller.setAlmacen((Almacen) ((AlmacenComboBoxModel) cmbAlmacen.getModel()).getSelectedItem().getObject());
             controller.setFechaAlta(dtpFechaAlta.getDate());
@@ -1008,28 +953,28 @@ public class pnlFacturaCliente extends GenericPanel {
             }
 
             if (!controller.is_edit()) {
-                
+
                 //Guardar factura comercial
                 controller.crearFactura();
-                
+
                 //Actualizar numero de factura generado
                 txtNoFactura.setText(controller.getFactura().getNoDocumento() + "");
 
                 //Show confirmation message
                 JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.INGRESO.EXITOSO"),
                         messageBundle.getString("CONTAC.FORM.MSG.FACTURACLIENTE.INGRESO.EXITOSO"));
-                
+
             } else {
-                
+
                 //Modificar factura comercial
                 controller.modificarFactura();
 
                 //Show confirmation message
                 JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.MODIFICACION.EXITOSO"),
                         messageBundle.getString("CONTAC.FORM.MSG.FACTURACLIENTE.MODIFICACION.EXITOSO"));
-                
+
             }
-            
+
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             JOptionErrorPane.showMessageError(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"),
@@ -1046,7 +991,7 @@ public class pnlFacturaCliente extends GenericPanel {
             //Throw error message
             throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.TIPOFACTURA"));
         }
-        
+
         //Almacen de registro
         if (cmbAlmacen.getSelectedIndex() == -1) {
             //Request focus
@@ -1054,9 +999,9 @@ public class pnlFacturaCliente extends GenericPanel {
             //Throw error message
             throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.ALMACEN"));
         }
-            
+
         //Fecha alta factura
-        if (dtpFechaAlta.getDate() == null){
+        if (dtpFechaAlta.getDate() == null) {
             //Request focus
             dtpFechaAlta.requestFocusInWindow();
             //Throw error message
@@ -1097,6 +1042,7 @@ public class pnlFacturaCliente extends GenericPanel {
     private javax.swing.JButton btnCalcular;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditarFechaRegistro;
+    private javax.swing.JButton btnEditarNoFactura;
     private javax.swing.JComboBox cmbAlmacen;
     private javax.swing.JComboBox cmbTipoFactura;
     private org.jdesktop.swingx.JXDatePicker dtpFechaAlta;
@@ -1113,6 +1059,7 @@ public class pnlFacturaCliente extends GenericPanel {
     private javax.swing.JLabel lblTasaCambio;
     private javax.swing.JLabel lblTasaCambio1;
     private javax.swing.JLabel lblTipoFactura;
+    private javax.swing.JLabel lblSubtotal;
     private org.jdesktop.swingx.JXTable tblArticulosFactura;
     private javax.swing.JTextField txtAgente;
     private javax.swing.JTextField txtCantidad;
