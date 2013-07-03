@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svnroot/contacbusiness/!svn/ver/613/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/controller
+END
+AdministraProductoController.java
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svnroot/contacbusiness/!svn/ver/304/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/controller/AdministraProductoController.java
+END
+OrdenLevantamientoController.java
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svnroot/contacbusiness/!svn/ver/604/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/controller/OrdenLevantamientoController.java
+END
+OrdenTrasladoController.java
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svnroot/contacbusiness/!svn/ver/606/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/controller/OrdenTrasladoController.java
+END
+OrdenSalidaController.java
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/svnroot/contacbusiness/!svn/ver/606/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/controller/OrdenSalidaController.java
+END
+MovimientoInventarioController.java
+K 25
+svn:wc:ra_dav:version-url
+V 180
+/svnroot/contacbusiness/!svn/ver/609/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/controller/MovimientoInventarioController.java
+END
+OrdenEntradaController.java
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svnroot/contacbusiness/!svn/ver/613/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/controller/OrdenEntradaController.java
+END
+InventarioBaseController.java
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svnroot/contacbusiness/!svn/ver/604/trunk/contacbusiness/contac-client/applications/inventarios-app/src/main/java/contac/inventarios/controller/InventarioBaseController.java
+END

@@ -1,0 +1,96 @@
+10
+
+dir
+616
+https://contacbusiness.svn.sourceforge.net/svnroot/contacbusiness/trunk/contacbusiness/contac-server/modules
+https://contacbusiness.svn.sourceforge.net/svnroot/contacbusiness
+
+
+
+2012-11-23T16:10:25.034139Z
+616
+emortiz
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+d8ca482e-f1b3-4d2b-806d-eaf5dee0f4a2
+
+administracion
+dir
+
+catalogo
+dir
+
+clientes
+dir
+
+facturacion
+dir
+
+inventario
+dir
+
+modelo
+dir
+
+modules.iml
+file
+0
+
+
+add
+
+pom.xml
+file
+
+
+
+
+2012-02-21T04:01:49.901151Z
+8b4ffb8a02bb9c2fed428c7b3058f006
+2012-02-16T15:52:12.752701Z
+419
+emortiz
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+962
+
+proveedores
+dir
+
+reportes
+dir
+
+seguridad
+dir
+

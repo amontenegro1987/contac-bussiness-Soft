@@ -1,0 +1,923 @@
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/contacbusiness/!svn/ver/606/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons
+END
+edit_add.png
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/edit_add.png
+END
+close_red.png
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/close_red.png
+END
+orden_traslado.png
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/orden_traslado.png
+END
+ordenes_compra.png
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/ordenes_compra.png
+END
+reward_refresh_256x48.png
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/reward_refresh_256x48.png
+END
+invoice_add_256x48.png
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/invoice_add_256x48.png
+END
+print_save_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/print_save_256x16.png
+END
+bank_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svnroot/contacbusiness/!svn/ver/187/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/bank_256x16.png
+END
+databasex48.png
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/databasex48.png
+END
+conciliation_add_256x32.png
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/conciliation_add_256x32.png
+END
+button_cancelx16.png
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svnroot/contacbusiness/!svn/ver/188/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/button_cancelx16.png
+END
+Cuenta Control.png
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/Cuenta%20Control.png
+END
+accounting_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svnroot/contacbusiness/!svn/ver/186/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/accounting_256x16.png
+END
+edit.png
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/edit.png
+END
+refund_add_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/refund_add_256x16.png
+END
+machine_ok_256x32.png
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/machine_ok_256x32.png
+END
+registro_facturas.png
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svnroot/contacbusiness/!svn/ver/549/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/registro_facturas.png
+END
+print_256.png
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/print_256.png
+END
+descuento.png
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/descuento.png
+END
+calculator.png
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/contacbusiness/!svn/ver/577/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/calculator.png
+END
+watchman_256x32.png
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/watchman_256x32.png
+END
+page_number_remove_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/page_number_remove_256x16.png
+END
+reward_refresh_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/reward_refresh_256x16.png
+END
+proveedores_256x48.png
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/proveedores_256x48.png
+END
+limiteCredito.png
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/limiteCredito.png
+END
+ventas.png
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/ventas.png
+END
+setup.png
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/setup.png
+END
+close_b_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/close_b_256x16.png
+END
+edit_remove.png
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/edit_remove.png
+END
+Reportes.png
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/Reportes.png
+END
+cbaBtnOK1.png
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/cbaBtnOK1.png
+END
+cabinet_add_256x22.png
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svnroot/contacbusiness/!svn/ver/188/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/cabinet_add_256x22.png
+END
+cbaBtnInfo.png
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/cbaBtnInfo.png
+END
+script_editor_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/script_editor_256x16.png
+END
+page_new.gif
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/page_new.gif
+END
+book_open.png
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svnroot/contacbusiness/!svn/ver/188/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/book_open.png
+END
+coin_stack_256x48.png
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/coin_stack_256x48.png
+END
+clear_log_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/clear_log_256x16.png
+END
+plazoVenta.png
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/plazoVenta.png
+END
+movimiento_inventario.png
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/contacbusiness/!svn/ver/606/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/movimiento_inventario.png
+END
+adress_book_next_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svnroot/contacbusiness/!svn/ver/187/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/adress_book_next_256x16.png
+END
+flux_diagram_ok_256x32.png
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/flux_diagram_ok_256x32.png
+END
+user_lock_256x48.png
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/user_lock_256x48.png
+END
+payment_back_256x32.png
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/payment_back_256x32.png
+END
+excel8.png
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/excel8.png
+END
+print_256x36.png
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/print_256x36.png
+END
+Cuenta Control I.png
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/Cuenta%20Control%20I.png
+END
+credit_ok_256x32.png
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/credit_ok_256x32.png
+END
+Raiz Cat.png
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/Raiz%20Cat.png
+END
+proveedores.png
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/proveedores.png
+END
+execute_unlock_256x32.png
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/execute_unlock_256x32.png
+END
+coin_stack_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/coin_stack_256x16.png
+END
+invoice_search_256x22.png
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/invoice_search_256x22.png
+END
+1uparrowx16.png
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svnroot/contacbusiness/!svn/ver/186/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/1uparrowx16.png
+END
+cbaBtnClose.png
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/cbaBtnClose.png
+END
+user_lock_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/user_lock_256x16.png
+END
+adress_book_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svnroot/contacbusiness/!svn/ver/187/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/adress_book_256x16.png
+END
+note_ok_256x32.png
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/note_ok_256x32.png
+END
+reward_refresh_256x32.png
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/reward_refresh_256x32.png
+END
+balance_clock_256x36.png
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svnroot/contacbusiness/!svn/ver/187/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/balance_clock_256x36.png
+END
+page_delete.png
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/page_delete.png
+END
+InventoryLogo1.png
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/InventoryLogo1.png
+END
+1downarrowx16.png
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svnroot/contacbusiness/!svn/ver/186/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/1downarrowx16.png
+END
+button_okx16.png
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/contacbusiness/!svn/ver/188/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/button_okx16.png
+END
+cabinet_add_256x48.png
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svnroot/contacbusiness/!svn/ver/188/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/cabinet_add_256x48.png
+END
+avalaibity_256x32.png
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svnroot/contacbusiness/!svn/ver/187/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/avalaibity_256x32.png
+END
+page_delete.gif
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/page_delete.gif
+END
+LReportes.png
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/LReportes.png
+END
+Acrobat_32.png
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/contacbusiness/!svn/ver/186/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/Acrobat_32.png
+END
+check_add_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/check_add_256x16.png
+END
+bottomInventory.png
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svnroot/contacbusiness/!svn/ver/188/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/bottomInventory.png
+END
+Users 2x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/Users%202x16.png
+END
+add_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/contacbusiness/!svn/ver/187/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/add_256x16.png
+END
+cliente.png
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/cliente.png
+END
+proforma.png
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/contacbusiness/!svn/ver/549/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/proforma.png
+END
+datosEmpresa.png
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/datosEmpresa.png
+END
+db_statusx16.png
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/db_statusx16.png
+END
+edit (2).png
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/edit%20(2).png
+END
+Presupuesto A.png
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/Presupuesto%20A.png
+END
+INFO_CBA.png
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/INFO_CBA.png
+END
+Process-Accept-icon.png
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/Process-Accept-icon.png
+END
+Presupuesto C.png
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/Presupuesto%20C.png
+END
+levantamiento_inventario.png
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svnroot/contacbusiness/!svn/ver/545/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/levantamiento_inventario.png
+END
+cabinet_256x48.png
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/contacbusiness/!svn/ver/188/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/cabinet_256x48.png
+END
+search.png
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/search.png
+END
+user_ok_256x48.png
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/user_ok_256x48.png
+END
+bus_ok_256x32.png
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svnroot/contacbusiness/!svn/ver/188/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/bus_ok_256x32.png
+END
+inventory_orders.png
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/inventory_orders.png
+END
+folder_find.png
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/folder_find.png
+END
+page_number_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/page_number_256x16.png
+END
+invoice_search_256x48.png
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/invoice_search_256x48.png
+END
+doc_word_original.png
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/doc_word_original.png
+END
+orden_baja.png
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/contacbusiness/!svn/ver/213/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/orden_baja.png
+END
+line.png
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/line.png
+END
+NetByte Design Studio - 0290x48.png
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/NetByte%20Design%20Studio%20-%200290x48.png
+END
+package.png
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/package.png
+END
+inventory_256x48.png
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/inventory_256x48.png
+END
+Raiz Cat A.png
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/Raiz%20Cat%20A.png
+END
+Registro A.png
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/Registro%20A.png
+END
+cabinet_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/contacbusiness/!svn/ver/188/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/cabinet_256x16.png
+END
+user_ok_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/user_ok_256x16.png
+END
+report_down_256x48 (2).png
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/report_down_256x48%20(2).png
+END
+close.png
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/close.png
+END
+Registro I.png
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/Registro%20I.png
+END
+invoice_search_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/invoice_search_256x16.png
+END
+page.png
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/page.png
+END
+contract_add_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/contract_add_256x16.png
+END
+LoginInventory.png
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/LoginInventory.png
+END
+inventory_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/inventory_256x16.png
+END
+BannerTop.png
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svnroot/contacbusiness/!svn/ver/187/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/BannerTop.png
+END
+avalaibity_clock_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svnroot/contacbusiness/!svn/ver/187/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/avalaibity_clock_256x16.png
+END
+edit_addx16.png
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/edit_addx16.png
+END
+save.png
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/save.png
+END
+cbaBtnCancel.png
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/cbaBtnCancel.png
+END
+edit_removex16.png
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/edit_removex16.png
+END
+report_down_256x48.png
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/report_down_256x48.png
+END
+cbaBtnHelp.png
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/cbaBtnHelp.png
+END
+InventorySplash.jpg
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/InventorySplash.jpg
+END
+database.png
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/database.png
+END
+orden_entrada.png
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/orden_entrada.png
+END
+salesman_refresh_256x32.png
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/salesman_refresh_256x32.png
+END
+conciliation_256x48.png
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/conciliation_256x48.png
+END
+InventoryLogo.png
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/InventoryLogo.png
+END
+help_256x48.png
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/help_256x48.png
+END
+refund_remove_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/refund_remove_256x16.png
+END
+accounting_256x48 (2).png
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svnroot/contacbusiness/!svn/ver/186/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/accounting_256x48%20(2).png
+END
+Connectx48.png
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/Connectx48.png
+END
+refresh.png
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/refresh.png
+END
+blacklist_ok_256x36.png
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svnroot/contacbusiness/!svn/ver/187/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/blacklist_ok_256x36.png
+END
+LogoSiscon_1.png
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/LogoSiscon_1.png
+END
+folder-customer-icon.png
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svnroot/contacbusiness/!svn/ver/372/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/folder-customer-icon.png
+END
+contact_business_icon_blue_inventory.png
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/contact_business_icon_blue_inventory.png
+END
+page_edit.gif
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/page_edit.gif
+END
+calx48.png
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/calx48.png
+END
+headset-icon.png
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/headset-icon.png
+END
+black_folder_zoom_256x32.png
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svnroot/contacbusiness/!svn/ver/187/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/black_folder_zoom_256x32.png
+END
+Proyecto A.png
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/Proyecto%20A.png
+END
+conciliation_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/conciliation_256x16.png
+END
+Proyecto C.png
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/Proyecto%20C.png
+END
+cabinet_256x48 (2).png
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svnroot/contacbusiness/!svn/ver/188/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/cabinet_256x48%20(2).png
+END
+doc_excel_original.png
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/doc_excel_original.png
+END
+front_page_extension_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/front_page_extension_256x16.png
+END
+bank_256x48.png
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svnroot/contacbusiness/!svn/ver/187/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/bank_256x48.png
+END
+book_delete.png
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svnroot/contacbusiness/!svn/ver/188/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/book_delete.png
+END
+stamp_paper_cancel_256x36.png
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/stamp_paper_cancel_256x36.png
+END
+cbaBtnOK.png
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/cbaBtnOK.png
+END
+help_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/help_256x16.png
+END
+execute_ok_256x32.png
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/execute_ok_256x32.png
+END
+print_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svnroot/contacbusiness/!svn/ver/190/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/print_256x16.png
+END
+front_page_extension_remove_256x16.png
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svnroot/contacbusiness/!svn/ver/189/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/front_page_extension_remove_256x16.png
+END
+factura_cliente.png
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svnroot/contacbusiness/!svn/ver/549/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/factura_cliente.png
+END
+book.png
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svnroot/contacbusiness/!svn/ver/187/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/book.png
+END
+accounting_256x48.png
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svnroot/contacbusiness/!svn/ver/186/trunk/contacbusiness/contac-commons/contac-resources/src/main/resources/icons/accounting_256x48.png
+END

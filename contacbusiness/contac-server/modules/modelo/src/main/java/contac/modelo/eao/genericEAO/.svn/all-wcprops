@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svnroot/contacbusiness/!svn/ver/433/trunk/contacbusiness/contac-server/modules/modelo/src/main/java/contac/modelo/eao/genericEAO
+END
+GenericEAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svnroot/contacbusiness/!svn/ver/6/trunk/contacbusiness/contac-server/modules/modelo/src/main/java/contac/modelo/eao/genericEAO/GenericEAO.java
+END
+GenericPersistenceEAOException.java
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svnroot/contacbusiness/!svn/ver/6/trunk/contacbusiness/contac-server/modules/modelo/src/main/java/contac/modelo/eao/genericEAO/GenericPersistenceEAOException.java
+END
+GenericPersistenceEAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/svnroot/contacbusiness/!svn/ver/433/trunk/contacbusiness/contac-server/modules/modelo/src/main/java/contac/modelo/eao/genericEAO/GenericPersistenceEAO.java
+END
+PersistenceClassNotFoundException.java
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svnroot/contacbusiness/!svn/ver/6/trunk/contacbusiness/contac-server/modules/modelo/src/main/java/contac/modelo/eao/genericEAO/PersistenceClassNotFoundException.java
+END

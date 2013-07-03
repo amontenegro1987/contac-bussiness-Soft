@@ -1,0 +1,13 @@
+#####################################################
+# Contac Business Software. All rights reserved 2012.
+#####################################################
+hibernate.show_sql=false
+hibernate.format_sql=false
+use_sql_comments=false
+hibernate.connection.driver_class=com.mysql.jdbc.Driver
+hibernate.connection.url=jdbc:mysql://localhost:3306/contac20120803
+hibernate.connection.username=root
+hibernate.connection.password=temporal
+hibernate.dialect=org.hibernate.dialect.MySQLDialect
+hibernate.connection.pool_size=6
+hibernate.hbm2ddl.auto=update

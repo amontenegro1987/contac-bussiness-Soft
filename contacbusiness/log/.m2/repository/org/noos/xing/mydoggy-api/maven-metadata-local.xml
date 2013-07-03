@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.noos.xing</groupId>
+  <artifactId>mydoggy-api</artifactId>
+  <version>1.4.2</version>
+  <versioning>
+    <versions>
+      <version>1.4.2</version>
+    </versions>
+    <lastUpdated>20110614043212</lastUpdated>
+  </versioning>
+</metadata>
