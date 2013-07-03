@@ -23,6 +23,7 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
     /**
      * Crear factura comercial
      *
+     * @param noFactura,          Numero de Factura
      * @param tipoFactura,        Tipo de factura
      * @param idCliente,          Cliente a quien se factura
      * @param idAlmacen,          Almacen de facturacion
@@ -41,8 +42,9 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
      *                          Exception
      * @throws RemoteException, Exception
      */
-    public Factura crearFactura(int tipoFactura, Integer idCliente, Integer idAlmacen, Integer idAgenteVentas, BigDecimal porcDescuento,
-                                BigDecimal porcIva, BigDecimal porcRetFuente, BigDecimal porcRetMunicipal, BigDecimal tasaCambio,
+    public Factura crearFactura(long noFactura, int tipoFactura, Integer idCliente, Integer idAlmacen,
+                                Integer idAgenteVentas, BigDecimal porcDescuento, BigDecimal porcIva,
+                                BigDecimal porcRetFuente, BigDecimal porcRetMunicipal, BigDecimal tasaCambio,
                                 String nombreCliente, Integer idMoneda, Direccion direccionEntrega, Date fechaAlta,
                                 boolean exonerada, boolean retencionFuente, boolean retencionMunicipal,
                                 Integer idProforma, List<ArticuloFactura> articulos)
@@ -69,10 +71,10 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
      *                          Exception
      * @throws RemoteException, Exception
      */
-    public Factura modificarFactura(Integer idFactura, BigDecimal tasaCambio, Direccion direccionEntrega, BigDecimal porcDescuento,
-                                    BigDecimal porcIva, BigDecimal porcRetFuente, BigDecimal porcRetMunicipal,
-                                    Date fechaAlta, boolean exonerada, boolean retencionFuente, boolean retencionMunicipal,
-                                    Integer idProforma, List<ArticuloFactura> articulos)
+    public Factura modificarFactura(Integer idFactura, BigDecimal tasaCambio, Direccion direccionEntrega,
+                                    BigDecimal porcDescuento, BigDecimal porcIva, BigDecimal porcRetFuente,
+                                    BigDecimal porcRetMunicipal, Date fechaAlta, boolean exonerada, boolean retencionFuente,
+                                    boolean retencionMunicipal, Integer idProforma, List<ArticuloFactura> articulos)
             throws ManagerFacturacionServiceBusinessException, RemoteException;
 
     /**
@@ -84,6 +86,16 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
      * @throws RemoteException, Exception
      */
     public void anularFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException;
+
+    /**
+     * Eliminar factura
+     *
+     * @param idFactura, Identificador de factura
+     * @throws ManagerFacturacionServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public void eliminarFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException;
 
     /**
      * Crear proforma a cliente
@@ -194,7 +206,8 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
      *                          Exception
      * @throws RemoteException, Exception
      */
-    public List<Factura> buscarFacturasPorEstado(String alias) throws ManagerFacturacionServiceBusinessException, RemoteException;
+    public List<Factura> buscarFacturasPorEstado(String alias) throws ManagerFacturacionServiceBusinessException,
+            RemoteException;
 
     /**
      * Buscar facturas comerciales por rangos de fecha
@@ -206,7 +219,19 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
      *                          Exception
      * @throws RemoteException, Exception
      */
-    public List<Factura> buscarFacturasPorFecha(Date fechaDesde, Date fechaHasta) throws ManagerFacturacionServiceBusinessException, RemoteException;
+    public List<Factura> buscarFacturasPorFecha(Date fechaDesde, Date fechaHasta) throws ManagerFacturacionServiceBusinessException,
+            RemoteException;
+
+    /**
+     * Buscar Listado de facturas por Identificador de Factura - Hibernate Load producto
+     *
+     * @param idFactura, Identificador de Factura
+     * @return List<ArticuloFactura>
+     * @throws ManagerFacturacionServiceBusinessException,
+     *          Exception
+     */
+    public List<ArticuloFactura> buscarArticulosFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException,
+            RemoteException;
 
     /**
      * Usuario logueado tiene permisos de editar datos especificos de factura

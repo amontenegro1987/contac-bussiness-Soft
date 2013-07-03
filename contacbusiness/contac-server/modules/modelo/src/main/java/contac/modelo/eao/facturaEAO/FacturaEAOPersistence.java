@@ -7,6 +7,7 @@ package contac.modelo.eao.facturaEAO;
 
 import contac.modelo.eao.genericEAO.GenericPersistenceEAO;
 import contac.modelo.eao.genericEAO.GenericPersistenceEAOException;
+import contac.modelo.eao.genericEAO.PersistenceClassNotFoundException;
 import contac.modelo.entity.Factura;
 import contac.modelo.entity.Producto;
 import contac.utils.jpa.QueryFragment;
@@ -25,6 +26,23 @@ import java.util.List;
  */
 public class FacturaEAOPersistence extends GenericPersistenceEAO<Factura, Integer> implements FacturaEAO {
 
+
+    @Override
+    public Factura findByNumero(long noFactura, Integer idAlmacen) throws GenericPersistenceEAOException,
+            PersistenceClassNotFoundException {
+
+        //Init service
+        initService();
+
+        List<Factura> facturas = em.createQuery("select f from Factura f where f.noDocumento = :noDocumento and f.almacen.id = :idAlmacen").
+                setParameter("noDocumento", noFactura).setParameter("idAlmacen", idAlmacen).getResultList();
+
+        if (facturas ==  null || facturas.size() < 1) {
+            throw new PersistenceClassNotFoundException(noFactura + "");
+        }
+
+        return facturas.get(0);
+    }
 
     @Override
     public List<Factura> findByEstado(Integer idEstado, Integer idAlmacen) throws GenericPersistenceEAOException {

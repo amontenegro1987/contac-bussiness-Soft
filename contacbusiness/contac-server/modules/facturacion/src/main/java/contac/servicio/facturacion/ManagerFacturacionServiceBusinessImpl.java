@@ -38,6 +38,7 @@ import contac.servicio.inventario.ManagerInventarioServiceBusiness;
 import contac.servicio.inventario.ManagerInventarioServiceBusinessImpl;
 import contac.servicio.seguridad.*;
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
@@ -174,17 +175,19 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
-    public Factura crearFactura(int tipoFactura, Integer idCliente, Integer idAlmacen, Integer idAgenteVentas,
-                                BigDecimal porcDescuento, BigDecimal porcIva, BigDecimal porcRetFuente, BigDecimal porcRetMunicipal,
-                                BigDecimal tasaCambio, String nombreCliente, Integer idMoneda, Direccion direccionEntrega,
+    public Factura crearFactura(long noFactura, int tipoFactura, Integer idCliente, Integer idAlmacen,
+                                Integer idAgenteVentas, BigDecimal porcDescuento, BigDecimal porcIva,
+                                BigDecimal porcRetFuente, BigDecimal porcRetMunicipal, BigDecimal tasaCambio,
+                                String nombreCliente, Integer idMoneda, Direccion direccionEntrega,
                                 Date fechaAlta, boolean exonerada, boolean retencionFuente, boolean retencionMunicipal,
                                 Integer idProforma, List<ArticuloFactura> articulos)
             throws ManagerFacturacionServiceBusinessException, RemoteException {
 
-        logger.debug("Creando factura con parametros: [tipoFactura]: " + tipoFactura + ", [nombreCliente]: " + nombreCliente +
-                ", [fechaAlta]: " + fechaAlta + ", [exonerada]: " + exonerada + ", [retencionFuente]" +
-                retencionFuente + ", [retencionMunicipal]: " + retencionMunicipal + "[idCliente]: " + idCliente + ", [idAlmacen]: "
-                + idAlmacen + ", [tasaCambio]: " + tasaCambio + ", [idProforma]: " + idProforma);
+        logger.debug("Creando factura con parametros: [noFactura]: " + noFactura + "[tipoFactura]: " + tipoFactura +
+                ", [nombreCliente]: " + nombreCliente + ", [fechaAlta]: " + fechaAlta + ", [exonerada]: " +
+                exonerada + ", [retencionFuente]" + retencionFuente + ", [retencionMunicipal]: " + retencionMunicipal +
+                "[idCliente]: " + idCliente + ", [idAlmacen]: " + idAlmacen + ", [tasaCambio]: " + tasaCambio +
+                ", [idProforma]: " + idProforma);
 
         //Iniciar servicio de autenticacion
         boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
@@ -199,6 +202,9 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             EstadoMovimiento estado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.INGRESADO.getEstado());
             Proforma proforma = null; //TODO: Implementar asociacion con una proforma
 
+            //Actualizar consecutivo de factura en el almacen
+            boolean update_consecutivo = true;
+
             //Si tiene una proforma asociada buscarla
             if (idProforma != null)
                 proforma = proformaEAO.findById(idProforma);
@@ -210,8 +216,12 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             if (articulos.isEmpty())
                 throw new ManagerFacturacionServiceBusinessException("Debes ingresar al menos un articulo");
 
-            //Obtener numero de factura consecutivo
-            long noFactura = almacen.getConsecutivo() + 1;
+            if (noFactura > 0) {
+                facturaValidaParaRegistro(noFactura, almacen.getId()); //Verificar que numero de factura no se encuentra registrado
+                update_consecutivo = false; //No actualizar consecutivo en almacen de facturacion
+            } else {
+                noFactura = almacen.getConsecutivo() + 1;  //Obtener numero de factura consecutivo
+            }
 
             //Persistir factura
             Factura factura = new Factura();
@@ -338,9 +348,11 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             //Persistir nueva factura comercial
             factura = facturaEAO.create(factura);
 
-            //Actualizar numero consecutivo de facturacion
-            almacen.setConsecutivo(noFactura);
-            almacenEAO.update(almacen);
+            //Actualizar numero consecutivo de facturacion si el numero es generado
+            if (update_consecutivo) {
+                almacen.setConsecutivo(noFactura);
+                almacenEAO.update(almacen);
+            }
 
             //Retornar factura comercial guardada
             return factura;
@@ -382,7 +394,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
 
             if (articulos.isEmpty())
                 throw new ManagerFacturacionServiceBusinessException("Debes ingresar al menos un articulo");
-            
+
             factura.setTasaCambio(tasaCambio);
             factura.setDireccionEntrega(direccionEntrega);
             factura.setPorcDescuento(porcDescuento);
@@ -405,9 +417,9 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
 
             int renglon = 1;
 
-            for (Iterator it = articulos.iterator(); it.hasNext();) {
-                
-                ArticuloFactura articulo = (ArticuloFactura)it.next();
+            for (Iterator it = articulos.iterator(); it.hasNext(); ) {
+
+                ArticuloFactura articulo = (ArticuloFactura) it.next();
 
                 if (articulo.isCreate()) {
 
@@ -467,9 +479,9 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
                         articulo.setMovimientoInventario(movimientoInventario);
                     } else {
                         articulo.getMovimientoInventario().setCantidad(articulo.getCantidad());
-                    }    
-                    
-                    
+                    }
+
+
                 }
 
                 //*************************************************************************
@@ -541,12 +553,15 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             factura.setMontoNeto(new BigDecimal("0.00"));
             factura.setRetencionFuente(new BigDecimal("0.00"));
             factura.setRetencionMunicipal(new BigDecimal("0.00"));
-            
+
             factura.setEstadoMovimiento(estadoAnulado);
 
             //Eliminar movimientos de inventario de los productos
             for (ArticuloFactura articulo : factura.getArticulos()) {
-                
+
+                articulo.setCosto(new BigDecimal("0.00"));
+                articulo.setCostoTotal(new BigDecimal("0.00"));
+
                 movimientoInventarioEAO.remove(articulo.getMovimientoInventario().getId());
                 articulo.setMovimientoInventario(null);
             }
@@ -560,6 +575,47 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             logger.error(e.getMessage(), e);
             throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
         } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
+    public void eliminarFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException {
+        logger.debug("Eliminar factura con parametros: [idFactura]: " + idFactura);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLFACTURACIONADMIN.toString());
+
+        try {
+
+            //Preparar el contexto de ejecucion
+            Factura factura = facturaEAO.findById(idFactura);
+
+            //Validar datos generales de la factura
+            if (!factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado()) &&
+                    !factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.ANULADO.getEstado()))
+                throw new ManagerFacturacionServiceBusinessException("Factura no se encuentra en un estado valido para poder eliminar.");
+
+                //Eliminar movimientos de inventario de los productos solo si esta INGRESADO
+            if (factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado())) {
+                for (ArticuloFactura articulo : factura.getArticulos()) {
+                    movimientoInventarioEAO.remove(articulo.getMovimientoInventario().getId());
+                    articulo.setMovimientoInventario(null);
+                }
+            }
+
+            facturaEAO.remove(factura.getId());
+
+        } catch (PersistenceClassNotFoundException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } finally{
             stopBusinessService(transaction);
         }
     }
@@ -854,6 +910,35 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
+    public List<ArticuloFactura> buscarArticulosFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException,
+            RemoteException {
+
+        logger.debug("Buscando articulos de factura con parametros: [IDFACTURA]: " + idFactura);
+
+        //Iniciar servicio de autorizacion
+        boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
+
+        try {
+
+            //Search factura a cliente
+            Factura factura = facturaEAO.findById(idFactura);
+
+            for (ArticuloFactura articulo : factura.getArticulos()) {
+                Hibernate.initialize(articulo.getProducto());
+                Hibernate.initialize(articulo.getProducto().getUnidadMedida());
+            }
+
+            return new ArrayList<ArticuloFactura>(factura.getArticulos());
+
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        }  finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
     public void usuarioEditaDatosFactura() throws ManagerFacturacionServiceBusinessException, RemoteException {
 
         logger.debug("Verificar si usuario tiene permisos de editar datos de factura");
@@ -897,6 +982,33 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             logger.info("Agente de Ventas no se encuentra registrado. Proceder con el registro!!!");
         } catch (GenericPersistenceEAOException e) {
             logger.info("Agente de Ventas no se encuentra registrado. Proceder con el registro!!!");
+        }
+    }
+
+    /**
+     * Buscar Factura con numero y almacen de facturacion
+     *
+     * @param noFactura, Numero de factura
+     * @param idAlmacen, Identificador de Almacen
+     * @throws ManagerFacturacionServiceBusinessException,
+     *          Exception
+     */
+    private void facturaValidaParaRegistro(long noFactura, Integer idAlmacen) throws ManagerFacturacionServiceBusinessException {
+
+        logger.debug("Busca factura por numero de factura: [noFactura]: " + noFactura);
+
+        try {
+
+            //Buscar factura por numero de factura
+            Factura factura = facturaEAO.findByNumero(noFactura, idAlmacen);
+
+            throw new ManagerFacturacionServiceBusinessException("Factura con numero: [" + noFactura + "]" +
+                    "se encuentra registrada, favor ingresar otro numero consecutivo de factura");
+
+        } catch (PersistenceClassNotFoundException e) {
+            logger.info("Numero de factura no se encuentra registrado. Proceder con el registro!!!");
+        } catch (GenericPersistenceEAOException e) {
+            logger.info("Numero de factura no se encuentra registrado. Proceder con el registro!!!");
         }
     }
 

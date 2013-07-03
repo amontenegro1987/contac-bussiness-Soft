@@ -221,8 +221,11 @@ public class OrdenLevantamientoController extends InventarioBaseController {
             OrdenLevantamientoFisico ordenLevantamientoFisico = mgrInventario.crearOrdenLevantamientoFisico(getFechaAlta(),
                     null, getAlmacen().getId(), getDescripcion(), getArticulos());
 
-            //Guardar orden de Levantamiento
-            setOrdenLevantamiento(ordenLevantamientoFisico);
+            //Init orden de levantamiento fisico
+            this.ordenLevantamiento = ordenLevantamientoFisico;
+
+            //Init Modificacion
+            initModificacion();
 
         } catch (ManagerInventarioServiceBusinessException e) {
             logger.error(e.getMessage(), e);
@@ -248,8 +251,11 @@ public class OrdenLevantamientoController extends InventarioBaseController {
             OrdenLevantamientoFisico ordenLevantamientoFisico = mgrInventario.modificarOrdenLevantamientoFisico(
                     getOrdenLevantamiento().getId(), getFechaAlta(), getFechaSolicitud(), getDescripcion(), getArticulos());
 
-            //Guardar orden de Levantamiento
-            setOrdenLevantamiento(ordenLevantamientoFisico);
+            //Init orden de levantamiento fisico
+            this.ordenLevantamiento = ordenLevantamientoFisico;
+
+            //Init Modificacion
+            initModificacion();
 
         } catch (ManagerInventarioServiceBusinessException e) {
             logger.error(e.getMessage(), e);

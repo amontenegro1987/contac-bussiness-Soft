@@ -126,6 +126,10 @@ public class pnlOrdenLevantamientoFisico extends GenericPanel {
         //************************************************************
 
         //Init almacenes combo box data model
+
+
+
+
         cmbAlmacen.setModel(new AlmacenComboBoxModel(controller.getAlmacenes()));
 
         //Evaluar edit datos para registrar
@@ -492,6 +496,9 @@ public class pnlOrdenLevantamientoFisico extends GenericPanel {
                 JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.ORDENLEVANTAMIENTO.MODIFICA.EXITOSO"),
                         messageBundle.getString("CONTAC.FORM.ORDENLEVANTAMIENTO.MODIFICA.EXITOSO"));
             }
+
+            //Init values
+            initValues();
 
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
