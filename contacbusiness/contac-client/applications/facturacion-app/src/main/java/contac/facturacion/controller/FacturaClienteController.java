@@ -7,6 +7,7 @@ import contac.servicio.facturacion.ManagerFacturacionServiceBusinessException;
 import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
+import java.rmi.RemoteException;
 import java.util.*;
 
 /**
@@ -366,19 +367,6 @@ public class FacturaClienteController extends FacturacionBaseController {
         //Editar factura compra
         set_edit(true);
 
-        setNoFactura(factura.getNoDocumento());
-        setFechaAlta(factura.getFechaAlta());
-        setCliente(factura.getCliente());
-        setNombreCliente(factura.getNombreCliente());
-        setDireccionEntrega(factura.getDireccionEntrega());
-        setAgenteVentas(factura.getAgenteVentas());
-        setTasaCambio(factura.getTasaCambio());
-        setProforma(factura.getProforma());
-        setExonerada(factura.isExonerada());
-        setRetFuente(factura.isRetencionF());
-        setRetMunicipal(factura.isRetencionM());
-        setProforma(factura.getProforma());
-
         //Reiniciar valores de factura
         porcIVA = factura.getPorcIVA();
         porcDescuento = factura.getPorcDescuento();
@@ -392,6 +380,19 @@ public class FacturaClienteController extends FacturacionBaseController {
         montoAntesImpuesto = factura.getMontoBruto();
         montoTotal = factura.getMontoNeto();
 
+        setNoFactura(factura.getNoDocumento());
+        setFechaAlta(factura.getFechaAlta());
+        setCliente(factura.getCliente());
+        setNombreCliente(factura.getNombreCliente());
+        setDireccionEntrega(factura.getDireccionEntrega());
+        setAgenteVentas(factura.getAgenteVentas());
+        setTasaCambio(factura.getTasaCambio());
+        setProforma(factura.getProforma());
+        setExonerada(factura.isExonerada());
+        setRetFuente(factura.isRetencionF());
+        setRetMunicipal(factura.isRetencionM());
+        setProforma(factura.getProforma());
+
         //<Tipo de factura>
         for (TiposFactura tipoFactura : TiposFactura.values()) {
             if (tipoFactura.getValue() == (int) factura.getTipoFactura()) {
@@ -399,13 +400,20 @@ public class FacturaClienteController extends FacturacionBaseController {
             }
         }
 
-        //<Articulos>
-        List<ArticuloFactura> articulosList = new ArrayList<ArticuloFactura>();
-        articulosList.addAll(factura.getArticulos());
+        try {
+            //<Articulos>
+            //Obtener manager de facturacion
+            ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
+            List<ArticuloFactura> articulosList = mgrFacturacion.buscarArticulosFactura(factura.getId());
 
-        //Ordenar listado de articulos
-        Collections.sort(articulosList, TiposOrdenamientoArticulo.PorCodigo);
-        setArticulos(articulosList);
+            //Ordenar listado de articulos
+            Collections.sort(articulosList, TiposOrdenamientoArticulo.PorCodigo);
+            setArticulos(articulosList);
+        } catch (ManagerFacturacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+        }
     }
 
     /**
@@ -444,10 +452,10 @@ public class FacturaClienteController extends FacturacionBaseController {
             ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
 
             //Creamos registro de factura
-            Factura factura = mgrFacturacion.crearFactura(getTipoFactura().getValue(), getCliente().getId(), getAlmacen().getId(),
-                    getAgenteVentas().getId(), getPorcDescuento(), getPorcIVA(), getPorcRetFuente(), getPorcRetMunicipal(),
-                    getTasaCambio(), getNombreCliente(), getMoneda().getId(), getDireccionEntrega(), getFechaAlta(),
-                    isExonerada(), isRetFuente(), isRetMunicipal(), null, getArticulos());
+            Factura factura = mgrFacturacion.crearFactura(getNoFactura(), getTipoFactura().getValue(), getCliente().getId(),
+                    getAlmacen().getId(), getAgenteVentas().getId(), getPorcDescuento(), getPorcIVA(), getPorcRetFuente(),
+                    getPorcRetMunicipal(), getTasaCambio(), getNombreCliente(), getMoneda().getId(), getDireccionEntrega(),
+                    getFechaAlta(), isExonerada(), isRetFuente(), isRetMunicipal(), null, getArticulos());
 
             //Guardar factura
             setFactura(factura);
@@ -508,6 +516,29 @@ public class FacturaClienteController extends FacturacionBaseController {
             throw new Exception(e.getMessage(), e);
         }
 
+    }
+
+    /**
+     * Eliminar factura de compra
+     *
+     * @throws Exception, Exception
+     */
+    public void eliminarFactura() throws Exception {
+
+        logger.debug("Eliminar factura de compra");
+
+        try {
+
+            //Obtener manager de facturacion
+            ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
+
+            //Eliminar factura de compra
+            mgrFacturacion.eliminarFactura(getFactura().getId());
+
+        } catch (ManagerFacturacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
     }
 
     /**
@@ -579,7 +610,7 @@ public class FacturaClienteController extends FacturacionBaseController {
         //Evaluar retencion fuente
         if (isRetFuente() && (this.montoAntesImpuesto.compareTo(new BigDecimal("1000.00")) == 1 ||
                 this.montoAntesImpuesto.compareTo(new BigDecimal("1000.00")) == 0)) {
-            this.porcRetFuente = new BigDecimal("1.00");
+            this.porcRetFuente = new BigDecimal("2.00");
             this.montoRetFuente = this.montoAntesImpuesto.multiply(porcRetFuente.divide(new BigDecimal("100.00"))).
                     setScale(2, BigDecimal.ROUND_CEILING);
         } else {
@@ -597,6 +628,34 @@ public class FacturaClienteController extends FacturacionBaseController {
             setRetMunicipal(false);
             this.porcRetMunicipal = new BigDecimal("0.00");
         }
+
+        //Calcular retencion en la fuente por articulo
+        for (ArticuloFactura articulo : getArticulos()) {
+            if (isRetFuente()) {
+
+                //Retencion municipal
+                if (isRetMunicipal()) {
+                    articulo.setPorcRetencionFuente(new BigDecimal("2.00"));
+                    articulo.setRetencionFuente(articulo.getPrecioAntesImpuesto().multiply(articulo.getPorcRetencionFuente().
+                            divide(new BigDecimal("100.00"), 2, BigDecimal.ROUND_CEILING)));
+                } else {
+                    articulo.setPorcRetencionFuente(new BigDecimal("0.00"));
+                    articulo.setRetencionFuente(new BigDecimal("0.00"));
+                }
+
+                //Retencion fuente
+                if (isRetMunicipal()) {
+                    articulo.setPorcRetencionMunicipal(new BigDecimal("1.00"));
+                    articulo.setRetencionMunicipal(articulo.getPrecioAntesImpuesto().multiply(articulo.getPorcRetencionMunicipal().
+                            divide(new BigDecimal("100.00"), 2, BigDecimal.ROUND_CEILING)));
+                } else {
+                    articulo.setRetencionMunicipal(new BigDecimal("0.00"));
+                    articulo.setRetencionMunicipal(new BigDecimal("0.00"));
+                }
+
+            }
+        }
+
 
         //Calculando monto total factura
         this.montoTotal = this.montoTotal.add(this.montoAntesImpuesto.subtract(this.montoRetFuente).
@@ -642,9 +701,9 @@ public class FacturaClienteController extends FacturacionBaseController {
             articulo.setCodigo(producto.getCodigo());
             articulo.setNombre(producto.getNombre());
             articulo.setCodigoFabricante(producto.getCodigoFabricante());
-            articulo.setCosto(producto.getCostoPROM());
+            articulo.setCosto(producto.getCostoPROM().multiply(getTasaCambio()));
             articulo.setCantidad(cantidad);
-            articulo.setCostoTotal(producto.getCostoPROM().multiply(new BigDecimal(cantidad)));
+            articulo.setCostoTotal(producto.getCostoPROM().multiply(getTasaCambio()).multiply(new BigDecimal(cantidad)));
             articulo.setPrecioBruto(precioBruto.setScale(2, BigDecimal.ROUND_HALF_EVEN));
             articulo.setPrecioPromocion(producto.getPrecioPROMOCION() != null);
             if (articulo.getRenglon() <= 0) {
@@ -734,9 +793,9 @@ public class FacturaClienteController extends FacturacionBaseController {
      *
      * @throws Exception, Exception
      */
-    public void editarFechaFactura() throws Exception {
+    public void editarDatosFactura() throws Exception {
 
-        logger.debug("Editar fecha de la factura");
+        logger.debug("Editar datos de la factura");
 
         try {
 

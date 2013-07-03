@@ -90,6 +90,17 @@ public class pnlTotalFacturaCliente extends JDialog {
         txtRetencion_munc.setText(TextUtil.formatCurrency(controller.getMontoRetMunicipal().doubleValue()));
         txtIVA.setText(TextUtil.formatCurrency(controller.getIva().doubleValue()));
         txtTotalFactura.setText(TextUtil.formatCurrency(controller.getMontoTotal().doubleValue()));
+
+        chkRetencionFuente.setSelected(controller.isRetFuente());
+        chkRetencionMunicipal.setSelected(controller.isRetMunicipal());
+
+        if (controller.isExonerada()) {
+            rbExonerado.setSelected(true);
+            rbCalcularIVA.setSelected(false);
+        } else {
+            rbExonerado.setSelected(false);
+            rbCalcularIVA.setSelected(true);
+        }
     }
 
     //Register listeners

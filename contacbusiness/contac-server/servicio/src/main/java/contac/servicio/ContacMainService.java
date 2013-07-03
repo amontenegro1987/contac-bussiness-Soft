@@ -44,17 +44,7 @@ public class ContacMainService {
 
     private static void configContacLog4j() {
 
-        //Configurar el archivo de logger appender
-        //String pathProject = System.getProperty("user.dir");
-
-
-        //System.setProperty("contac.server.log.dir", pathProject + "/log");
-
-        //String path = System.getProperty("user.dir");
-
-        //Configurar el apache log4j
-        //DOMConfigurator.configure("log/config/contac-log4j.xml");
-        String path = ContacMainService.class.getProtectionDomain().getCodeSource().getLocation().getFile();
+//        String path = ContacMainService.class.getProtectionDomain().getCodeSource().getLocation().getFile();
 
         System.out.println("Path source file:");
 

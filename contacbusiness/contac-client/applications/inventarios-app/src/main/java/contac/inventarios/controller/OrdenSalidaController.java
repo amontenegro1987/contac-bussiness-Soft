@@ -211,8 +211,11 @@ public class OrdenSalidaController extends InventarioBaseController {
             OrdenSalida ordenSalida = mgrInventario.crearOrdenSalida(getFechaAlta(), getFechaSolicitud(), getAlmacenSalida().getId(),
                     getPersonaAutoriza(), getDescripcion(), getArticulos());
 
-            //Setting orden de salida
-            setOrdenSalida(ordenSalida);
+            //Init orden de salida
+            this.ordenSalida = ordenSalida;
+
+            //Init Modificacion
+            initModificacion();
 
         } catch (ManagerInventarioServiceBusinessException e) {
             logger.error(e.getMessage(), e);
@@ -241,8 +244,11 @@ public class OrdenSalidaController extends InventarioBaseController {
             OrdenSalida ordenSalida = mgrInventario.modificarOrdenSalida(getOrdenSalida().getId(), getFechaAlta(), getFechaSolicitud(),
                     getPersonaAutoriza(), getDescripcion(), getArticulos());
 
-            //Setting orden de salida
-            setOrdenSalida(ordenSalida);
+            //Init orden de salida
+            this.ordenSalida = ordenSalida;
+
+            //Init Modificacion
+            initModificacion();
 
         } catch (ManagerInventarioServiceBusinessException e) {
             logger.error(e.getMessage(), e);
