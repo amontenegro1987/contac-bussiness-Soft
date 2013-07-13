@@ -117,6 +117,14 @@ public class pnlTotalFacturaCliente extends JDialog {
                     try {
                         //Obteniendo el descuento
                         double porcDescuento = Double.parseDouble(txtDescuento.getText());
+
+                        //Validar porcentaje de descuento
+                        if (porcDescuento > 100) {
+                            //Show Error message
+                            throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.DESCUENTO"));
+                        }
+
+                        //Setting descuento global
                         controller.setPorcDescuento(new BigDecimal(porcDescuento));
                         
                         //Recalcular factura
