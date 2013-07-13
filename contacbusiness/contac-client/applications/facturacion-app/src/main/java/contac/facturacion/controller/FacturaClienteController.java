@@ -562,16 +562,16 @@ public class FacturaClienteController extends FacturacionBaseController {
         for (ArticuloFactura articulo : getArticulos()) {
 
             //Calcular descuento global
-            if (this.porcDescuento.compareTo(new BigDecimal("0.00")) >= 0 &&
-                    articulo.getPorcDescuento().compareTo(new BigDecimal("0.00")) == 0 &&
-                    articulo.getDescuento().compareTo(new BigDecimal("0.00")) == 0) {
+            if (this.porcDescuento.compareTo(new BigDecimal("0.00")) >= 0) {
                 articulo.setPorcDescuento(this.porcDescuento);
-                articulo.setDescuento(articulo.getPrecioAntesImpuesto().multiply(this.porcDescuento.
-                        divide(new BigDecimal("100.00"))).setScale(2, BigDecimal.ROUND_HALF_UP));
+                articulo.setDescuento(articulo.getPrecioBruto().multiply(new BigDecimal(articulo.getCantidad())).
+                    multiply(this.porcDescuento.divide(new BigDecimal("100.00"))).setScale(2, BigDecimal.ROUND_HALF_UP));
                 articulo.setPrecioAntesImpuesto(articulo.getPrecioBruto().subtract(articulo.getPrecioBruto().
                         multiply(articulo.getPorcDescuento().divide(new BigDecimal("100")))).multiply(new BigDecimal(articulo.getCantidad())).
                         setScale(2, BigDecimal.ROUND_CEILING));
             }
+
+
 
             //Articulo es exento
             if (articulo.isExento()) {

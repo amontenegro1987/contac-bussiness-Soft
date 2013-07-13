@@ -192,8 +192,8 @@ public class SplashS extends JWindow {
                 //******************************************
                 //Configuring look and feel decoration
                 //******************************************
-                JFrame.setDefaultLookAndFeelDecorated(true);
-                JDialog.setDefaultLookAndFeelDecorated(true);
+                JFrame.setDefaultLookAndFeelDecorated(false);
+                JDialog.setDefaultLookAndFeelDecorated(false);
 
                 try {
                     UIManager.setLookAndFeel(new SubstanceBusinessBlueSteelLookAndFeel());
