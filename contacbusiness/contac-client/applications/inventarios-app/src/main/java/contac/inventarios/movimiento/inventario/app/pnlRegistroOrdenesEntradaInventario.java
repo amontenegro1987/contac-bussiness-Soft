@@ -222,7 +222,7 @@ public class pnlRegistroOrdenesEntradaInventario extends GenericPanel {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         //Open formulario de administracion de compania
-        getMDI().getStyle().addPanel("pnlOrdenEntradaInventario", "contac.inventarios.movimiento.inventario.app.pnlOrdenEntradaInventario");
+        getMDI().getStyle().addPanel("pnlOrdenSalidaInventario", "contac.inventarios.movimiento.inventario.app.pnlOrdenEntradaInventario");
 
         //Remove this panel
         getMDI().getStyle().removePanel(this);

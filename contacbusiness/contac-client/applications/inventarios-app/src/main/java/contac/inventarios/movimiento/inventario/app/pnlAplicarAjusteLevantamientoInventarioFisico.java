@@ -114,7 +114,7 @@ public class pnlAplicarAjusteLevantamientoInventarioFisico extends GenericPanel 
         TableColumnModel columnModel = tblArticulos.getColumnModel();
 
         String[] articuloColumnRemove = new String[]{"Id", "Producto", "Orden Levantamiento Fisico", "Movimiento Inventario",
-                "Renglon", "Ctime", "Cuser", "Mtime", "Muser", "Create", "Update", "No Movimiento"};
+                "Renglon", "Cantidad Anterior", "Ctime", "Cuser", "Mtime", "Muser", "Create", "Update", "No Movimiento"};
 
         for (String columnLabel : articuloColumnRemove) {
             columnModel.removeColumn(columnModel.getColumn(columnModel.getColumnIndex(columnLabel)));

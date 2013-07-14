@@ -13,6 +13,8 @@ package contac.inventarios.movimiento.inventario.app;
 import contac.commons.app.BaseController;
 import contac.commons.components.pnlBusquedaProducto;
 import contac.commons.form.label.JOptionErrorPane;
+import contac.commons.form.layout.XYConstraints;
+import contac.commons.form.layout.XYLayout;
 import contac.commons.form.panel.GenericFrame;
 import contac.commons.form.panel.GenericPanel;
 import contac.commons.form.render.DecimalFormatRenderer;
@@ -26,12 +28,19 @@ import contac.modelo.entity.ArticuloSalida;
 import contac.modelo.entity.Producto;
 import contac.text.TextUtil;
 import org.apache.log4j.Logger;
+import org.jdesktop.swingx.JXDatePicker;
+import org.jdesktop.swingx.JXHeader;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -42,6 +51,9 @@ public class pnlOrdenSalidaInventario extends GenericPanel {
 
     //Apache log4j
     private static final Logger logger = Logger.getLogger(pnlOrdenSalidaInventario.class);
+
+    //Resource Bundle internationalization
+    private static ResourceBundle resourceBundle = ResourceBundle.getBundle("contac/inventarios/app/mensajes/Mensajes_es");
 
     //Controller
     private OrdenSalidaController controller;
@@ -115,6 +127,10 @@ public class pnlOrdenSalidaInventario extends GenericPanel {
         //************************************************************
         //Init values
         //************************************************************
+
+        //Init almacenes combo box data model
+        cmbAlmacenSalida.setModel(new AlmacenComboBoxModel(controller.getAlmacenes()));
+
         if (controller.is_edit()) {
 
             //Change btnAceptar label
@@ -126,14 +142,18 @@ public class pnlOrdenSalidaInventario extends GenericPanel {
             txtDescripcion.setEditable(false);
         }
         
-        if (controller.getNoMovimiento() > 0)
+        if (controller.getNoMovimiento() > 0) {
             txtNoSalida.setText(String.valueOf(controller.getNoMovimiento()));
-        else
+        } else {
             txtNoSalida.setText("");
+        }
+
         txtPersonaAutoriza.setText(controller.getPersonaAutoriza());
         txtDescripcion.setText(controller.getDescripcion());
+
         dtpFechaAlta.setFormats("dd/MM/yyyy");
         dtpFechaAlta.setDate(controller.getFechaAlta());
+
         if (controller.getAlmacenSalida() != null) {
             AlmacenComboBoxModel almacenModel = (AlmacenComboBoxModel) cmbAlmacenSalida.getModel();
             cmbAlmacenSalida.setSelectedItem(almacenModel.searchSelectedItem(controller.getAlmacenSalida().getId()));
@@ -160,7 +180,7 @@ public class pnlOrdenSalidaInventario extends GenericPanel {
         TableColumnModel columnModel = tblArticulos.getColumnModel();
 
         String[] articuloColumnRemove = new String[]{"Id", "Producto", "Orden Salida", "Movimiento Inventario", "Renglon",
-                "No Documento", "Ctime", "Cuser", "Mtime", "Muser", "Create", "Update"};
+                "No Documento", "Cantidad Anterior", "Ctime", "Cuser", "Mtime", "Muser", "Create", "Update"};
 
         for (String columnLabel : articuloColumnRemove) {
             columnModel.removeColumn(columnModel.getColumn(columnModel.getColumnIndex(columnLabel)));
@@ -188,7 +208,6 @@ public class pnlOrdenSalidaInventario extends GenericPanel {
 
         //Ir ultimo registro tabla
         tblArticulos.scrollRectToVisible(tblArticulos.getCellRect(tblArticulos.getRowCount() - 1, 0, true));
-
     }
 
     private void registerListeners() {
@@ -241,6 +260,11 @@ public class pnlOrdenSalidaInventario extends GenericPanel {
                     e.consume();
                 }
             }
+
+            @Override
+            public void keyPressed(KeyEvent event) {
+                txtCodigoKeyPressed(event);
+            }
         });
 
         //txtCantidad
@@ -255,6 +279,11 @@ public class pnlOrdenSalidaInventario extends GenericPanel {
                     txtCodigo.requestFocusInWindow();
                 }
             }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                txtCantidadKeyPressed(e);
+            }
         });
 
         //txtCostoUND
@@ -267,165 +296,151 @@ public class pnlOrdenSalidaInventario extends GenericPanel {
             }
         });
 
+        btnBuscarProducto.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnBuscarProductoActionPerformed(e);
+            }
+        });
+
+        btnAceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnAceptarActionPerformed(e);
+            }
+        });
+
+        btnCancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnCancelarActionPerformed(e);
+            }
+        });
     }
 
-    /**
-     * This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        header = new org.jdesktop.swingx.JXHeader();
-        pnlOrdenEntrada = new javax.swing.JPanel();
-        lblPersonaAutoriza = new javax.swing.JLabel();
-        txtNoSalida = new javax.swing.JTextField();
-        lblFechaAlta = new javax.swing.JLabel();
-        dtpFechaAlta = new org.jdesktop.swingx.JXDatePicker();
-        lblAlmacen = new javax.swing.JLabel();
-        cmbAlmacenSalida = new javax.swing.JComboBox();
-        lblDescripcion = new javax.swing.JLabel();
-        txtPersonaAutoriza = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblArticulos = new org.jdesktop.swingx.JXTable();
-        txtCodigo = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JTextField();
-        btnBuscarProducto = new javax.swing.JButton();
-        txtCostoUND = new javax.swing.JTextField();
-        txtCantidad = new javax.swing.JTextField();
-        jSeparator3 = new javax.swing.JSeparator();
-        btnAceptar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
-        lblNoSalida = new javax.swing.JLabel();
-        txtDescripcion = new javax.swing.JTextField();
+        //Setting default Layout
+        this.setLayout(new BorderLayout());
 
-        setLayout(new java.awt.BorderLayout());
-
+        //***************************************************************************************
+        //Init Header Panel
+        //***************************************************************************************
+        header = new JXHeader();
+        header.setTitle(resourceBundle.getString("CONTAC.FORM.ORDENSALIDA.TITTLE")); // NOI18N
         header.setForeground(new java.awt.Color(255, 153, 0));
-        header.setPreferredSize(new java.awt.Dimension(51, 35));
-        header.setScrollableTracksViewportWidth(false);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("contac/inventarios/app/mensajes/Mensajes_es"); // NOI18N
-        header.setTitle(bundle.getString("CONTAC.FORM.ORDENSALIDA.TITTLE")); // NOI18N
         header.setTitleForeground(new java.awt.Color(255, 153, 0));
-        add(header, java.awt.BorderLayout.PAGE_START);
+        header.setPreferredSize(new Dimension(50, 35));
 
-        pnlOrdenEntrada.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        //Adding header to panel
+        this.add(header, BorderLayout.NORTH);
 
-        lblPersonaAutoriza.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblPersonaAutoriza.setText(bundle.getString("CONTAC.FORM.ORDENSALIDA.PERSONAAUTORIZA")); // NOI18N
-        pnlOrdenEntrada.add(lblPersonaAutoriza, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 97, 20));
+        //***************************************************************************************
+        //Init Header Components Panel
+        //***************************************************************************************
 
+        lblNoSalida = new JLabel(resourceBundle.getString("CONTAC.FORM.ORDENSALIDA.NOSALIDA"));
+        lblNoSalida.setHorizontalAlignment(SwingConstants.LEFT);
+
+        lblAlmacen = new JLabel(resourceBundle.getString("CONTAC.FORM.ORDENENTRADA.ALMACEN"));
+        lblAlmacen.setHorizontalAlignment(SwingConstants.LEFT);
+
+        lblFechaAlta = new JLabel(resourceBundle.getString("CONTAC.FORM.ORDENENTRADA.FECHAALTA"));
+        lblFechaAlta.setHorizontalAlignment(SwingConstants.LEFT);
+
+        lblPersonaAutoriza = new JLabel(resourceBundle.getString("CONTAC.FORM.ORDENSALIDA.PERSONAAUTORIZA"));
+        lblPersonaAutoriza.setHorizontalAlignment(SwingConstants.LEFT);
+
+        lblDescripcion = new JLabel(resourceBundle.getString("CONTAC.FORM.ORDENENTRADA.DESCRIPCION"));
+        lblDescripcion.setHorizontalAlignment(SwingConstants.LEFT);
+
+        txtNoSalida = new JTextField();
         txtNoSalida.setEditable(false);
-        txtNoSalida.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtNoSalida.setToolTipText("");
-        txtNoSalida.setMinimumSize(new java.awt.Dimension(6, 25));
-        txtNoSalida.setPreferredSize(new java.awt.Dimension(59, 30));
-        pnlOrdenEntrada.add(txtNoSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(117, 11, 160, 23));
 
-        lblFechaAlta.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblFechaAlta.setText(bundle.getString("CONTAC.FORM.ORDENENTRADA.FECHAALTA")); // NOI18N
-        pnlOrdenEntrada.add(lblFechaAlta, new org.netbeans.lib.awtextra.AbsoluteConstraints(763, 12, 88, 20));
-        pnlOrdenEntrada.add(dtpFechaAlta, new org.netbeans.lib.awtextra.AbsoluteConstraints(855, 11, 154, 23));
+        txtPersonaAutoriza = new JTextField();
+        txtDescripcion = new JTextField();
+        dtpFechaAlta = new JXDatePicker(new Date());
+        cmbAlmacenSalida = new JComboBox();
 
-        lblAlmacen.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblAlmacen.setText(bundle.getString("CONTAC.FORM.ORDENENTRADA.ALMACEN")); // NOI18N
-        pnlOrdenEntrada.add(lblAlmacen, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 12, 80, 20));
+        //Create Panel Header Component
+        JPanel pnlHeaderComp = new JPanel(new XYLayout());
+        pnlHeaderComp.add(lblNoSalida, new XYConstraints(5, 5, 140, 23));
+        pnlHeaderComp.add(txtNoSalida, new XYConstraints(150, 5, 120, 23));
+        pnlHeaderComp.add(lblAlmacen, new XYConstraints(275, 5, 90, 23));
+        pnlHeaderComp.add(cmbAlmacenSalida, new XYConstraints(370, 5, 200, 23));
+        pnlHeaderComp.add(lblFechaAlta, new XYConstraints(575, 5, 90, 23));
+        pnlHeaderComp.add(dtpFechaAlta, new XYConstraints(670, 5, 120, 23));
+        pnlHeaderComp.add(lblPersonaAutoriza, new XYConstraints(5, 33, 140, 23));
+        pnlHeaderComp.add(txtPersonaAutoriza, new XYConstraints(150, 33, 270, 23));
+        pnlHeaderComp.add(lblDescripcion, new XYConstraints(425, 33, 90, 23));
+        pnlHeaderComp.add(txtDescripcion, new XYConstraints(520, 33, 270, 23));
 
-        cmbAlmacenSalida.setModel(new AlmacenComboBoxModel(controller.getAlmacenes()));
-        pnlOrdenEntrada.add(cmbAlmacenSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 11, 399, 23));
+        //***************************************************************************************
+        //Init Articulos Table Panel
+        //***************************************************************************************
+        tblArticulos = new org.jdesktop.swingx.JXTable();
+        JScrollPane spArticulos = new JScrollPane();
+        spArticulos.getViewport().add(tblArticulos);
 
-        lblDescripcion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblDescripcion.setText(bundle.getString("CONTAC.FORM.ORDENENTRADA.DESCRIPCION")); // NOI18N
-        pnlOrdenEntrada.add(lblDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, 80, 20));
+        JPanel pnlArticulos = new JPanel(new BorderLayout());
+        pnlArticulos.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        pnlArticulos.add(spArticulos, BorderLayout.CENTER);
 
-        txtPersonaAutoriza.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtPersonaAutoriza.setToolTipText("");
-        txtPersonaAutoriza.setMinimumSize(new java.awt.Dimension(6, 25));
-        txtPersonaAutoriza.setPreferredSize(new java.awt.Dimension(59, 30));
-        pnlOrdenEntrada.add(txtPersonaAutoriza, new org.netbeans.lib.awtextra.AbsoluteConstraints(117, 40, 360, 23));
+        //***************************************************************************************
+        //Init Add Articulo Actions panel
+        //***************************************************************************************
+        txtCodigo = new JTextField();
+        txtCodigo.setToolTipText(resourceBundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.CODIGO"));
+        txtCodigo.setPreferredSize(new Dimension(120, 23));
 
-        jScrollPane1.setViewportView(tblArticulos);
+        txtNombre = new JTextField();
+        txtNombre.setToolTipText(resourceBundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.NOMBRE"));
+        txtNombre.setPreferredSize(new Dimension(250, 23));
 
-        pnlOrdenEntrada.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 87, 999, 378));
+        txtCantidad = new JTextField();
+        txtCantidad.setToolTipText(resourceBundle.getString("CONTAC.FORM.ORDENENTRADA.CANTIDAD"));
+        txtCantidad.setPreferredSize(new Dimension(90, 23));
 
-        txtCodigo.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtCodigo.setToolTipText(bundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.CODIGO")); // NOI18N
-        txtCodigo.setMinimumSize(new java.awt.Dimension(6, 25));
-        txtCodigo.setPreferredSize(new java.awt.Dimension(59, 30));
-        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtCodigoKeyPressed(evt);
-            }
-        });
-        pnlOrdenEntrada.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 471, 145, 23));
-
-        txtNombre.setEditable(false);
-        txtNombre.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtNombre.setToolTipText(bundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.NOMBRE")); // NOI18N
-        txtNombre.setMinimumSize(new java.awt.Dimension(6, 25));
-        txtNombre.setPreferredSize(new java.awt.Dimension(59, 30));
-        pnlOrdenEntrada.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 471, 365, 23));
-
-        btnBuscarProducto.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/folder_find.png")));
-        btnBuscarProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarProductoActionPerformed(evt);
-            }
-        });
-        pnlOrdenEntrada.add(btnBuscarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(161, 471, 29, 23));
-
+        txtCostoUND = new JTextField();
+        txtCostoUND.setToolTipText(resourceBundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.COSTOUND"));
+        txtCostoUND.setPreferredSize(new Dimension(90, 23));
         txtCostoUND.setEditable(false);
-        txtCostoUND.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtCostoUND.setToolTipText(bundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.COSTOPROM")); // NOI18N
-        txtCostoUND.setMinimumSize(new java.awt.Dimension(6, 25));
-        txtCostoUND.setPreferredSize(new java.awt.Dimension(59, 30));
-        pnlOrdenEntrada.add(txtCostoUND, new org.netbeans.lib.awtextra.AbsoluteConstraints(691, 471, 121, 23));
 
-        txtCantidad.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtCantidad.setToolTipText(bundle.getString("CONTAC.FORM.ORDENENTRADA.CANTIDAD")); // NOI18N
-        txtCantidad.setMinimumSize(new java.awt.Dimension(6, 25));
-        txtCantidad.setPreferredSize(new java.awt.Dimension(59, 30));
-        txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtCantidadKeyPressed(evt);
-            }
-        });
-        pnlOrdenEntrada.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(567, 471, 118, 23));
-        pnlOrdenEntrada.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 79, 1310, -1));
+        btnBuscarProducto = new JButton(new ImageIcon(getClass().getResource("/contac/resources/icons/folder_find.png")));
+        btnBuscarProducto.setPreferredSize(new Dimension(30, 23));
 
-        btnAceptar.setText(bundle.getString("CONTAC.FORM.BTNACEPTAR")); // NOI18N
-        btnAceptar.setActionCommand(bundle.getString("CONTAC.FORM.BTNACEPTAR")); // NOI18N
-        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptarActionPerformed(evt);
-            }
-        });
-        pnlOrdenEntrada.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 520, 80, -1));
+        JPanel pnlAddProducto = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        pnlAddProducto.add(txtCodigo);
+        pnlAddProducto.add(btnBuscarProducto);
+        pnlAddProducto.add(txtNombre);
+        pnlAddProducto.add(txtCantidad);
+        pnlAddProducto.add(txtCostoUND);
 
-        btnCancelar.setText(bundle.getString("CONTAC.FORM.BTNCANCELAR")); // NOI18N
-        btnCancelar.setActionCommand("");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-        pnlOrdenEntrada.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 520, 80, -1));
+        //Adding to Main Panel
+        JPanel pnlMainOrder = new JPanel(new BorderLayout());
+        pnlMainOrder.add(pnlHeaderComp, BorderLayout.NORTH);
+        pnlMainOrder.add(pnlArticulos, BorderLayout.CENTER);
+        pnlMainOrder.add(pnlAddProducto, BorderLayout.SOUTH);
 
-        lblNoSalida.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblNoSalida.setText(bundle.getString("CONTAC.FORM.ORDENSALIDA.NOSALIDA")); // NOI18N
-        pnlOrdenEntrada.add(lblNoSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 12, 97, 20));
+        this.add(pnlMainOrder, BorderLayout.CENTER);
 
-        txtDescripcion.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtDescripcion.setToolTipText("");
-        txtDescripcion.setMinimumSize(new java.awt.Dimension(6, 25));
-        txtDescripcion.setPreferredSize(new java.awt.Dimension(59, 30));
-        pnlOrdenEntrada.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(569, 40, 440, 23));
+        //***************************************************************************************
+        //Init Actions panel
+        //**************************************************************************************
+        btnAceptar = new javax.swing.JButton(resourceBundle.getString("CONTAC.FORM.BTNACEPTAR"));
+        btnAceptar.setPreferredSize(new Dimension(90, 23));
 
-        add(pnlOrdenEntrada, java.awt.BorderLayout.CENTER);
-    }// </editor-fold>//GEN-END:initComponents
+        btnCancelar = new javax.swing.JButton(resourceBundle.getString("CONTAC.FORM.BTNCANCELAR"));
+        btnCancelar.setPreferredSize(new Dimension(90, 23));
+
+        JPanel pnlAction = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        pnlAction.setBorder(new EtchedBorder());
+        pnlAction.add(btnAceptar);
+        pnlAction.add(btnCancelar);
+
+        this.add(pnlAction, BorderLayout.SOUTH);
+
+    }
 
     private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
 
@@ -513,7 +528,6 @@ public class pnlOrdenSalidaInventario extends GenericPanel {
         }
     }//GEN-LAST:event_txtCantidadKeyPressed
 
-
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         try {
 
@@ -551,6 +565,9 @@ public class pnlOrdenSalidaInventario extends GenericPanel {
                 JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.MODIFICACION.EXITOSO"),
                         messageBundle.getString("CONTAC.FORM.MSG.MODIFICACION.EXITOSO"));
             }
+
+            //Init values
+            initValues();
 
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
