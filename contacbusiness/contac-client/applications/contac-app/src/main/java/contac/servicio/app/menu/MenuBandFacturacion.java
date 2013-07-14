@@ -81,10 +81,11 @@ public class MenuBandFacturacion extends MenuBand {
         JCommandButton mnuRegistroProformas = new JCommandButton(LabelMessage.getInstance().getLabel("CONTAC.SUBMENU.FACTURACION.PROFORMAS"),
                 ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/icons/proforma.png"), new Dimension(32, 32)));
 
+
         mnuRegistroProformas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                style.addPanel("FacturaClientes", "contac.facturacion.app.pnlFacturaCliente");
+                style.addPanel("FacturaProforma", "contac.facturacion.app.pnlFacturaProforma");
             }
         });
         
