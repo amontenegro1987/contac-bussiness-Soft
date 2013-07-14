@@ -147,6 +147,7 @@ public class pnlRegistroFacturas extends GenericPanel {
         separatorTwo = new javax.swing.JToolBar.Separator();
         btnAnular = new javax.swing.JButton();
         separatorThree = new javax.swing.JToolBar.Separator();
+        btnEliminar = new javax.swing.JButton();
         btnSeparator = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         dtpFechaDesde = new org.jdesktop.swingx.JXDatePicker();
@@ -221,6 +222,20 @@ public class pnlRegistroFacturas extends GenericPanel {
         });
         tbFacturasClientes.add(btnAnular);
         tbFacturasClientes.add(separatorThree);
+
+        btnEliminar.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/actions/remove.png")));
+        btnEliminar.setToolTipText(bundle.getString("CONTAC.FORM.BTNELIMINAR")); // NOI18N
+        btnEliminar.setFocusable(false);
+        btnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEliminar.setMaximumSize(new java.awt.Dimension(40, 32));
+        btnEliminar.setMinimumSize(new java.awt.Dimension(40, 32));
+        btnEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        tbFacturasClientes.add(btnEliminar);
 
         btnSeparator.setToolTipText("");
         btnSeparator.setEnabled(false);
@@ -353,11 +368,48 @@ public class pnlRegistroFacturas extends GenericPanel {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        try {
+
+            //Confirmation message
+            boolean confirmation = JOptionMessagePane.showConfirmationInfo(null, messageBundle.getString("CONTAC.FORM.MSG.ADVERTENCIA"), MessageFormat.
+                    format(messageBundle.getString("CONTAC.FORM.FACTURACION.ELIMINAR.CONFIRMA"),
+                            new Object[]{facturaSelected.getNoDocumento()}));
+
+            if (confirmation) {
+
+                //Setting factura seleccionada
+                controller.setFactura(facturaSelected);
+
+                //Anular factura
+                controller.eliminarFactura();
+
+                //Show confirmation message
+                JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.CONFIRMACION"),
+                        messageBundle.getString("CONTAC.FORM.MSG.ELIMINACION.EXITOSO"));
+
+                //Realizar busqueda de facturas nuevamente
+                Date fechaDesde = dtpFechaDesde.getDate() != null ? dtpFechaDesde.getDate() : new Date();
+                Date fechaHasta = dtpFechaHasta.getDate() != null ? dtpFechaHasta.getDate() : new Date();
+
+                controller.buscarFacturasClientesPorFechas(fechaDesde, fechaHasta);
+
+                //Actualizar listado de articulos ingresados
+                ((BeanTableModel) tblFacturasClientes.getModel()).fireTableDataChanged();
+            }
+
+        } catch (Exception e) {
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAnular;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnSeparator;
     private org.jdesktop.swingx.JXDatePicker dtpFechaDesde;
     private org.jdesktop.swingx.JXDatePicker dtpFechaHasta;

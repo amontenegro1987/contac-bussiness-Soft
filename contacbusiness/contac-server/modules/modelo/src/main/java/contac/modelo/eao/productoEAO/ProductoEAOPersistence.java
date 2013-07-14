@@ -38,7 +38,7 @@ public class ProductoEAOPersistence extends GenericPersistenceEAO<Producto, Inte
         List<QueryFragment> querySolver = new ArrayList<QueryFragment>();
         //1. Agregando parametro de codigo
         querySolver.add(new QueryFragment(((codigo != null) && (!codigo.equals(""))), "", " p.codigo like :codigo ",
-                "codigo", "%".concat(codigo).concat("%")));
+                "codigo", codigo.concat("%")));
         //2. Agregando parametro de nonbre
         querySolver.add(new QueryFragment(((nombre != null) && (!nombre.equals(""))), "", " p.nombre like :nombre ",
                 "nombre", "%".concat(nombre).concat("%")));

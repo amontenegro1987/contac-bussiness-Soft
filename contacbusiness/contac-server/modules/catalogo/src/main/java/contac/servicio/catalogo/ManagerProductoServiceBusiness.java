@@ -168,6 +168,17 @@ public interface ManagerProductoServiceBusiness extends ManagerProductoServiceBu
      *                          Exception
      * @throws RemoteException, Exception
      */
-    public Producto recodificarProducto(String codigoActual, String codigoNuevo) throws ManagerProductoServiceBusinessException, RemoteException;
+    public Producto recodificarProducto(String codigoActual, String codigoNuevo) throws ManagerProductoServiceBusinessException,
+            RemoteException;
+
+    /**
+     * Eliminar Producto verificando si no tiene movimientos de inventario
+     *
+     * @param idProducto, Codigo Identificador de Producto
+     * @throws ManagerProductoServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public void eliminarProducto(Integer idProducto) throws ManagerProductoServiceBusinessException, RemoteException;
 
 }

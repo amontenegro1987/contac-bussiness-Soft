@@ -239,7 +239,7 @@ public class ProductoModificacion implements Serializable {
      * <!-- end-user-doc -->
      * PROPERTY NAME: productos
      */
-    private Set<ProductoModificacion> productos;
+    private Set<ProductoCompuestoMod> productosCompuestos;
 
     /**
      * <!-- begin-user-doc -->
@@ -277,6 +277,7 @@ public class ProductoModificacion implements Serializable {
      * @return Integer
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "N_ID")
     public Integer getId() {
         return id;
@@ -874,21 +875,23 @@ public class ProductoModificacion implements Serializable {
      *
      * @return Set<Producto>
      */
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "INV_PRODUCTOMOD_COMPUESTO",
-            joinColumns = {@JoinColumn(name = "N_ID_PRODUCTOMOD", referencedColumnName = "N_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "N_ID_PRODUCTOMOD_COMPUESTO")})
-    public Set<ProductoModificacion> getProductos() {
-        return productos;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name="INV_PROD_INV_PROD_COMP",
+            joinColumns = {@JoinColumn(name = "N_ID_PRODUCTO", referencedColumnName = "N_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "N_ID_PRODUCTO_COMP", referencedColumnName = "N_ID")}
+    )
+    public Set<ProductoCompuestoMod> getProductosCompuestos() {
+        return productosCompuestos;
     }
 
     /**
      * Setear productos compuestos
      *
-     * @param productos, Set<ProductoModificacion>
+     * @param productosCompuestos, Set<ProductoCompuestoMod>
      */
-    public void setProductos(Set<ProductoModificacion> productos) {
-        this.productos = productos;
+    public void setProductosCompuestos(Set<ProductoCompuestoMod> productosCompuestos) {
+        this.productosCompuestos = productosCompuestos;
     }
 
     // ==================================<METODOS DE AUDITORIA>========================================================

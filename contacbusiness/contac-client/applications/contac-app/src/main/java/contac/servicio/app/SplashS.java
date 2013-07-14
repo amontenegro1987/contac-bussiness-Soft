@@ -9,6 +9,7 @@ import contac.commons.form.panel.Bloqueador;
 import contac.logger.ContacApacheLog4j;
 import contac.servicio.app.login.dlg_Login;
 import contac.servicio.app.mdi.MDIForm;
+import contac.servicio.autorizacion.ContacPolicy;
 import org.apache.log4j.Logger;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.*;
@@ -16,6 +17,7 @@ import org.pushingpixels.substance.api.skin.*;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.security.Policy;
 
 public class SplashS extends JWindow {
 
@@ -106,7 +108,6 @@ public class SplashS extends JWindow {
         } catch (IOException ex) {
             logger.error(ex.getMessage(), ex);
         }
-
     }
 
     public void Carga() {
@@ -145,30 +146,23 @@ public class SplashS extends JWindow {
         }
     }
 
+    //*****************************************
+    //Creando servicio de seguridad
+    //*****************************************
+
+    private static void createSecurityPolicy() {
+
+        //Create a Policy
+        ContacPolicy policy = new ContacPolicy();
+
+        //Setting policy
+        Policy.setPolicy(policy);
+    }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-
-        try {
-
-            //Configurar servicio de Logger
-            new ContacApacheLog4j();
-
-            //Setting look and feel
-            //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-
-        } catch (ClassNotFoundException ex) {
-            logger.error(ex.getMessage(), ex);
-        } catch (InstantiationException ex) {
-            logger.error(ex.getMessage(), ex);
-        } catch (IllegalAccessException ex) {
-            logger.error(ex.getMessage(), ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            logger.error(ex.getMessage(), ex);
-        } catch (Throwable t) {
-            logger.error(t.getMessage(), t);
-        }
 
         //Start runnable thread method
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -176,11 +170,30 @@ public class SplashS extends JWindow {
             @Override
             public void run() {
 
+                try {
+                    //Configurar servicio de Logger
+                    new ContacApacheLog4j();
+
+                    //Create Security Policy
+                    createSecurityPolicy();
+
+                } catch (ClassNotFoundException ex) {
+                    logger.error(ex.getMessage(), ex);
+                } catch (InstantiationException ex) {
+                    logger.error(ex.getMessage(), ex);
+                } catch (IllegalAccessException ex) {
+                    logger.error(ex.getMessage(), ex);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    logger.error(ex.getMessage(), ex);
+                } catch (Throwable t) {
+                    logger.error(t.getMessage(), t);
+                }
+
                 //******************************************
                 //Configuring look and feel decoration
                 //******************************************
-                JFrame.setDefaultLookAndFeelDecorated(true);
-                JDialog.setDefaultLookAndFeelDecorated(true);
+                JFrame.setDefaultLookAndFeelDecorated(false);
+                JDialog.setDefaultLookAndFeelDecorated(false);
 
                 try {
                     UIManager.setLookAndFeel(new SubstanceBusinessBlueSteelLookAndFeel());
@@ -188,12 +201,11 @@ public class SplashS extends JWindow {
                     System.err.println("Cannot set Look & Feel:" + e);
                 }
 
-
+                //Show Splash
                 SplashS s = new SplashS();
-                s.showSplash(2000);
+                s.showSplash(500);
             }
         });
-
     }
 
     // Variables declaration - do not modify

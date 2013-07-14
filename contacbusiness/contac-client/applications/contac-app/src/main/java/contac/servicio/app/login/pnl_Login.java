@@ -201,7 +201,7 @@ public class pnl_Login extends JPanel {
         setPreferredSize(new java.awt.Dimension(466, 313));
         setLayout(null);
 
-        lblUsuario.setText("Nombre de Usuario");
+        lblUsuario.setText("Usuario");
         add(lblUsuario);
         lblUsuario.setBounds(20, 140, 100, 20);
 

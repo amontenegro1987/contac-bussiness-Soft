@@ -6,6 +6,7 @@
 package contac.modelo.eao.articuloEntradaEAO;
 
 import contac.modelo.eao.genericEAO.GenericPersistenceEAO;
+import contac.modelo.eao.genericEAO.GenericPersistenceEAOException;
 import contac.modelo.entity.ArticuloEntrada;
 
 /**
@@ -15,4 +16,14 @@ import contac.modelo.entity.ArticuloEntrada;
  * Time: 11:53 PM
  */
 public class ArticuloEntradaEAOPersistence extends GenericPersistenceEAO<ArticuloEntrada, Integer> implements ArticuloEntradaEAO {
+
+    @Override
+    public void recodificarProducto(Integer idProducto, String codigoNuevo) throws GenericPersistenceEAOException {
+
+        //Init service
+        initService();
+
+        em.createQuery("update ArticuloEntrada a set a.codigo = :codigoNuevo where a.producto.id = :idProducto").
+                setParameter("codigoNuevo", codigoNuevo).setParameter("idProducto", idProducto).executeUpdate();
+    }
 }

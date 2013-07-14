@@ -113,18 +113,26 @@ public class pnlAdmonProducto extends GenericPanel {
         if (!controller.is_edit()) {
             //Cambiar label del boton registrar
             btnAceptar.setText(messageBundle.getString("CONTAC.FORM.BTNACEPTAR"));
-            
+
             //Setting codigo producto not editable
             txtCodigo.setEditable(true);
+
+            //Habilitar opciones
+            btnEliminar.setEnabled(false);
+            btnRecodificar.setEnabled(false);
         }
 
         //Evaluar edit datos para modificar
         if (controller.is_edit()) {
             //Cambiar label del boton modificar
             btnAceptar.setText(messageBundle.getString("CONTAC.FORM.BTNMODIFICAR"));
-            
+
             //Setting codigo producto editable
             txtCodigo.setEditable(false);
+
+            //Habilitar opciones
+            btnEliminar.setEnabled(true);
+            btnRecodificar.setEnabled(true);
         }
 
         //Codigo
@@ -598,7 +606,6 @@ public class pnlAdmonProducto extends GenericPanel {
                 }
             }
         });
-
     }
 
     /**
@@ -1634,8 +1641,8 @@ public class pnlAdmonProducto extends GenericPanel {
         //Open clasificador JDialog for selecting clasificador
         Clasificador clasificador = null;
         if (!txtCodigoCBS.getText().equals("") && !txtDescripcionCBS.getText().equals("") && controller.getProducto() != null)
-            clasificador = controller.getProducto().getClasificador();    
-        
+            clasificador = controller.getProducto().getClasificador();
+
         controller.setClasificador(new ClasificadorPnl(mdi, clasificador, true).getClasificadorSelected());
 
         //********************************************************
@@ -1744,7 +1751,6 @@ public class pnlAdmonProducto extends GenericPanel {
                     e.getMessage());
         }
     }//GEN-LAST:event_txtCodigoKeyPressed
-
 
     private void txtCodigoCompuestoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoCompuestoKeyPressed
 
@@ -1860,11 +1866,50 @@ public class pnlAdmonProducto extends GenericPanel {
     }//GEN-LAST:event_tblProductosMouseClicked
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        try {
+
+            //Eliminar producto
+            controller.eliminarProducto();
+
+            //Show confirmation message
+            JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.ELIMINA.EXITOSO"),
+                    messageBundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.ELIMINA.EXITOSO"));
+
+            //Ejecutar cancelar action performed
+            btnCancelarActionPerformed(evt);
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            JOptionErrorPane.showMessageError(null, messageBundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.ERROR.REGISTRO"),
+                    e.getMessage());
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRecodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecodificarActionPerformed
-        // TODO add your handling code here:
+
+        try {
+
+            //Solicitando nuevo codigo para recodificar
+            String codigo = JOptionPane.showInputDialog(this, messageBundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.RECODIFICA"));
+
+            //--<Buscar producto>
+            if (codigo != null && !codigo.trim().equals("")) {
+                controller.recodificarProducto(codigo);
+
+                //Show confirmation message
+                JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.RECODIFICA.EXITOSO"),
+                        messageBundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.RECODIFICA.EXITOSO"));
+
+                //Ejecutar cancelar action performed
+                btnCancelarActionPerformed(evt);
+            }
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            JOptionErrorPane.showMessageError(null, messageBundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.ERROR.REGISTRO"),
+                    e.getMessage());
+        }
+
     }//GEN-LAST:event_btnRecodificarActionPerformed
 
     //--<Carga datos producto compuesto>

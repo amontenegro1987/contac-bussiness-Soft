@@ -6,6 +6,7 @@
 package contac.modelo.eao.articuloProformaEAO;
 
 import contac.modelo.eao.genericEAO.GenericEAO;
+import contac.modelo.eao.genericEAO.GenericPersistenceEAOException;
 import contac.modelo.entity.ArticuloProforma;
 
 /**
@@ -15,4 +16,14 @@ import contac.modelo.entity.ArticuloProforma;
  * Time: 11:23 AM
  */
 public interface ArticuloProformaEAO extends GenericEAO<ArticuloProforma, Integer> {
+
+    /**
+     * Recodificar codigo de Articulo Proforma
+     *
+     * @param idProducto,  Identificador de producto
+     * @param codigoNuevo, Codigo nuevo a recodificar
+     * @throws GenericPersistenceEAOException,
+     *          Exception
+     */
+    public void recodificarProducto(Integer idProducto, String codigoNuevo) throws GenericPersistenceEAOException;
 }

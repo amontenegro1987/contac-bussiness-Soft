@@ -239,8 +239,11 @@ public class OrdenEntradaController extends InventarioBaseController {
             OrdenEntrada ordenEntrada = mgrInventario.crearOrdenEntrada(getTipoEntrada().getValue(), getFechaAlta(),
                     null, getAlmacen().getId(), getPersonaEntrega(), getDescripcion(), getArticulos());
 
-            //Guardar orden de entrada
-            setOrdenEntrada(ordenEntrada);
+            //Setting orden de entrada
+            this.ordenEntrada = ordenEntrada;
+
+            //Init modificacion
+            initModificacion();
 
         } catch (ManagerInventarioServiceBusinessException e) {
             logger.error(e.getMessage(), e);
@@ -266,8 +269,11 @@ public class OrdenEntradaController extends InventarioBaseController {
             OrdenEntrada ordenEntrada = mgrInventario.modificarOrdenEntrada(getOrdenEntrada().getId(), TiposEntrada.ENTRADA_ORDINARIA.getValue(),
                     getFechaAlta(), null, getPersonaEntrega(), getDescripcion(), getArticulos());
 
-            //Guardar orden de entrada
-            setOrdenEntrada(ordenEntrada);
+            //Setting orden de entrada
+            this.ordenEntrada = ordenEntrada;
+
+            //Init Modificacion
+            initModificacion();
 
         } catch (ManagerInventarioServiceBusinessException e) {
             logger.error(e.getMessage(), e);
