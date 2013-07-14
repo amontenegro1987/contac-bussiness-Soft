@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svnroot/contacbusiness/!svn/ver/579/trunk/contacbusiness/contac-client/applications/administracion-app/src/main/java/contac/administracion/controller
+END
+AdministraAlmacenController.java
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/svnroot/contacbusiness/!svn/ver/326/trunk/contacbusiness/contac-client/applications/administracion-app/src/main/java/contac/administracion/controller/AdministraAlmacenController.java
+END
+AdministracionBaseController.java
+K 25
+svn:wc:ra_dav:version-url
+V 184
+/svnroot/contacbusiness/!svn/ver/448/trunk/contacbusiness/contac-client/applications/administracion-app/src/main/java/contac/administracion/controller/AdministracionBaseController.java
+END
+BancoController.java
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/svnroot/contacbusiness/!svn/ver/440/trunk/contacbusiness/contac-client/applications/administracion-app/src/main/java/contac/administracion/controller/BancoController.java
+END
+AdministraUsuarioController.java
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/svnroot/contacbusiness/!svn/ver/559/trunk/contacbusiness/contac-client/applications/administracion-app/src/main/java/contac/administracion/controller/AdministraUsuarioController.java
+END
+AdministraCompaniaController.java
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/svnroot/contacbusiness/!svn/ver/40/trunk/contacbusiness/contac-client/applications/administracion-app/src/main/java/contac/administracion/controller/AdministraCompaniaController.java
+END
+MonedaController.java
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svnroot/contacbusiness/!svn/ver/408/trunk/contacbusiness/contac-client/applications/administracion-app/src/main/java/contac/administracion/controller/MonedaController.java
+END
+TasasCambioController.java
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svnroot/contacbusiness/!svn/ver/579/trunk/contacbusiness/contac-client/applications/administracion-app/src/main/java/contac/administracion/controller/TasasCambioController.java
+END
+ConfiguracionController.java
+K 25
+svn:wc:ra_dav:version-url
+V 179
+/svnroot/contacbusiness/!svn/ver/255/trunk/contacbusiness/contac-client/applications/administracion-app/src/main/java/contac/administracion/controller/ConfiguracionController.java
+END

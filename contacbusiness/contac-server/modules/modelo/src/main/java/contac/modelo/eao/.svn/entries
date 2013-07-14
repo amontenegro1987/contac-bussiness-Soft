@@ -1,0 +1,154 @@
+10
+
+dir
+616
+https://contacbusiness.svn.sourceforge.net/svnroot/contacbusiness/trunk/contacbusiness/contac-server/modules/modelo/src/main/java/contac/modelo/eao
+https://contacbusiness.svn.sourceforge.net/svnroot/contacbusiness
+
+
+
+2012-11-22T07:00:42.991575Z
+609
+emortiz
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+d8ca482e-f1b3-4d2b-806d-eaf5dee0f4a2
+
+actividadEconomicaEAO
+dir
+
+agenteVentasEAO
+dir
+
+almacenEAO
+dir
+
+aperturaCajaEAO
+dir
+
+articuloEntradaEAO
+dir
+
+articuloFacturaEAO
+dir
+
+articuloLevantamientoFisicoEAO
+dir
+
+articuloProformaEAO
+dir
+
+articuloSalidaEAO
+dir
+
+articuloTrasladoEAO
+dir
+
+bancoEAO
+dir
+
+cajaEAO
+dir
+
+cajeroEAO
+dir
+
+clasificadorEAO
+dir
+
+clienteEAO
+dir
+
+companiaEAO
+dir
+
+denominacionBilletesEAO
+dir
+
+denominacionEAO
+dir
+
+departamentoEAO
+dir
+
+estadoMovimientoEAO
+dir
+
+estadoProductoEAO
+dir
+
+facturaEAO
+dir
+
+genericEAO
+dir
+
+lineaEAO
+dir
+
+monedaEAO
+dir
+
+movimientoInventarioEAO
+dir
+
+ordenEntradaEAO
+dir
+
+ordenLevantamientoFisicoEAO
+dir
+
+ordenSalidaEAO
+dir
+
+ordenTrasladoEAO
+dir
+
+pagoEAO
+dir
+
+paisEAO
+dir
+
+productoEAO
+dir
+
+productoModificacionEAO
+dir
+
+proformaEAO
+dir
+
+proveedorEAO
+dir
+
+rolEAO
+dir
+
+tarjetaCredito
+dir
+
+tasaCambioEAO
+dir
+
+tipoPagoEAO
+dir
+
+unidadMedidaEAO
+dir
+
+usuarioEAO
+dir
+

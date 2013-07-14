@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>applications</artifactId>
+        <groupId>contac</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <groupId>contac</groupId>
+    <artifactId>facturacion-app</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>CONTAC PROJECT - FACTURACION-APP</name>
+
+    <dependencies>
+        <!-- CONTAC DEPENDENCIES -->
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>modelo</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>catalogo</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>administracion</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>proveedores</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>seguridad</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>servicio</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>contac-commons-util</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>contac-commons-app</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>contac-commons-components</artifactId>
+        </dependency>
+
+        <!-- MYDOGGY LIBRARIES -->
+        <dependency>
+            <groupId>net.sourceforge.mydoggy</groupId>
+            <artifactId>mydoggy-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sourceforge.mydoggy</groupId>
+            <artifactId>mydoggy-itest</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sourceforge.mydoggy</groupId>
+            <artifactId>mydoggy-plaf</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sourceforge.mydoggy</groupId>
+            <artifactId>mydoggy-res</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sourceforge.mydoggy</groupId>
+            <artifactId>mydoggy-examples</artifactId>
+        </dependency>
+
+        <!-- JCALENDAR -->
+        <dependency>
+            <groupId>com.toedter</groupId>
+            <artifactId>jcalendar</artifactId>
+        </dependency>
+
+        <!-- JCOMMON -->
+        <dependency>
+            <groupId>jfree</groupId>
+            <artifactId>jcommon</artifactId>
+        </dependency>
+
+        <!-- SWINGX -->
+        <dependency>
+            <groupId>org.swinglabs</groupId>
+            <artifactId>swingx</artifactId>
+        </dependency>
+
+        <!-- FLAMINGO -->
+        <dependency>
+            <groupId>net.java.dev.flamingo</groupId>
+            <artifactId>flamingo</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.java.dev.flamingo</groupId>
+            <artifactId>flamingo-tst</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.l2fprod</groupId>
+            <artifactId>l2fprod-common-all</artifactId>
+        </dependency>
+
+        <!-- TABLE LAYOUT -->
+        <dependency>
+            <groupId>tablelayout</groupId>
+            <artifactId>TableLayout</artifactId>
+        </dependency>
+
+        <!-- ABSOLUTE LAYOUT NETBEANS -->
+        <dependency>
+            <groupId>netbeans</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>TaskDialog</groupId>
+            <artifactId>TaskDialog</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>miglayout</groupId>
+            <artifactId>miglayout-3.5.5-swing</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>jgoodies</groupId>
+            <artifactId>jgoodies-validation</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>jgoodies</groupId>
+            <artifactId>jgoodies-common</artifactId>
+        </dependency>
+
+        <!-- LOGGER LOG4J -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.swinglabs</groupId>
+            <artifactId>swing-layout</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

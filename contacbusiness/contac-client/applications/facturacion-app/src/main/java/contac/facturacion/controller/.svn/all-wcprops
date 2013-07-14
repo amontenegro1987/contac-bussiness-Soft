@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svnroot/contacbusiness/!svn/ver/603/trunk/contacbusiness/contac-client/applications/facturacion-app/src/main/java/contac/facturacion/controller
+END
+AgenteVentasController.java
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svnroot/contacbusiness/!svn/ver/587/trunk/contacbusiness/contac-client/applications/facturacion-app/src/main/java/contac/facturacion/controller/AgenteVentasController.java
+END
+FacturaClienteController.java
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svnroot/contacbusiness/!svn/ver/603/trunk/contacbusiness/contac-client/applications/facturacion-app/src/main/java/contac/facturacion/controller/FacturaClienteController.java
+END
+FacturacionBaseController.java
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svnroot/contacbusiness/!svn/ver/589/trunk/contacbusiness/contac-client/applications/facturacion-app/src/main/java/contac/facturacion/controller/FacturacionBaseController.java
+END

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+    <parent>
+        <artifactId>applications</artifactId>
+        <groupId>contac</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>contac</groupId>
+    <artifactId>contac-app</artifactId>
+    <name>CONTAC PROJECT - CONTAC-APP</name>
+    <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+
+        <!-- CONTAC DEPENDENCIES -->
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>administracion-app</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>proveedores-app</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>inventarios-app</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>clientes-app</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>facturacion-app</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>modelo</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>catalogo</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>administracion</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>proveedores</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>seguridad</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>inventario</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>servicio</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>contac-commons-util</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>contac-commons-app</artifactId>
+        </dependency>
+
+        <!-- MYDOGGY LIBRARIES -->
+        <dependency>
+            <groupId>net.sourceforge.mydoggy</groupId>
+            <artifactId>mydoggy-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sourceforge.mydoggy</groupId>
+            <artifactId>mydoggy-itest</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sourceforge.mydoggy</groupId>
+            <artifactId>mydoggy-plaf</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sourceforge.mydoggy</groupId>
+            <artifactId>mydoggy-res</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sourceforge.mydoggy</groupId>
+            <artifactId>mydoggy-examples</artifactId>
+        </dependency>
+
+        <!-- JCALENDAR -->
+        <dependency>
+            <groupId>com.toedter</groupId>
+            <artifactId>jcalendar</artifactId>
+        </dependency>
+
+        <!-- JCOMMON -->
+        <dependency>
+            <groupId>jfree</groupId>
+            <artifactId>jcommon</artifactId>
+        </dependency>
+
+        <!-- SWINGX -->
+        <dependency>
+            <groupId>org.swinglabs</groupId>
+            <artifactId>swingx</artifactId>
+        </dependency>
+
+        <!-- SWING DEPENDENCIES -->
+        <dependency>
+            <groupId>org.java.net.substance</groupId>
+            <artifactId>substance</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.pushing-pixels</groupId>
+            <artifactId>trident</artifactId>
+        </dependency>
+
+        <!-- FLAMINGO -->
+        <dependency>
+            <groupId>net.java.dev.flamingo</groupId>
+            <artifactId>flamingo</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.java.dev.flamingo</groupId>
+            <artifactId>flamingo-tst</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.l2fprod</groupId>
+            <artifactId>l2fprod-common-all</artifactId>
+        </dependency>
+
+        <!-- TABLE LAYOUT -->
+        <dependency>
+            <groupId>tablelayout</groupId>
+            <artifactId>TableLayout</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>TaskDialog</groupId>
+            <artifactId>TaskDialog</artifactId>
+        </dependency>
+
+        <!-- LOGGER LOG4J -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptor>assembly.xml</descriptor>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>contac.servicio.app.SplashS</mainClass>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib</classpathPrefix>
+                        </manifest>
+
+                        <manifestSections>
+                            <manifestSection>
+                                <name>Implementation-Service</name>
+                                <manifestEntries>
+                                    <Implementation-Tittle>${project.name}</Implementation-Tittle>
+                                    <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+                                    <Implementation-Version>${project.version}</Implementation-Version>
+                                </manifestEntries>
+                            </manifestSection>
+                        </manifestSections>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- ================================================= -->
+    <!-- PROFILES                                          -->
+    <!-- ================================================= -->
+    <profiles>
+
+        <!-- Run application client -->
+        <!-- Exec command in mvn console : mvn exec:exec -Drun-appclient -Dexec.executable=java -->
+        <profile>
+            <id>run-appclient</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>cliente-version</id>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <debug>true</debug>
+                                    <executable>${java.home}/bin/java</executable>
+                                    <arguments>
+                                        <argument>-classpath</argument>
+                                        <classpath/>
+                                        <argument>contac.servicio.app.SplashS</argument>
+                                        <argument>-V</argument>
+                                        <argument>-v</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+    </profiles>
+
+</project>

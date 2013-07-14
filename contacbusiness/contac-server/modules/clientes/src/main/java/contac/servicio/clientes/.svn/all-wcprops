@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svnroot/contacbusiness/!svn/ver/383/trunk/contacbusiness/contac-server/modules/clientes/src/main/java/contac/servicio/clientes
+END
+ManagerClientesServiceBusinessImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 167
+/svnroot/contacbusiness/!svn/ver/383/trunk/contacbusiness/contac-server/modules/clientes/src/main/java/contac/servicio/clientes/ManagerClientesServiceBusinessImpl.java
+END
+ClienteNoEncontradoException.java
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svnroot/contacbusiness/!svn/ver/346/trunk/contacbusiness/contac-server/modules/clientes/src/main/java/contac/servicio/clientes/ClienteNoEncontradoException.java
+END
+ManagerClientesServiceBusinessException.java
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svnroot/contacbusiness/!svn/ver/272/trunk/contacbusiness/contac-server/modules/clientes/src/main/java/contac/servicio/clientes/ManagerClientesServiceBusinessException.java
+END
+ManagerClientesServiceBusiness.java
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svnroot/contacbusiness/!svn/ver/383/trunk/contacbusiness/contac-server/modules/clientes/src/main/java/contac/servicio/clientes/ManagerClientesServiceBusiness.java
+END
+ManagerClientesServiceRemote.java
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svnroot/contacbusiness/!svn/ver/272/trunk/contacbusiness/contac-server/modules/clientes/src/main/java/contac/servicio/clientes/ManagerClientesServiceRemote.java
+END

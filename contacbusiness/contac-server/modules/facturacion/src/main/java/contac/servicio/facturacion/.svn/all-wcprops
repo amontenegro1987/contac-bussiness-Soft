@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svnroot/contacbusiness/!svn/ver/614/trunk/contacbusiness/contac-server/modules/facturacion/src/main/java/contac/servicio/facturacion
+END
+ManagerFacturacionServiceRemote.java
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svnroot/contacbusiness/!svn/ver/422/trunk/contacbusiness/contac-server/modules/facturacion/src/main/java/contac/servicio/facturacion/ManagerFacturacionServiceRemote.java
+END
+ManagerFacturacionServiceBusinessException.java
+K 25
+svn:wc:ra_dav:version-url
+V 181
+/svnroot/contacbusiness/!svn/ver/422/trunk/contacbusiness/contac-server/modules/facturacion/src/main/java/contac/servicio/facturacion/ManagerFacturacionServiceBusinessException.java
+END
+ManagerFacturacionServiceBusiness.java
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svnroot/contacbusiness/!svn/ver/600/trunk/contacbusiness/contac-server/modules/facturacion/src/main/java/contac/servicio/facturacion/ManagerFacturacionServiceBusiness.java
+END
+ManagerFacturacionServiceBusinessImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svnroot/contacbusiness/!svn/ver/614/trunk/contacbusiness/contac-server/modules/facturacion/src/main/java/contac/servicio/facturacion/ManagerFacturacionServiceBusinessImpl.java
+END
