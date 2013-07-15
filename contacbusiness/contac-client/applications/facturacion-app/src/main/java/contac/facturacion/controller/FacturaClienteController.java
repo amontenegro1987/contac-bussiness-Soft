@@ -426,6 +426,12 @@ public class FacturaClienteController extends FacturacionBaseController {
         //Iniciar registro de facturas
         setFacturas(new ArrayList<Factura>());
 
+        //Setting almacenes registrados
+        setAlmacenes(buscarAlmacenes());
+
+        //Setting almacen del usuario
+        setAlmacen(buscarAlmacenUsuario());
+
         //Buscar registro de facturas con fecha actual del servidor
         Date fechaFacturacion = buscarFechaFacturacion();
 
