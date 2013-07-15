@@ -56,11 +56,6 @@
             <artifactId>jasperreports-fonts</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>jasperreports</groupId>
-            <artifactId>jasperreports-javaflow</artifactId>
-        </dependency>
-
     </dependencies>
 
 
