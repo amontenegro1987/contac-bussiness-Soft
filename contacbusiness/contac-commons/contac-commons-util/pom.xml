@@ -125,17 +125,12 @@
 
         <dependency>
             <groupId>jasperreports</groupId>
-            <artifactId>jasperreports-applet</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>jasperreports</groupId>
             <artifactId>jasperreports-fonts</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>jasperreports</groupId>
-            <artifactId>jasperreports-javaflow</artifactId>
+            <groupId>jfree</groupId>
+            <artifactId>jcommon</artifactId>
         </dependency>
 
     </dependencies>
