@@ -13,6 +13,7 @@ import contac.servicio.clientes.ManagerClientesServiceBusiness;
 import contac.servicio.facturacion.ManagerFacturacionServiceBusiness;
 import contac.servicio.inventario.ManagerInventarioServiceBusiness;
 import contac.servicio.proveedores.ManagerProveedoresServiceBusiness;
+import contac.servicio.reportes.ManagerGeneradorReporteServiceBusiness;
 import contac.servicio.seguridad.ManagerSeguridadServiceBusiness;
 import org.apache.log4j.Logger;
 
@@ -208,6 +209,23 @@ public abstract class BaseController implements Constantes {
         try {
 
             return ManagerServiceClientApp.getInstance().getManagerServiceFactory().getManagerFacturacionServiceBusiness();
+
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            return null;
+        }
+    }
+
+    /**
+     * Return Manager Reportes Service
+     *
+     * @return ManagerReportesServiceBusiness
+     */
+    public ManagerGeneradorReporteServiceBusiness getMgrReportesService() {
+
+        try {
+
+            return ManagerServiceClientApp.getInstance().getManagerServiceFactory().getManagerReporteServiceBusiness();
 
         } catch (RemoteException e) {
             logger.error(e.getMessage(), e);

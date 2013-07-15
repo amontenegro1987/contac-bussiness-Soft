@@ -74,6 +74,31 @@ public class JRPrintReport {
     }
 
     /**
+     * Fill Report to Print Preview with JRViewer
+     *
+     * @param parentFrame, JFrame parent
+     * @param jasperPrint, JasperPrint
+     * @throws Exception, Exception
+     */
+    public static void printPreviewReport(JFrame parentFrame, JasperPrint jasperPrint) throws Exception {
+
+        final JFrame frmParent = parentFrame;
+        final JasperPrint printReport = jasperPrint;
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    new JRViewerPanel(frmParent, printReport);
+                } catch (Exception e) {
+                    logger.error(e.getMessage(), e);
+                }
+            }
+        });
+
+    }
+
+    /**
      * Print Report to a Selected File
      *
      * @param jrxReportGenerated, JRXReportGenerated
@@ -211,7 +236,7 @@ public class JRPrintReport {
      * @param jrxReportGenerated, JRXReportGenerated
      * @return JasperPrint
      */
-    private static JasperPrint fillReport(JRXReportGenerated jrxReportGenerated) throws Exception {
+    public static JasperPrint fillReport(JRXReportGenerated jrxReportGenerated) throws Exception {
 
         try {
 

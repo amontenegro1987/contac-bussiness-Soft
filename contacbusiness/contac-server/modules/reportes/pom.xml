@@ -40,7 +40,17 @@
             <artifactId>log4j</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+        </dependency>
+
         <!-- JASPERREPORTS -->
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
@@ -48,12 +58,12 @@
 
         <dependency>
             <groupId>jasperreports</groupId>
-            <artifactId>jasperreports-applet</artifactId>
+            <artifactId>jasperreports-fonts</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>jasperreports</groupId>
-            <artifactId>jasperreports-fonts</artifactId>
+            <groupId>jfree</groupId>
+            <artifactId>jcommon</artifactId>
         </dependency>
 
     </dependencies>

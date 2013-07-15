@@ -7,14 +7,24 @@ package contac.servicio.reportes;
 
 import contac.modelo.PersistenceManagementServiceFactory;
 import contac.modelo.PersistenceManagementServiceFactoryException;
+import contac.modelo.entity.Roles;
+import contac.reports.JRPrintReport;
+import contac.reports.JRXReportGenerated;
 import contac.servicio.seguridad.ManagerAutorizacionServiceBusiness;
 import contac.servicio.seguridad.ManagerAutorizacionServiceBusinessException;
 import contac.servicio.seguridad.ManagerSeguridadServiceBusiness;
 import contac.servicio.seguridad.ManagerSeguridadServiceBusinessImpl;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.jdbc.Work;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Map;
 
 /**
  * Contac Business Software. All rights reserved 2012.
@@ -115,4 +125,47 @@ public class ManagerGeneradorReporteServiceBusinessImpl extends UnicastRemoteObj
     }
 
 
+    @Override
+    public JasperPrint generateReport(Map parameters, JasperReport report) throws ManagerGeneradorReporteServiceBusinessException,
+            RemoteException {
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLCONTACUSER.toString());
+
+        try {
+
+            final Map p_parameters = parameters;
+            final JasperReport p_report = report;
+
+            final JasperPrint[] printReport = {null};
+
+            Session session = PersistenceManagementServiceFactory.getEntityManager().unwrap(Session.class);
+            session.doWork(new Work() {
+                @Override
+                public void execute(Connection connection) throws SQLException {
+                    try {
+                        JRXReportGenerated reportGenerated = new JRXReportGenerated(p_report, p_parameters,
+                                connection);
+                        printReport[0] = JRPrintReport.fillReport(reportGenerated);
+                    } catch (Exception e) {
+                        logger.error(e.getMessage(), e);
+                        throw new SQLException(e);
+                    }
+
+                    connection.close();
+                }
+            });
+
+            return printReport[0];
+
+        } catch (PersistenceManagementServiceFactoryException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerGeneradorReporteServiceBusinessException(e.getMessage(), e);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerGeneradorReporteServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
 }

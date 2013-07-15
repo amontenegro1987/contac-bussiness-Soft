@@ -1,11 +1,15 @@
 package contac.modelo;
 
 import contac.config.ContacConfigInitService;
+import org.hibernate.Session;
+import org.hibernate.jdbc.Work;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -129,5 +133,16 @@ public class PersistenceManagementServiceFactory {
      */
     public static void flush() throws PersistenceManagementServiceFactoryException {
         getEntityManager().flush();
+    }
+
+    /**
+     * Return a Connection Object to performed operations
+     * @return Connection
+     * @throws PersistenceManagementServiceFactory, Exception
+     */
+    public static Connection getConnectionObject() throws PersistenceManagementServiceFactoryException {
+        beginTransaction();
+        Connection conn = getEntityManager().unwrap(java.sql.Connection.class);
+        return conn;
     }
 }
