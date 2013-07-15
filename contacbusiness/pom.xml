@@ -535,25 +535,19 @@
             <dependency>
                 <groupId>jasperreports</groupId>
                 <artifactId>jasperreports</artifactId>
-                <version>4.5.0</version>
-            </dependency>
-
-            <dependency>
-                <groupId>jasperreports</groupId>
-                <artifactId>jasperreports-applet</artifactId>
-                <version>4.5.0</version>
+                <version>5.0.4</version>
             </dependency>
 
             <dependency>
                 <groupId>jasperreports</groupId>
                 <artifactId>jasperreports-fonts</artifactId>
-                <version>4.5.0</version>
+                <version>5.0.4</version>
             </dependency>
 
             <dependency>
-                <groupId>jasperreports</groupId>
-                <artifactId>jasperreports-javaflow</artifactId>
-                <version>4.5.0</version>
+                <groupId>jfree</groupId>
+                <artifactId>jcommon</artifactId>
+                <version>1.0.17</version>
             </dependency>
 
             <!-- ========================================= -->
