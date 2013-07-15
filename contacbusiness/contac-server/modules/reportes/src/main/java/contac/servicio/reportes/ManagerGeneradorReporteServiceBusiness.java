@@ -5,6 +5,13 @@
 
 package contac.servicio.reportes;
 
+import contac.reports.JRXReportGenerated;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+
+import java.rmi.RemoteException;
+import java.util.Map;
+
 /**
  * Contac Business Software. All rights reserved 2012.
  * User: emortiz
@@ -13,4 +20,17 @@ package contac.servicio.reportes;
  * Interfaz de acceso al servicio de reportes
  */
 public interface ManagerGeneradorReporteServiceBusiness extends ManagerGeneradorReporteServiceRemote {
+
+    /**
+     * Generate Reports
+     *
+     * @param parameters, Parameters
+     * @param report,     JasperReport
+     * @return JasperPrint
+     * @throws ManagerGeneradorReporteServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public JasperPrint generateReport(Map parameters, JasperReport report) throws ManagerGeneradorReporteServiceBusinessException,
+            RemoteException;
 }

@@ -10,6 +10,7 @@ import contac.modelo.entity.Rol;
 import contac.modelo.entity.Usuario;
 
 import java.rmi.RemoteException;
+import java.sql.Connection;
 import java.util.List;
 import java.util.Set;
 

@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
 import java.util.List;
 import java.util.Set;
 
@@ -129,7 +130,6 @@ public class ManagerSeguridadServiceBusinessImpl extends UnicastRemoteObject imp
         }
     }
 
-
     @Override
     public List<Usuario> buscarUsuarios() throws ManagerSeguridadServiceBusinessException, RemoteException {
 
@@ -175,7 +175,7 @@ public class ManagerSeguridadServiceBusinessImpl extends UnicastRemoteObject imp
     }
 
     @Override
-    public Usuario crearUsuario(String login, String password, Set<Rol> roles, Compania compania, Almacen almacen) 
+    public Usuario crearUsuario(String login, String password, Set<Rol> roles, Compania compania, Almacen almacen)
             throws ManagerSeguridadServiceBusinessException, RemoteException {
 
         logger.debug("Creando usuario con parametros: [login]: " + login + ", [roles]: " + roles);

@@ -65,6 +65,11 @@
             <artifactId>facturacion</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>reportes</artifactId>
+        </dependency>
+
         <!-- LOGGER LOG4J -->
         <dependency>
             <groupId>log4j</groupId>

@@ -8,6 +8,7 @@ import contac.servicio.clientes.ManagerClientesServiceBusiness;
 import contac.servicio.facturacion.ManagerFacturacionServiceBusiness;
 import contac.servicio.inventario.ManagerInventarioServiceBusiness;
 import contac.servicio.proveedores.ManagerProveedoresServiceBusiness;
+import contac.servicio.reportes.ManagerGeneradorReporteServiceBusiness;
 import contac.servicio.seguridad.ManagerSeguridadServiceBusiness;
 
 import java.rmi.Remote;
@@ -102,4 +103,12 @@ public interface ManagerServiceFactory extends Remote {
      * @throws RemoteException, Exception
      */
     public ManagerFacturacionServiceBusiness getManagerFacturacionServiceBusiness() throws RemoteException;
+
+    /**
+     * Retorna un ManagerGeneradorReportesServiceBusiness
+     *
+     * @return ManagerGeneradorReporteServiceBusiness
+     * @throws RemoteException, Exception
+     */
+    public ManagerGeneradorReporteServiceBusiness getManagerReporteServiceBusiness() throws RemoteException;
 }
