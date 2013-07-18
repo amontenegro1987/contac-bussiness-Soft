@@ -24,6 +24,17 @@ import java.util.Set;
 public interface ManagerSeguridadServiceBusiness extends ManagerSeguridadServiceBusinessRemote {
 
     /**
+     * Verifica si el usuario autenticado tiene el rol asignado
+     *
+     * @param roleName, Rol Asignado para verificacion
+     * @return boolean
+     * @throws ManagerSeguridadServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public boolean isUserInRole(String roleName) throws ManagerSeguridadServiceBusinessException, RemoteException;
+
+    /**
      * Buscar listado de usuarios
      *
      * @return List<Usuario>

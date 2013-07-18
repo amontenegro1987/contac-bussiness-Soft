@@ -131,6 +131,19 @@ public class ManagerSeguridadServiceBusinessImpl extends UnicastRemoteObject imp
     }
 
     @Override
+    public boolean isUserInRole(String roleName) throws ManagerSeguridadServiceBusinessException, RemoteException {
+
+        logger.debug("Buscando usuario el rol: "+ roleName);
+
+        try {
+            return mgrAutorizacion.checkUserInRole(roleName);
+        } catch (ManagerAutorizacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerSeguridadServiceBusinessException(e.getMessage(), e);
+        }
+    }
+
+    @Override
     public List<Usuario> buscarUsuarios() throws ManagerSeguridadServiceBusinessException, RemoteException {
 
         logger.debug("Buscando usuarios registrados");

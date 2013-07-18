@@ -115,11 +115,60 @@ public class ManagerAutorizacionServiceBusinessImpl extends UnicastRemoteObject 
     }
 
     @Override
-    public void isUserInRole(String rolname, Subject subject) throws ManagerAutorizacionServiceBusinessException, RemoteException {
+    public void isUserInRole(String rolname, Subject subject) throws ManagerAutorizacionServiceBusinessException,
+            RemoteException {
         //Setting user authenticated
         this.userAuth = subject;
         //Call method name for authentication
         this.isUserInRole(rolname);
+    }
+
+    @Override
+    public boolean checkUserInRole(String rolname) throws ManagerAutorizacionServiceBusinessException, RemoteException {
+
+        boolean success = true;
+
+        //RolPrincipal asociado
+        RolPrincipal rolPrincipal = null;
+        ContacPrincipal contacPrincipal = null;
+
+        //Evaluar si el usuario tiene ContacPrincipal asociado
+        Set<ContacPrincipal> contacPrincipals = userAuth.getPrincipals(ContacPrincipal.class);
+
+        for (Iterator it = contacPrincipals.iterator(); it.hasNext();){
+
+            ContacPrincipal principal = (ContacPrincipal)it.next();
+
+            if (principal instanceof ContacPrincipal){
+
+                if (principal.getName().equals(rolname)){
+                    contacPrincipal = principal;
+                    break;
+                }
+            }
+        }
+
+        //Evaluar si el usuario tiene RolPrincipal asociado
+        Set<RolPrincipal> rolPrincipals = userAuth.getPrincipals(RolPrincipal.class);
+
+        for (Iterator it = rolPrincipals.iterator(); it.hasNext();){
+
+            RolPrincipal principal = (RolPrincipal)it.next();
+
+            if (principal instanceof RolPrincipal){
+
+                if (principal.getName().equals(rolname)){
+                    rolPrincipal = principal;
+                    break;
+                }
+            }
+        }
+
+        if (contacPrincipal == null && rolPrincipal == null) {
+            success = false;
+        }
+
+        return success;
     }
 
     @Override

@@ -17,6 +17,7 @@ import contac.commons.form.panel.GenericPanel;
 import contac.commons.form.render.DecimalFormatRenderer;
 import contac.commons.form.render.TipoFacturaRenderer;
 import contac.commons.models.comboBox.AlmacenComboBoxModel;
+import contac.commons.models.comboBox.ComboBoxEmptySelectionRenderer;
 import contac.commons.models.comboBox.TipoFacturaComboBoxModel;
 import contac.commons.models.tables.BeanTableModel;
 import contac.facturacion.controller.FacturaClienteController;
@@ -84,6 +85,33 @@ public class pnlRegistroFacturas extends GenericPanel {
     @Override
     public void initValues() {
 
+        //Init campos de busqueda
+        dtpFechaDesde.setFormats("dd/MM/yyyy");
+        dtpFechaHasta.setFormats("dd/MM/yyyy");
+
+        //Combo box almacen
+        ListCellRenderer rendererAlmacen = new ComboBoxEmptySelectionRenderer(cmbAlmacen, messageBundle.
+                getString("CONTAC.FORM.MSG.SELECCIONE"));
+        AlmacenComboBoxModel almacenModel = (AlmacenComboBoxModel) cmbAlmacen.getModel();
+        cmbAlmacen.setRenderer(rendererAlmacen);
+        cmbAlmacen.setSelectedItem(almacenModel.searchSelectedItem(controller.getAlmacen().getId()));
+        cmbAlmacen.setEnabled(false);
+
+        try {
+            if (controller.checkUserInRole(Roles.ROLFACTURACIONADMIN.toString())) {
+                cmbAlmacen.setEnabled(true);
+            }
+        } catch (Exception e) {
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        }
+
+        //Combo box tipo de factura
+        ListCellRenderer rendererTipoFactura = new ComboBoxEmptySelectionRenderer(cmbTipoFactura, messageBundle.
+                getString("CONTAC.FORM.MSG.SELECCIONE"));
+        cmbTipoFactura.setRenderer(rendererTipoFactura);
+        cmbTipoFactura.setSelectedIndex(-1);
+
         //Config table model para lavantamiento inventario fisico
         facturaBeanTableModel = new BeanTableModel<Factura>(Factura.class, DocumentoComercial.class,
                 controller.getFacturas());
@@ -93,10 +121,6 @@ public class pnlRegistroFacturas extends GenericPanel {
         tblFacturasClientes.setEditable(false);
         tblFacturasClientes.setModel(facturaBeanTableModel);
         tblFacturasClientes.setRowSelectionAllowed(true);
-
-        //Init campos de busqueda
-        dtpFechaDesde.setFormats("dd/MM/yyyy");
-        dtpFechaHasta.setFormats("dd/MM/yyyy");
 
         //Obteniendo table column model y removiendo columnas innecesarias
         TableColumnModel tableColumnModel = tblFacturasClientes.getColumnModel();
@@ -130,7 +154,8 @@ public class pnlRegistroFacturas extends GenericPanel {
         tableColumnModel.moveColumn(11, 9); //Retencion municipal
 
         //Setting prefered size
-        tableColumnModel.getColumn(4).setPreferredWidth(200);
+//        tableColumnModel.getColumn(4).setPreferredWidth(200);
+        tblFacturasClientes.packAll();
     }
 
     /**
@@ -248,7 +273,7 @@ public class pnlRegistroFacturas extends GenericPanel {
         tbFacturasClientes.add(btnEliminar);
         tbFacturasClientes.add(jSeparator1);
 
-        btnImprimir.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/actions/print.png"))     );
+        btnImprimir.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/actions/print.png")));
         btnImprimir.setToolTipText(bundle.getString("CONTAC.FORM.BTNIMPRIMIR")); // NOI18N
         btnImprimir.setFocusable(false);
         btnImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -369,12 +394,21 @@ public class pnlRegistroFacturas extends GenericPanel {
                 //Show confirmation message
                 JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.CONFIRMACION"),
                         messageBundle.getString("CONTAC.FORM.MSG.ANULACION.EXITOSO"));
-                
+
                 //Realizar busqueda de facturas nuevamente
                 Date fechaDesde = dtpFechaDesde.getDate() != null ? dtpFechaDesde.getDate() : new Date();
                 Date fechaHasta = dtpFechaHasta.getDate() != null ? dtpFechaHasta.getDate() : new Date();
 
-                controller.buscarFacturasClientesPorFechas(fechaDesde, fechaHasta);
+                //Obtener parametros de busqueda
+                Almacen almacen = ((Almacen) ((AlmacenComboBoxModel) cmbAlmacen.getModel()).getSelectedItem().
+                        getObject());
+
+                TiposFactura tiposFactura = cmbTipoFactura.getModel().getSelectedItem() != null ?
+                        ((TiposFactura) ((TipoFacturaComboBoxModel) cmbTipoFactura.getModel()).getSelectedItem().getObject()) :
+                        null;
+
+                controller.buscarFacturasClientesPorFechas(fechaDesde, fechaHasta, almacen.getId(),
+                        tiposFactura != null ? tiposFactura.getValue() : null);
 
                 //Actualizar listado de articulos ingresados
                 ((BeanTableModel) tblFacturasClientes.getModel()).fireTableDataChanged();
@@ -400,8 +434,17 @@ public class pnlRegistroFacturas extends GenericPanel {
             Date fechaDesde = dtpFechaDesde.getDate();
             Date fechaHasta = dtpFechaHasta.getDate();
 
+            //Obtener parametros de busqueda
+            Almacen almacen = ((Almacen) ((AlmacenComboBoxModel) cmbAlmacen.getModel()).getSelectedItem().
+                    getObject());
+
+            TiposFactura tiposFactura = cmbTipoFactura.getModel().getSelectedItem() != null ?
+                    ((TiposFactura) ((TipoFacturaComboBoxModel) cmbTipoFactura.getModel()).getSelectedItem().getObject()) :
+                    null;
+
             //Consultando listado de facturas de clientes por fecha
-            controller.buscarFacturasClientesPorFechas(fechaDesde, fechaHasta);
+            controller.buscarFacturasClientesPorFechas(fechaDesde, fechaHasta, almacen.getId(),
+                    tiposFactura != null ? tiposFactura.getValue() : null);
 
             //Actualizar listado de articulos ingresados
             ((BeanTableModel) tblFacturasClientes.getModel()).fireTableDataChanged();
@@ -415,31 +458,44 @@ public class pnlRegistroFacturas extends GenericPanel {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         try {
 
-            //Confirmation message
-            boolean confirmation = JOptionMessagePane.showConfirmationInfo(null, messageBundle.getString("CONTAC.FORM.MSG.ADVERTENCIA"), MessageFormat.
-                    format(messageBundle.getString("CONTAC.FORM.FACTURACION.ELIMINAR.CONFIRMA"),
-                            new Object[]{facturaSelected.getNoDocumento()}));
+            if (facturaSelected != null) {
 
-            if (confirmation) {
+                //Confirmation message
+                boolean confirmation = JOptionMessagePane.showConfirmationInfo(null, messageBundle.
+                        getString("CONTAC.FORM.MSG.ADVERTENCIA"), MessageFormat.format(messageBundle.
+                        getString("CONTAC.FORM.FACTURACION.ELIMINAR.CONFIRMA"), new Object[]{facturaSelected.getNoDocumento()}));
 
-                //Setting factura seleccionada
-                controller.setFactura(facturaSelected);
+                if (confirmation) {
 
-                //Anular factura
-                controller.eliminarFactura();
+                    //Setting factura seleccionada
+                    controller.setFactura(facturaSelected);
 
-                //Show confirmation message
-                JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.CONFIRMACION"),
-                        messageBundle.getString("CONTAC.FORM.MSG.ELIMINACION.EXITOSO"));
+                    //Anular factura
+                    controller.eliminarFactura();
 
-                //Realizar busqueda de facturas nuevamente
-                Date fechaDesde = dtpFechaDesde.getDate() != null ? dtpFechaDesde.getDate() : new Date();
-                Date fechaHasta = dtpFechaHasta.getDate() != null ? dtpFechaHasta.getDate() : new Date();
+                    //Show confirmation message
+                    JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.CONFIRMACION"),
+                            messageBundle.getString("CONTAC.FORM.MSG.ELIMINACION.EXITOSO"));
 
-                controller.buscarFacturasClientesPorFechas(fechaDesde, fechaHasta);
+                    //Realizar busqueda de facturas nuevamente
+                    Date fechaDesde = dtpFechaDesde.getDate() != null ? dtpFechaDesde.getDate() : new Date();
+                    Date fechaHasta = dtpFechaHasta.getDate() != null ? dtpFechaHasta.getDate() : new Date();
 
-                //Actualizar listado de articulos ingresados
-                ((BeanTableModel) tblFacturasClientes.getModel()).fireTableDataChanged();
+                    //Obtener parametros de busqueda
+                    Almacen almacen = ((Almacen) ((AlmacenComboBoxModel) cmbAlmacen.getModel()).getSelectedItem().
+                            getObject());
+
+                    TiposFactura tiposFactura = cmbTipoFactura.getModel().getSelectedItem() != null ?
+                            ((TiposFactura) ((TipoFacturaComboBoxModel) cmbTipoFactura.getModel()).getSelectedItem().getObject()) :
+                            null;
+
+                    controller.buscarFacturasClientesPorFechas(fechaDesde, fechaHasta, almacen.getId(),
+                            tiposFactura != null ? tiposFactura.getValue() : null);
+
+                    //Actualizar listado de articulos ingresados
+                    ((BeanTableModel) tblFacturasClientes.getModel()).fireTableDataChanged();
+                }
+
             }
 
         } catch (Exception e) {
@@ -451,6 +507,28 @@ public class pnlRegistroFacturas extends GenericPanel {
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
 
         try {
+
+            //Validar datos del formulario para procesar
+            if (dtpFechaDesde.getDate() == null) {
+                throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.FECHADESDE"));
+            }
+
+            if (dtpFechaHasta.getDate() == null) {
+                throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.FECHAHASTA"));
+            }
+
+            if (cmbAlmacen.getSelectedItem() == null) {
+                throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.ALMACEN"));
+            }
+
+            //Obtener parametros de busqueda
+            Almacen almacen = ((Almacen) ((AlmacenComboBoxModel) cmbAlmacen.getModel()).getSelectedItem().
+                    getObject());
+
+            TiposFactura tiposFactura = cmbTipoFactura.getModel().getSelectedItem() != null ?
+                    ((TiposFactura) ((TipoFacturaComboBoxModel) cmbTipoFactura.getModel()).getSelectedItem().getObject()) :
+                    null;
+
             // Prepared Jasper Report
             JasperReport report = (JasperReport) JRLoader.loadObject(pnlRegistroFacturas.class
                     .getResourceAsStream("/contac/facturacion/app/reportes/facturas_report.jasper"));
@@ -459,16 +537,14 @@ public class pnlRegistroFacturas extends GenericPanel {
             parameters.put("SUBREPORT_DIR", getClass().getClassLoader().getResource("contac/facturacion/app/reportes") + "/");
             parameters.put("p_fecha_desde", dtpFechaDesde.getDate());
             parameters.put("p_fecha_hasta", dtpFechaHasta.getDate());
-            parameters.put("p_codigo_almacen", ((Almacen) ((AlmacenComboBoxModel) cmbAlmacen.getModel()).getSelectedItem().
-                    getObject()).getId());
-            parameters.put("p_tipo_factura",((TiposFactura)((TipoFacturaComboBoxModel) cmbTipoFactura.getModel()).
-                    getSelectedItem().getObject()).getValue());
+            parameters.put("p_codigo_almacen", almacen.getId());
+            parameters.put("p_tipo_factura", tiposFactura != null ? tiposFactura.getValue() : null);
 
             //Generate Report
             JasperPrint jasperPrint = controller.getMgrReportesService().generateReport(parameters, report);
 
             //Print Report Preview
-            JRPrintReport.printPreviewReport(null, jasperPrint);
+            JRPrintReport.printPreviewReport(getMDI(), jasperPrint);
 
         } catch (JRException e) {
             logger.error(e.getMessage(), e);

@@ -125,14 +125,18 @@ public class PersistenceManagementServiceFactory {
      * Deshacer cambios
      */
     public static void rollback() throws PersistenceManagementServiceFactoryException {
-        getEntityManager().getTransaction().rollback();
+        if (getEntityManager().getTransaction().isActive()) {
+            getEntityManager().getTransaction().rollback();
+        }
     }
 
     /**
      * Sincronizar entidades con datos persistentes
      */
     public static void flush() throws PersistenceManagementServiceFactoryException {
-        getEntityManager().flush();
+        if (getEntityManager().getTransaction().isActive()) {
+            getEntityManager().flush();
+        }
     }
 
     /**

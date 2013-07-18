@@ -5,7 +5,6 @@
 
 package contac.servicio.reportes;
 
-import contac.reports.JRXReportGenerated;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 

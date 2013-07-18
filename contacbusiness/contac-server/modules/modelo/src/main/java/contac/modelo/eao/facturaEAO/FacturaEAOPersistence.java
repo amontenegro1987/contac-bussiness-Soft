@@ -66,7 +66,8 @@ public class FacturaEAOPersistence extends GenericPersistenceEAO<Factura, Intege
     }
 
     @Override
-    public List<Factura> findByFechas(Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws GenericPersistenceEAOException {
+    public List<Factura> findByFechas(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura)
+            throws GenericPersistenceEAOException {
 
         //Init service
         initService();
@@ -81,8 +82,13 @@ public class FacturaEAOPersistence extends GenericPersistenceEAO<Factura, Intege
         querySolver.add(new QueryFragment(fechaHasta != null, "", " f.fechaAlta <= :fechaHasta ", "fechaHasta", fechaHasta));
         //3. Agregando parametro almacen
         querySolver.add(new QueryFragment(idAlmacen != null, "", " f.almacen.id = :idAlmacen", "idAlmacen", idAlmacen));
+        //4. Agregando parametro tipo de factura
+        querySolver.add(new QueryFragment(idTipoFactura != null, "", " f.tipoFactura = :idTipoFactura", "idTipoFactura",
+                idTipoFactura != null ? idTipoFactura.byteValue() : null));
 
         String ejbQuery = QueryUtils.ejbQLcreator(fromClause, conditionClause, querySolver);
+        ejbQuery = ejbQuery + " " + "order by f.noDocumento ";
+
         Query query = em.createQuery(ejbQuery);
 
         return QueryUtils.ejbQLParametersSolver(query, querySolver).getResultList();
