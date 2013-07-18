@@ -50,10 +50,12 @@ public interface FacturaEAO extends GenericEAO<Factura, Integer> {
      * @param fechaDesde, Fecha desde
      * @param fechaHasta, Fecha hasta
      * @param idAlmacen,  Identificador de almacen
+     * @param idTipoFactura, Identificador de Tipo de Factura
      * @return List<Factura>
      * @throws GenericPersistenceEAOException,
      *          Exception
      */
-    public List<Factura> findByFechas(Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws GenericPersistenceEAOException;
+    public List<Factura> findByFechas(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura)
+            throws GenericPersistenceEAOException;
 
 }

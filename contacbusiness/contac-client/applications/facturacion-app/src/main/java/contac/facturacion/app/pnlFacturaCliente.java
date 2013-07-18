@@ -267,6 +267,24 @@ public class pnlFacturaCliente extends GenericPanel {
         columnModel.getColumn(7).setCellRenderer(decimalFormatRenderer);
     }
 
+    /**
+     * This method is called from within the constructor to enabled controls only for roles access
+     * credential grant to users
+     */
+    public void initValuesAccess() {
+
+        try {
+            if (controller.checkUserInRole(Roles.ROLFACTURACIONADMIN.toString())) {
+                txtNoFactura.setEnabled(true);
+                cmbAlmacen.setEnabled(true);
+                dtpFechaAlta.setEnabled(true);
+            }
+        } catch (Exception e) {
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        }
+    }
+
     public void registerListeners() {
 
         txtCodigoCliente.addKeyListener(new KeyAdapter() {
@@ -692,7 +710,8 @@ public class pnlFacturaCliente extends GenericPanel {
         if (producto != null) {
             txtCodigo.setText(producto.getCodigo());
             txtNombreProducto.setText(producto.getNombre());
-            txtPrecio.setText(TextUtil.formatCurrency(producto.getCostoUND().doubleValue()));
+            txtPrecio.setText(TextUtil.formatCurrency(producto.getPrecioESTANDAR().multiply(controller.getTasaCambio())
+                    .setScale(2, BigDecimal.ROUND_HALF_EVEN).doubleValue()));
             txtCantidad.requestFocusInWindow();
 
             //Updating producto selected
@@ -712,7 +731,7 @@ public class pnlFacturaCliente extends GenericPanel {
                     if (txtDescuento.getText().equals(""))
                         txtDescuento.setText(TextUtil.formatCurrency(0));
 
-                    BigDecimal precioBruto = new BigDecimal(txtPrecio.getText());
+                    BigDecimal precioBruto = new BigDecimal(TextUtil.parseCurrency(txtPrecio.getText()));
                     BigDecimal porcDescuento = new BigDecimal(txtDescuento.getText());
 
                     //Agregar articulo

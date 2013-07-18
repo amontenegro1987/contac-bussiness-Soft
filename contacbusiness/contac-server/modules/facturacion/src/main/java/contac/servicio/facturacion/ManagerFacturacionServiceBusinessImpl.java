@@ -852,7 +852,8 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
-    public List<Factura> buscarFacturasPorFecha(Date fechaDesde, Date fechaHasta) throws ManagerFacturacionServiceBusinessException, RemoteException {
+    public List<Factura> buscarFacturasPorFecha(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura)
+            throws ManagerFacturacionServiceBusinessException, RemoteException {
 
         logger.debug("Buscando facturas comerciales por rangos de fecha: [fechaDesde]: " + fechaDesde + ", [fechaHasta]: " +
                 fechaHasta);
@@ -869,13 +870,15 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             if (fechaHasta == null)
                 throw new ManagerFacturacionServiceBusinessException("Debe seleccionar una fecha hasta v\u00e1lida");
 
-            //Buscar almacen del usuario
-            Almacen almacen = mgrSeguridad.buscarUsuarioPorLogin(mgrAutorizacion.getUsername()).getAlmacen();
-            Integer idAlmacen = almacen != null ? almacen.getId() : null;
+            //Buscar almacen del usuario - First check authorization for user
+            boolean success = mgrAutorizacion.checkUserInRole(Roles.ROLFACTURACIONADMIN.toString());
 
-            //Si almacen del usuario es nulo - verificar que tiene el rol de administrador para ejecutar la accion
-            if (idAlmacen == null)
-                mgrAutorizacion.isUserInRole(Roles.ROLSYSTEMADMIN.toString());
+            Almacen almacen = null;
+            if (success) {
+                almacen = almacenEAO.findById(idAlmacen);
+            } else {
+                almacen = mgrSeguridad.buscarUsuarioPorLogin(mgrAutorizacion.getUsername()).getAlmacen();
+            }
 
             //Preparar fechas para busquedas
             GregorianCalendar gc = new GregorianCalendar();
@@ -893,7 +896,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             gc.set(Calendar.MILLISECOND, 0);
             fechaHasta = gc.getTime();
 
-            return facturaEAO.findByFechas(fechaDesde, fechaHasta, idAlmacen);
+            return facturaEAO.findByFechas(fechaDesde, fechaHasta, almacen.getId(), idTipoFactura);
 
         } catch (GenericPersistenceEAOException e) {
             logger.error(e.getMessage(), e);
