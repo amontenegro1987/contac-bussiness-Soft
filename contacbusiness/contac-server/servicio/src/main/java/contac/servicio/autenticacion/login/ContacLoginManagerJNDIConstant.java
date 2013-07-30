@@ -14,5 +14,5 @@ public interface ContacLoginManagerJNDIConstant {
      * JNDI Binding a Manager Seguridad Service Remote
      * To IP address modify the localhost value.
      */
-    public static final String LOGINMANAGER_SERVICE_REMOTE="rmi://localhost:1099/contacLoginManager";
+    public static final String LOGINMANAGER_SERVICE_REMOTE="rmi://192.168.1.2:1099/contacLoginManager";
 }
