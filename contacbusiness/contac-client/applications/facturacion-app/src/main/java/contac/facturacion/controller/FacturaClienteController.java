@@ -426,11 +426,18 @@ public class FacturaClienteController extends FacturacionBaseController {
         //Iniciar registro de facturas
         setFacturas(new ArrayList<Factura>());
 
+        //Setting almacenes registrados
+        setAlmacenes(buscarAlmacenes());
+
+        //Setting almacen del usuario
+        setAlmacen(buscarAlmacenUsuario());
+
         //Buscar registro de facturas con fecha actual del servidor
         Date fechaFacturacion = buscarFechaFacturacion();
 
         //Buscar facturas de clientes por fechas
-        buscarFacturasClientesPorFechas(fechaFacturacion, fechaFacturacion);
+        buscarFacturasClientesPorFechas(fechaFacturacion, fechaFacturacion, almacen.getId(),
+                getTipoFactura() != null ? getTipoFactura().getValue() : null);
     }
 
     //*************************************************************************************
@@ -561,16 +568,21 @@ public class FacturaClienteController extends FacturacionBaseController {
 
         for (ArticuloFactura articulo : getArticulos()) {
 
+            //Limpiar calculo de los articulos
+            articulo.setPorcRetencionFuente(new BigDecimal(VALUE_INT_ZERO_DEFINED));
+            articulo.setPorcRetencionMunicipal(new BigDecimal(VALUE_INT_ZERO_DEFINED));
+            articulo.setRetencionFuente(new BigDecimal(VALUE_INT_ZERO_DEFINED));
+            articulo.setRetencionMunicipal(new BigDecimal(VALUE_INT_ZERO_DEFINED));
+
             //Calcular descuento global
             if (this.porcDescuento.compareTo(new BigDecimal("0.00")) >= 0) {
                 articulo.setPorcDescuento(this.porcDescuento);
                 articulo.setDescuento(articulo.getPrecioBruto().multiply(new BigDecimal(articulo.getCantidad())).
-                    multiply(this.porcDescuento.divide(new BigDecimal("100.00"))).setScale(2, BigDecimal.ROUND_HALF_UP));
+                        multiply(this.porcDescuento.divide(new BigDecimal("100.00"))).setScale(2, BigDecimal.ROUND_HALF_UP));
                 articulo.setPrecioAntesImpuesto(articulo.getPrecioBruto().subtract(articulo.getPrecioBruto().
                         multiply(articulo.getPorcDescuento().divide(new BigDecimal("100")))).multiply(new BigDecimal(articulo.getCantidad())).
                         setScale(2, BigDecimal.ROUND_CEILING));
             }
-
 
 
             //Articulo es exento
@@ -631,31 +643,31 @@ public class FacturaClienteController extends FacturacionBaseController {
 
         //Calcular retencion en la fuente por articulo
         for (ArticuloFactura articulo : getArticulos()) {
+            //Retencion Fuente
             if (isRetFuente()) {
-
-                //Retencion municipal
-                if (isRetMunicipal()) {
-                    articulo.setPorcRetencionFuente(new BigDecimal("2.00"));
-                    articulo.setRetencionFuente(articulo.getPrecioAntesImpuesto().multiply(articulo.getPorcRetencionFuente().
-                            divide(new BigDecimal("100.00"), 2, BigDecimal.ROUND_CEILING)));
-                } else {
-                    articulo.setPorcRetencionFuente(new BigDecimal("0.00"));
-                    articulo.setRetencionFuente(new BigDecimal("0.00"));
-                }
-
-                //Retencion fuente
-                if (isRetMunicipal()) {
-                    articulo.setPorcRetencionMunicipal(new BigDecimal("1.00"));
-                    articulo.setRetencionMunicipal(articulo.getPrecioAntesImpuesto().multiply(articulo.getPorcRetencionMunicipal().
-                            divide(new BigDecimal("100.00"), 2, BigDecimal.ROUND_CEILING)));
-                } else {
-                    articulo.setRetencionMunicipal(new BigDecimal("0.00"));
-                    articulo.setRetencionMunicipal(new BigDecimal("0.00"));
-                }
-
+                articulo.setPorcRetencionFuente(new BigDecimal("2.00"));
+                articulo.setRetencionFuente(articulo.getPrecioAntesImpuesto().multiply(articulo.getPorcRetencionFuente().
+                        divide(new BigDecimal("100.00"), 2, BigDecimal.ROUND_CEILING)));
+            } else {
+                articulo.setPorcRetencionFuente(new BigDecimal("0.00"));
+                articulo.setRetencionFuente(new BigDecimal("0.00"));
             }
-        }
 
+
+            //Retencion Municipal
+            if (isRetMunicipal()) {
+                articulo.setPorcRetencionMunicipal(new BigDecimal("1.00"));
+                articulo.setRetencionMunicipal(articulo.getPrecioAntesImpuesto().multiply(articulo.getPorcRetencionMunicipal().
+                        divide(new BigDecimal("100.00"), 2, BigDecimal.ROUND_CEILING)));
+            } else {
+                articulo.setRetencionMunicipal(new BigDecimal("0.00"));
+                articulo.setRetencionMunicipal(new BigDecimal("0.00"));
+            }
+
+            //Calcular precio neto
+            articulo.setPrecioNeto(articulo.getPrecioAntesImpuesto().subtract(articulo.getRetencionFuente()).
+                    subtract(articulo.getRetencionMunicipal()).add(articulo.getIva()).setScale(2, BigDecimal.ROUND_CEILING));
+        }
 
         //Calculando monto total factura
         this.montoTotal = this.montoTotal.add(this.montoAntesImpuesto.subtract(this.montoRetFuente).
@@ -812,11 +824,14 @@ public class FacturaClienteController extends FacturacionBaseController {
     /**
      * Buscar listado de facturas a clientes
      *
-     * @param fechaDesde, Fecha inicio de busqueda
-     * @param fechaHasta, Fecha fin de busqueda
+     * @param fechaDesde,    Fecha inicio de busqueda
+     * @param fechaHasta,    Fecha fin de busqueda
+     * @param idAlmacen,     Almacen de facturacion
+     * @param idTipoFactura, Tipo de Factura
      * @throws Exception, Exception
      */
-    public void buscarFacturasClientesPorFechas(Date fechaDesde, Date fechaHasta) throws Exception {
+    public void buscarFacturasClientesPorFechas(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura)
+            throws Exception {
         try {
 
             //Validar que los campos de fechas no sean nulos
@@ -830,7 +845,8 @@ public class FacturaClienteController extends FacturacionBaseController {
             ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
 
             //Buscar facturas 
-            List<Factura> facturas = mgrFacturacion.buscarFacturasPorFecha(fechaDesde, fechaHasta);
+            List<Factura> facturas = mgrFacturacion.buscarFacturasPorFecha(fechaDesde, fechaHasta, idAlmacen,
+                    idTipoFactura);
             getFacturas().clear();
             getFacturas().addAll(facturas);
 

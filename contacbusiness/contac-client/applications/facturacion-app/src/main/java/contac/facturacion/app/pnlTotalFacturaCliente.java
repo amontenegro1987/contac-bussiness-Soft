@@ -21,10 +21,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.math.BigDecimal;
 import java.util.ResourceBundle;
 
@@ -101,6 +98,9 @@ public class pnlTotalFacturaCliente extends JDialog {
             rbExonerado.setSelected(false);
             rbCalcularIVA.setSelected(true);
         }
+
+        //Repaint this UI Form
+        this.repaint();
     }
 
     //Register listeners
@@ -158,27 +158,27 @@ public class pnlTotalFacturaCliente extends JDialog {
             }
         });
         
-        chkRetencionFuente.addChangeListener(new ChangeListener() {
+        chkRetencionFuente.addActionListener(new ActionListener() {
             @Override
-            public void stateChanged(ChangeEvent changeEvent) {
-                JCheckBox checkBox = (JCheckBox) changeEvent.getSource();
-                
+            public void actionPerformed(ActionEvent event) {
+                JCheckBox checkBox = (JCheckBox) event.getSource();
+
                 try {
-                    
+
                     if (checkBox.isSelected()) {
                         //Setting retencion fuente true
-                        controller.setRetFuente(true);                         
+                        controller.setRetFuente(true);
                     } else {
                         //Setting retencion fuente false
                         controller.setRetFuente(false);
                     }
-                    
+
                     //Recalcular factura
                     controller.calcularTotalFactura();
-                    
+
                     //Init components values
                     initComponentsValues();
-                    
+
                 } catch (Exception e) {
                     logger.error(e.getMessage(), e);
                     //Show confirmation message
@@ -188,10 +188,10 @@ public class pnlTotalFacturaCliente extends JDialog {
             }
         });
 
-        chkRetencionMunicipal.addChangeListener(new ChangeListener() {
+        chkRetencionMunicipal.addActionListener(new ActionListener() {
             @Override
-            public void stateChanged(ChangeEvent changeEvent) {
-                JCheckBox checkBox = (JCheckBox) changeEvent.getSource();
+            public void actionPerformed(ActionEvent event) {
+                JCheckBox checkBox = (JCheckBox) event.getSource();
 
                 try {
 
@@ -218,24 +218,24 @@ public class pnlTotalFacturaCliente extends JDialog {
             }
         });
 
-        rbCalcularIVA.addChangeListener(new ChangeListener() {
+        rbCalcularIVA.addActionListener(new ActionListener() {
             @Override
-            public void stateChanged(ChangeEvent changeEvent) {
-                JRadioButton radioButton = (JRadioButton) changeEvent.getSource();
+            public void actionPerformed(ActionEvent event) {
+                JRadioButton radioButton = (JRadioButton) event.getSource();
 
                 try {
 
                     if (radioButton.isSelected()) {
                         //Setting exonerada false
                         controller.setExonerada(false);
-                        
+
                         //Setting checkBox exonerado false
                         rbCalcularIVA.setSelected(true);
                         rbExonerado.setSelected(false);
-                        
+
                         //Recalcular factura
                         controller.calcularTotalFactura();
-                        
+
                         //Init components values
                         initComponentsValues();
                     }
@@ -250,10 +250,10 @@ public class pnlTotalFacturaCliente extends JDialog {
             }
         });
         
-        rbExonerado.addChangeListener(new ChangeListener() {
+        rbExonerado.addActionListener(new ActionListener() {
             @Override
-            public void stateChanged(ChangeEvent changeEvent) {
-                JRadioButton radioButton = (JRadioButton) changeEvent.getSource();
+            public void actionPerformed(ActionEvent event) {
+                JRadioButton radioButton = (JRadioButton) event.getSource();
                 
                 try {
                     

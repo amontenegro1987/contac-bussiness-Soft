@@ -201,7 +201,7 @@ public class pnlMovimientoInventario extends GenericPanel {
 
         } catch (Exception e) {
             //Show confirmation message
-            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"),
+            JOptionErrorPane.showMessageWarning(this.getMDI(), messageBundle.getString("CONTAC.FORM.MSG.ERROR"),
                     e.getMessage());
         }
     }

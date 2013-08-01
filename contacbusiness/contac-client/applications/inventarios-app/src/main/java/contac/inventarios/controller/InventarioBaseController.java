@@ -149,7 +149,8 @@ public abstract class InventarioBaseController extends BaseController {
      * @throws Exception, Exception
      */
     public JasperPrint imprimirReporte(String reportName, Map parameters, JRBeanCollectionDataSource dataSource) throws Exception {
-        return JRPrintReport.fillReport(getReportGenerated(reportName, parameters, dataSource));
+//        return JRPrintReport.fillReport(getReportGenerated(reportName, parameters, dataSource));
+        return null;
     }
 
     //******************************************************************************************************************
@@ -168,7 +169,8 @@ public abstract class InventarioBaseController extends BaseController {
         JasperReport jasperReport = loadJasperReport(reportName);
 
         //Generated JRXReportGenerated
-        return new JRXReportGenerated(jasperReport, parameters, dataSource);
+//        return new JRXReportGenerated(jasperReport, parameters, dataSource);
+        return null;
     }
 
 

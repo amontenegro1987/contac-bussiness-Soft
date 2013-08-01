@@ -17,6 +17,8 @@ import contac.servicio.inventario.ManagerInventarioServiceBusiness;
 import contac.servicio.inventario.ManagerInventarioServiceBusinessImpl;
 import contac.servicio.proveedores.ManagerProveedoresServiceBusiness;
 import contac.servicio.proveedores.ManagerProveedoresServiceBusinessImpl;
+import contac.servicio.reportes.ManagerGeneradorReporteServiceBusiness;
+import contac.servicio.reportes.ManagerGeneradorReporteServiceBusinessImpl;
 import contac.servicio.seguridad.ManagerAutorizacionServiceBusiness;
 import contac.servicio.seguridad.ManagerAutorizacionServiceBusinessImpl;
 import contac.servicio.seguridad.ManagerSeguridadServiceBusiness;
@@ -56,6 +58,7 @@ public class ManagerServiceFactoryImpl extends UnicastRemoteObject implements Ma
     private ManagerInventarioServiceBusiness mgrInventario;
     private ManagerClientesServiceBusiness mgrCliente;
     private ManagerFacturacionServiceBusiness mgrFacturacion;
+    private ManagerGeneradorReporteServiceBusiness mgrReportes;
     //***************************************************
 
     /**
@@ -134,6 +137,14 @@ public class ManagerServiceFactoryImpl extends UnicastRemoteObject implements Ma
             mgrFacturacion = new ManagerFacturacionServiceBusinessImpl(this.mgrAutorizacion);
 
         return mgrFacturacion;
+    }
+
+    @Override
+    public ManagerGeneradorReporteServiceBusiness getManagerReporteServiceBusiness() throws RemoteException {
+        if (mgrReportes == null)
+            mgrReportes = new ManagerGeneradorReporteServiceBusinessImpl(this.mgrAutorizacion);
+
+        return mgrReportes;
     }
 
     @Override

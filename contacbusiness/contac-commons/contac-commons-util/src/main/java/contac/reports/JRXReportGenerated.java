@@ -6,9 +6,10 @@
 package contac.reports;
 
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import java.io.File;
 import java.io.Serializable;
+import java.sql.Connection;
 import java.util.Map;
 
 /**
@@ -26,7 +27,15 @@ public class JRXReportGenerated implements Serializable{
     private Map parameters;
 
     //Bean collection object to show report data
-    private JRBeanCollectionDataSource dataSource;
+    private Connection dataSource;
+
+    //File name and path to generate
+    private File file;
+
+    private String typeOfFile;
+
+    //Printer selection name
+    private String printerName;
 
     public JasperReport getJasperReport() {
         return jasperReport;
@@ -44,23 +53,81 @@ public class JRXReportGenerated implements Serializable{
         this.parameters = parameters;
     }
 
-    public JRBeanCollectionDataSource getDataSource() {
+    public Connection getDataSource() {
         return dataSource;
     }
 
-    public void setDataSource(JRBeanCollectionDataSource dataSource) {
+    public void setDataSource(Connection dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    public String getTypeOfFile() {
+        return typeOfFile;
+    }
+
+    public void setTypeOfFile(String typeOfFile) {
+        this.typeOfFile = typeOfFile;
+    }
+
+    public String getPrinterName() {
+        return printerName;
+    }
+
+    public void setPrinterName(String printerName) {
+        this.printerName = printerName;
+    }
+
+    /**
+     * Constructor JRXReportGenerated
+     *
+     * @param jasperReport, JasperReport
+     * @param parameters,   Map
+     * @param dataSource,   JRBeanCollectionDataSource
+     */
+    public JRXReportGenerated(JasperReport jasperReport, Map parameters, Connection dataSource) {
+        this.jasperReport = jasperReport;
+        this.parameters = parameters;
         this.dataSource = dataSource;
     }
 
     /**
      * Constructor JRXReportGenerated
+     *
      * @param jasperReport, JasperReport
-     * @param parameters, Map
-     * @param dataSource, JRBeanCollectionDataSource
+     * @param parameters,   Map
+     * @param dataSource,   Connection Datasource
+     * @param file,         File
+     * @param typeOfFile,   Type of File to generate
      */
-    public JRXReportGenerated(JasperReport jasperReport, Map parameters, JRBeanCollectionDataSource dataSource) {
+    public JRXReportGenerated(JasperReport jasperReport, Map parameters, Connection dataSource, File file,
+                              String typeOfFile) {
         this.jasperReport = jasperReport;
         this.parameters = parameters;
         this.dataSource = dataSource;
+        this.file = file;
+        this.typeOfFile = typeOfFile;
+    }
+
+    /**
+     * Constructor JRXReportGenerated
+     *
+     * @param jasperReport, JasperReport
+     * @param parameters,   Map
+     * @param dataSource,   Connection Datasource
+     * @param printerName,  Printer Name
+     */
+    public JRXReportGenerated(JasperReport jasperReport, Map parameters, Connection dataSource, String printerName) {
+        this.jasperReport = jasperReport;
+        this.parameters = parameters;
+        this.dataSource = dataSource;
+        this.printerName = printerName;
     }
 }

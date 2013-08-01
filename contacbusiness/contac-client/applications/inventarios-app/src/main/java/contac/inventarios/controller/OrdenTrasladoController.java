@@ -445,7 +445,12 @@ public class OrdenTrasladoController extends InventarioBaseController {
             estados.add(EstadosMovimiento.INGRESADO.getEstado());
 
             //Retornar listado encontrado
-            return mgrInventario.buscarOrdenesTrasladoPorEstados(estados);
+            List<OrdenTraslado> ordenesTraslado = mgrInventario.buscarOrdenesTrasladoPorEstados(estados);
+            if (ordenesTraslado == null) {
+                ordenesTraslado = new ArrayList<OrdenTraslado>();
+            }
+
+            return ordenesTraslado;
 
         } catch (ManagerInventarioServiceBusinessException e) {
             logger.error(e.getMessage(), e);

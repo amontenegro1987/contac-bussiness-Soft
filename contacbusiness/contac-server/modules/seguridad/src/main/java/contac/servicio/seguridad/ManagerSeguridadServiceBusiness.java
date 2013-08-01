@@ -10,6 +10,7 @@ import contac.modelo.entity.Rol;
 import contac.modelo.entity.Usuario;
 
 import java.rmi.RemoteException;
+import java.sql.Connection;
 import java.util.List;
 import java.util.Set;
 
@@ -21,6 +22,17 @@ import java.util.Set;
  * Time: 12:14:12 AM
  */
 public interface ManagerSeguridadServiceBusiness extends ManagerSeguridadServiceBusinessRemote {
+
+    /**
+     * Verifica si el usuario autenticado tiene el rol asignado
+     *
+     * @param roleName, Rol Asignado para verificacion
+     * @return boolean
+     * @throws ManagerSeguridadServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public boolean isUserInRole(String roleName) throws ManagerSeguridadServiceBusinessException, RemoteException;
 
     /**
      * Buscar listado de usuarios
