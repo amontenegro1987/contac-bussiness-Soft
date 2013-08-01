@@ -85,7 +85,7 @@ public class MenuBandFacturacion extends MenuBand {
         mnuRegistroProformas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                style.addPanel("FacturaProforma", "contac.facturacion.app.pnlFacturaProforma");
+                style.addPanel("proformaClientes", "contac.facturacion.app.pnlProformaCliente");
             }
         });
         

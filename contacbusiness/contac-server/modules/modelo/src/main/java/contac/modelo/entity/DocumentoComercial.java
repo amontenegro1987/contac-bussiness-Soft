@@ -172,6 +172,12 @@ public abstract class DocumentoComercial implements java.io.Serializable {
     private boolean retencionF;
 
     /**
+     * <!--begin-user-doc -->
+     * <!--end-user-doc -->
+     * PROPERTY NAME: EXONERADA
+     */
+    private boolean excenta;
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * PROPERTY NAME: Calcular retencion municipal
@@ -381,6 +387,15 @@ public abstract class DocumentoComercial implements java.io.Serializable {
 
     public void setExonerada(boolean exonerada) {
         this.exonerada = exonerada;
+    }
+
+    @Column(name = "B_EXCENTA", nullable = false)
+    public boolean isExcenta(){
+        return excenta;
+    }
+
+    public void setExcenta(boolean excenta){
+        this.excenta = excenta;
     }
 
     @Column(name = "B_RETENCION_FUENTE", nullable = false)
