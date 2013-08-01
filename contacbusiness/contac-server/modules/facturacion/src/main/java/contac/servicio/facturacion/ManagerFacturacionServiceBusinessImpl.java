@@ -369,6 +369,169 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
+    public Proforma crearProforma(long noProforma, Integer idCliente, Integer idAlmacen,
+                                  Integer idAgenteVentas, BigDecimal porcDescuento, BigDecimal porcIva,
+                                  BigDecimal porcRetFuente, BigDecimal porcRetMunicipal, BigDecimal tasaCambio,
+                                  String nombreCliente, Integer idMoneda, Direccion direccionEntrega,
+                                  Date fechaAlta, boolean exonerada, boolean retencionFuente, boolean retencionMunicipal,
+                                  List<ArticuloProforma> articulos, Date fechaVencimiento)
+            throws ManagerFacturacionServiceBusinessException, RemoteException {
+
+        logger.debug("Creando Proforma con parametros: [noProforma]: " + noProforma  +
+                "[idCliente]: " + idCliente + ", [nombreCliente]: " + nombreCliente + ", [fechaAlta]: " + fechaAlta +
+                ", [idAgenteVentas]: " + idAgenteVentas + ", [porcRetFuente]: " + porcRetFuente +
+                ", [porcRetMunicipal]: " + porcRetMunicipal + ", [idMoneda]: " + idMoneda + ", [direccionEntrega]: " +
+                direccionEntrega + ", [exonerada]: " + exonerada + ", [retencionFuente]" + retencionFuente +
+                ", [retencionMunicipal]: " + retencionMunicipal + "[idCliente]: " + idCliente +
+                ", [idAlmacen]: " + idAlmacen + ", [tasaCambio]: " + tasaCambio + ", [fechaVencimiento]: " + fechaVencimiento);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
+
+        try {
+
+            //Preparar el contexto de ejecucion
+            Cliente cliente = clienteEAO.findById(idCliente);
+            Almacen almacen = almacenEAO.findById(idAlmacen);
+            Moneda moneda = monedaEAO.findById(idMoneda);
+            AgenteVentas agenteVentas = agenteVentasEAO.findById(idAgenteVentas);
+            EstadoMovimiento estado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.INGRESADO.getEstado());
+            Date fecha1 = new Date();
+            //Proforma proforma = null; //TODO: Implementar asociacion con una proforma
+
+            //Actualizar consecutivo de Proforma en el almacen
+            boolean update_consecutivo = true;
+
+            //Validar consistencia de datos
+            if (fechaAlta.after(new Date()))
+                throw new ManagerFacturacionServiceBusinessException("Fecha de alta no puede ser posterior al dia de hoy.");
+
+            if (articulos.isEmpty())
+                throw new ManagerFacturacionServiceBusinessException("Debes ingresar al menos un articulo");
+
+            if (noProforma > 0) {
+                proformaValidaParaRegistro(noProforma, almacen.getId()); //Verificar que numero de Proforma no se encuentra registrado
+                update_consecutivo = false; //No actualizar consecutivo en almacen de facturacion
+            } else {
+                noProforma = almacen.getConsecutivo() + 1;  //Obtener numero de proforma consecutivo
+            }
+            //Persistir Proforma
+            Proforma proforma = new Proforma();
+            proforma.setNoDocumento(noProforma);
+            proforma.setFechaAlta(fechaAlta);
+            proforma.setNombreCliente(nombreCliente);
+            proforma.setTasaCambio(tasaCambio);
+            proforma.setMoneda(moneda);
+//            factura.setProforma(proforma);
+            proforma.setAgenteVentas(agenteVentas);
+            proforma.setAlmacen(almacen);
+            proforma.setCliente(cliente);
+            proforma.setNombreCliente(cliente.getRazonSocial());
+            proforma.setExonerada(exonerada);
+            proforma.setRetencionF(retencionFuente);
+            proforma.setRetencionM(retencionMunicipal);
+            proforma.setPorcDescuento(porcDescuento);
+            proforma.setPorcIVA(porcIva);
+            proforma.setPorcRetFuente(porcRetFuente);
+            proforma.setPorcRetMunicipal(porcRetMunicipal);
+            proforma.setMontoBruto(new BigDecimal("0.00"));
+            proforma.setMontoDescuento(new BigDecimal("0.00"));
+            proforma.setMontoNeto(new BigDecimal("0.00"));
+            proforma.setMontoIVA(new BigDecimal("0.00"));
+            proforma.setRetencionFuente(new BigDecimal("0.00"));
+            proforma.setRetencionMunicipal(new BigDecimal("0.00"));
+            proforma.setEstadoMovimiento(estado);
+            proforma.setFechaVencimiento(fecha1);
+
+            if (direccionEntrega != null)
+                proforma.setDireccionEntrega(direccionEntrega);
+            else
+                proforma.setDireccionEntrega(cliente.getDireccion());
+
+            //<Persistir articulos de Proforma>
+            BigDecimal montoTotalAntesImpuesto = new BigDecimal("0.00");
+            BigDecimal montoTotalNeto = new BigDecimal("0.00");
+            BigDecimal montoTotalIVA = new BigDecimal("0.00");
+            BigDecimal montoTotalDescuento = new BigDecimal("0.00");
+            BigDecimal montoTotalRetFuente = new BigDecimal("0.00");
+            BigDecimal montoTotalRetMunicipal = new BigDecimal("0.00");
+
+            int renglon = 1;
+
+            for (Iterator it = articulos.iterator(); it.hasNext(); ) {
+
+                //Obteniendo articulo proforma
+//                ArticuloFactura articulo = (ArticuloFactura) it.next();
+                ArticuloProforma articuloP = (ArticuloProforma) it.next();
+
+                //Borrar articulos con cantidad menor o igual a zero
+                if (articuloP.getCantidad() <= 0) {
+                    it.remove();
+                    continue;
+                }
+
+                if (articuloP.isCreate()) {
+
+                   articuloP.setProforma(proforma);
+                   articuloP.setNoProforma(proforma.getNoDocumento());
+                   }
+
+                if (articuloP.isUpdate()) {
+                    articuloP.setProforma(proforma);
+                    articuloP.setNoProforma(proforma.getNoDocumento());
+
+                    }
+
+
+                //*************************************************************************
+                //Acumular montos totales
+                //*************************************************************************
+                montoTotalAntesImpuesto = montoTotalAntesImpuesto.add(articuloP.getPrecioAntesImpuesto());
+                montoTotalDescuento = montoTotalDescuento.add(articuloP.getDescuento());
+                montoTotalIVA = montoTotalIVA.add(articuloP.getIva());
+                montoTotalRetFuente = montoTotalRetFuente.add(articuloP.getRetencionFuente());
+                montoTotalRetMunicipal = montoTotalRetMunicipal.add(articuloP.getRetencionMunicipal());
+                montoTotalNeto = montoTotalNeto.add(articuloP.getPrecioNeto());
+
+                //Actualizar renglon
+                articuloP.setRenglon(renglon);
+
+                renglon++;
+            }
+
+            //<Persist articulos proforma>
+            proforma.setMontoBruto(montoTotalAntesImpuesto.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            proforma.setMontoDescuento(montoTotalDescuento.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            proforma.setMontoIVA(montoTotalIVA.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            proforma.setRetencionFuente(montoTotalRetFuente.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            proforma.setRetencionMunicipal(montoTotalRetMunicipal.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            proforma.setMontoNeto(montoTotalNeto.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            proforma.setArticulos(new HashSet<ArticuloProforma>(articulos));
+
+            //Persistir nueva proforma
+            proforma = proformaEAO.create(proforma);
+
+            //Actualizar numero consecutivo de facturacion si el numero es generado
+            if (update_consecutivo) {
+                almacen.setConsecutivo(noProforma);
+                almacenEAO.update(almacen);
+            }
+
+            //Retornar proforma Guardada
+            return proforma;
+
+        } catch (PersistenceClassNotFoundException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
     public Factura modificarFactura(Integer idFactura, BigDecimal tasaCambio, Direccion direccionEntrega, BigDecimal porcDescuento,
                                     BigDecimal porcIva, BigDecimal porcRetFuente, BigDecimal porcRetMunicipal,
                                     Date fechaAlta, boolean exonerada, boolean retencionFuente, boolean retencionMunicipal,
@@ -526,6 +689,115 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
+    public Proforma modificarProforma(Integer idProforma, BigDecimal tasaCambio, Direccion direccionEntrega, BigDecimal porcDescuento,
+                                      BigDecimal porcIva, BigDecimal porcRetFuente, BigDecimal porcRetMunicipal, Date fechaAlta,
+                                      boolean exonerada, boolean retencionFuente, boolean retencionMunicipal, List<ArticuloProforma> articulos)
+            throws ManagerFacturacionServiceBusinessException, RemoteException {
+
+        logger.debug("Modificar proforma con parámetros: [idProforma]: " + idProforma + ", [tasaCambio]: " + tasaCambio +
+                 ", [direccionEntrega]: " + direccionEntrega + ", [porcDescuento]: " + porcDescuento + ", [porcIva]: " +
+                 ", [porcRetFuente]: " + porcRetFuente + ", [porcRetMunicipal]: " + porcRetMunicipal + ", [fechaAlta]: " + fechaAlta +
+                 ", [exonerada]: " + exonerada + ", [retencionFuente]: " + retencionFuente + ", [retencionMunicipal]: " + retencionMunicipal);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
+
+        try{
+
+            //Preparar el contexto de ejecucion
+            Proforma proforma = proformaEAO.findById(idProforma);
+
+            if(articulos.isEmpty())
+                throw new ManagerFacturacionServiceBusinessException("Debes ingresar al menos un articulo");
+
+            proforma.setTasaCambio(tasaCambio);
+            proforma.setDireccionEntrega(direccionEntrega);
+            proforma.setPorcDescuento(porcDescuento);
+            proforma.setPorcIVA(porcIva);
+            proforma.setPorcRetFuente(porcRetFuente);
+            proforma.setPorcRetMunicipal(porcRetMunicipal);
+            proforma.setFechaAlta(fechaAlta);
+            proforma.setExonerada(exonerada);
+            proforma.setRetencionF(retencionFuente);
+            proforma.setRetencionM(retencionMunicipal);
+
+            //<Persistir Articulos de Proforma
+            BigDecimal montoTotalAntesImpuesto = new BigDecimal("0.00");
+            BigDecimal montoTotalNeto = new BigDecimal("0.00");
+            BigDecimal montoTotalIVA = new BigDecimal("0.00");
+            BigDecimal montoTotalDescuento = new BigDecimal("0.00");
+            BigDecimal montoTotalRetFuente = new BigDecimal("0.00");
+            BigDecimal montoTotalRetMunicipal = new BigDecimal("0.00");
+
+            int renglon = 1;
+
+            for (Iterator it = articulos.iterator(); it.hasNext(); ) {
+                ArticuloProforma articulo = (ArticuloProforma) it.next();
+
+                if(articulo.isCreate()){
+
+                    //Borrar articulos con cantidad menor o igual a cero
+                    if(articulo.getCantidad() <= 0){
+                        it.remove();
+                        continue;
+                    }
+
+                    articulo.setProforma(proforma);
+                    articulo.setNoProforma(proforma.getNoDocumento());
+
+                }
+
+                if(articulo.isUpdate()){
+
+                    //Borrar articulos con cantidad menor o igual a cero
+                    if(articulo.getCantidad() <= 0){
+                        //Remover el articulo si su Id es distinto de nulo
+                        if (articulo.getId() != null)
+                            articuloProformaEAO.remove(articulo.getId());
+                        it.remove();
+                        continue;
+                    }
+                }
+
+                //*************************************************************************
+                //Acumular montos totales
+                //*************************************************************************
+                montoTotalAntesImpuesto = montoTotalAntesImpuesto.add(articulo.getPrecioAntesImpuesto());
+                montoTotalDescuento = montoTotalDescuento.add(articulo.getDescuento());
+                montoTotalIVA = montoTotalIVA.add(articulo.getIva());
+                montoTotalRetFuente = montoTotalRetFuente.add(articulo.getRetencionFuente());
+                montoTotalRetMunicipal = montoTotalRetMunicipal.add(articulo.getRetencionMunicipal());
+                montoTotalNeto = montoTotalNeto.add(articulo.getPrecioNeto());
+
+                //Actualizar Renglon
+                articulo.setRenglon(renglon);
+                renglon++;
+            }
+                //<Persist articulos proforma>
+            proforma.setMontoBruto(montoTotalAntesImpuesto.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            proforma.setMontoDescuento(montoTotalDescuento.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            proforma.setMontoIVA(montoTotalIVA.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            proforma.setRetencionFuente(montoTotalRetFuente.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            proforma.setRetencionMunicipal(montoTotalRetMunicipal.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            proforma.setMontoNeto(montoTotalNeto.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            proforma.setArticulos(new HashSet<ArticuloProforma>(articulos));
+
+            proforma = proformaEAO.update(proforma);
+
+            return proforma;
+
+        } catch(PersistenceClassNotFoundException e){
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } catch(GenericPersistenceEAOException e){
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
     public void anularFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException {
 
         logger.debug("Anular factura con parametros: [idFactura]: " + idFactura);
@@ -620,12 +892,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
         }
     }
 
-    @Override
-    public Proforma crearProforma(Integer idCliente, Integer idAlmacen, Integer idTasaCambio, String nombreCliente,
-                                  Direccion direccionEntrega, Date fechaAlta, List<ArticuloFactura> articulos) throws
-            ManagerFacturacionServiceBusinessException, RemoteException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
+
 
     @Override
     public List<AgenteVentas> buscarAgentesVentas() throws ManagerFacturacionServiceBusinessException, RemoteException {
@@ -852,16 +1119,66 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
-    public List<Factura> buscarFacturasPorFecha(Date fechaDesde, Date fechaHasta) throws ManagerFacturacionServiceBusinessException, RemoteException {
+    public List<Proforma>buscarProformasPorFecha(Date fechaDesde, Date fechaHasta) throws ManagerFacturacionServiceBusinessException, RemoteException {
 
-        logger.debug("Buscando facturas comerciales por rangos de fecha: [fechaDesde]: " + fechaDesde + ", [fechaHasta]: " +
-                fechaHasta);
+        logger.debug("Buscando Proformas por rangos de Fecha: [fechaDesde]: " + fechaDesde + ", [fechaHasta]: " +
+                     fechaHasta);
 
         //Iniciar servicio de autorizacion
         boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
 
-        try {
+        try{
+            //Validar campos de la busqueda
+            if(fechaDesde == null)
+                throw new ManagerFacturacionServiceBusinessException("Debe seleccionar una fecha desde v\u00e1lida");
+            if(fechaHasta == null)
+                throw new ManagerFacturacionServiceBusinessException("Debe seleccionar una fecha hasta v\u00e1lida");
+            //Buscar almacen del usuario
+            Almacen almacen = mgrSeguridad.buscarUsuarioPorLogin(mgrAutorizacion.getUsername()).getAlmacen();
+            Integer idAlmacen = almacen != null ? almacen.getId() : null;
+            //Si almacen del usuario es nulo - verificar que tiene el rol de administrador para ejecutar la accion
+            if (idAlmacen == null)
+                mgrAutorizacion.isUserInRole(Roles.ROLSYSTEMADMIN.toString());
 
+            //Preparar fechas para busquedas
+            GregorianCalendar gc = new GregorianCalendar();
+            gc.setTime(fechaDesde);
+            gc.set(Calendar.HOUR_OF_DAY, 0);
+            gc.set(Calendar.MINUTE, 0);
+            gc.set(Calendar.SECOND, 0);
+            gc.set(Calendar.MILLISECOND, 0);
+            fechaDesde = gc.getTime();
+
+            gc.setTime(fechaHasta);
+            gc.set(Calendar.HOUR_OF_DAY, 0);
+            gc.set(Calendar.MINUTE, 0);
+            gc.set(Calendar.SECOND, 0);
+            gc.set(Calendar.MILLISECOND, 0);
+            fechaHasta = gc.getTime();
+
+            return proformaEAO.findByFechas(fechaDesde, fechaHasta, idAlmacen);
+
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } catch (ManagerAutorizacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } catch (ManagerSeguridadServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+    @Override
+    public List<Factura> buscarFacturasPorFecha(Date fechaDesde, Date fechaHasta) throws ManagerFacturacionServiceBusinessException, RemoteException {
+        logger.debug("Buscando facturas comerciales por rangos de fecha: [fechaDesde]: " + fechaDesde + ", [fechaHasta]: " +
+                fechaHasta);
+        //Iniciar servicio de autorizacion
+        boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
+
+        try {
             //Validar campos de la busqueda
             if (fechaDesde == null)
                 throw new ManagerFacturacionServiceBusinessException("Debe seleccionar una fecha desde v\u00e1lida");
@@ -908,7 +1225,29 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             stopBusinessService(transaction);
         }
     }
+    @Override
+    public List<ArticuloProforma>buscarArticulosProforma(Integer idProforma) throws ManagerFacturacionServiceBusinessException,
+            RemoteException{
+        logger.debug("Buscando articulos de Proforma con parametros: [IDPROFORMA]: " + idProforma);
 
+        //Iniciar Servicio de Autorizacion
+        boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
+
+        try{
+            //Search Proforma a cliente
+            Proforma proforma = proformaEAO.findById(idProforma);
+            for(ArticuloProforma articulo : proforma.getArticulos()){
+                Hibernate.initialize(articulo.getProducto());
+                Hibernate.initialize(articulo.getProducto().getUnidadMedida());
+            }
+            return new ArrayList<ArticuloProforma>(proforma.getArticulos());
+        } catch(GenericPersistenceEAOException e){
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } finally{
+            stopBusinessService(transaction);
+        }
+    }
     @Override
     public List<ArticuloFactura> buscarArticulosFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException,
             RemoteException {
@@ -938,6 +1277,18 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
         }
     }
 
+    @Override
+    public void usuarioEditaDatosProforma() throws ManagerFacturacionServiceBusinessException, RemoteException {
+        logger.debug("Verificar si Usuario tiene permisos de editar datos de proforma");
+
+        try{
+            //Verificar si usuario tiene permiso de editar datos de Proforma
+            mgrAutorizacion.isUserInRole(Roles.ROLFACTURACIONADMIN.toString());
+        } catch (ManagerAutorizacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        }
+    }
     @Override
     public void usuarioEditaDatosFactura() throws ManagerFacturacionServiceBusinessException, RemoteException {
 
@@ -985,11 +1336,38 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
         }
     }
 
+
     /**
-     * Buscar Factura con numero y almacen de facturacion
+     * Buscar Proforma con numero y almacen de facturacion
      *
-     * @param noFactura, Numero de factura
+     * @param noProforma, Numero de factura
      * @param idAlmacen, Identificador de Almacen
+     * @throws ManagerFacturacionServiceBusinessException,
+     *          Exception
+     */
+
+    private void proformaValidaParaRegistro(long noProforma, Integer idAlmacen) throws ManagerFacturacionServiceBusinessException {
+       logger.debug("Busca Proforma por numero de proforma: [noProforma]: " + noProforma);
+        try {
+
+            //Buscar proforma por número de proforma
+            Proforma proforma = proformaEAO.findByNumero(noProforma, idAlmacen);
+
+            throw new ManagerFacturacionServiceBusinessException("Proforma con numero: [" + noProforma + "]" +
+                    "se encuentra registrada, favor ingresar otro numero consecutivo de Proforma");
+
+        } catch (PersistenceClassNotFoundException e) {
+            logger.info("Número de proforma no se encuentra registrado. Proceder con el registro!!!");
+        } catch (GenericPersistenceEAOException e) {
+            logger.info("Numero de proforma no se encuentra registrado. Proceder con el registro!!!");
+        }
+    }
+
+    /**
+     * Obtener numero consecutivo proforma
+     *
+     * @param idAlmacen, Identificador del almacen
+     * @return long
      * @throws ManagerFacturacionServiceBusinessException,
      *          Exception
      */

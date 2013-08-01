@@ -78,6 +78,33 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
             throws ManagerFacturacionServiceBusinessException, RemoteException;
 
     /**
+     * Modificar proforma cliente
+     *
+     * @param idProforma,         Identificador de proforma a guardar
+     * @param tasaCambio,         Tasa de cambio
+     * @param direccionEntrega,   Direccion de entrega
+     * @param porcDescuento,      Porcentaje de descuento
+     * @param porcIva,            Porcentaje de Iva
+     * @param porcRetFuente,      Porcentaje de retencion en la fuente
+     * @param porcRetMunicipal,   Porcentaje de retencion municipal
+     * @param fechaAlta,          Fecha alta factura
+     * @param exonerada,          Exonerada
+     * @param retencionFuente,    Retencion en la fuente
+     * @param retencionMunicipal, Retencion municipal
+     * @param articulos,          Listado de articulos
+     * @return Proforma
+     * @throws ManagerFacturacionServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public Proforma modificarProforma(Integer idProforma, BigDecimal tasaCambio, Direccion direccionEntrega,
+                                    BigDecimal porcDescuento, BigDecimal porcIva, BigDecimal porcRetFuente,
+                                    BigDecimal porcRetMunicipal, Date fechaAlta, boolean exonerada, boolean retencionFuente,
+                                    boolean retencionMunicipal, List<ArticuloProforma> articulos)
+            throws ManagerFacturacionServiceBusinessException, RemoteException;
+
+
+    /**
      * Anular factura
      *
      * @param idFactura, Identificador de factura
@@ -100,20 +127,33 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
     /**
      * Crear proforma a cliente
      *
-     * @param idCliente,        Identificador de cliente
-     * @param idAlmacen,        Identificador de almacen
-     * @param idTasaCambio,     Identificador de tasa de cambio
-     * @param nombreCliente,    Nombre del cliente
-     * @param direccionEntrega, Direccion de entrega
-     * @param fechaAlta,        Fecha de alta de proforma
-     * @param articulos,        Listado de articulos en proforma
+     * @param noProforma          Número de Proforma
+     * @param idCliente,          Cliente de la Proforma
+     * @param idAlmacen,          Almacen de Proforma
+     * @param idAgenteVentas,     Agente de Ventas
+     * @param porcIva,            Porcentaje Iva
+     * @param porcRetFuente,      Porcentaje Retención
+     * @param porcRetMunicipal    Porcentaje Retención Municipal
+     * @param tasaCambio          Tasa de Cambio
+     * @param nombreCliente       Nombre del Cliente
+     * @param idMoneda            Tipo de Moneda
+     * @param direccionEntrega    Dirección Entrega
+     * @param fechaAlta           Fecha Alta
+     * @param exonerada           Exonerado de impuestos
+     * @param retencionFuente     Retención en la Fuente
+     * @param retencionMunicipal  Retención Municipal
+     * @param articulos,          Listado de articulos en proforma
      * @return Proforma
      * @throws ManagerFacturacionServiceBusinessException,
      *                          Exception
      * @throws RemoteException, Exception
      */
-    public Proforma crearProforma(Integer idCliente, Integer idAlmacen, Integer idTasaCambio, String nombreCliente,
-                                  Direccion direccionEntrega, Date fechaAlta, List<ArticuloFactura> articulos)
+    public Proforma crearProforma(long noProforma, Integer idCliente, Integer idAlmacen,
+                                  Integer idAgenteVentas, BigDecimal porcDescuento, BigDecimal porcIva,
+                                  BigDecimal porcRetFuente, BigDecimal porcRetMunicipal, BigDecimal tasaCambio,
+                                  String nombreCliente, Integer idMoneda, Direccion direccionEntrega,
+                                  Date fechaAlta, boolean exonerada, boolean retencionFuente, boolean retencionMunicipal,
+                                  List<ArticuloProforma> articulos, Date fechaVencimiento)
             throws ManagerFacturacionServiceBusinessException, RemoteException;
 
     /**
@@ -210,6 +250,20 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
             RemoteException;
 
     /**
+     * Buscar Proformas por rangos de fecha
+     *
+     * @param fechaDesde, Fecha desde
+     * @param fechaHasta, Fecha hasta
+     * @return List
+     * @throws ManagerFacturacionServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public List<Proforma> buscarProformasPorFecha(Date fechaDesde, Date fechaHasta) throws ManagerFacturacionServiceBusinessException,
+            RemoteException;
+
+
+    /**
      * Buscar facturas comerciales por rangos de fecha
      *
      * @param fechaDesde, Fecha desde
@@ -240,7 +294,12 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
      *                          Exception
      * @throws RemoteException, Exception
      */
+
+    public void usuarioEditaDatosProforma() throws ManagerFacturacionServiceBusinessException, RemoteException;
+
     public void usuarioEditaDatosFactura() throws ManagerFacturacionServiceBusinessException, RemoteException;
 
+    List<ArticuloProforma>buscarArticulosProforma(Integer idProforma) throws ManagerFacturacionServiceBusinessException,
+            RemoteException;
 }
 

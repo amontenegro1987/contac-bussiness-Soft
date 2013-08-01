@@ -35,6 +35,13 @@ public class Proforma extends DocumentoComercial implements Serializable {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * PROPERTY NAME: Agente de ventas
+     */
+    private AgenteVentas agenteVentas;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * PROPERTY NAME: articulos
      */
     private Set<ArticuloProforma> articulos;
@@ -62,12 +69,19 @@ public class Proforma extends DocumentoComercial implements Serializable {
      * Setear articulos proforma
      * @return Set<ArticuloProforma>
      */
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "N_ID_PROFORMA", nullable = false)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "proforma")
     public Set<ArticuloProforma> getArticulos() {
         return articulos;
     }
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "N_ID_AGENTE_VENTAS", nullable = false)
+    public AgenteVentas getAgenteVentas() {
+        return agenteVentas;
+    }
 
+    public void setAgenteVentas(AgenteVentas agenteVentas) {
+        this.agenteVentas = agenteVentas;
+    }
     /**
      * Obtener articulos proforma
      * @param articulos, Set<ArticuloProforma>
