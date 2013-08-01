@@ -15,6 +15,7 @@ import contac.servicio.facturacion.ManagerFacturacionServiceBusiness;
 import contac.servicio.facturacion.ManagerFacturacionServiceBusinessException;
 import contac.servicio.inventario.ManagerInventarioServiceBusiness;
 import contac.servicio.inventario.ManagerInventarioServiceBusinessException;
+import contac.servicio.seguridad.ManagerSeguridadServiceBusinessException;
 import org.apache.log4j.Logger;
 
 import java.rmi.RemoteException;
@@ -52,6 +53,28 @@ public class FacturacionBaseController extends BaseController {
     //*************************************************************************************
     //PRIVATE METHODS
     //*************************************************************************************
+
+    /**
+     * Check Permission User by role
+     *
+     * @param roleName, Role Name
+     * @return boolean
+     * @throws Exception, Exception
+     */
+    public boolean checkUserInRole(String roleName) throws Exception {
+
+        logger.debug("Verificando si usuario tiene rol asignado: " + roleName);
+
+        try {
+            return getMgrSeguridadService().isUserInRole(roleName);
+        } catch (ManagerSeguridadServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
 
     /**
      * Buscar fecha alta facturacion
@@ -187,21 +210,22 @@ public class FacturacionBaseController extends BaseController {
 
     /**
      * Obtener listado de agentes de ventas
+     *
      * @return List
      * @throws Exception, Exception
      */
     public List<AgenteVentas> buscarAgentesVentas() throws Exception {
-        
+
         logger.debug("Obteniendo listado de agentes de ventas...!");
-        
+
         try {
-            
+
             //Obtener manager de facturacion
             ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
-            
+
             //Retornar listado de agentes de ventas
             return mgrFacturacion.buscarAgentesVentas();
-            
+
         } catch (ManagerFacturacionServiceBusinessException e) {
             logger.error(e.getMessage(), e);
             throw new Exception(e.getMessage(), e);
@@ -240,21 +264,22 @@ public class FacturacionBaseController extends BaseController {
 
     /**
      * Buscar agente de ventas por codigo
+     *
      * @param codigo, Codigo de agente de ventas
      * @return AgenteVentas
      * @throws Exception, Exception
      */
     public AgenteVentas buscarAgenteVentasPorCodigo(long codigo) throws Exception {
-        
+
         logger.debug("Buscar agente de ventas con parameros: [codigo]: " + codigo);
-        
+
         try {
-            
+
             //Obtener manager de facturacion
             ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
-            
+
             return mgrFacturacion.buscarAgentesVentasPorCodigo(codigo);
-            
+
         } catch (ManagerFacturacionServiceBusinessException e) {
             logger.error(e.getMessage(), e);
             throw new Exception(e.getMessage(), e);
@@ -266,50 +291,52 @@ public class FacturacionBaseController extends BaseController {
 
     /**
      * Buscar cliente por codigo
+     *
      * @param codigo, Codigo de cliente
      * @return Cliente
      * @throws Exception, Exception
      */
     public Cliente buscarClientePorCodigo(long codigo) throws Exception {
-        
+
         logger.debug("Buscar cliente con parametros: [codigo]: " + codigo);
-        
+
         try {
-            
+
             //Obtener manager de cliente
             ManagerClientesServiceBusiness mgrCliente = getMgrClientesService();
-            
+
             return mgrCliente.buscarClientePorCodigo(codigo);
-            
+
         } catch (ManagerClientesServiceBusinessException e) {
             logger.error(e.getMessage(), e);
-            throw new Exception(e.getMessage(), e); 
+            throw new Exception(e.getMessage(), e);
         } catch (RemoteException e) {
             logger.error(e.getMessage(), e);
             throw new Exception(e.getMessage(), e);
         }
-    }                              
+    }
 
     /**
      * Buscar tasa de cambio inicial
+     *
      * @return TasaCambio
      * @throws Exception, Exception
      */
     public TasaCambio buscarTasaCambioInicial() throws Exception {
-        
+
         logger.debug("Buscar tasa de cambio inicial facturacion");
-        
+
         try {
 
             //Obtener manager de facturacion
             ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
-            
+
             //Obtener listado de tasas de cambio validas
             List<TasaCambio> tasasCambio = mgrFacturacion.buscarTasasCambioFacturacion();
-            
+
             if (tasasCambio != null)
                 return tasasCambio.get(0);
-            
+
         } catch (ManagerFacturacionServiceBusinessException e) {
             logger.error(e.getMessage(), e);
             throw new Exception(e.getMessage(), e);

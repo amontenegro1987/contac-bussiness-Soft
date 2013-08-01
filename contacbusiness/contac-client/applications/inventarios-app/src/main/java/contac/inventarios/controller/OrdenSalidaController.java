@@ -391,7 +391,12 @@ public class OrdenSalidaController extends InventarioBaseController {
             estados.add(EstadosMovimiento.INGRESADO.getEstado());
 
             //Retornar listado encontrado
-            return mgrInventario.buscarOrdenesSalidaPorEstados(estados);
+            List<OrdenSalida> ordenesSalida = mgrInventario.buscarOrdenesSalidaPorEstados(estados);
+            if (ordenesSalida == null) {
+                ordenesSalida = new ArrayList<OrdenSalida>();
+            }
+
+            return ordenesSalida;
 
         } catch (ManagerInventarioServiceBusinessException e) {
             logger.error(e.getMessage(), e);

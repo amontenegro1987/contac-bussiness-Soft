@@ -266,14 +266,17 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
     /**
      * Buscar facturas comerciales por rangos de fecha
      *
-     * @param fechaDesde, Fecha desde
-     * @param fechaHasta, Fecha hasta
+     * @param fechaDesde,    Fecha desde
+     * @param fechaHasta,    Fecha hasta
+     * @param idAlmacen,     Almacen de facturacion
+     * @param idTipoFactura, Tipo de factura
      * @return List
      * @throws ManagerFacturacionServiceBusinessException,
      *                          Exception
      * @throws RemoteException, Exception
      */
-    public List<Factura> buscarFacturasPorFecha(Date fechaDesde, Date fechaHasta) throws ManagerFacturacionServiceBusinessException,
+    public List<Factura> buscarFacturasPorFecha(Date fechaDesde, Date fechaHasta, Integer idAlmacen,
+                                                Integer idTipoFactura) throws ManagerFacturacionServiceBusinessException,
             RemoteException;
 
     /**
