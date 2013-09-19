@@ -258,6 +258,31 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
     }
 
     @Override
+    public List<Producto> buscarProducto(String codigoDesde, String codigoHasta, Integer idLinea, Long codProveedor,
+                                         Integer idAlmacen, boolean existencia) throws ManagerProductoServiceBusinessException, RemoteException {
+
+        logger.debug("Buscar productos con parametros: [codigoDesde]: " + codigoDesde + ", [codigoHasta]: " + codigoHasta +
+            ", [Linea]: " + idLinea + ", [idProveedor]: " + codProveedor + ", [existencia]: " + existencia);
+
+        //Init servicio
+        boolean transaction = initBusinessService(Roles.ROLCATALOGOCONSULTA.toString());
+
+        try {
+
+            //Find collection of productos
+            List<Producto> productos = productoEAO.find(codigoDesde, codigoHasta, idLinea, idAlmacen, codProveedor);
+
+            return productos;
+
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerProductoServiceBusinessException(e.getMessage(), e);
+        }  finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
     public ProductoExistencia buscarProductoExistenciaPorAlmacen(String codigo, Integer idAlmacen)
             throws ManagerProductoServiceBusinessException, RemoteException {
 

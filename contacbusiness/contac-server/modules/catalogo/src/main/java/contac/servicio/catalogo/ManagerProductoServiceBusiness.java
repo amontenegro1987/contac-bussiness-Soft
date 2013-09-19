@@ -9,7 +9,6 @@ import contac.modelo.entity.*;
 
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -44,6 +43,24 @@ public interface ManagerProductoServiceBusiness extends ManagerProductoServiceBu
      * @throws RemoteException, Exception
      */
     public List<Producto> buscarProducto(String codigo, String nombre, String codigoFabricante) throws ManagerProductoServiceBusinessException,
+            RemoteException;
+
+    /**
+     * Buscar producto por parametros
+     *
+     * @param codigoDesde, Codigo desde
+     * @param codigoHasta, Codigo hasta
+     * @param idLinea,     Linea de Productos
+     * @param codProveedor, Codigo de Proveedor
+     * @param idAlmacen,   Codigo de Almacen
+     * @param existencia,  Requiere Existencias
+     * @return List
+     * @throws ManagerProductoServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public List<Producto> buscarProducto(String codigoDesde, String codigoHasta, Integer idLinea, Long codProveedor,
+                                         Integer idAlmacen, boolean existencia) throws ManagerProductoServiceBusinessException,
             RemoteException;
 
     /**
