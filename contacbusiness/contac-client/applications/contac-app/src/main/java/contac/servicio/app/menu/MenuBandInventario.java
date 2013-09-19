@@ -117,6 +117,18 @@ public class MenuBandInventario extends MenuBand {
             }
         });
 
+        //ADMINISTRA INVENTARIO
+        JCommandButton mnuAdmonInventario = new JCommandButton(LabelMessage.getInstance().getLabel("CONTAC.SUBMENU.INVENTARIO.ADMONINVENTARIOS"),
+                ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/icons/inventory_orders.png"), new Dimension(32, 32)));
+
+        mnuAdmonInventario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                style.addPanel("AdmonInventarios", "contac.inventarios.movimiento.inventario.app.pnlAdmonInventario");
+            }
+        });
+
+
         //Start grouping
         startGroup();
 
@@ -127,6 +139,7 @@ public class MenuBandInventario extends MenuBand {
         addCommandButton(mnuBajaInventario, RibbonElementPriority.TOP);
         addCommandButton(mnuLevantamientoInventarioFisico, RibbonElementPriority.TOP);
         addCommandButton(mnuMovimientoInventario, RibbonElementPriority.TOP);
+        addCommandButton(mnuAdmonInventario, RibbonElementPriority.TOP);
 
         //Call resize policies
         resizePolicies();

@@ -1,5 +1,6 @@
 package contac.servicio;
 
+import contac.config.ContacConfigInitService;
 import contac.logger.ContacApacheLog4j;
 import contac.servicio.aplicacion.AplicacionBaseApp;
 import contac.servicio.autenticacion.login.ContacLoginManager;
@@ -9,18 +10,18 @@ import contac.servicio.autorizacion.ContacPolicy;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
-import java.io.Console;
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NoSuchObjectException;
-import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.security.Policy;
 import java.util.Date;
+import java.util.Properties;
 
 /**
  * Clase para servicio principal de Contac Server
@@ -88,15 +89,23 @@ public class ContacMainService {
     private static void createJNDILookUp() {
         try {
 
+            //Contac config service
+            ContacConfigInitService contacConfig = new ContacConfigInitService();
+
+            Properties properties = new Properties();
+            properties.load(contacConfig.getRmiConfigPath());
+
             //Crear servicio de logueo
             ContacLoginManager login = new ContacLoginManagerImpl();
 
             //Servir el servicio de autenticacion
-            Naming.rebind(ContacLoginManagerJNDIConstant.LOGINMANAGER_SERVICE_REMOTE, login);
+            Naming.rebind(properties.getProperty("service_host"), login);
 
         } catch (MalformedURLException e) {
             logger.error(e.getMessage(), e);
         } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+        } catch (IOException e) {
             logger.error(e.getMessage(), e);
         }
     }
