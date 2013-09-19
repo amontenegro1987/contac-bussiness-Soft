@@ -1691,7 +1691,7 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
                     movimientoInventario.setEstado(estadoAplicado);
                     movimientoInventario.setFechaAlta(ordenLevantamientoFisico.getFechaAlta());
                     movimientoInventario.setAfectacion(articulo.getCantidadAjuste() < 0 ? new Integer(-1).shortValue() : new Integer(1).shortValue());
-                    movimientoInventario.setCantidad(articulo.getCantidadAjuste());
+                    movimientoInventario.setCantidad(articulo.getCantidadAjuste() * movimientoInventario.getAfectacion());
                     movimientoInventario.setProducto(articulo.getProducto());
 
 
@@ -1789,7 +1789,7 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
 
                 //Setting articulo cantidad de ajuste en inventario fisico
                 articulo.setCantidadExistencia(cantExistencia);
-                articulo.setCantidadAjuste(cantAjuste < 0 ? TiposAfectacion.NEGATIVA.getValue() * cantAjuste : cantAjuste);
+                articulo.setCantidadAjuste(cantAjuste);
                 articulo.setMontoAjuste(costoAjuste);
 
                 //Actualizar monto total ajuste
