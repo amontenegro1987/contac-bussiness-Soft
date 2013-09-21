@@ -236,6 +236,7 @@ public class pnlRegistroLevantamientoFisico extends GenericPanel {
             getMDI().getStyle().removePanel(this);
         }
     }//GEN-LAST:event_btnAplicarAjusteActionPerformed
+
     private void tblOrdenesLevantamientoMouseClicked(java.awt.event.MouseEvent evt) {
 
         // Getting orden de entrada selected

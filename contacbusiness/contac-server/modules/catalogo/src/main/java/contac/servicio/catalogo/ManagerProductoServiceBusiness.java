@@ -48,12 +48,12 @@ public interface ManagerProductoServiceBusiness extends ManagerProductoServiceBu
     /**
      * Buscar producto por parametros
      *
-     * @param codigoDesde, Codigo desde
-     * @param codigoHasta, Codigo hasta
-     * @param idLinea,     Linea de Productos
+     * @param codigoDesde,  Codigo desde
+     * @param codigoHasta,  Codigo hasta
+     * @param idLinea,      Linea de Productos
      * @param codProveedor, Codigo de Proveedor
-     * @param idAlmacen,   Codigo de Almacen
-     * @param existencia,  Requiere Existencias
+     * @param idAlmacen,    Codigo de Almacen
+     * @param existencia,   Requiere Existencias
      * @return List
      * @throws ManagerProductoServiceBusinessException,
      *                          Exception
@@ -197,5 +197,15 @@ public interface ManagerProductoServiceBusiness extends ManagerProductoServiceBu
      * @throws RemoteException, Exception
      */
     public void eliminarProducto(Integer idProducto) throws ManagerProductoServiceBusinessException, RemoteException;
+
+    /**
+     * Anular Lista de Productos seleccionados
+     *
+     * @param productos, List<Integer>
+     * @throws ManagerProductoServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public void anularProductos(List<Integer> productos) throws ManagerProductoServiceBusinessException, RemoteException;
 
 }

@@ -124,7 +124,7 @@ public class pnlRegistroFacturas extends GenericPanel {
 
         //Obteniendo table column model y removiendo columnas innecesarias
         TableColumnModel tableColumnModel = tblFacturasClientes.getColumnModel();
-        String[] columnsRemove = new String[]{"Agente Ventas", "Cliente", "Direccion Entrega", "Exonerada", "Proforma",
+        String[] columnsRemove = new String[]{"Agente Ventas", "Cliente", "Direccion Entrega", "Exonerada", "Excenta", "Proforma",
                 "Pago", "Porc Descuento", "Porc IVA", "Porc Ret Fuente", "Porc Ret Municipal", "Serie", "Id", "Retencion F",
                 "Retencion M", "Terminos Pago", "Tasa Cambio", "Ctime", "Cuser", "Mtime", "Muser"};
 

@@ -55,6 +55,8 @@ public class ProductoEAOPersistence extends GenericPersistenceEAO<Producto, Inte
         //3. Agregando parametro de codigo de fabricante
         querySolver.add(new QueryFragment(((codigoFabricante != null) && (!codigoFabricante.equals(""))), "",
                 " p.codigoFabricante like :codigoFabricante ", "codigoFabricante", "%".concat(codigoFabricante).concat("%")));
+        //3. Agregando estado de producto
+        querySolver.add(new QueryFragment(true, "", " p.estado.id <> :estado", "estado", 6));
 
         String ejbQuery = QueryUtils.ejbQLcreator(fromClause, conditionClause, querySolver);
         Query query = em.createQuery(ejbQuery);
@@ -101,9 +103,9 @@ public class ProductoEAOPersistence extends GenericPersistenceEAO<Producto, Inte
                 query.append("inner join CMP_PROVEEDOR proveedor ON prod.N_ID_PROVEEDOR = proveedor.N_ID ");
 
                 if (p_codigo_desde.trim().length() > 0) {
-                    query.append("where prod.C_CODIGO >= ? ");
+                    query.append("where prod.C_CODIGO >= ? and prod.N_ID_ESTADOPRODUCTO <> 6 ");
                 } else {
-                    query.append("where prod.C_CODIGO <> ? ");
+                    query.append("where prod.C_CODIGO <> ? and prod.N_ID_ESTADOPRODUCTO <> 6 ");
                 }
 
                 if (p_codigo_hasta.trim().length() > 0) {
@@ -189,7 +191,7 @@ public class ProductoEAOPersistence extends GenericPersistenceEAO<Producto, Inte
     public Producto findByCodigo(String codigo) throws PersistenceClassNotFoundException, GenericPersistenceEAOException {
 
         //Construct query
-        String query = "select p from Producto p where p.codigo = ?1";
+        String query = "select p from Producto p where p.codigo = ?1 and p.estado.id <> 6";
 
         //Creando listado de parametros
         List parametros = new ArrayList();

@@ -21,7 +21,7 @@
 	<parameter name="p_query" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[(($P{p_codigo_desde}.equals("-1") ? " PROD.C_CODIGO <> '-1' " : " PROD.C_CODIGO >= '" + $P{p_codigo_desde} + "'")
 +
-($P{p_codigo_hasta}.equals("-1") ? " AND PROD.C_CODIGO <> '-1' " : " AND PROD.C_CODIGO <= '" + $P{p_codigo_hasta} + "'")
+($P{p_codigo_hasta}.equals("-1") ? " AND PROD.C_CODIGO <> '-1' AND PROD.N_ID_ESTADOPRODUCTO <> 6 " : " AND PROD.C_CODIGO <= '" + $P{p_codigo_hasta} + "' AND PROD.N_ID_ESTADOPRODUCTO <> 6 ")
 +
 ($P{p_codigo_proveedor} > 0 ? " AND PROVEEDOR.N_CODIGO = " + $P{p_codigo_proveedor} : " AND PROVEEDOR.N_CODIGO <> -1")
 +
@@ -292,8 +292,7 @@ $F{N_COSTOUND}]]></variableExpression>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[($F{PROD_EXISTENCIA} == null ? 0 : $F{PROD_EXISTENCIA}) +
-($F{EXISTENCIA} == null ? 0 : $F{EXISTENCIA})
-]]></textFieldExpression>
+($F{EXISTENCIA} == null ? 0 : $F{EXISTENCIA})]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
