@@ -1,6 +1,5 @@
 package contac.commons.form.render;
 
-import contac.modelo.entity.EstadoMovimiento;
 import contac.modelo.entity.TiposFactura;
 
 import javax.swing.*;
@@ -19,14 +18,16 @@ public class TipoFacturaRenderer extends DefaultTableCellRenderer{
                                                    int row, int column) {
 
         //Getting value object
-        Integer estado = ((Byte)value).intValue();
+        Integer estado = 0;
+
+        ((Byte)value).intValue();
 
         String nombreTipoFactura = "";
-        if (TiposFactura.CONTADO.getValue() == estado) 
+        if (TiposFactura.CONTADO.getValue() == estado)
             nombreTipoFactura = TiposFactura.CONTADO.getNombre();
         if (TiposFactura.CREDITO.getValue() == estado)
             nombreTipoFactura = TiposFactura.CREDITO.getNombre();
-                                                      
+
         //Return value
         return super.getTableCellRendererComponent(table, nombreTipoFactura, isSelected, hasFocus, row, column);
 

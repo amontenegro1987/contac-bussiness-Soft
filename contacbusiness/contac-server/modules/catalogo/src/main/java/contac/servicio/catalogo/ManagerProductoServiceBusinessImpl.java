@@ -190,7 +190,6 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
         }
     }
 
-
     @Override
     public Producto buscarProductoPorCodigo(String codigo) throws ManagerProductoServiceBusinessException, RemoteException {
 
@@ -761,6 +760,38 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
 
             //Eliminar producto
             productoEAO.remove(producto.getId());
+
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerProductoServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
+    public void anularProductos(List<Integer> productos) throws ManagerProductoServiceBusinessException, RemoteException {
+
+        logger.debug("Anular producto listado de productos");
+
+        //Init servicio
+        boolean transaction = initBusinessService(Roles.ROLCATALOGOPRODUCTOADMIN.toString());
+
+        try {
+
+            //Get Estado Producto
+            EstadoProducto estadoProducto = estadoProductoEAO.findByNombre(EstadosProducto.DEBAJA.getNombre());
+
+            for (Integer idProducto : productos) {
+                Producto producto = productoEAO.findById(idProducto);
+
+
+                //Change producto STATE
+                producto.setEstado(estadoProducto);
+
+                //Update Producto
+                productoEAO.update(producto);
+            }
 
         } catch (GenericPersistenceEAOException e) {
             logger.error(e.getMessage(), e);
