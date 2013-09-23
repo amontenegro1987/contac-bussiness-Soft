@@ -10,6 +10,8 @@
  */
 package contac.facturacion.app;
 
+import java.util.ArrayList;
+import java.util.List;
 import contac.commons.form.label.JOptionErrorPane;
 import contac.commons.form.label.JOptionMessagePane;
 import contac.commons.form.panel.GenericFrame;
@@ -33,6 +35,8 @@ import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.rmi.RemoteException;
 import java.text.MessageFormat;
 import java.util.*;
@@ -170,16 +174,19 @@ public class pnlRegistroFacturas extends GenericPanel {
 
         headerAlmacenes = new org.jdesktop.swingx.JXHeader();
         pnlRegistroFacturas = new javax.swing.JPanel();
+        pnlRegistroFacturasWest = new javax.swing.JPanel();
         tbFacturasClientes = new javax.swing.JToolBar();
         btnAgregar = new javax.swing.JButton();
         separatorOne = new javax.swing.JToolBar.Separator();
         btnEditar = new javax.swing.JButton();
         separatorTwo = new javax.swing.JToolBar.Separator();
         btnAnular = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         separatorThree = new javax.swing.JToolBar.Separator();
         btnEliminar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnImprimir = new javax.swing.JButton();
+        btnImprimirFactura = new javax.swing.JButton();
         lblFechaDesde = new javax.swing.JLabel();
         dtpFechaDesde = new org.jdesktop.swingx.JXDatePicker();
         lblFechaHasta = new javax.swing.JLabel();
@@ -190,6 +197,7 @@ public class pnlRegistroFacturas extends GenericPanel {
         cmbTipoFactura = new javax.swing.JComboBox();
         btnBuscar = new javax.swing.JButton();
         scrollFacturasClientes = new javax.swing.JScrollPane();
+        scrollFacturaWest = new javax.swing.JScrollPane();
         tblFacturasClientes = new org.jdesktop.swingx.JXTable();
 
         setLayout(new java.awt.BorderLayout());
@@ -203,6 +211,8 @@ public class pnlRegistroFacturas extends GenericPanel {
 
         pnlRegistroFacturas.setPreferredSize(new java.awt.Dimension(693, 394));
         pnlRegistroFacturas.setLayout(new java.awt.BorderLayout());
+
+        pnlRegistroFacturasWest.setPreferredSize(new java.awt.Dimension(270,394));
 
         tbFacturasClientes.setBorder(null);
         tbFacturasClientes.setFloatable(false);
@@ -258,6 +268,19 @@ public class pnlRegistroFacturas extends GenericPanel {
         tbFacturasClientes.add(btnAnular);
         tbFacturasClientes.add(separatorThree);
 
+        btnCancelar.setToolTipText(bundle.getString("CONTAC.FORM.BTNCANCELAR")); // NOI18N
+        btnCancelar.setFocusable(false);
+        btnCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnCancelar.setMaximumSize(new java.awt.Dimension(80, 21));
+        btnCancelar.setMinimumSize(new java.awt.Dimension(80, 21));
+        btnCancelar.setPreferredSize(new java.awt.Dimension(80,21));
+        btnCancelar.setText(bundle.getString("CONTAC.FORM.BTNCANCELAR")); // NOI18N
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
         btnEliminar.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/actions/remove.png")));
         btnEliminar.setToolTipText(bundle.getString("CONTAC.FORM.BTNELIMINAR")); // NOI18N
         btnEliminar.setFocusable(false);
@@ -288,33 +311,70 @@ public class pnlRegistroFacturas extends GenericPanel {
         });
         tbFacturasClientes.add(btnImprimir);
 
+        btnImprimirFactura.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/actions/Reportes.png")));
+        btnImprimirFactura.setToolTipText(bundle.getString("CONTAC.FORM.BTNIMPRIMIRFACTURA")); //NOI18N
+        btnImprimirFactura.setFocusable(false);
+        btnImprimirFactura.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnImprimirFactura.setMaximumSize(new java.awt.Dimension(40,32));
+        btnImprimirFactura.setMinimumSize(new java.awt.Dimension(40,32));
+        btnImprimirFactura.setName(""); // NOI18N
+        btnImprimirFactura.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnImprimirFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirFacturaActionPerformed(evt);
+            }
+        });
+        tbFacturasClientes.add(btnImprimirFactura);
+
+
         lblFechaDesde.setText(bundle.getString("CONTAC.FORM.REGISTROFACTURAS.FECHADESDE")); // NOI18N
         lblFechaDesde.setMaximumSize(new java.awt.Dimension(75, 22));
         lblFechaDesde.setMinimumSize(new java.awt.Dimension(75, 22));
         lblFechaDesde.setPreferredSize(new java.awt.Dimension(75, 22));
-        tbFacturasClientes.add(lblFechaDesde);
-        tbFacturasClientes.add(dtpFechaDesde);
+
+
+        dtpFechaDesde.setMaximumSize(new java.awt.Dimension(160,22));
+        dtpFechaDesde.setMinimumSize(new java.awt.Dimension(160,22));
+        dtpFechaDesde.setPreferredSize(new java.awt.Dimension(160,22));
+
+        pnlRegistroFacturasWest.add(lblFechaDesde, BorderLayout.BEFORE_LINE_BEGINS);
+        pnlRegistroFacturasWest.add(dtpFechaDesde, BorderLayout.AFTER_LINE_ENDS);
+
+
+        //tbFacturasClientes.add(lblFechaDesde);
+        //tbFacturasClientes.add(dtpFechaDesde);
 
         lblFechaHasta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFechaHasta.setText(bundle.getString("CONTAC.FORM.REGISTROFACTURAS.FECHAHASTA")); // NOI18N
         lblFechaHasta.setMaximumSize(new java.awt.Dimension(75, 22));
         lblFechaHasta.setMinimumSize(new java.awt.Dimension(75, 22));
         lblFechaHasta.setPreferredSize(new java.awt.Dimension(75, 22));
-        tbFacturasClientes.add(lblFechaHasta);
-        tbFacturasClientes.add(dtpFechaHasta);
+        //tbFacturasClientes.add(lblFechaHasta);
+        //tbFacturasClientes.add(dtpFechaHasta);
+
+        dtpFechaHasta.setMaximumSize(new java.awt.Dimension(160,22));
+        dtpFechaHasta.setMinimumSize(new java.awt.Dimension(160,22));
+        dtpFechaHasta.setPreferredSize(new java.awt.Dimension(160,22));
+
+        pnlRegistroFacturasWest.add(lblFechaHasta, BorderLayout.BEFORE_LINE_BEGINS);
+        pnlRegistroFacturasWest.add(dtpFechaHasta,  BorderLayout.AFTER_LINE_ENDS);
 
         lblAlmacen.setText(bundle.getString("CONTAC.FORM.FACTURACION.ALMACEN")); // NOI18N
         lblAlmacen.setMaximumSize(new java.awt.Dimension(60, 22));
         lblAlmacen.setMinimumSize(new java.awt.Dimension(60, 22));
         lblAlmacen.setPreferredSize(new java.awt.Dimension(60, 22));
-        tbFacturasClientes.add(lblAlmacen);
+        //tbFacturasClientes.add(lblAlmacen);
+
+        pnlRegistroFacturasWest.add(lblAlmacen, BorderLayout.BEFORE_LINE_BEGINS);
 
         cmbAlmacen.setModel(new AlmacenComboBoxModel(controller.getAlmacenes()));
         cmbAlmacen.setLightWeightPopupEnabled(false);
         cmbAlmacen.setMaximumSize(new java.awt.Dimension(160, 22));
         cmbAlmacen.setMinimumSize(new java.awt.Dimension(160, 22));
         cmbAlmacen.setPreferredSize(new java.awt.Dimension(160, 18));
-        tbFacturasClientes.add(cmbAlmacen);
+        //tbFacturasClientes.add(cmbAlmacen);
+
+        pnlRegistroFacturasWest.add(cmbAlmacen, BorderLayout.AFTER_LINE_ENDS);
 
         lblTipoFactura.setText(bundle.getString("CONTAC.FORM.FACTURACION.TIPOFACTURA")); // NOI18N
         lblTipoFactura.setMaximumSize(new java.awt.Dimension(80, 22));
@@ -340,7 +400,10 @@ public class pnlRegistroFacturas extends GenericPanel {
                 btnBuscarActionPerformed(evt);
             }
         });
-        tbFacturasClientes.add(btnBuscar);
+        //tbFacturasClientes.add(btnBuscar);
+
+        pnlRegistroFacturasWest.add(btnBuscar, BorderLayout.CENTER);
+        pnlRegistroFacturasWest.add(btnCancelar, BorderLayout.CENTER);
 
         pnlRegistroFacturas.add(tbFacturasClientes, java.awt.BorderLayout.PAGE_START);
 
@@ -350,6 +413,9 @@ public class pnlRegistroFacturas extends GenericPanel {
             }
         });
         scrollFacturasClientes.setViewportView(tblFacturasClientes);
+        scrollFacturaWest.setViewportView(pnlRegistroFacturasWest);
+
+        add(scrollFacturaWest, java.awt.BorderLayout.WEST);
 
         pnlRegistroFacturas.add(scrollFacturasClientes, java.awt.BorderLayout.CENTER);
 
@@ -419,6 +485,16 @@ public class pnlRegistroFacturas extends GenericPanel {
             JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
         }
     }//GEN-LAST:event_btnAnularActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST: event_btnCancelarActionperformed
+        //TableColumnModel tableColumnModel = tblProformasClientes.getColumnModel();
+        //Init controller data
+        controller.init();
+        //Init formulario
+        initValues();
+        //dtpFechaDesde.setDate(null);
+        //dtpFechaHasta.setDate(null); TODO
+    }
 
     private void tblFacturasClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFacturasClientesMouseClicked
         //Getting factura cliente selected
@@ -504,6 +580,46 @@ public class pnlRegistroFacturas extends GenericPanel {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void btnImprimirFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+
+        try{
+            if(facturaSelected == null)    {
+                throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.REPORTEFACTURA"));
+            }
+            else{
+            //System.out.println(facturaSelected.getId());
+            // Prepared Jasper Report
+            JasperReport report = (JasperReport) JRLoader.loadObject(pnlRegistroFacturas.class
+            .getResourceAsStream("/contac/facturacion/app/reportes/Invoice_Garsa.jasper"));
+
+            Map parameters = new HashMap();
+            parameters.put("SUBREPORT_DIR", getClass().getClassLoader().getResource("contac/facturacion/app/reportes") + "/");
+            parameters.put("n_id_factura", facturaSelected.getId());
+
+                //Generate Report                                                 ‘‘‘
+                JasperPrint jasperPrint = controller.getMgrReportesService().generateReport(parameters, report);
+
+                //Print Report Preview
+                JRPrintReport.printPreviewReport(getMDI(), jasperPrint);
+
+            }
+        }
+            catch (JRException e) {
+            logger.error(e.getMessage(), e);
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        }
+    }//GEN-LAST:event_btnImprimirFacturaActionPerformed
+
+
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
 
         try {
@@ -564,10 +680,12 @@ public class pnlRegistroFacturas extends GenericPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAnular;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnImprimir;
+    private javax.swing.JButton btnImprimirFactura;
     private javax.swing.JComboBox cmbAlmacen;
     private javax.swing.JComboBox cmbTipoFactura;
     private org.jdesktop.swingx.JXDatePicker dtpFechaDesde;
@@ -579,7 +697,9 @@ public class pnlRegistroFacturas extends GenericPanel {
     private javax.swing.JLabel lblFechaHasta;
     private javax.swing.JLabel lblTipoFactura;
     private javax.swing.JPanel pnlRegistroFacturas;
+    private javax.swing.JPanel pnlRegistroFacturasWest;
     private javax.swing.JScrollPane scrollFacturasClientes;
+    private javax.swing.JScrollPane scrollFacturaWest;
     private javax.swing.JToolBar.Separator separatorOne;
     private javax.swing.JToolBar.Separator separatorThree;
     private javax.swing.JToolBar.Separator separatorTwo;
