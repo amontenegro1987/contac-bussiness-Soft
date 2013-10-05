@@ -177,7 +177,6 @@ public class pnlAdmonInventario extends GenericPanel {
         searchPanel.add(btnBuscar, new XYConstraints(75, 150, 90, 23));
         searchPanel.add(btnCancelar, new XYConstraints(175, 150, 90, 23));
 
-
         //*********************************************************************
         //Create Productos Table
         //*********************************************************************
