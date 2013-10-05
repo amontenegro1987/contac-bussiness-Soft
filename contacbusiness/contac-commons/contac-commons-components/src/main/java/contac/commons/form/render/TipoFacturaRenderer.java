@@ -18,9 +18,7 @@ public class TipoFacturaRenderer extends DefaultTableCellRenderer{
                                                    int row, int column) {
 
         //Getting value object
-        Integer estado = 0;
-
-        ((Byte)value).intValue();
+        Integer estado = ((Byte)value).intValue();
 
         String nombreTipoFactura = "";
         if (TiposFactura.CONTADO.getValue() == estado)
