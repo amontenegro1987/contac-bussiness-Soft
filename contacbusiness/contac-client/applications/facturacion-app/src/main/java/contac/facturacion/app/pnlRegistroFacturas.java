@@ -203,6 +203,20 @@ public class pnlRegistroFacturas extends GenericPanel {
         btnImprimirFactura.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNIMPRIMIRFACTURA"));
         btnImprimirFactura.setIcon(imprimirFacturaIco);
 
+      /*  btnImprimirFactura.setIcon(imprimirFacturaIco);
+        btnImprimirFactura.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNIMPRIMIRFACTURA"));
+        btnImprimirFactura.setFocusable(false);
+        btnImprimirFactura.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnImprimirFactura.setMaximumSize(new java.awt.Dimension(40,32));
+        btnImprimirFactura.setMinimumSize(new java.awt.Dimension(40,32));
+        btnImprimirFactura.setName(""); // NOI18N
+        btnImprimirFactura.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnImprimirFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirFacturaActionPerformed(evt);
+            }
+        });*/
+
         JToolBar actionToolBar = new JToolBar();
         actionToolBar.setPreferredSize(new Dimension(500, 32));
 
@@ -555,29 +569,107 @@ public class pnlRegistroFacturas extends GenericPanel {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    public void cambiar_EstadoImpreso() {
+        try {
+
+            //Setting factura seleccionada
+            controller.setFactura(facturaSelected);
+
+            //Factura Impresa
+
+            controller.impresionFactura();
+
+            //Show confirmation message
+            JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.CONFIRMACION"),
+                    messageBundle.getString("CONTAC.FORM.MSG.IMPRESION.EXITOSO"));
+
+            //Realizar busqueda de facturas nuevamente
+            Date fechaDesde = dtpFechaDesde.getDate() != null ? dtpFechaDesde.getDate() : new Date();
+            Date fechaHasta = dtpFechaHasta.getDate() != null ? dtpFechaHasta.getDate() : new Date();
+
+            //Obtener parametros de busqueda
+            Almacen almacen = ((Almacen) ((AlmacenComboBoxModel) cmbAlmacen.getModel()).getSelectedItem().
+                    getObject());
+
+            TiposFactura tiposFactura = cmbTipoFactura.getModel().getSelectedItem() != null ?
+                    ((TiposFactura) ((TipoFacturaComboBoxModel) cmbTipoFactura.getModel()).getSelectedItem().getObject()) :
+                    null;
+
+            controller.buscarFacturasClientesPorFechas(fechaDesde, fechaHasta, almacen.getId(),
+                    tiposFactura != null ? tiposFactura.getValue() : null);
+
+            //Actualizar listado de articulos ingresados
+            ((BeanTableModel) tblFacturasClientes.getModel()).fireTableDataChanged();
+
+
+        } catch (Exception e) {
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        }
+    }
+
+    //Metodo para validar Impresion de Reporte Factura
+    public int obtenerDatosTablaRegFactura(){
+        Integer Resultado = null;
+        Long factura_Seleccionada;
+        //Object estadoFactura;
+
+        //No. de Documento de factura seleccionada a imprimir
+        factura_Seleccionada=  facturaSelected.getNoDocumento();
+
+        ArrayList<String> numdata = new ArrayList<String>();
+        for(int count = 0; count < facturaBeanTableModel.getRowCount(); count++){
+
+            //Valida que el No. de la Factura Seleccionada sea el menor de la Tabla y se encuentre solo en estado Ingresado
+            if(factura_Seleccionada > Long.parseLong(facturaBeanTableModel.getValueAt(count, 18).toString())
+                    && facturaBeanTableModel.getValueAt(count,6).toString().length()!=7){  //TODO   : Hay que cambiarle ese getLength y validarle segun el nombre del Estado (Quitarle el .length)
+                Resultado =  1;
+                break;
+            }
+            else{
+                Resultado = 2;
+            }
+        }
+        return Resultado;
+    }
+
+
     private void btnImprimirFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
 
-        try {
-            if (facturaSelected == null) {
+        try{
+            // Si no ha seleccionado ninguna Factura a Imprimir
+            if(facturaSelected == null)    {
                 throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.REPORTEFACTURA"));
-            } else {
-                //System.out.println(facturaSelected.getId());
-                // Prepared Jasper Report
-                JasperReport report = (JasperReport) JRLoader.loadObject(pnlRegistroFacturas.class
-                        .getResourceAsStream("/contac/facturacion/app/reportes/Invoice_Garsa.jasper"));
-
-                Map parameters = new HashMap();
-                parameters.put("SUBREPORT_DIR", getClass().getClassLoader().getResource("contac/facturacion/app/reportes") + "/");
-                parameters.put("n_id_factura", facturaSelected.getId());
-
-                //Generate Report                                                 ‘‘‘
-                JasperPrint jasperPrint = controller.getMgrReportesService().generateReport(parameters, report);
-
-                //Print Report Preview
-                JRPrintReport.printPreviewReport(getMDI(), jasperPrint);
-
             }
-        } catch (JRException e) {
+            // Valida que la factura seleccionada no sea diferente de Estado Ingresado
+            else  if(facturaSelected.getEstadoMovimiento().getId() != 1){
+                throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.IMPRIMIRFACTURACONDICIONESTADO"));
+            }
+            else{
+                // Valida el metodo obtenerDatosTablaRegFactura
+                if(obtenerDatosTablaRegFactura() == 1){
+                    throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.IMPRIMIRFACTURACONDICION"));
+                }
+                else{    cambiar_EstadoImpreso();
+                    //Si se cumplen las condiciones Imprime Factura
+                    // Prepared Jasper Report
+                    JasperReport report = (JasperReport) JRLoader.loadObject(pnlRegistroFacturas.class
+                            .getResourceAsStream("/contac/facturacion/app/reportes/Invoice_Garsa.jasper"));
+
+                    Map parameters = new HashMap();
+                    parameters.put("SUBREPORT_DIR", getClass().getClassLoader().getResource("contac/facturacion/app/reportes") + "/");
+                    parameters.put("n_id_factura", facturaSelected.getId());
+
+                    //Generate Report                                                 ‘‘‘
+                    JasperPrint jasperPrint = controller.getMgrReportesService().generateReport(parameters, report);
+
+                    //Print Report Preview
+                    JRPrintReport.printPreviewReport(getMDI(), jasperPrint);
+                }
+            }
+        }
+
+        catch (JRException e) {
             logger.error(e.getMessage(), e);
             //Show error message
             JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
