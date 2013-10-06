@@ -12,7 +12,8 @@ public enum EstadosMovimiento {
     ANULADO("AN"),
     APLICADO("AP"),
     PROCESADO("PC"),
-    CALCULADO("CA");
+    CALCULADO("CA"),
+    IMPRESO("IM");
 
     public final String estado;
 

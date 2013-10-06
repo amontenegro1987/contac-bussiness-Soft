@@ -690,6 +690,60 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
+    public void impresionFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException {
+
+        logger.debug("Setear Estado factura a IMPRESA con parametros: [idFactura]: " + idFactura);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLFACTURACIONADMIN.toString());
+
+        try {
+
+            //Preparar el contexto de ejecucion
+            Factura factura = facturaEAO.findById(idFactura);
+            EstadoMovimiento estadoAnulado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.IMPRESO.getEstado());
+
+            //Validar datos generales de la factura
+            if (!factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado()))
+                throw new ManagerFacturacionServiceBusinessException("Factura no se encuentra en un estado valido para poder anular.");
+
+            //Setting estado anulado
+           /* factura.setPorcDescuento(new BigDecimal("0.00"));
+            factura.setPorcRetFuente(new BigDecimal("0.00"));
+            factura.setPorcRetMunicipal(new BigDecimal("0.00"));
+            factura.setMontoDescuento(new BigDecimal("0.00"));
+            factura.setMontoBruto(new BigDecimal("0.00"));
+            factura.setMontoIVA(new BigDecimal("0.00"));
+            factura.setMontoNeto(new BigDecimal("0.00"));
+            factura.setRetencionFuente(new BigDecimal("0.00"));
+            factura.setRetencionMunicipal(new BigDecimal("0.00"));*/
+
+            factura.setEstadoMovimiento(estadoAnulado);
+
+            //Eliminar movimientos de inventario de los productos
+          /*  for (ArticuloFactura articulo : factura.getArticulos()) {
+
+                articulo.setCosto(new BigDecimal("0.00"));
+                articulo.setCostoTotal(new BigDecimal("0.00"));
+
+                movimientoInventarioEAO.remove(articulo.getMovimientoInventario().getId());
+                articulo.setMovimientoInventario(null);
+            }
+*/
+            facturaEAO.update(factura);
+
+        } catch (PersistenceClassNotFoundException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
     public void anularFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException {
 
         logger.debug("Anular factura con parametros: [idFactura]: " + idFactura);

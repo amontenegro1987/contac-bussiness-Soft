@@ -502,6 +502,31 @@ public class FacturaClienteController extends FacturacionBaseController {
     }
 
     /**
+     * Cambiar estado de factura a Impreso
+     *
+     * @throws Exception, Exception
+     */
+
+    public void impresionFactura() throws Exception{
+        logger.debug("Cambiar Estado de Factura a Impresa");
+
+        try {
+
+            //Obtener manager de facturacion
+            ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
+
+            //Anulamos registro de factura
+            mgrFacturacion.impresionFactura(getFactura().getId());
+
+        } catch (ManagerFacturacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+
+    }
+
+
+    /**
      * Anular factura de compra
      *
      * @throws Exception, Exception

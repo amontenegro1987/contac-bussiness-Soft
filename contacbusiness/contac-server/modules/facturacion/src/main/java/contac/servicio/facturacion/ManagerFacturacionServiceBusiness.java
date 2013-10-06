@@ -105,6 +105,18 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
 
 
     /**
+     * Setear Factura a IMPRESO
+     *
+     * @param idFactura, Identificador de factura
+     * @throws ManagerFacturacionServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public void impresionFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException;
+
+
+
+    /**
      * Anular factura
      *
      * @param idFactura, Identificador de factura
