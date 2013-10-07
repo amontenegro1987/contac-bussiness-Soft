@@ -447,7 +447,7 @@ public class pnlRegistroFacturas extends GenericPanel {
                 controller.anularFactura();
 
                 //Show confirmation message
-                JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.CONFIRMACION"),
+                JOptionErrorPane.showMessageInfo(this.getMDI(), messageBundle.getString("CONTAC.FORM.MSG.CONFIRMACION"),
                         messageBundle.getString("CONTAC.FORM.MSG.ANULACION.EXITOSO"));
 
                 //Realizar busqueda de facturas nuevamente
@@ -476,13 +476,11 @@ public class pnlRegistroFacturas extends GenericPanel {
     }//GEN-LAST:event_btnAnularActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST: event_btnCancelarActionperformed
-        //TableColumnModel tableColumnModel = tblProformasClientes.getColumnModel();
         //Init controller data
         controller.init();
+
         //Init formulario
         initValues();
-        //dtpFechaDesde.setDate(null);
-        //dtpFechaHasta.setDate(null); TODO
     }
 
     private void tblFacturasClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFacturasClientesMouseClicked
@@ -490,6 +488,7 @@ public class pnlRegistroFacturas extends GenericPanel {
         rowSelected = tblFacturasClientes.getSelectedRow();
         facturaSelected = (Factura) ((BeanTableModel) tblFacturasClientes.getModel()).getRow(rowSelected);
         controller.setFactura(facturaSelected);
+
     }//GEN-LAST:event_tblFacturasClientesMouseClicked
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -569,119 +568,37 @@ public class pnlRegistroFacturas extends GenericPanel {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    public void cambiar_EstadoImpreso() {
-        try {
-
-            //Setting factura seleccionada
-            controller.setFactura(facturaSelected);
-
-            //Factura Impresa
-
-            controller.impresionFactura();
-
-            //Show confirmation message
-            JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.CONFIRMACION"),
-                    messageBundle.getString("CONTAC.FORM.MSG.IMPRESION.EXITOSO"));
-
-            //Realizar busqueda de facturas nuevamente
-            Date fechaDesde = dtpFechaDesde.getDate() != null ? dtpFechaDesde.getDate() : new Date();
-            Date fechaHasta = dtpFechaHasta.getDate() != null ? dtpFechaHasta.getDate() : new Date();
-
-            //Obtener parametros de busqueda
-            Almacen almacen = ((Almacen) ((AlmacenComboBoxModel) cmbAlmacen.getModel()).getSelectedItem().
-                    getObject());
-
-            TiposFactura tiposFactura = cmbTipoFactura.getModel().getSelectedItem() != null ?
-                    ((TiposFactura) ((TipoFacturaComboBoxModel) cmbTipoFactura.getModel()).getSelectedItem().getObject()) :
-                    null;
-
-            controller.buscarFacturasClientesPorFechas(fechaDesde, fechaHasta, almacen.getId(),
-                    tiposFactura != null ? tiposFactura.getValue() : null);
-
-            //Actualizar listado de articulos ingresados
-            ((BeanTableModel) tblFacturasClientes.getModel()).fireTableDataChanged();
-
-
-        } catch (Exception e) {
-            //Show error message
-            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
-        }
-    }
-
-    //Metodo para validar Impresion de Reporte Factura
-    public int obtenerDatosTablaRegFactura(){
-        Integer Resultado = null;
-        Long factura_Seleccionada;
-        //Object estadoFactura;
-
-        //No. de Documento de factura seleccionada a imprimir
-        factura_Seleccionada=  facturaSelected.getNoDocumento();
-
-        ArrayList<String> numdata = new ArrayList<String>();
-        for(int count = 0; count < facturaBeanTableModel.getRowCount(); count++){
-
-            //Valida que el No. de la Factura Seleccionada sea el menor de la Tabla y se encuentre solo en estado Ingresado
-            if(factura_Seleccionada > Long.parseLong(facturaBeanTableModel.getValueAt(count, 18).toString())
-                    && facturaBeanTableModel.getValueAt(count,6).toString().length()!=7){  //TODO   : Hay que cambiarle ese getLength y validarle segun el nombre del Estado (Quitarle el .length)
-                Resultado =  1;
-                break;
-            }
-            else{
-                Resultado = 2;
-            }
-        }
-        return Resultado;
-    }
-
-
     private void btnImprimirFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
 
-        try{
+        try {
+
             // Si no ha seleccionado ninguna Factura a Imprimir
-            if(facturaSelected == null)    {
+            if (facturaSelected == null) {
                 throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.REPORTEFACTURA"));
             }
-            // Valida que la factura seleccionada no sea diferente de Estado Ingresado
-            else  if(facturaSelected.getEstadoMovimiento().getId() != 1){
-                throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.IMPRIMIRFACTURACONDICIONESTADO"));
-            }
-            else{
-                // Valida el metodo obtenerDatosTablaRegFactura
-                if(obtenerDatosTablaRegFactura() == 1){
-                    throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.IMPRIMIRFACTURACONDICION"));
-                }
-                else{    cambiar_EstadoImpreso();
-                    //Si se cumplen las condiciones Imprime Factura
-                    // Prepared Jasper Report
-                    JasperReport report = (JasperReport) JRLoader.loadObject(pnlRegistroFacturas.class
-                            .getResourceAsStream("/contac/facturacion/app/reportes/Invoice_Garsa.jasper"));
 
-                    Map parameters = new HashMap();
-                    parameters.put("SUBREPORT_DIR", getClass().getClassLoader().getResource("contac/facturacion/app/reportes") + "/");
-                    parameters.put("n_id_factura", facturaSelected.getId());
+            //Cambiar estado de factura a impresa.
+            controller.imprimirFactura();
 
-                    //Generate Report                                                 ‘‘‘
-                    JasperPrint jasperPrint = controller.getMgrReportesService().generateReport(parameters, report);
+            JasperReport report = (JasperReport) JRLoader.loadObject(pnlRegistroFacturas.class.
+                    getResourceAsStream("/contac/facturacion/app/reportes/Invoice_Garsa.jasper"));
 
-                    //Print Report Preview
-                    JRPrintReport.printPreviewReport(getMDI(), jasperPrint);
-                }
-            }
-        }
+            Map parameters = new HashMap();
+            parameters.put("SUBREPORT_DIR", getClass().getClassLoader().getResource("contac/facturacion/app/reportes") + "/");
+            parameters.put("n_id_factura", facturaSelected.getId());
 
-        catch (JRException e) {
-            logger.error(e.getMessage(), e);
-            //Show error message
-            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
-        } catch (RemoteException e) {
-            logger.error(e.getMessage(), e);
-            //Show error message
-            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+            //Generate Report
+            JasperPrint jasperPrint = controller.getMgrReportesService().generateReport(parameters, report);
+
+            //Print Report Preview
+            JRPrintReport.printPreviewReport(getMDI(), jasperPrint);
+
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             //Show error message
             JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
         }
+
     }//GEN-LAST:event_btnImprimirFacturaActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
@@ -754,20 +671,10 @@ public class pnlRegistroFacturas extends GenericPanel {
     private javax.swing.JComboBox cmbTipoFactura;
     private org.jdesktop.swingx.JXDatePicker dtpFechaDesde;
     private org.jdesktop.swingx.JXDatePicker dtpFechaHasta;
-    private org.jdesktop.swingx.JXHeader headerAlmacenes;
-    private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JLabel lblAlmacen;
     private javax.swing.JLabel lblFechaDesde;
     private javax.swing.JLabel lblFechaHasta;
     private javax.swing.JLabel lblTipoFactura;
-    private javax.swing.JPanel pnlRegistroFacturas;
-    private javax.swing.JPanel pnlRegistroFacturasWest;
-    private javax.swing.JScrollPane scrollFacturasClientes;
-    private javax.swing.JScrollPane scrollFacturaWest;
-    private javax.swing.JToolBar.Separator separatorOne;
-    private javax.swing.JToolBar.Separator separatorThree;
-    private javax.swing.JToolBar.Separator separatorTwo;
-    private javax.swing.JToolBar tbFacturasClientes;
     private org.jdesktop.swingx.JXTable tblFacturasClientes;
     // End of variables declaration//GEN-END:variables
 

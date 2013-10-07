@@ -461,7 +461,6 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             for (Iterator it = articulos.iterator(); it.hasNext(); ) {
 
                 //Obteniendo articulo proforma
-//                ArticuloFactura articulo = (ArticuloFactura) it.next();
                 ArticuloProforma articuloP = (ArticuloProforma) it.next();
 
                 //Borrar articulos con cantidad menor o igual a zero
@@ -690,9 +689,9 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
-    public void impresionFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException {
+    public void imprimirFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException {
 
-        logger.debug("Setear Estado factura a IMPRESA con parametros: [idFactura]: " + idFactura);
+        logger.debug("Cambiar Estado factura a IMPRESA con parametros: [idFactura]: " + idFactura);
 
         //Iniciar servicio de autenticacion
         boolean transaction = initBusinessService(Roles.ROLFACTURACIONADMIN.toString());
@@ -701,35 +700,17 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
 
             //Preparar el contexto de ejecucion
             Factura factura = facturaEAO.findById(idFactura);
-            EstadoMovimiento estadoAnulado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.IMPRESO.getEstado());
+            EstadoMovimiento estadoImpreso = estadoMovimientoEAO.findByAlias(EstadosMovimiento.IMPRESO.getEstado());
 
             //Validar datos generales de la factura
-            if (!factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado()))
-                throw new ManagerFacturacionServiceBusinessException("Factura no se encuentra en un estado valido para poder anular.");
+            if (!factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado()) &&
+                    !factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.PAGADO.getEstado()))
+                throw new ManagerFacturacionServiceBusinessException("Factura no se encuentra en un estado valido para poder imprimir.");
 
-            //Setting estado anulado
-           /* factura.setPorcDescuento(new BigDecimal("0.00"));
-            factura.setPorcRetFuente(new BigDecimal("0.00"));
-            factura.setPorcRetMunicipal(new BigDecimal("0.00"));
-            factura.setMontoDescuento(new BigDecimal("0.00"));
-            factura.setMontoBruto(new BigDecimal("0.00"));
-            factura.setMontoIVA(new BigDecimal("0.00"));
-            factura.setMontoNeto(new BigDecimal("0.00"));
-            factura.setRetencionFuente(new BigDecimal("0.00"));
-            factura.setRetencionMunicipal(new BigDecimal("0.00"));*/
+            //Setting Estado Movimiento Impreso
+            factura.setEstadoMovimiento(estadoImpreso);
 
-            factura.setEstadoMovimiento(estadoAnulado);
-
-            //Eliminar movimientos de inventario de los productos
-          /*  for (ArticuloFactura articulo : factura.getArticulos()) {
-
-                articulo.setCosto(new BigDecimal("0.00"));
-                articulo.setCostoTotal(new BigDecimal("0.00"));
-
-                movimientoInventarioEAO.remove(articulo.getMovimientoInventario().getId());
-                articulo.setMovimientoInventario(null);
-            }
-*/
+            //Update Factura
             facturaEAO.update(factura);
 
         } catch (PersistenceClassNotFoundException e) {
@@ -841,8 +822,8 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     @Override
     public Proforma modificarProforma(Integer idProforma, BigDecimal tasaCambio, Direccion direccionEntrega, BigDecimal porcDescuento,
                                       BigDecimal porcIva, BigDecimal porcRetFuente, BigDecimal porcRetMunicipal, Date fechaAlta,
-                                      boolean exonerada, boolean retencionFuente, boolean retencionMunicipal, List<ArticuloProforma> articulos)
-            throws ManagerFacturacionServiceBusinessException, RemoteException {
+                                      boolean exonerada, boolean retencionFuente, boolean retencionMunicipal,
+                                      List<ArticuloProforma> articulos) throws ManagerFacturacionServiceBusinessException, RemoteException {
 
         logger.debug("Modificar proforma con parámetros: [idProforma]: " + idProforma + ", [tasaCambio]: " + tasaCambio +
                 ", [direccionEntrega]: " + direccionEntrega + ", [porcDescuento]: " + porcDescuento + ", [porcIva]: " +
@@ -946,6 +927,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             stopBusinessService(transaction);
         }
     }
+
     @Override
     public List<AgenteVentas> buscarAgentesVentas() throws ManagerFacturacionServiceBusinessException, RemoteException {
 
