@@ -11,8 +11,6 @@
 package contac.facturacion.app;
 
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import contac.commons.form.label.JOptionErrorPane;
 import contac.commons.form.label.JOptionMessagePane;
@@ -30,7 +28,6 @@ import contac.facturacion.controller.FacturaClienteController;
 import contac.internationalization.LanguageLocale;
 import contac.modelo.entity.*;
 import contac.reports.JRPrintReport;
-import contac.reports.JRXReportGenerated;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
