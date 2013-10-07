@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<project>
+
+    <parent>
+        <artifactId>contac-server</artifactId>
+        <groupId>contac</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>contac</groupId>
+    <artifactId>servicio</artifactId>
+    <name>CONTAC PROJECT - SERVICIO</name>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <!-- ================================================= -->
+    <!-- DEPENDENCIES                                      -->
+    <!-- ================================================= -->
+    <dependencies>
+
+        <!-- CONTAC DEPENDENCIES -->
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>contac-commons-util</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>modelo</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>seguridad</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>catalogo</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>administracion</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>proveedores</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>inventario</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>clientes</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>facturacion</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>reportes</artifactId>
+        </dependency>
+
+        <!-- LOGGER LOG4J -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <!-- ================================================= -->
+    <!-- PROFILES                                          -->
+    <!-- ================================================= -->
+    <profiles>
+
+        <!-- Run application profile -->
+        <profile>
+
+            <id>run-app</id>
+
+            <build>
+
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.1</version>
+                        <executions>
+                            <execution>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                                <configuration>
+                                    <executableDependency>true</executableDependency>
+                                    <mainClass>contac.servicio.ContacMainService</mainClass>
+                                    <arguments>
+                                        <argument>arg0</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+
+        </profile>
+
+        <!-- Run application server -->
+        <!-- Exec command in mvn console : mvn exec:exec -Drun-appserver -Dexec.executable=java -->
+        <profile>
+            <id>run-appserver</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>servicio-version</id>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <debug>true</debug>
+                                    <executable>${java.home}/bin/java</executable>
+                                    <arguments>
+                                        <argument>-classpath</argument>
+                                        <classpath/>
+                                        <argument>contac.servicio.ContacMainService</argument>
+                                        <argument>-V</argument>
+                                        <argument>-v</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptor>assembly.xml</descriptor>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>contac.servicio.ContacMainService</mainClass>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib</classpathPrefix>
+                        </manifest>
+
+                        <manifestSections>
+                            <manifestSection>
+                                <name>Implementation-Service</name>
+                                <manifestEntries>
+                                    <Implementation-Tittle>${project.name}</Implementation-Tittle>
+                                    <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+                                    <Implementation-Version>${project.version}</Implementation-Version>
+                                </manifestEntries>
+                            </manifestSection>
+                        </manifestSections>
+                    </archive>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>
