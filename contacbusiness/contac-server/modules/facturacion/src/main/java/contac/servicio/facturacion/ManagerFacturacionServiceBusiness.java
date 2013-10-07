@@ -103,7 +103,6 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
                                     boolean retencionMunicipal, List<ArticuloProforma> articulos)
             throws ManagerFacturacionServiceBusinessException, RemoteException;
 
-
     /**
      * Setear Factura a IMPRESO
      *
@@ -112,9 +111,7 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
      *                          Exception
      * @throws RemoteException, Exception
      */
-    public void impresionFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException;
-
-
+    public void imprimirFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException;
 
     /**
      * Anular factura

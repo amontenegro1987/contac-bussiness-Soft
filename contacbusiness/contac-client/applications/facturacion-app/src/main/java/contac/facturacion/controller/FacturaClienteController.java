@@ -507,7 +507,8 @@ public class FacturaClienteController extends FacturacionBaseController {
      * @throws Exception, Exception
      */
 
-    public void impresionFactura() throws Exception{
+    public void imprimirFactura() throws Exception{
+
         logger.debug("Cambiar Estado de Factura a Impresa");
 
         try {
@@ -516,7 +517,7 @@ public class FacturaClienteController extends FacturacionBaseController {
             ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
 
             //Anulamos registro de factura
-            mgrFacturacion.impresionFactura(getFactura().getId());
+            mgrFacturacion.imprimirFactura(getFactura().getId());
 
         } catch (ManagerFacturacionServiceBusinessException e) {
             logger.error(e.getMessage(), e);
