@@ -46,6 +46,14 @@ public class Proforma extends DocumentoComercial implements Serializable {
      */
     private Set<ArticuloProforma> articulos;
 
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * PROPERTY NAME: correo
+     */
+    private String correo;
+
+
     // ==================================<METODOS GETTTER AND SETTERS>=================================================
 
     /**
@@ -88,5 +96,14 @@ public class Proforma extends DocumentoComercial implements Serializable {
      */
     public void setArticulos(Set<ArticuloProforma> articulos) {
         this.articulos = articulos;
+    }
+
+    @Column(name ="C_CORREO", nullable = false)
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 }

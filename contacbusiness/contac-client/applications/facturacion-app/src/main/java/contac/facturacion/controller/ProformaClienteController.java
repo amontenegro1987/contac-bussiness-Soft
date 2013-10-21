@@ -12,7 +12,7 @@ import java.util.*;
 
 /**
  * Copyright (c) 2012, Contac Business Software. All rights reserved.
- * User: amontenegro
+ * User: Amontenegro
  * Date: 15-07-14
  * Time: 09:24 AM
  */
@@ -32,6 +32,7 @@ public class ProformaClienteController extends FacturacionBaseController {
     //PROPERTIES BEAN FORM
     //*************************************************************************************
     private long noProforma;
+    private String correo;
     private Date fechaAlta;
     private Date fechaVencimiento;
     private Almacen almacen;
@@ -44,7 +45,6 @@ public class ProformaClienteController extends FacturacionBaseController {
     private boolean exonerada;
     private boolean retFuente;
     private boolean retMunicipal;
-    //private Factura factura;
     private Proforma proforma;
     private Moneda moneda;
 
@@ -60,10 +60,9 @@ public class ProformaClienteController extends FacturacionBaseController {
     private BigDecimal montoAntesImpuesto = new BigDecimal("0.00");
     private BigDecimal montoTotal = new BigDecimal("0.00");
 
-    private long renglon = 90000; //Valor renglon para articulos nuevos dentro de la factura
+    private long renglon = 90000; //Valor renglon para articulos nuevos dentro de la proforma
 
     private List<Proforma> proformas;
-    //private List<Factura> facturas;
 
     //*********************************************************************
     //GETTERS AND SETTERS
@@ -76,6 +75,15 @@ public class ProformaClienteController extends FacturacionBaseController {
     public void setNoProforma(long noProforma) {
         this.noProforma = noProforma;
     }
+
+    public String getCorreo(){
+        return correo;
+    }
+
+    public void setCorreo(String correo){
+        this.correo = correo;
+    }
+
 
     public Date getFechaVencimiento(){
         return fechaVencimiento;
@@ -179,13 +187,13 @@ public class ProformaClienteController extends FacturacionBaseController {
         }
     }
 
-      public List<ArticuloProforma> getArticulos() {
-          return articulos;
-      }
+    public List<ArticuloProforma> getArticulos() {
+        return articulos;
+    }
 
-      public void setArticulos(List<ArticuloProforma> articulos) {
-          this.articulos = articulos;
-      }
+    public void setArticulos(List<ArticuloProforma> articulos) {
+        this.articulos = articulos;
+    }
 
     public Proforma getProforma() {
         return proforma;
@@ -194,7 +202,7 @@ public class ProformaClienteController extends FacturacionBaseController {
     public void setProformas(Proforma proforma) {
         this.proforma = proforma;
     }
- public BigDecimal getDescuento() {
+    public BigDecimal getDescuento() {
         return descuento;
     }
 
@@ -299,16 +307,17 @@ public class ProformaClienteController extends FacturacionBaseController {
         set_edit(false);
 
         setNoProforma(VALUE_INT_NOT_DEFINED);
+        setCorreo(null);
         setTasaCambio(null);
         setCliente(null);
         setNombreCliente(VALUE_STRING_NOT_DEFINED);
         setDireccionEntrega(null);
         setAgenteVentas(null);
         setArticulos(new ArrayList<ArticuloProforma>());
-        //setProforma(null);
         setExonerada(false);
         setRetFuente(false);
         setRetMunicipal(false);
+        setCorreo(VALUE_STRING_NOT_DEFINED);
 
         //Reiniciar valores de factura
         porcIVA = new BigDecimal("15.00");
@@ -353,7 +362,7 @@ public class ProformaClienteController extends FacturacionBaseController {
         //Iniciar datos controller
         init();
 
-        //Editar factura compra
+        //Editar proforma
         set_edit(true);
 
         //Reiniciar valores de Proforma
@@ -370,15 +379,17 @@ public class ProformaClienteController extends FacturacionBaseController {
         montoTotal = proforma.getMontoNeto();
 
         setNoProforma(proforma.getNoDocumento());
+        setCorreo(proforma.getCorreo());
         setFechaAlta(proforma.getFechaAlta());
         setCliente(proforma.getCliente());
         setNombreCliente(proforma.getNombreCliente());
         setDireccionEntrega(proforma.getDireccionEntrega());
-        //setAgenteVentas(proforma.getAgenteVentas());
+        setAgenteVentas(proforma.getAgenteVentas());
         setTasaCambio(proforma.getTasaCambio());
         setExonerada(proforma.isExonerada());
         setRetFuente(proforma.isRetencionF());
         setRetMunicipal(proforma.isRetencionM());
+        setCorreo(proforma.getCorreo());
 
         try {
             //<Articulos>
@@ -406,11 +417,17 @@ public class ProformaClienteController extends FacturacionBaseController {
         //Iniciar registro de Proformas
         setProformas(new ArrayList<Proforma>());
 
+        //Setting almacenes registrados
+        setAlmacenes(buscarAlmacenes());
+
+        //Setting almacen del usuario
+        setAlmacen(buscarAlmacenUsuario());
+
         //Buscar registro de Proformas con fecha actual del servidor
         Date fechaFacturacion = buscarFechaFacturacion();
 
         //Buscar Proformas de clientes por fechas
-        buscarProformasPorFechas(fechaFacturacion, fechaFacturacion);
+        buscarProformasPorFechas(fechaFacturacion, fechaFacturacion, almacen.getId());
     }
 
     //*************************************************************************************
@@ -435,7 +452,8 @@ public class ProformaClienteController extends FacturacionBaseController {
             Proforma proforma = mgrFacturacion.crearProforma(getNoProforma(),getCliente().getId(),
                     getAlmacen().getId(), getAgenteVentas().getId(), getPorcDescuento(), getPorcIVA(), getPorcRetFuente(),
                     getPorcRetMunicipal(), getTasaCambio(), getNombreCliente(), getMoneda().getId(), getDireccionEntrega(),
-                    getFechaAlta(), isExonerada(), isRetFuente(), isRetMunicipal(), getArticulos(), getFechaVencimiento());
+                    getFechaAlta(), isExonerada(), isRetFuente(), isRetMunicipal(), getArticulos(), getFechaVencimiento(),
+                    getCorreo());
 
             //Guardar Proforma
             setProformas(proforma);
@@ -463,9 +481,9 @@ public class ProformaClienteController extends FacturacionBaseController {
             //Creamos registro de Prooforma
             Proforma proforma = mgrFacturacion.modificarProforma(getProforma().getId(), getTasaCambio(), getDireccionEntrega(),
                     getPorcDescuento(), getPorcIVA(), getPorcRetFuente(), getPorcRetMunicipal(), getFechaAlta(),
-                    isExonerada(), isRetFuente(), isRetMunicipal(), getArticulos());
+                    isExonerada(), isRetFuente(), isRetMunicipal(), getArticulos(), getCorreo());
 
-            //Guardar factura;
+            //Guardar proforma;
             setProformas(proforma);
 
         } catch (ManagerFacturacionServiceBusinessException e) {
@@ -484,18 +502,18 @@ public class ProformaClienteController extends FacturacionBaseController {
 
         logger.debug("Anular registro de Proforma");
 
-        /*try {
+        try {
 
             //Obtener manager de facturacion
             ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
 
             //Anulamos registro de Proforma
-            mgrFacturacion.anularFactura(getFactura().getId());
+            mgrFacturacion.anularProforma(getProforma().getId());
 
         } catch (ManagerFacturacionServiceBusinessException e) {
             logger.error(e.getMessage(), e);
             throw new Exception(e.getMessage(), e);
-        }*/
+        }
     }
 
     /**
@@ -507,18 +525,18 @@ public class ProformaClienteController extends FacturacionBaseController {
 
         logger.debug("Eliminar Proforma");
 
-        /*try {
+        try {
 
             //Obtener manager de facturacion
             ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
 
-            //Eliminar factura de compra
-            mgrFacturacion.eliminarFactura(getFactura().getId());
+            //Eliminar proforma
+            mgrFacturacion.eliminarProforma(getProforma().getId());
 
         } catch (ManagerFacturacionServiceBusinessException e) {
             logger.error(e.getMessage(), e);
             throw new Exception(e.getMessage(), e);
-        }*/
+        }
     }
 
     /**
@@ -793,7 +811,7 @@ public class ProformaClienteController extends FacturacionBaseController {
      * @param fechaHasta, Fecha fin de busqueda
      * @throws Exception, Exception
      */
-    public void buscarProformasPorFechas(Date fechaDesde, Date fechaHasta) throws Exception {
+    public void buscarProformasPorFechas(Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws Exception {
         try {
 
             //Validar que los campos de fechas no sean nulos
@@ -807,7 +825,7 @@ public class ProformaClienteController extends FacturacionBaseController {
             ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
 
             //Buscar Proformas
-            List<Proforma> proformas = mgrFacturacion.buscarProformasPorFecha(fechaDesde, fechaHasta);
+            List<Proforma> proformas = mgrFacturacion.buscarProformasPorFecha(fechaDesde, fechaHasta, idAlmacen);
             getProformas().clear();
             getProformas().addAll(proformas);
 

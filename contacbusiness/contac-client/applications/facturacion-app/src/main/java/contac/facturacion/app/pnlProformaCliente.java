@@ -932,6 +932,7 @@ public class pnlProformaCliente extends GenericPanel {
             controller.setFechaAlta(dtpFechaAlta.getDate());
             controller.setCliente(clienteSelected);
             controller.setAgenteVentas(agenteVentasSelected);
+            controller.setCorreo(txtCorreo.getText());
             if (tasaCambioSelected != null) {
                 controller.setTasaCambio(tasaCambioSelected.getTasaConversion());
                 controller.setMoneda(tasaCambioSelected.getMonedaConversion());
