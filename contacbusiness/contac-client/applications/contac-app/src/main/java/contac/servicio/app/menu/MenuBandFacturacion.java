@@ -77,6 +77,18 @@ public class MenuBandFacturacion extends MenuBand {
             }
         });
 
+        //COBRO DE FACTURAS
+
+        JCommandButton mnuCobroFacturas = new JCommandButton(LabelMessage.getInstance().getLabel("CONTAC.SUBMENU.FACTURACION.COBROFACTURAS"),
+                ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/icons/factura_cliente.png"), new Dimension(32, 32)));
+
+        mnuCobroFacturas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                style.addPanel("CobroFacturasClientes", "contac.facturacion.app.pnlCobroFacturas");
+            }
+        });
+
         //REGISTRO DE PROFORMAS
 
         JCommandButton mnuRegistroProforma = new JCommandButton(LabelMessage.getInstance().getLabel("CONTAC.SUBMENU.PROFORMA.REGISTROPROFORMAS"),
@@ -129,6 +141,7 @@ public class MenuBandFacturacion extends MenuBand {
         //Add menu position
         addCommandButton(mnuNuevaFactura, RibbonElementPriority.TOP);
         addCommandButton(mnuRegistroFacturas, RibbonElementPriority.TOP);
+        addCommandButton(mnuCobroFacturas, RibbonElementPriority.TOP);
         addCommandButton(mnuRegistroProformas, RibbonElementPriority.TOP);
         addCommandButton(mnuRegistroProforma, RibbonElementPriority.TOP);
         addCommandButton(mnuDevoluciones, RibbonElementPriority.TOP);
