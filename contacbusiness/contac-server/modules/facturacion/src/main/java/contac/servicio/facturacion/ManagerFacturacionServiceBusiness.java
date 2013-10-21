@@ -92,15 +92,16 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
      * @param retencionFuente,    Retencion en la fuente
      * @param retencionMunicipal, Retencion municipal
      * @param articulos,          Listado de articulos
+     * @param correo              Correo del Cliente
      * @return Proforma
      * @throws ManagerFacturacionServiceBusinessException,
      *                          Exception
      * @throws RemoteException, Exception
      */
     public Proforma modificarProforma(Integer idProforma, BigDecimal tasaCambio, Direccion direccionEntrega,
-                                    BigDecimal porcDescuento, BigDecimal porcIva, BigDecimal porcRetFuente,
-                                    BigDecimal porcRetMunicipal, Date fechaAlta, boolean exonerada, boolean retencionFuente,
-                                    boolean retencionMunicipal, List<ArticuloProforma> articulos)
+                                      BigDecimal porcDescuento, BigDecimal porcIva, BigDecimal porcRetFuente,
+                                      BigDecimal porcRetMunicipal, Date fechaAlta, boolean exonerada, boolean retencionFuente,
+                                      boolean retencionMunicipal, List<ArticuloProforma> articulos, String correo)
             throws ManagerFacturacionServiceBusinessException, RemoteException;
 
     /**
@@ -114,6 +115,17 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
     public void imprimirFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException;
 
     /**
+     * Anular
+     *
+     * @param idProforma, Identificador de Proforma
+     * @throws ManagerFacturacionServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public void anularProforma(Integer idProforma) throws ManagerFacturacionServiceBusinessException, RemoteException;
+
+
+    /**
      * Anular factura
      *
      * @param idFactura, Identificador de factura
@@ -122,6 +134,16 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
      * @throws RemoteException, Exception
      */
     public void anularFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException;
+
+    /**
+     * Eliminar proforma
+     *
+     * @param idProforma, Identificador de proforma
+     * @throws ManagerFacturacionServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public void eliminarProforma(Integer idProforma) throws ManagerFacturacionServiceBusinessException, RemoteException;
 
     /**
      * Eliminar factura
@@ -162,7 +184,7 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
                                   BigDecimal porcRetFuente, BigDecimal porcRetMunicipal, BigDecimal tasaCambio,
                                   String nombreCliente, Integer idMoneda, Direccion direccionEntrega,
                                   Date fechaAlta, boolean exonerada, boolean retencionFuente, boolean retencionMunicipal,
-                                  List<ArticuloProforma> articulos, Date fechaVencimiento)
+                                  List<ArticuloProforma> articulos, Date fechaVencimiento, String correo)
             throws ManagerFacturacionServiceBusinessException, RemoteException;
 
     /**
@@ -263,12 +285,13 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
      *
      * @param fechaDesde, Fecha desde
      * @param fechaHasta, Fecha hasta
+     * @param idAlmacen, Almacen de Facturacion
      * @return List
      * @throws ManagerFacturacionServiceBusinessException,
      *                          Exception
      * @throws RemoteException, Exception
      */
-    public List<Proforma> buscarProformasPorFecha(Date fechaDesde, Date fechaHasta) throws ManagerFacturacionServiceBusinessException,
+    public List<Proforma> buscarProformasPorFecha(Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws ManagerFacturacionServiceBusinessException,
             RemoteException;
 
 

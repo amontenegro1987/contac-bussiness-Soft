@@ -323,7 +323,8 @@ public class pnlRegistroFacturas extends GenericPanel {
         tableColumnModel.getColumn(12).setCellRenderer(new TipoFacturaRenderer());
 
         //Ordering table columns
-        tableColumnModel.moveColumn(8, 0); //No Documento
+
+        /*tableColumnModel.moveColumn(8, 0); //No Documento
         tableColumnModel.moveColumn(3, 1); //Fecha alta
         tableColumnModel.moveColumn(12, 2); //Tipo de factura
         tableColumnModel.moveColumn(10, 4); //Nombre del cliente
@@ -331,7 +332,7 @@ public class pnlRegistroFacturas extends GenericPanel {
         tableColumnModel.moveColumn(6, 12); //Estado factura
         tableColumnModel.moveColumn(10, 8); //Retencion fuente
         tableColumnModel.moveColumn(11, 9); //Retencion municipal
-
+*/
         //Setting prefered size
 //        tableColumnModel.getColumn(4).setPreferredWidth(200);
         tblFacturasClientes.packAll();
