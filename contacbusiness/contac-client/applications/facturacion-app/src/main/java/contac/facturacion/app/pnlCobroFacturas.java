@@ -48,10 +48,10 @@ import java.util.*;
 /**
  * @author EMontenegro
  */
-public class pnlRegistroFacturas extends GenericPanel {
+public class pnlCobroFacturas extends GenericPanel {
 
     //Apache log4j
-    private static final Logger logger = Logger.getLogger(pnlRegistroFacturas.class);
+    private static final Logger logger = Logger.getLogger(pnlCobroFacturas.class);
 
     //Controller
     private FacturaClienteController controller;
@@ -64,12 +64,12 @@ public class pnlRegistroFacturas extends GenericPanel {
     private JXHeader header;
 
     /**
-     * Creates new form pnlRegistroFacturas
+     * Creates new form pnlCobroFacturas
      */
-    public pnlRegistroFacturas(GenericFrame frame) {
+    public pnlCobroFacturas(GenericFrame frame) {
 
         //Call super constructor
-        super(frame, "RegistroFacturasClientes", "Registro de Facturas", true, "contac/facturacion/app/mensajes/Mensajes",
+        super(frame, "CobroFacturasClientes", "Cobro de Facturas", true, "contac/facturacion/app/mensajes/Mensajes",
                 new Locale("es", "NIC"));
 
         //Init controller
@@ -108,7 +108,7 @@ public class pnlRegistroFacturas extends GenericPanel {
         //Init Header Panel
         //***************************************************************************************
         header = new JXHeader();
-        header.setTitle(messageBundle.getString("CONTAC.FORM.REGISTROFACTURAS.TITTLE")); // NOI18N
+        header.setTitle(messageBundle.getString("CONTAC.FORM.COBROFACTURAS.TITTLE")); // NOI18N
         header.setForeground(new java.awt.Color(255, 153, 0));
         header.setTitleForeground(new java.awt.Color(255, 153, 0));
         header.setPreferredSize(new Dimension(50, 35));
@@ -119,7 +119,97 @@ public class pnlRegistroFacturas extends GenericPanel {
 
         JPanel searchPanel = new JPanel(new XYLayout());
         searchPanel.setBorder(BorderFactory.createEtchedBorder());
-        searchPanel.setPreferredSize(new Dimension(340, 400));
+        searchPanel.setPreferredSize(new Dimension(305, 400));
+
+        JPanel infoPanel = new JPanel(new XYLayout());
+        infoPanel.setBorder(BorderFactory.createEtchedBorder());
+        infoPanel.setPreferredSize(new Dimension(200, 400));
+
+        JPanel pnlInfoFactura = new JPanel(new XYLayout());
+        pnlInfoFactura.setBorder(BorderFactory.createEtchedBorder());
+        pnlInfoFactura.setPreferredSize(new Dimension(195, 100));
+        infoPanel.add(pnlInfoFactura, new XYConstraints(0, 35, 195, 111));
+
+
+
+        lblRegistrosEncontrados = new JLabel(messageBundle.getString("CONTAC.FORM.REGISTROSENCONTRADOS.BUSQUEDA"));
+        lblRegistrosEncontrados.setHorizontalAlignment(JLabel.CENTER);
+        Font newLabelFont = new Font(lblRegistrosEncontrados.getFont().getName(),Font.BOLD,lblRegistrosEncontrados.getFont().getSize());
+        lblRegistrosEncontrados.setFont(newLabelFont);
+        lblRegistrosEncontrados.setForeground(Color.gray);
+        lblRegistrosEncontrados.setSize(14,14);
+        pnlInfoFactura.add(lblRegistrosEncontrados, new XYConstraints(10,10,175,25));
+
+        lblRegistrosEncontradosLower = new JLabel(messageBundle.getString("CONTAC.FORM.REGISTROSENCONTRADOSLOWER.BUSQUEDA"));
+        lblRegistrosEncontradosLower.setHorizontalAlignment(JLabel.CENTER);
+        lblRegistrosEncontradosLower.setFont(newLabelFont);
+        lblRegistrosEncontradosLower.setForeground(Color.gray);
+        lblRegistrosEncontradosLower.setSize(17,17);
+        pnlInfoFactura.add(lblRegistrosEncontradosLower, new XYConstraints(10,70,175,25));
+
+        JPanel pnlTotalFacturado = new JPanel(new XYLayout());
+        pnlTotalFacturado.setBorder(BorderFactory.createEtchedBorder());
+        pnlTotalFacturado.setPreferredSize(new Dimension(195,100));
+        infoPanel.add(pnlTotalFacturado, new XYConstraints(0,146,195,111));
+
+        lblTotalFacturado = new JLabel(messageBundle.getString("CONTAC.FORM.TOTALFACTURADO.BUSQUEDA"));
+        lblTotalFacturado.setHorizontalAlignment(JLabel.CENTER);
+        lblTotalFacturado.setFont(newLabelFont);
+        lblTotalFacturado.setForeground(Color.gray);
+        lblTotalFacturado.setSize(14,14);
+        pnlTotalFacturado.add(lblTotalFacturado, new XYConstraints(10,10,175,25));
+
+        lblTotalFacturadoLower = new JLabel(messageBundle.getString("CONTAC.FORM.TOTALFACTURADOLOWER.BUSQUEDA"));
+        lblTotalFacturadoLower.setHorizontalAlignment(JLabel.CENTER);
+        lblTotalFacturadoLower.setFont(newLabelFont);
+        lblTotalFacturadoLower.setForeground(Color.gray);
+        lblTotalFacturadoLower.setSize(17,17);
+        pnlTotalFacturado.add(lblTotalFacturadoLower, new XYConstraints(10,70,175,25));
+
+        JPanel pnlTotalCobrado = new JPanel(new XYLayout());
+        pnlTotalCobrado.setBorder(BorderFactory.createEtchedBorder());
+        pnlTotalCobrado.setPreferredSize(new Dimension(195,100));
+        infoPanel.add(pnlTotalCobrado, new XYConstraints(0,257,195,121));
+
+        lblTotalCobrado = new JLabel(messageBundle.getString("CONTAC.FORM.TOTALCOBRADO.BUSQUEDA"));
+        lblTotalCobrado.setHorizontalAlignment(JLabel.CENTER);
+        lblTotalCobrado.setFont(newLabelFont);
+        lblTotalCobrado.setForeground(Color.gray);
+        lblTotalCobrado.setSize(14,14);
+        pnlTotalCobrado.add(lblTotalCobrado, new XYConstraints(10,10,175,25));
+
+        lblTotalCobradoLower = new JLabel(messageBundle.getString("CONTAC.FORM.TOTALCOBRADOLOWER.BUSQUEDA"));
+        lblTotalCobradoLower.setHorizontalAlignment(JLabel.CENTER);
+        lblTotalCobradoLower.setFont(newLabelFont);
+        lblTotalCobradoLower.setForeground(Color.gray);
+        lblTotalCobradoLower.setSize(17,17);
+        pnlTotalCobrado.add(lblTotalCobradoLower, new XYConstraints(10,70,175,25));
+
+        JPanel pnlTotalPendiente = new JPanel(new XYLayout());
+        pnlTotalPendiente.setBorder(BorderFactory.createEtchedBorder());
+        pnlTotalPendiente.setPreferredSize(new Dimension(195,100));
+        infoPanel.add(pnlTotalPendiente, new XYConstraints(0,378,195,111));
+
+        lblTotalPendiente = new JLabel(messageBundle.getString("CONTAC.FORM.TOTALPENDIENTE.BUSQUEDA"));
+        lblTotalPendiente.setHorizontalAlignment(JLabel.CENTER);
+        lblTotalPendiente.setFont(newLabelFont);
+        lblTotalPendiente.setForeground(Color.gray);
+        lblTotalPendiente.setSize(14,14);
+        pnlTotalPendiente.add(lblTotalPendiente, new XYConstraints(10,10,175,25));
+
+        lblTotalPendienteLower = new JLabel(messageBundle.getString("CONTAC.FORM.TOTALPENDIENTELOWER.BUSQUEDA"));
+        lblTotalPendienteLower.setHorizontalAlignment(JLabel.CENTER);
+        lblTotalPendienteLower.setFont(newLabelFont);
+        lblTotalPendienteLower.setForeground(Color.gray);
+        lblTotalPendienteLower.setSize(17,17);
+        pnlTotalPendiente.add(lblTotalPendienteLower, new XYConstraints(10,70,175,25));
+
+
+        lblBusquedaFactura = new JLabel(messageBundle.getString("CONTAC.FORM.COBROFACTURAS.BUSQUEDA"));
+        lblBusquedaFactura.setHorizontalAlignment(JLabel.LEFT);
+
+        lblNoFactura = new JLabel(messageBundle.getString("CONTAC.FORM.COBROFACTURAS.NOFACTURA"));
+        lblNoFactura.setHorizontalAlignment(JLabel.LEFT);
 
         lblFechaDesde = new JLabel(messageBundle.getString("CONTAC.FORM.REGISTROFACTURAS.FECHADESDE"));
         lblFechaDesde.setHorizontalAlignment(JLabel.LEFT);
@@ -133,6 +223,8 @@ public class pnlRegistroFacturas extends GenericPanel {
         lblTipoFactura = new JLabel(messageBundle.getString("CONTAC.FORM.FACTURACION.TIPOFACTURA"));
         lblTipoFactura.setHorizontalAlignment(JLabel.LEFT);
 
+        txtNoFactura = new JTextField();
+
         dtpFechaDesde = new JXDatePicker();
         dtpFechaHasta = new JXDatePicker();
 
@@ -145,19 +237,26 @@ public class pnlRegistroFacturas extends GenericPanel {
         btnBuscar = new JButton(messageBundle.getString("CONTAC.FORM.BTNBUSCAR"));
         btnBuscar.setIcon(buscarIco);
 
+        btnBuscarNoFactura = new JButton();
+        btnBuscarNoFactura.setBackground(Color.white);
+        btnBuscarNoFactura.setIcon(buscarIco);
+
         btnCancelar = new JButton(messageBundle.getString("CONTAC.FORM.BTNCANCELAR"));
         btnCancelar.setIcon(cancelarIco);
 
-        searchPanel.add(lblFechaDesde, new XYConstraints(5, 5, 120, 23));
-        searchPanel.add(dtpFechaDesde, new XYConstraints(130, 5, 120, 23));
-        searchPanel.add(lblFechaHasta, new XYConstraints(5, 33, 120, 23));
-        searchPanel.add(dtpFechaHasta, new XYConstraints(130, 33, 120, 23));
-        searchPanel.add(lblTipoFactura, new XYConstraints(5, 61, 120, 23));
-        searchPanel.add(cmbTipoFactura, new XYConstraints(130, 61, 200, 23));
-        searchPanel.add(lblAlmacen, new XYConstraints(5, 89, 90, 23));
-        searchPanel.add(cmbAlmacen, new XYConstraints(130, 89, 200, 23));
-        searchPanel.add(btnBuscar, new XYConstraints(75, 120, 90, 23));
-        searchPanel.add(btnCancelar, new XYConstraints(175, 120, 90, 23));
+        searchPanel.add(lblBusquedaFactura, new XYConstraints(5, 5, 120,23));
+        searchPanel.add(lblNoFactura, new XYConstraints(5,45,120,23));
+        searchPanel.add(txtNoFactura, new XYConstraints(90,45,200,23));
+        searchPanel.add(lblFechaDesde, new XYConstraints(5, 95, 120, 23));
+        searchPanel.add(dtpFechaDesde, new XYConstraints(90, 95, 200, 23));
+        searchPanel.add(lblFechaHasta, new XYConstraints(5, 123, 120, 23));
+        searchPanel.add(dtpFechaHasta, new XYConstraints(90, 123, 200, 23));
+        searchPanel.add(lblTipoFactura, new XYConstraints(5, 151, 120, 23));
+        searchPanel.add(cmbTipoFactura, new XYConstraints(90, 151, 200, 23));
+        searchPanel.add(lblAlmacen, new XYConstraints(5, 179, 120, 23));
+        searchPanel.add(cmbAlmacen, new XYConstraints(90, 179, 200, 23));
+        searchPanel.add(btnBuscar, new XYConstraints(55, 220, 90, 23));
+        searchPanel.add(btnCancelar, new XYConstraints(155, 220, 90, 23));
 
         //*********************************************************************
         //Create Facturas table
@@ -190,6 +289,8 @@ public class pnlRegistroFacturas extends GenericPanel {
         btnEliminar.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNELIMINAR"));
         btnEliminar.setIcon(cancelIco);
 
+        // Componentes de cobroToolBar
+
         btnImprimir = new JButton();
         btnImprimir.setPreferredSize(new Dimension(40, 32));
         btnImprimir.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNIMPRIMIR"));
@@ -200,7 +301,42 @@ public class pnlRegistroFacturas extends GenericPanel {
         btnImprimirFactura.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNIMPRIMIRFACTURA"));
         btnImprimirFactura.setIcon(imprimirFacturaIco);
 
-      /*  btnImprimirFactura.setIcon(imprimirFacturaIco);
+        JButton btnCobrarFactura = new JButton("COBRAR"){
+            @Override
+            public void paintComponent(Graphics g)
+            {
+                g.setColor(Color.WHITE);
+                g.fillRect(0,0, getSize().width, getSize().height);
+                super.paintComponent(g);
+            }
+        };
+        btnCobrarFactura.setContentAreaFilled(false);
+        //btnCobrarFactura.setForeground(Color.WHITE);
+                       /*
+        btnCobrarFactura = new JButton(messageBundle.getString("CONTAC.FORM.BTNCOBRARFACTURA"));    */
+        btnCobrarFactura.setPreferredSize(new Dimension(150,32));
+
+        lblEstado = new JLabel(messageBundle.getString("CONTAC.FORM.COBROESTADO"));
+        lblEstado.setPreferredSize(new Dimension(100,32));
+        lblEstado.setHorizontalAlignment(JLabel.LEFT);
+
+        btnTodasFacturas = new JButton(messageBundle.getString("CONTAC.FORM.TODASFACTURAS"));
+        btnTodasFacturas.setBackground(Color.white);
+        btnTodasFacturas.setPreferredSize(new Dimension(100,80));
+
+        btnFacturasCobradas = new JButton(messageBundle.getString("CONTAC.FORM.FACTURASCOBRADAS"));
+        btnFacturasCobradas.setBackground(Color.white);
+        btnFacturasCobradas.setPreferredSize(new Dimension(100,80));
+
+        btnFacturasEnCurso = new JButton(messageBundle.getString("CONTAC.FORM.FACTURASCURSO"));
+        btnFacturasEnCurso.setBackground(Color.white);
+        btnFacturasEnCurso.setPreferredSize(new Dimension(100,80));
+
+        btnFacturasImpagadas = new JButton(messageBundle.getString("CONTAC.FORM.FACTURASIMPAGADAS"));
+        btnFacturasImpagadas.setBackground(Color.white);
+        btnFacturasImpagadas.setPreferredSize(new Dimension(100,80));
+
+        /*btnImprimirFactura.setIcon(imprimirFacturaIco);
         btnImprimirFactura.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNIMPRIMIRFACTURA"));
         btnImprimirFactura.setFocusable(false);
         btnImprimirFactura.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -214,8 +350,28 @@ public class pnlRegistroFacturas extends GenericPanel {
             }
         });*/
 
+        JToolBar cobroToolBar = new JToolBar();
+        cobroToolBar.setPreferredSize(new Dimension(500,32));
+
+        cobroToolBar.add(lblEstado);
+        //cobroToolBar.add(new JToolBar.Separator());
+        cobroToolBar.add(btnTodasFacturas);
+        cobroToolBar.add(new JToolBar.Separator());
+        cobroToolBar.add(btnFacturasCobradas);
+        cobroToolBar.add(new JToolBar.Separator());
+        cobroToolBar.add(btnFacturasEnCurso);
+        cobroToolBar.add(new JToolBar.Separator());
+        cobroToolBar.add(btnFacturasImpagadas);
+        cobroToolBar.add(new JToolBar.Separator());
+        cobroToolBar.add(btnImprimir);
+        cobroToolBar.add(new JToolBar.Separator());
+        cobroToolBar.add(btnImprimirFactura);
+        cobroToolBar.add(new JToolBar.Separator());
+        cobroToolBar.add(btnCobrarFactura);
+        cobroToolBar.add(new JToolBar.Separator());
+
         JToolBar actionToolBar = new JToolBar();
-        actionToolBar.setPreferredSize(new Dimension(500, 32));
+        actionToolBar.setPreferredSize(new Dimension(200, 32));
 
         actionToolBar.add(btnAgregar);
         actionToolBar.add(new JToolBar.Separator());
@@ -225,9 +381,6 @@ public class pnlRegistroFacturas extends GenericPanel {
         actionToolBar.add(new JToolBar.Separator());
         actionToolBar.add(btnEliminar);
         actionToolBar.add(new JToolBar.Separator());
-        actionToolBar.add(btnImprimir);
-        actionToolBar.add(new JToolBar.Separator());
-        actionToolBar.add(btnImprimirFactura);
 
         JPanel facturasPanel = new JPanel(new BorderLayout());
         facturasPanel.setBorder(BorderFactory.createEtchedBorder());
@@ -237,7 +390,9 @@ public class pnlRegistroFacturas extends GenericPanel {
         JScrollPane facturasScrollbar = new JScrollPane();
         facturasScrollbar.getViewport().add(tblFacturasClientes);
 
-        facturasPanel.add(actionToolBar, BorderLayout.NORTH);
+        facturasPanel.add(cobroToolBar, BorderLayout.NORTH);
+
+        infoPanel.add(actionToolBar, BorderLayout.NORTH);
         facturasPanel.add(facturasScrollbar, BorderLayout.CENTER);
 
         //*********************************************************************
@@ -248,6 +403,7 @@ public class pnlRegistroFacturas extends GenericPanel {
         this.add(header, BorderLayout.NORTH);
         this.add(searchPanel, BorderLayout.WEST);
         this.add(facturasPanel, BorderLayout.CENTER);
+        this.add(infoPanel, BorderLayout.EAST);
 
     }
 
@@ -305,7 +461,8 @@ public class pnlRegistroFacturas extends GenericPanel {
         TableColumnModel tableColumnModel = tblFacturasClientes.getColumnModel();
         String[] columnsRemove = new String[]{"Agente Ventas", "Cliente", "Direccion Entrega", "Exonerada", "Excenta", "Proforma",
                 "Pago", "Porc Descuento", "Porc IVA", "Porc Ret Fuente", "Porc Ret Municipal", "Serie", "Id", "Retencion F",
-                "Retencion M", "Terminos Pago", "Tasa Cambio", "Ctime", "Cuser", "Mtime", "Muser"};
+                "Retencion M", "Terminos Pago", "Tasa Cambio", "Ctime", "Cuser", "Mtime", "Muser", "Almacen", "Monto Bruto",
+                "Monto IVA", "Monto Descuento", "Retencion Fuente", "Retencion Municipal", "Tipo Factura", "Moneda"};
 
         for (String columnLabel : columnsRemove) {
             tableColumnModel.removeColumn(tableColumnModel.getColumn(tableColumnModel.getColumnIndex(columnLabel)));
@@ -313,26 +470,14 @@ public class pnlRegistroFacturas extends GenericPanel {
 
         DecimalFormatRenderer decimalFormatRenderer = new DecimalFormatRenderer();
         decimalFormatRenderer.setHorizontalAlignment(JLabel.RIGHT);
-        tableColumnModel.getColumn(4).setCellRenderer(decimalFormatRenderer);
-        tableColumnModel.getColumn(5).setCellRenderer(decimalFormatRenderer);
-        tableColumnModel.getColumn(6).setCellRenderer(decimalFormatRenderer);
-        tableColumnModel.getColumn(7).setCellRenderer(decimalFormatRenderer);
-        tableColumnModel.getColumn(10).setCellRenderer(decimalFormatRenderer);
-        tableColumnModel.getColumn(11).setCellRenderer(decimalFormatRenderer);
-        tableColumnModel.getColumn(12).setCellRenderer(decimalFormatRenderer);
-        tableColumnModel.getColumn(12).setCellRenderer(new TipoFacturaRenderer());
+        tableColumnModel.getColumn(2).setCellRenderer(decimalFormatRenderer);
 
         //Ordering table columns
 
-        /*tableColumnModel.moveColumn(8, 0); //No Documento
-        tableColumnModel.moveColumn(3, 1); //Fecha alta
-        tableColumnModel.moveColumn(12, 2); //Tipo de factura
-        tableColumnModel.moveColumn(10, 4); //Nombre del cliente
-        tableColumnModel.moveColumn(6, 5); //Moneda
-        tableColumnModel.moveColumn(6, 12); //Estado factura
-        tableColumnModel.moveColumn(10, 8); //Retencion fuente
-        tableColumnModel.moveColumn(11, 9); //Retencion municipal
-*/
+        tableColumnModel.moveColumn(3, 0); //No Documento
+        tableColumnModel.moveColumn(2, 1); //Fecha alta
+        tableColumnModel.moveColumn(4, 2); //Cliente
+
         //Setting prefered size
 //        tableColumnModel.getColumn(4).setPreferredWidth(200);
         tblFacturasClientes.packAll();
@@ -661,14 +806,32 @@ public class pnlRegistroFacturas extends GenericPanel {
     private javax.swing.JButton btnAnular;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnBuscarNoFactura;
+    private javax.swing.JButton btnTodasFacturas;
+    private javax.swing.JButton btnFacturasCobradas;
+    private javax.swing.JButton btnFacturasEnCurso;
+    private javax.swing.JButton btnFacturasImpagadas;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnImprimirFactura;
+    private javax.swing.JButton btnCobrarFactura;
     private javax.swing.JComboBox cmbAlmacen;
     private javax.swing.JComboBox cmbTipoFactura;
     private org.jdesktop.swingx.JXDatePicker dtpFechaDesde;
     private org.jdesktop.swingx.JXDatePicker dtpFechaHasta;
+    private javax.swing.JTextField txtNoFactura;
+    private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblRegistrosEncontrados;
+    private javax.swing.JLabel lblRegistrosEncontradosLower;
+    private javax.swing.JLabel lblTotalPendiente;
+    private javax.swing.JLabel lblTotalPendienteLower;
+    private javax.swing.JLabel lblTotalFacturado;
+    private javax.swing.JLabel lblTotalFacturadoLower;
+    private javax.swing.JLabel lblTotalCobrado;
+    private javax.swing.JLabel lblTotalCobradoLower;
+    private javax.swing.JLabel lblBusquedaFactura;
+    private javax.swing.JLabel lblNoFactura;
     private javax.swing.JLabel lblAlmacen;
     private javax.swing.JLabel lblFechaDesde;
     private javax.swing.JLabel lblFechaHasta;

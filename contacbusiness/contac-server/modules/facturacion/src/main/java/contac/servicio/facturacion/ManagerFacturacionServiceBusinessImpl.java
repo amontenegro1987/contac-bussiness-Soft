@@ -374,7 +374,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
                                   BigDecimal porcRetFuente, BigDecimal porcRetMunicipal, BigDecimal tasaCambio,
                                   String nombreCliente, Integer idMoneda, Direccion direccionEntrega,
                                   Date fechaAlta, boolean exonerada, boolean retencionFuente, boolean retencionMunicipal,
-                                  List<ArticuloProforma> articulos, Date fechaVencimiento)
+                                  List<ArticuloProforma> articulos, Date fechaVencimiento, String correo)
             throws ManagerFacturacionServiceBusinessException, RemoteException {
 
         logger.debug("Creando Proforma con parametros: [noProforma]: " + noProforma  +
@@ -383,13 +383,13 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
                 ", [porcRetMunicipal]: " + porcRetMunicipal + ", [idMoneda]: " + idMoneda + ", [direccionEntrega]: " +
                 direccionEntrega + ", [exonerada]: " + exonerada + ", [retencionFuente]" + retencionFuente +
                 ", [retencionMunicipal]: " + retencionMunicipal + "[idCliente]: " + idCliente +
-                ", [idAlmacen]: " + idAlmacen + ", [tasaCambio]: " + tasaCambio + ", [fechaVencimiento]: " + fechaVencimiento);
+                ", [idAlmacen]: " + idAlmacen + ", [tasaCambio]: " + tasaCambio + ", [fechaVencimiento]: " + fechaVencimiento +
+                ", [correo]: " + correo);
 
         //Iniciar servicio de autenticacion
         boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
 
         try {
-
             //Preparar el contexto de ejecucion
             Cliente cliente = clienteEAO.findById(idCliente);
             Almacen almacen = almacenEAO.findById(idAlmacen);
@@ -397,7 +397,6 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             AgenteVentas agenteVentas = agenteVentasEAO.findById(idAgenteVentas);
             EstadoMovimiento estado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.INGRESADO.getEstado());
             Date fecha1 = new Date();
-            //Proforma proforma = null; //TODO: Implementar asociacion con una proforma
 
             //Actualizar consecutivo de Proforma en el almacen
             boolean update_consecutivo = true;
@@ -411,7 +410,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
 
             if (noProforma > 0) {
                 proformaValidaParaRegistro(noProforma, almacen.getId()); //Verificar que numero de Proforma no se encuentra registrado
-                update_consecutivo = false; //No actualizar consecutivo en almacen de facturacion
+                update_consecutivo = false;
             } else {
                 noProforma = almacen.getConsecutivo() + 1;  //Obtener numero de proforma consecutivo
             }
@@ -422,7 +421,6 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             proforma.setNombreCliente(nombreCliente);
             proforma.setTasaCambio(tasaCambio);
             proforma.setMoneda(moneda);
-//            factura.setProforma(proforma);
             proforma.setAgenteVentas(agenteVentas);
             proforma.setAlmacen(almacen);
             proforma.setCliente(cliente);
@@ -442,6 +440,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             proforma.setRetencionMunicipal(new BigDecimal("0.00"));
             proforma.setEstadoMovimiento(estado);
             proforma.setFechaVencimiento(fecha1);
+            proforma.setCorreo(correo);
 
             if (direccionEntrega != null)
                 proforma.setDireccionEntrega(direccionEntrega);
@@ -461,6 +460,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             for (Iterator it = articulos.iterator(); it.hasNext(); ) {
 
                 //Obteniendo articulo proforma
+
                 ArticuloProforma articuloP = (ArticuloProforma) it.next();
 
                 //Borrar articulos con cantidad menor o igual a zero
@@ -510,7 +510,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             //Persistir nueva proforma
             proforma = proformaEAO.create(proforma);
 
-            //Actualizar numero consecutivo de facturacion si el numero es generado
+            //Actualizar numero consecutivo de proforma si el numero es generado
             if (update_consecutivo) {
                 almacen.setConsecutivo(noProforma);
                 almacenEAO.update(almacen);
@@ -529,6 +529,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             stopBusinessService(transaction);
         }
     }
+
 
 
     @Override
@@ -725,6 +726,47 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
+    public void anularProforma(Integer idProforma) throws ManagerFacturacionServiceBusinessException, RemoteException {
+        logger.debug("Anular proforma con parametros: [idProforma]: " + idProforma);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLFACTURACIONADMIN.toString());
+        try{
+            //Preparar el contexto de ejecucion
+            Proforma proforma = proformaEAO.findById(idProforma);
+            EstadoMovimiento estadoAnulado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.ANULADO.getEstado());
+
+            //Validar datos generales de la proforma
+            if(!proforma.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado()))
+                throw new ManagerFacturacionServiceBusinessException("Proforma no se encuentra en estado valido para poder anular.");
+
+            //Setting estado anulado
+            proforma.setPorcDescuento(new BigDecimal("0.00"));
+            proforma.setPorcRetFuente(new BigDecimal("0.00"));
+            proforma.setPorcRetMunicipal(new BigDecimal("0.00"));
+            proforma.setMontoDescuento(new BigDecimal("0.00"));
+            proforma.setMontoBruto(new BigDecimal("0.00"));
+            proforma.setMontoIVA(new BigDecimal("0.00"));
+            proforma.setMontoNeto(new BigDecimal("0.00"));
+            proforma.setRetencionFuente(new BigDecimal("0.00"));
+            proforma.setRetencionMunicipal(new BigDecimal("0.00"));
+
+            proforma.setEstadoMovimiento(estadoAnulado);
+
+            proformaEAO.update(proforma);
+        } catch (PersistenceClassNotFoundException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+
+    @Override
     public void anularFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException {
 
         logger.debug("Anular factura con parametros: [idFactura]: " + idFactura);
@@ -779,6 +821,38 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
+    public void eliminarProforma(Integer idProforma) throws ManagerFacturacionServiceBusinessException, RemoteException {
+        logger.debug("Eliminar Proforma con parametros: [idProforma]: " + idProforma);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService((Roles.ROLFACTURACIONADMIN.toString()));
+
+        try{
+            //Preparar el contexto de ejecucion
+            Proforma proforma = proformaEAO.findById(idProforma);
+
+            //Validar Datos generales de la proforma
+            if(!proforma.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado()) &&
+                    !proforma.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.ANULADO.getEstado()))
+                throw new ManagerFacturacionServiceBusinessException("Proforma no se encuentra en un estado valido para poder eliminar.");
+
+            proformaEAO.remove(proforma.getId());
+        } catch (PersistenceClassNotFoundException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } finally{
+            stopBusinessService(transaction);
+        }
+    }
+
+
+    @Override
     public void eliminarFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException {
         logger.debug("Eliminar factura con parametros: [idFactura]: " + idFactura);
 
@@ -822,13 +896,14 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     @Override
     public Proforma modificarProforma(Integer idProforma, BigDecimal tasaCambio, Direccion direccionEntrega, BigDecimal porcDescuento,
                                       BigDecimal porcIva, BigDecimal porcRetFuente, BigDecimal porcRetMunicipal, Date fechaAlta,
-                                      boolean exonerada, boolean retencionFuente, boolean retencionMunicipal,
-                                      List<ArticuloProforma> articulos) throws ManagerFacturacionServiceBusinessException, RemoteException {
+                                      boolean exonerada, boolean retencionFuente, boolean retencionMunicipal, List<ArticuloProforma> articulos, String correo)
+            throws ManagerFacturacionServiceBusinessException, RemoteException {
 
         logger.debug("Modificar proforma con parámetros: [idProforma]: " + idProforma + ", [tasaCambio]: " + tasaCambio +
                 ", [direccionEntrega]: " + direccionEntrega + ", [porcDescuento]: " + porcDescuento + ", [porcIva]: " +
                 ", [porcRetFuente]: " + porcRetFuente + ", [porcRetMunicipal]: " + porcRetMunicipal + ", [fechaAlta]: " + fechaAlta +
-                ", [exonerada]: " + exonerada + ", [retencionFuente]: " + retencionFuente + ", [retencionMunicipal]: " + retencionMunicipal);
+                ", [exonerada]: " + exonerada + ", [retencionFuente]: " + retencionFuente + ", [retencionMunicipal]: " + retencionMunicipal +
+                ", [correo]: " + correo);
 
         //Iniciar servicio de autenticacion
         boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
@@ -837,6 +912,9 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
 
             //Preparar el contexto de ejecucion
             Proforma proforma = proformaEAO.findById(idProforma);
+
+            if(!proforma.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado()))
+                throw new ManagerFacturacionServiceBusinessException("El estado de la proforma no es consistente para poder modificar");
 
             if(articulos.isEmpty())
                 throw new ManagerFacturacionServiceBusinessException("Debes ingresar al menos un articulo");
@@ -851,6 +929,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             proforma.setExonerada(exonerada);
             proforma.setRetencionF(retencionFuente);
             proforma.setRetencionM(retencionMunicipal);
+            proforma.setCorreo(correo);
 
             //<Persistir Articulos de Proforma
             BigDecimal montoTotalAntesImpuesto = new BigDecimal("0.00");
@@ -877,7 +956,6 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
                     articulo.setNoProforma(proforma.getNoDocumento());
 
                 }
-
                 if(articulo.isUpdate()){
 
                     //Borrar articulos con cantidad menor o igual a cero
@@ -914,7 +992,6 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             proforma.setArticulos(new HashSet<ArticuloProforma>(articulos));
 
             proforma = proformaEAO.update(proforma);
-
             return proforma;
 
         } catch(PersistenceClassNotFoundException e){
@@ -1153,7 +1230,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
-    public List<Proforma>buscarProformasPorFecha(Date fechaDesde, Date fechaHasta) throws ManagerFacturacionServiceBusinessException, RemoteException {
+    public List<Proforma>buscarProformasPorFecha(Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws ManagerFacturacionServiceBusinessException, RemoteException {
 
         logger.debug("Buscando Proformas por rangos de Fecha: [fechaDesde]: " + fechaDesde + ", [fechaHasta]: " +
                 fechaHasta);
@@ -1167,12 +1244,15 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
                 throw new ManagerFacturacionServiceBusinessException("Debe seleccionar una fecha desde v\u00e1lida");
             if(fechaHasta == null)
                 throw new ManagerFacturacionServiceBusinessException("Debe seleccionar una fecha hasta v\u00e1lida");
-            //Buscar almacen del usuario
-            Almacen almacen = mgrSeguridad.buscarUsuarioPorLogin(mgrAutorizacion.getUsername()).getAlmacen();
-            Integer idAlmacen = almacen != null ? almacen.getId() : null;
-            //Si almacen del usuario es nulo - verificar que tiene el rol de administrador para ejecutar la accion
-            if (idAlmacen == null)
-                mgrAutorizacion.isUserInRole(Roles.ROLSYSTEMADMIN.toString());
+            //Buscar almacen del usuario - First Check Authorization for user
+            boolean success = mgrAutorizacion.checkUserInRole(Roles.ROLFACTURACIONADMIN.toString());
+
+            Almacen almacen = null;
+            if(success) {
+                almacen = almacenEAO.findById(idAlmacen);
+            } else{
+                almacen = mgrSeguridad.buscarUsuarioPorLogin(mgrAutorizacion.getUsername()).getAlmacen();
+            }
 
             //Preparar fechas para busquedas
             GregorianCalendar gc = new GregorianCalendar();
@@ -1190,7 +1270,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             gc.set(Calendar.MILLISECOND, 0);
             fechaHasta = gc.getTime();
 
-            return proformaEAO.findByFechas(fechaDesde, fechaHasta, idAlmacen);
+            return proformaEAO.findByFechas(fechaDesde, fechaHasta, almacen.getId());
 
         } catch (GenericPersistenceEAOException e) {
             logger.error(e.getMessage(), e);

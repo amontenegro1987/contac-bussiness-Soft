@@ -44,18 +44,20 @@ public class ProformaEAOPersistence extends GenericPersistenceEAO<Proforma, Inte
         //Init service
         initService();
 
-        String fromClause = "Select f from Factura f ";
+        String fromClause = "Select p from Proforma p ";
         String conditionClause = "";
 
         List<QueryFragment> querySolver = new ArrayList<QueryFragment>();
         //1. Agregando parametro fecha desde
-        querySolver.add(new QueryFragment(fechaDesde != null, "", " f.fechaAlta >= : fechaDesde ", "fechaDesde", fechaDesde));
-        //2. Agregando parametro fecha desde
-        querySolver.add(new QueryFragment(fechaDesde != null, "", " f.fechaAlta <= : fechaHasta ", "fechaHasta", fechaHasta));
+        querySolver.add(new QueryFragment(fechaDesde != null, "", " p.fechaAlta >= :fechaDesde ", "fechaDesde", fechaDesde));
+        //2. Agregando parametro fecha hasta
+        querySolver.add(new QueryFragment(fechaHasta != null, "", " p.fechaAlta <= :fechaHasta ", "fechaHasta", fechaHasta));
         //3. Agregando parametro almacen
-        querySolver.add(new QueryFragment(idAlmacen != null, "", " f.almacen.id = : idAlmacen", "idAlmacen", idAlmacen));
+        querySolver.add(new QueryFragment(idAlmacen != null, "", " p.almacen.id = :idAlmacen", "idAlmacen", idAlmacen));
 
         String ejbQuery = QueryUtils.ejbQLcreator(fromClause, conditionClause, querySolver);
+        ejbQuery = ejbQuery + " " + "order by p.noDocumento ";
+
         Query query = em.createQuery(ejbQuery);
 
         return QueryUtils.ejbQLParametersSolver(query, querySolver).getResultList();

@@ -105,7 +105,7 @@ public class Cliente implements Serializable {
      */
     private String cuenta;
 
-     /**
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * PROPERTY NAME: tipoPersona
@@ -278,7 +278,7 @@ public class Cliente implements Serializable {
      */
     @ManyToMany(cascade = {javax.persistence.CascadeType.ALL}, fetch = javax.persistence.FetchType.EAGER)
     @JoinTable(name = "FAC_CLIENTE_CONTACTOS", joinColumns = @JoinColumn(name = "N_ID_CLIENTE", nullable = false),
-                                               inverseJoinColumns = @JoinColumn(name = "N_ID_CONTACTO", nullable = false))
+            inverseJoinColumns = @JoinColumn(name = "N_ID_CONTACTO",/* nullable = false,*/ columnDefinition = "int default 0"))
     public Set<contac.modelo.entity.Contacto> getContactos() {
         return contactos;
     }
@@ -486,7 +486,7 @@ public class Cliente implements Serializable {
     public void setMuser(String muser) {
         this.muser = muser;
     }
-    
+
     public String toString() {
         return getRazonSocial();
     }

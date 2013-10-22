@@ -77,7 +77,31 @@ public class MenuBandFacturacion extends MenuBand {
             }
         });
 
+        //COBRO DE FACTURAS
+
+        JCommandButton mnuCobroFacturas = new JCommandButton(LabelMessage.getInstance().getLabel("CONTAC.SUBMENU.FACTURACION.COBROFACTURAS"),
+                ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/icons/factura_cliente.png"), new Dimension(32, 32)));
+
+        mnuCobroFacturas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                style.addPanel("CobroFacturasClientes", "contac.facturacion.app.pnlCobroFacturas");
+            }
+        });
+
         //REGISTRO DE PROFORMAS
+
+        JCommandButton mnuRegistroProforma = new JCommandButton(LabelMessage.getInstance().getLabel("CONTAC.SUBMENU.PROFORMA.REGISTROPROFORMAS"),
+                ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/icons/folder-customer-icon.png"), new Dimension(32, 32)));
+
+        mnuRegistroProforma.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                style.addPanel("proformaClientes", "contac.facturacion.app.pnlRegistroProformas");
+            }
+        });
+
+        //NUEVA PROFORMA
         JCommandButton mnuRegistroProformas = new JCommandButton(LabelMessage.getInstance().getLabel("CONTAC.SUBMENU.FACTURACION.PROFORMAS"),
                 ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/icons/proforma.png"), new Dimension(32, 32)));
 
@@ -88,7 +112,7 @@ public class MenuBandFacturacion extends MenuBand {
                 style.addPanel("proformaClientes", "contac.facturacion.app.pnlProformaCliente");
             }
         });
-        
+
         //DEVOLUCIONES
         JCommandButton mnuDevoluciones = new JCommandButton(LabelMessage.getInstance().getLabel("CONTAC.SUBMENU.FACTURACION.DEVOLUCIONES"),
                 ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/images/payment_back_256x32.png"), new Dimension(32, 32)));
@@ -117,7 +141,9 @@ public class MenuBandFacturacion extends MenuBand {
         //Add menu position
         addCommandButton(mnuNuevaFactura, RibbonElementPriority.TOP);
         addCommandButton(mnuRegistroFacturas, RibbonElementPriority.TOP);
+        addCommandButton(mnuCobroFacturas, RibbonElementPriority.TOP);
         addCommandButton(mnuRegistroProformas, RibbonElementPriority.TOP);
+        addCommandButton(mnuRegistroProforma, RibbonElementPriority.TOP);
         addCommandButton(mnuDevoluciones, RibbonElementPriority.TOP);
         addCommandButton(mnuAgentesVentes, RibbonElementPriority.TOP);
 
