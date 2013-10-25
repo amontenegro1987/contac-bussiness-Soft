@@ -690,6 +690,42 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
+    public void cobrarFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException {
+
+        logger.debug("Cambiar Estado factura a PAGADO con parametros: [idFactura]: " + idFactura);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLFACTURACIONADMIN.toString());
+
+        try {
+
+            //Preparar el contexto de ejecucion
+            Factura factura = facturaEAO.findById(idFactura);
+            EstadoMovimiento estadoPagado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.PAGADO.getEstado());
+
+            //Validar datos generales de la factura
+            if (!factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.IMPRESO.getEstado()) /*&&
+                    !factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.PAGADO.getEstado())*/)
+                throw new ManagerFacturacionServiceBusinessException("Factura no se encuentra en un estado valido para poder cobrar.");
+
+            //Setting Estado Movimiento Impreso
+            factura.setEstadoMovimiento(estadoPagado);
+
+            //Update Factura
+            facturaEAO.update(factura);
+
+        } catch (PersistenceClassNotFoundException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
     public void imprimirFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException {
 
         logger.debug("Cambiar Estado factura a IMPRESA con parametros: [idFactura]: " + idFactura);
@@ -1271,6 +1307,68 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             fechaHasta = gc.getTime();
 
             return proformaEAO.findByFechas(fechaDesde, fechaHasta, almacen.getId());
+
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } catch (ManagerAutorizacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } catch (ManagerSeguridadServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
+    public List<Factura> buscarFacturasCobrosPorFecha(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura, Integer idEstado, Integer idEstadoPagado)
+            throws ManagerFacturacionServiceBusinessException, RemoteException {
+
+        logger.debug("Buscando facturas comerciales por rangos de fecha: [fechaDesde]: " + fechaDesde + ", [fechaHasta]: " +
+                fechaHasta);
+
+        //Iniciar servicio de autorizacion
+        boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
+
+        try {
+
+           //Validar campos de la busqueda
+            if (fechaDesde == null)
+                throw new ManagerFacturacionServiceBusinessException("Debe seleccionar una fecha desde v\u00e1lida");
+
+            if (fechaHasta == null)
+                throw new ManagerFacturacionServiceBusinessException("Debe seleccionar una fecha hasta v\u00e1lida");
+
+            //Buscar almacen del usuario - First check authorization for user
+            boolean success = mgrAutorizacion.checkUserInRole(Roles.ROLFACTURACIONADMIN.toString());
+
+            Almacen almacen = null;
+            EstadosMovimiento estado = null;
+            if (success) {
+                almacen = almacenEAO.findById(idAlmacen);
+            } else {
+                almacen = mgrSeguridad.buscarUsuarioPorLogin(mgrAutorizacion.getUsername()).getAlmacen();
+            }
+                //estado = EstadosMovimiento.PAGADO;
+            //Preparar fechas para busquedas
+            GregorianCalendar gc = new GregorianCalendar();
+            gc.setTime(fechaDesde);
+            gc.set(Calendar.HOUR_OF_DAY, 0);
+            gc.set(Calendar.MINUTE, 0);
+            gc.set(Calendar.SECOND, 0);
+            gc.set(Calendar.MILLISECOND, 0);
+            fechaDesde = gc.getTime();
+
+            gc.setTime(fechaHasta);
+            gc.set(Calendar.HOUR_OF_DAY, 0);
+            gc.set(Calendar.MINUTE, 0);
+            gc.set(Calendar.SECOND, 0);
+            gc.set(Calendar.MILLISECOND, 0);
+            fechaHasta = gc.getTime();
+
+            return facturaEAO.findByFechasCobros(fechaDesde, fechaHasta, almacen.getId(), idTipoFactura, idEstado, idEstadoPagado);
 
         } catch (GenericPersistenceEAOException e) {
             logger.error(e.getMessage(), e);

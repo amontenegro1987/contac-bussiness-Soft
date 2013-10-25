@@ -105,6 +105,17 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
             throws ManagerFacturacionServiceBusinessException, RemoteException;
 
     /**
+     * Setear Factura a PAGADO
+     *
+     * @param idFactura, Identificador de factura
+     * @throws ManagerFacturacionServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+
+    public void cobrarFactura(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException;
+
+    /**
      * Setear Factura a IMPRESO
      *
      * @param idFactura, Identificador de factura
@@ -294,6 +305,22 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
     public List<Proforma> buscarProformasPorFecha(Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws ManagerFacturacionServiceBusinessException,
             RemoteException;
 
+    /**
+     * Buscar facturas comerciales por cobros
+     *
+     * @param fechaDesde,    Fecha desde
+     * @param fechaHasta,    Fecha hasta
+     * @param idAlmacen,     Almacen de facturacion
+     * @param idTipoFactura, Tipo de factura
+     * @return List
+     * @throws ManagerFacturacionServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+
+    public List<Factura> buscarFacturasCobrosPorFecha(Date fechaDesde, Date fechaHasta, Integer idAlmacen,
+                                                Integer idTipoFactura, Integer idEstado, Integer idEstadoPagado) throws ManagerFacturacionServiceBusinessException,
+            RemoteException;
 
     /**
      * Buscar facturas comerciales por rangos de fecha
