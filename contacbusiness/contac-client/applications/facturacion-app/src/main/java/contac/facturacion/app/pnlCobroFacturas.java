@@ -151,21 +151,26 @@ public class pnlCobroFacturas extends GenericPanel {
         btnBuscar = new JButton(messageBundle.getString("CONTAC.FORM.BTNBUSCAR"));
         btnBuscar.setIcon(buscarIco);
 
+        btnBuscarNoFactura = new JButton();
+        btnBuscarNoFactura.setBackground(Color.white);
+        btnBuscarNoFactura.setIcon(buscarIco);
+
         btnCancelar = new JButton(messageBundle.getString("CONTAC.FORM.BTNCANCELAR"));
         btnCancelar.setIcon(cancelarIco);
 
-        searchPanel.add(lblFacturaNo, new XYConstraints(5, 5, 120, 23));
-        searchPanel.add(txtFacturaNo, new XYConstraints(130, 5, 120, 23));
-        searchPanel.add(lblFechaDesde, new XYConstraints(5, 33, 120, 23));
-        searchPanel.add(dtpFechaDesde, new XYConstraints(130, 33, 120, 23));
-        searchPanel.add(lblFechaHasta, new XYConstraints(5, 61, 120, 23));
-        searchPanel.add(dtpFechaHasta, new XYConstraints(130, 61, 120, 23));
-        searchPanel.add(lblTipoFactura, new XYConstraints(5, 89, 120, 23));
-        searchPanel.add(cmbTipoFactura, new XYConstraints(130, 89, 200, 23));
-        searchPanel.add(lblAlmacen, new XYConstraints(5, 117, 90, 23));
-        searchPanel.add(cmbAlmacen, new XYConstraints(130, 117, 200, 23));
-        searchPanel.add(btnBuscar, new XYConstraints(75, 150, 90, 23));
-        searchPanel.add(btnCancelar, new XYConstraints(175, 150, 90, 23));
+        searchPanel.add(lblBusquedaFactura, new XYConstraints(5, 5, 120,23));
+        searchPanel.add(lblNoFactura, new XYConstraints(5,45,120,23));
+        searchPanel.add(txtNoFactura, new XYConstraints(90,45,200,23));
+        searchPanel.add(lblFechaDesde, new XYConstraints(5, 95, 120, 23));
+        searchPanel.add(dtpFechaDesde, new XYConstraints(90, 95, 200, 23));
+        searchPanel.add(lblFechaHasta, new XYConstraints(5, 123, 120, 23));
+        searchPanel.add(dtpFechaHasta, new XYConstraints(90, 123, 200, 23));
+        searchPanel.add(lblTipoFactura, new XYConstraints(5, 151, 120, 23));
+        searchPanel.add(cmbTipoFactura, new XYConstraints(90, 151, 200, 23));
+        searchPanel.add(lblAlmacen, new XYConstraints(5, 179, 120, 23));
+        searchPanel.add(cmbAlmacen, new XYConstraints(90, 179, 200, 23));
+        searchPanel.add(btnBuscar, new XYConstraints(55, 220, 90, 23));
+        searchPanel.add(btnCancelar, new XYConstraints(155, 220, 90, 23));
 
         //*********************************************************************
         //Create Facturas table

@@ -228,20 +228,20 @@ public class pnlAdmonCompania extends GenericPanel {
         javax.swing.GroupLayout rgTipoPersonaLayout = new javax.swing.GroupLayout(rgTipoPersona);
         rgTipoPersona.setLayout(rgTipoPersonaLayout);
         rgTipoPersonaLayout.setHorizontalGroup(
-            rgTipoPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rgTipoPersonaLayout.createSequentialGroup()
-                .addComponent(rbNatural)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbJuridica)
-                .addContainerGap(8, Short.MAX_VALUE))
+                rgTipoPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(rgTipoPersonaLayout.createSequentialGroup()
+                                .addComponent(rbNatural)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rbJuridica)
+                                .addContainerGap(8, Short.MAX_VALUE))
         );
         rgTipoPersonaLayout.setVerticalGroup(
-            rgTipoPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rgTipoPersonaLayout.createSequentialGroup()
-                .addGroup(rgTipoPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbNatural, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rbJuridica, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                rgTipoPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(rgTipoPersonaLayout.createSequentialGroup()
+                                .addGroup(rgTipoPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(rbNatural, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(rbJuridica, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         frmDatosGenerales.add(rgTipoPersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 130, 20));
