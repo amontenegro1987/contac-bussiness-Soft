@@ -137,7 +137,7 @@ public class pnlCobroFacturas extends GenericPanel {
         lblTipoFactura = new JLabel(messageBundle.getString("CONTAC.FORM.FACTURACION.TIPOFACTURA"));
         lblTipoFactura.setHorizontalAlignment(JLabel.LEFT);
 
-        txtFacturaNo = new JTextField();
+        txtNoFactura = new JTextField();
 
         dtpFechaDesde = new JXDatePicker();
         dtpFechaHasta = new JXDatePicker();
@@ -151,14 +151,9 @@ public class pnlCobroFacturas extends GenericPanel {
         btnBuscar = new JButton(messageBundle.getString("CONTAC.FORM.BTNBUSCAR"));
         btnBuscar.setIcon(buscarIco);
 
-        btnBuscarNoFactura = new JButton();
-        btnBuscarNoFactura.setBackground(Color.white);
-        btnBuscarNoFactura.setIcon(buscarIco);
-
         btnCancelar = new JButton(messageBundle.getString("CONTAC.FORM.BTNCANCELAR"));
         btnCancelar.setIcon(cancelarIco);
 
-        searchPanel.add(lblBusquedaFactura, new XYConstraints(5, 5, 120,23));
         searchPanel.add(lblNoFactura, new XYConstraints(5,45,120,23));
         searchPanel.add(txtNoFactura, new XYConstraints(90,45,200,23));
         searchPanel.add(lblFechaDesde, new XYConstraints(5, 95, 120, 23));
@@ -233,7 +228,7 @@ public class pnlCobroFacturas extends GenericPanel {
         //****************************************************************************
 
         //Numero de factura
-        txtFacturaNo.setText("");
+        txtNoFactura.setText("");
 
         //Fecha desde
         dtpFechaDesde.setFormats("dd/MM/yyyy");
@@ -490,13 +485,14 @@ public class pnlCobroFacturas extends GenericPanel {
     private JXDatePicker dtpFechaDesde;
     private JXDatePicker dtpFechaHasta;
 
+    private JLabel lblNoFactura;
     private JLabel lblFacturaNo;
     private JLabel lblAlmacen;
     private JLabel lblFechaDesde;
     private JLabel lblFechaHasta;
     private JLabel lblTipoFactura;
 
-    private JTextField txtFacturaNo;
+    private JTextField txtNoFactura;
 
     private JXTable tblFacturasClientes;
 
