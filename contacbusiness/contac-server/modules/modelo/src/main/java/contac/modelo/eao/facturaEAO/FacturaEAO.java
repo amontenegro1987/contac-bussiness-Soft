@@ -45,6 +45,20 @@ public interface FacturaEAO extends GenericEAO<Factura, Integer> {
     public List<Factura> findByEstado(Integer idEstado, Integer idAlmacen) throws GenericPersistenceEAOException;
 
     /**
+     * Buscar Cobros facturas por rangos de fecha
+     *
+     * @param fechaDesde, Fecha desde
+     * @param fechaHasta, Fecha hasta
+     * @param idAlmacen,  Identificador de almacen
+     * @param idTipoFactura, Identificador de Tipo de Factura
+     * @return List<Factura>
+     * @throws GenericPersistenceEAOException,
+     *          Exception
+     */
+    public List<Factura> findByFechasCobros(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura, Integer idEstado, Integer idEstadoPagado)
+            throws GenericPersistenceEAOException;
+
+    /**
      * Buscar facturas por rangos de fecha
      *
      * @param fechaDesde, Fecha desde
@@ -55,6 +69,9 @@ public interface FacturaEAO extends GenericEAO<Factura, Integer> {
      * @throws GenericPersistenceEAOException,
      *          Exception
      */
+
+
+
     public List<Factura> findByFechas(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura)
             throws GenericPersistenceEAOException;
 
