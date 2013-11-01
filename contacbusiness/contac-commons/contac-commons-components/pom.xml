@@ -30,6 +30,11 @@
             <artifactId>seguridad</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>reportes</artifactId>
+        </dependency>
+
         <!-- SWINGX -->
         <dependency>
             <groupId>org.swinglabs</groupId>

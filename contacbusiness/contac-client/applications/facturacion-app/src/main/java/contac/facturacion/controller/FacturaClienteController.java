@@ -32,6 +32,7 @@ public class FacturaClienteController extends FacturacionBaseController {
     //PROPERTIES BEAN FORM
     //*************************************************************************************
     private long noFactura;
+    private EstadosMovimiento estadoMovimiento;
     private Date fechaAlta;
     private Almacen almacen;
     private TiposFactura tipoFactura;
@@ -98,6 +99,14 @@ public class FacturaClienteController extends FacturacionBaseController {
 
     public void setTipoFactura(TiposFactura tipoFactura) {
         this.tipoFactura = tipoFactura;
+    }
+
+    public EstadosMovimiento getEstadoMovimiento(){
+        return estadoMovimiento;
+    }
+
+    public void setEstadoMovimiento(EstadosMovimiento estadoMovimiento){
+        this.estadoMovimiento = estadoMovimiento;
     }
 
     public Cliente getCliente() {
@@ -309,6 +318,7 @@ public class FacturaClienteController extends FacturacionBaseController {
 
         setNoFactura(VALUE_INT_NOT_DEFINED);
         setTipoFactura(null);
+        setEstadoMovimiento(null);
         setTasaCambio(null);
         setCliente(null);
         setNombreCliente(VALUE_STRING_NOT_DEFINED);
@@ -417,6 +427,33 @@ public class FacturaClienteController extends FacturacionBaseController {
     }
 
     /**
+     * Init Cobro de factura
+     *
+     * @throws Exception, Exception
+     */
+
+    public void initRegistroFacturaCobros(Integer idEstadoPagado) throws Exception{
+        //Iniciar Registro de Facturas
+        setFacturas(new ArrayList<Factura>());
+
+        //Setting almacenes registrados
+        setAlmacenes(buscarAlmacenes());
+
+        //Settin almacen del usuario
+        setAlmacen(buscarAlmacenUsuario());
+
+        //Buscar registro de facturas con fecha actual del servidor
+        Date fechaFacturacion = buscarFechaFacturacion();
+
+        //Buscar Estados de Movimiento de Factura
+
+        //Buscar Facturas de Clientes por fechas
+        buscarFacturasClientesCobrosPorFechas(fechaFacturacion, fechaFacturacion, almacen.getId(),
+                getTipoFactura() != null ? 2 : 2, getEstadoMovimiento() != null ? idEstadoPagado : idEstadoPagado, idEstadoPagado);
+
+    }
+
+    /**
      * Init registros de factura
      *
      * @throws Exception, Exception
@@ -502,6 +539,31 @@ public class FacturaClienteController extends FacturacionBaseController {
     }
 
     /**
+     * Cambiar estado de factura a PAGADO
+     *
+     * @throws Exception, Exception
+     */
+
+    public void cobrarFactura() throws Exception{
+
+        logger.debug("Cambiar Estado de Factura a PAGADO");
+
+        try {
+
+            //Obtener manager de facturacion
+            ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
+
+            //Anulamos registro de factura
+            mgrFacturacion.cobrarFactura(getFactura().getId());
+
+        } catch (ManagerFacturacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+
+    }
+
+    /**
      * Cambiar estado de factura a Impreso
      *
      * @throws Exception, Exception
@@ -523,7 +585,6 @@ public class FacturaClienteController extends FacturacionBaseController {
             logger.error(e.getMessage(), e);
             throw new Exception(e.getMessage(), e);
         }
-
     }
 
 
@@ -848,6 +909,41 @@ public class FacturaClienteController extends FacturacionBaseController {
     }
 
     /**
+     * Buscar listado de cobro facturas a clientes
+     *
+     * @param fechaDesde,    Fecha inicio de busqueda
+     * @param fechaHasta,    Fecha fin de busqueda
+     * @param idAlmacen,     Almacen de facturacion
+     * @param idTipoFactura, Tipo de Factura
+     * @throws Exception, Exception
+     */
+    public void buscarFacturasClientesCobrosPorFechas(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura,
+                                                      Integer idEstado, Integer idEstadoPagado) throws Exception {
+        try {
+
+            //Validar que los campos de fechas no sean nulos
+            if (fechaDesde == null)
+                throw new Exception("Debe ingresar una fecha de inicio de busqueda: [fecha desde]");
+
+            if (fechaHasta == null)
+                throw new Exception("Debe ingresar una fecha de fin de busqueda: [fecha hasta]");
+
+            //Obtener manager facturacion
+            ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
+
+            //Buscar facturas
+            List<Factura> facturas = mgrFacturacion.buscarFacturasCobrosPorFecha(fechaDesde, fechaHasta, idAlmacen,
+                    idTipoFactura, idEstado, idEstadoPagado);
+            getFacturas().clear();
+            getFacturas().addAll(facturas);
+
+        } catch (ManagerFacturacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
+     /**
      * Buscar listado de facturas a clientes
      *
      * @param fechaDesde,    Fecha inicio de busqueda
