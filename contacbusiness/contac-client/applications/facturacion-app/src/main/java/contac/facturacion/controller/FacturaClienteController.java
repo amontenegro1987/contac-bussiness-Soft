@@ -563,6 +563,8 @@ public class FacturaClienteController extends FacturacionBaseController {
 
     }
 
+
+
     /**
      * Cambiar estado de factura a Impreso
      *
@@ -585,6 +587,7 @@ public class FacturaClienteController extends FacturacionBaseController {
             logger.error(e.getMessage(), e);
             throw new Exception(e.getMessage(), e);
         }
+
     }
 
 
@@ -917,8 +920,8 @@ public class FacturaClienteController extends FacturacionBaseController {
      * @param idTipoFactura, Tipo de Factura
      * @throws Exception, Exception
      */
-    public void buscarFacturasClientesCobrosPorFechas(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura,
-                                                      Integer idEstado, Integer idEstadoPagado) throws Exception {
+    public void buscarFacturasClientesCobrosPorFechas(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura, Integer idEstado, Integer idEstadoPagado)
+            throws Exception {
         try {
 
             //Validar que los campos de fechas no sean nulos
