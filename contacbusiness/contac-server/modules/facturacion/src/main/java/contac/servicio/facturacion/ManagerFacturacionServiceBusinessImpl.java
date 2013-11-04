@@ -1323,7 +1323,34 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
-    public List<Factura> buscarFacturasCobrosPorFecha(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura, Integer idEstado, Integer idEstadoPagado)
+    public List<Factura> buscarFacturasCobrosPorFechaNo(Long numeroFactura, Integer idTipoFactura)
+            throws ManagerFacturacionServiceBusinessException, RemoteException {
+
+        //Iniciar servicio de autorizacion
+        boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
+
+        try {
+            //Buscar almacen del usuario - First check authorization for user
+            boolean success = mgrAutorizacion.checkUserInRole(Roles.ROLFACTURACIONADMIN.toString());
+
+            return facturaEAO.findByFechasCobrosNo(numeroFactura, idTipoFactura);
+
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } catch (ManagerAutorizacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        /*} catch (ManagerSeguridadServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);*/
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
+    public List<Factura> buscarFacturasCobrosPorFecha(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura)
             throws ManagerFacturacionServiceBusinessException, RemoteException {
 
         logger.debug("Buscando facturas comerciales por rangos de fecha: [fechaDesde]: " + fechaDesde + ", [fechaHasta]: " +
@@ -1368,7 +1395,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             gc.set(Calendar.MILLISECOND, 0);
             fechaHasta = gc.getTime();
 
-            return facturaEAO.findByFechasCobros(fechaDesde, fechaHasta, almacen.getId(), idTipoFactura, idEstado, idEstadoPagado);
+            return facturaEAO.findByFechasCobros(fechaDesde, fechaHasta, almacen.getId(), idTipoFactura);
 
         } catch (GenericPersistenceEAOException e) {
             logger.error(e.getMessage(), e);

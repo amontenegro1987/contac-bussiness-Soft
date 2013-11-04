@@ -62,6 +62,9 @@ public class QueryFragment {
         this.optional = optional;
     }
 
+    public QueryFragment(boolean b, String s, String s1) {
+    }
+
     /**
      * Document Me!
      */
