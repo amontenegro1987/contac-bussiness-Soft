@@ -41,6 +41,7 @@ import javax.swing.*;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.math.BigInteger;
 import java.rmi.RemoteException;
 import java.text.MessageFormat;
 import java.util.*;
@@ -62,6 +63,7 @@ public class pnlCobroFacturas extends GenericPanel {
 
     //Components
     private JXHeader header;
+    Integer numeroDeColumnas; // = facturaBeanTableModel.getRowCount();
 
     /**
      * Creates new form pnlCobroFacturas
@@ -73,13 +75,15 @@ public class pnlCobroFacturas extends GenericPanel {
                 new Locale("es", "NIC"));
 
         //Init controller
-
         controller = new FacturaClienteController();
-        Integer idEstadoPagado = 7;
+
+        //Integer idEstadoPagado = 7;
+        int[] idEstadoPagado = new int[]{1,7,8};
+
+
         try {
 
-            //Iniciar registro de datos
-
+           //Iniciar registro de datos
             controller.initRegistroFacturaCobros(idEstadoPagado);
 
             //Init components
@@ -154,7 +158,7 @@ public class pnlCobroFacturas extends GenericPanel {
         btnCancelar = new JButton(messageBundle.getString("CONTAC.FORM.BTNCANCELAR"));
         btnCancelar.setIcon(cancelarIco);
 
-        searchPanel.add(lblNoFactura, new XYConstraints(5,45,120,23));
+        searchPanel.add(lblFacturaNo, new XYConstraints(5,45,120,23));
         searchPanel.add(txtNoFactura, new XYConstraints(90,45,200,23));
         searchPanel.add(lblFechaDesde, new XYConstraints(5, 95, 120, 23));
         searchPanel.add(dtpFechaDesde, new XYConstraints(90, 95, 200, 23));
@@ -172,6 +176,7 @@ public class pnlCobroFacturas extends GenericPanel {
         //*********************************************************************
 
         ImageIcon cobrarIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/reward.png"));
+
         ImageIcon imprimirIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/print.png"));
         ImageIcon actualizarIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/reload.png"));
 
@@ -190,6 +195,129 @@ public class pnlCobroFacturas extends GenericPanel {
         btnCobrarFactura.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNCOBRARFACTURA"));
         btnCobrarFactura.setIcon(cobrarIco);
 
+        //Integer numeroDeColumnas = facturaBeanTableModel.getRowCount();
+
+        JPanel estadisticasPanel = new JPanel(new XYLayout());
+        searchPanel.setBorder(BorderFactory.createEtchedBorder());
+        estadisticasPanel.setPreferredSize(new Dimension(200,100));
+        /***********************************************************************************************/
+
+        JPanel pnlTotalFacturas = new JPanel(new XYLayout());
+        pnlTotalFacturas.setBorder(BorderFactory.createEtchedBorder());
+        pnlTotalFacturas.setPreferredSize(new Dimension(50,95));
+
+        JLabel lblNumeroFacturas = new JLabel();
+        lblNumeroFacturas.setText("No. Facturas");
+        lblNumeroFacturas.setHorizontalAlignment(SwingConstants.CENTER);
+
+        Font newLabelFont=new Font(lblNumeroFacturas.getFont().getName(),Font.BOLD,lblNumeroFacturas.getFont().getSize());
+        lblNumeroFacturas.setFont(newLabelFont);
+
+        JLabel lblNumeroFacturasDato = new JLabel();
+        lblNumeroFacturasDato.setText(String.valueOf(numeroDeColumnas));
+        lblNumeroFacturasDato.setFont(new Font("Serif", Font.PLAIN, 18));
+        lblNumeroFacturasDato.setHorizontalAlignment(SwingConstants.CENTER);
+
+        Font newLabelFont2=new Font(lblNumeroFacturasDato.getFont().getName(),Font.BOLD,lblNumeroFacturasDato.getFont().getSize());
+        lblNumeroFacturasDato.setFont(newLabelFont2);
+
+        JLabel lblNumeroFacturasResultado = new JLabel();
+        lblNumeroFacturasResultado.setText("registros encontrados");
+        lblNumeroFacturasResultado.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNumeroFacturasResultado.setFont(newLabelFont);
+
+
+        pnlTotalFacturas.add(lblNumeroFacturas, new XYConstraints(1,15,225,15));
+        pnlTotalFacturas.add(lblNumeroFacturasDato, new XYConstraints(1,35,225,15));
+        pnlTotalFacturas.add(lblNumeroFacturasResultado, new XYConstraints(1,55,225,15));
+
+        /***********************************************************************************************/
+
+        JPanel pnlTotalFacturado = new JPanel(new XYLayout());
+        pnlTotalFacturado.setBorder(BorderFactory.createEtchedBorder());
+        pnlTotalFacturado.setPreferredSize(new Dimension(50,95));
+
+        JLabel lblTotalFacturado = new JLabel();
+        lblTotalFacturado.setText("Total Facturado");
+        lblTotalFacturado.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTotalFacturado.setFont(newLabelFont);
+
+        JLabel lblTotalFacturadoDato = new JLabel();
+        lblTotalFacturadoDato.setText("C$ ");
+        lblTotalFacturadoDato.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTotalFacturadoDato.setForeground(Color.blue);
+        lblTotalFacturadoDato.setFont(new Font("Serif", Font.PLAIN, 18));
+        lblTotalFacturadoDato.setFont(newLabelFont2);
+
+        JLabel lblTotalFacturadoDatoResultado = new JLabel();
+        lblTotalFacturadoDatoResultado.setText("Media por factura ()");
+        lblTotalFacturadoDatoResultado.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTotalFacturadoDatoResultado.setFont(newLabelFont);
+
+        pnlTotalFacturado.add(lblTotalFacturado, new XYConstraints(1,15,225,15));
+        pnlTotalFacturado.add(lblTotalFacturadoDato, new XYConstraints(1,35,225,15));
+        pnlTotalFacturado.add(lblTotalFacturadoDatoResultado, new XYConstraints(1,55,225,15));
+
+        /***********************************************************************************************/
+
+        JPanel pnlTotalPagado = new JPanel(new XYLayout());
+        pnlTotalPagado.setBorder(BorderFactory.createEtchedBorder());
+        pnlTotalPagado.setPreferredSize(new Dimension(50,95));
+
+        JLabel lblTotalPagado = new JLabel();
+        lblTotalPagado.setText("Total Pagado");
+        lblTotalPagado.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTotalPagado.setFont(newLabelFont);
+
+        JLabel lblTotalPagadoDato = new JLabel();
+        lblTotalPagadoDato.setText("C$ ");
+        lblTotalPagadoDato.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTotalPagadoDato.setForeground(Color.green);
+        lblTotalPagadoDato.setFont(new Font("Serif", Font.PLAIN, 18));
+        lblTotalPagadoDato.setFont(newLabelFont2);
+
+        JLabel lblTotalPagadoDatoResultado = new JLabel();
+        lblTotalPagadoDatoResultado.setText("porcentaje cobrado ()");
+        lblTotalPagadoDatoResultado.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTotalPagadoDatoResultado.setFont(newLabelFont);
+
+        pnlTotalPagado.add(lblTotalPagado, new XYConstraints(1,15,225,15));
+        pnlTotalPagado.add(lblTotalPagadoDato, new XYConstraints(1,35,225,15));
+        pnlTotalPagado.add(lblTotalPagadoDatoResultado, new XYConstraints(1,55,225,15));
+
+        /***********************************************************************************************/
+
+        JPanel pnlTotalPendiente = new JPanel(new XYLayout());
+        pnlTotalPendiente.setBorder(BorderFactory.createEtchedBorder());
+        pnlTotalPendiente.setPreferredSize(new Dimension(50,95));
+
+        JLabel lblTotalPendiente = new JLabel();
+        lblTotalPendiente.setText("Total Pendiente");
+        lblTotalPendiente.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTotalPendiente.setFont(newLabelFont);
+
+        JLabel lblTotalPendienteDato = new JLabel();
+        lblTotalPendienteDato.setText("C$ ");
+        lblTotalPendienteDato.setForeground(Color.RED);
+        lblTotalPendienteDato.setFont(new Font("Serif", Font.PLAIN, 18));
+        lblTotalPendienteDato.setFont(newLabelFont2);
+        lblTotalPendienteDato.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JLabel lblTotalPendienteDatoResultado = new JLabel();
+        lblTotalPendienteDatoResultado.setText("porcentaje pendiente ()");
+        lblTotalPendienteDatoResultado.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTotalPendienteDatoResultado.setFont(newLabelFont);
+
+        pnlTotalPendiente.add(lblTotalPendiente, new XYConstraints(1,15,220,15));
+        pnlTotalPendiente.add(lblTotalPendienteDato, new XYConstraints(1,35,220,15));
+        pnlTotalPendiente.add(lblTotalPendienteDatoResultado, new XYConstraints(1,55,220,15));
+
+        /***********************************************************************************************/
+        estadisticasPanel.add(pnlTotalFacturas, new XYConstraints(1,1,225,95));
+        estadisticasPanel.add(pnlTotalFacturado, new XYConstraints(226,1,225,95));
+        estadisticasPanel.add(pnlTotalPagado, new XYConstraints(451,1,225,95));
+        estadisticasPanel.add(pnlTotalPendiente, new XYConstraints(676,1,220,95));
+
         JToolBar actionToolBar = new JToolBar();
         actionToolBar.setPreferredSize(new Dimension(200, 32));
         actionToolBar.setAlignmentX(JToolBar.RIGHT_ALIGNMENT);
@@ -202,13 +330,14 @@ public class pnlCobroFacturas extends GenericPanel {
 
         JPanel facturasPanel = new JPanel(new BorderLayout());
         facturasPanel.setBorder(BorderFactory.createEtchedBorder());
-
         tblFacturasClientes = new JXTable();
 
         JScrollPane facturasScrollbar = new JScrollPane();
         facturasScrollbar.getViewport().add(tblFacturasClientes);
+
         facturasPanel.add(actionToolBar, BorderLayout.NORTH);
         facturasPanel.add(facturasScrollbar, BorderLayout.CENTER);
+        facturasPanel.add(estadisticasPanel, BorderLayout.SOUTH);
 
         //*********************************************************************
         //Create Main View
@@ -272,9 +401,51 @@ public class pnlCobroFacturas extends GenericPanel {
     }
 
     private void initResultTable() {
+        //Config table model para lavantamiento inventario fisico
+        facturaBeanTableModel = new BeanTableModel<Factura>(Factura.class, DocumentoComercial.class,
+                                controller.getFacturas());
+        facturaBeanTableModel.setModelEditable(false);
+        tblFacturasClientes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        facturaBeanTableModel.sortColumnNames();
+        tblFacturasClientes.setEditable(false);
+        tblFacturasClientes.setModel(facturaBeanTableModel);
+        tblFacturasClientes.setRowSelectionAllowed(true);
+
+        //Obteniendo table column model y removiendo columnas innecesarias
+        TableColumnModel tableColumnModel = tblFacturasClientes.getColumnModel();
+        String[] columnsRemove = new String[]{"Agente Ventas", "Cliente", "Direccion Entrega", "Exonerada", "Excenta", "Proforma",
+                "Pago", "Porc Descuento", "Porc IVA", "Porc Ret Fuente", "Porc Ret Municipal", "Serie", "Id", "Retencion F",
+                "Retencion M", "Terminos Pago", "Tasa Cambio", "Ctime", "Cuser", "Mtime", "Muser", "Almacen", "Monto Bruto",
+                "Monto IVA", "Monto Descuento", "Retencion Fuente", "Retencion Municipal", "Tipo Factura", "Moneda"};
+
+        for (String columnLabel : columnsRemove) {
+            tableColumnModel.removeColumn(tableColumnModel.getColumn(tableColumnModel.getColumnIndex(columnLabel)));
+        }
+
+        DecimalFormatRenderer decimalFormatRenderer = new DecimalFormatRenderer();
+        decimalFormatRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        tableColumnModel.getColumn(2).setCellRenderer(decimalFormatRenderer);
+
+        //Ordering table columns
+
+        tableColumnModel.moveColumn(3, 0); //No Documento
+        tableColumnModel.moveColumn(2, 1); //Fecha alta
+        tableColumnModel.moveColumn(4, 2); //Cliente
+
+        //Setting prefered size
+//        tableColumnModel.getColumn(4).setPreferredWidth(200);
+        tblFacturasClientes.packAll();
+        numeroDeColumnas = facturaBeanTableModel.getRowCount();
     }
 
-    private void initActionListeners() {
+     private void initActionListeners() {
+
+        btnBuscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            btnBuscarActionPerformed(e);
+            }
+        });
 
         btnImprimir.addActionListener(new ActionListener() {
             @Override
@@ -300,25 +471,42 @@ public class pnlCobroFacturas extends GenericPanel {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         try {
+            String numFacturaComparar;
+            if(txtNoFactura.getText().isEmpty()){
 
-            //Obteniendo fechas de busqueda
-            Date fechaDesde = dtpFechaDesde.getDate();
-            Date fechaHasta = dtpFechaHasta.getDate();
+                //Obteniendo fechas de busqueda
+                Date fechaDesde = dtpFechaDesde.getDate();
+                Date fechaHasta = dtpFechaHasta.getDate();
 
-            //Obtener parametros de busqueda
-            Almacen almacen = ((Almacen) ((AlmacenComboBoxModel) cmbAlmacen.getModel()).getSelectedItem().
-                    getObject());
+                //Obtener parametros de busqueda
+                Almacen almacen = ((Almacen) ((AlmacenComboBoxModel) cmbAlmacen.getModel()).getSelectedItem().
+                        getObject());
 
-            TiposFactura tiposFactura = cmbTipoFactura.getModel().getSelectedItem() != null ?
-                    ((TiposFactura) ((TipoFacturaComboBoxModel) cmbTipoFactura.getModel()).getSelectedItem().getObject()) :
-                    null;
+                TiposFactura tiposFactura = cmbTipoFactura.getModel().getSelectedItem() != null ?
+                        ((TiposFactura) ((TipoFacturaComboBoxModel) cmbTipoFactura.getModel()).getSelectedItem().getObject()) :
+                        null;
 
-            //Consultando listado de facturas de clientes por fecha
-            controller.buscarFacturasClientesPorFechas(fechaDesde, fechaHasta, almacen.getId(),
-                    tiposFactura != null ? tiposFactura.getValue() : null);
+                //Consultando listado de facturas de clientes por fecha
+                controller.buscarFacturasClientesCobrosPorFechas(fechaDesde, fechaHasta, almacen.getId(),
+                        tiposFactura != null ? 2 : 2);
 
-            //Actualizar listado de articulos ingresados
-            ((BeanTableModel) tblFacturasClientes.getModel()).fireTableDataChanged();
+                //Actualizar listado de articulos ingresados
+                ((BeanTableModel) tblFacturasClientes.getModel()).fireTableDataChanged();
+
+            }
+            else{
+                Long numeroFactura = Long.parseLong(txtNoFactura.getText());
+
+                TiposFactura tiposFactura = cmbTipoFactura.getModel().getSelectedItem() != null ?
+                        ((TiposFactura) ((TipoFacturaComboBoxModel) cmbTipoFactura.getModel()).getSelectedItem().getObject()) :
+                        null;
+
+                controller.buscarFacturasClientesCobrosPorNo(numeroFactura,
+                        tiposFactura != null ? 2 : 2);
+
+                //Actualizar listado de articulos ingresados
+                ((BeanTableModel) tblFacturasClientes.getModel()).fireTableDataChanged();
+                }
 
         } catch (Exception e) {
             //Show error message
@@ -355,66 +543,6 @@ public class pnlCobroFacturas extends GenericPanel {
         }
 
     }
-
-//    private void rbNoPagadasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rbNaturalStateChanged
-//        Integer idEstadoPagado = 7;  //TODO :  OBTENER EL ESTADO DE LA ENTIDAD (NO LO HE HECHO)
-//
-//        if (rbNoPagadas.isSelected()) {
-//            rbPagadas.setSelected(false);
-//            rbTodas.setSelected(false);
-//
-//            try {
-//                controller.initRegistroFacturaCobros(idEstadoPagado);
-//            } catch (Exception e) {
-//                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//            }
-//        }
-//
-//        if (!rbNoPagadas.isSelected()) {
-//            rbPagadas.setSelected(false);
-//            rbTodas.setSelected(false);
-//        }
-//    }//GEN-LAST:event_rbNoPagadasStateChanged
-//
-//    private void rbPagadasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rbNaturalStateChanged
-//        Integer idEstadoPagado = 8;  //TODO :  OBTENER EL ESTADO DE LA ENTIDAD (NO LO HE HECHO)
-//
-//        if (rbPagadas.isSelected()) {
-//            rbNoPagadas.setSelected(false);
-//            rbTodas.setSelected(false);
-//
-//            try {
-//                controller.initRegistroFacturaCobros(idEstadoPagado);
-//            } catch (Exception e) {
-//                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//            }
-//        }
-//
-//        if (!rbPagadas.isSelected()) {
-//            rbNoPagadas.setSelected(false);
-//            rbTodas.setSelected(false);
-//        }
-//    }//GEN-LAST:event_rbPagadasStateChanged
-//
-//    private void rbTodasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rbNaturalStateChanged
-//        Integer idEstadoPagado = null;  //TODO :  OBTENER EL ESTADO DE LA ENTIDAD (NO LO HE HECHO)
-//        if (rbTodas.isSelected()) {
-//            rbNoPagadas.setSelected(false);
-//            rbPagadas.setSelected(false);
-//
-//            try {
-//                controller.initRegistroFacturaCobros(idEstadoPagado);
-//            } catch (Exception e) {
-//                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//            }
-//        }
-//
-//        if (!rbTodas.isSelected()) {
-//            rbNoPagadas.setSelected(false);
-//            rbPagadas.setSelected(false);
-//        }
-//    }//GEN-LAST:event_rbTodasStateChanged
-
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
 
         try {

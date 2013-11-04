@@ -306,20 +306,31 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
             RemoteException;
 
     /**
+     * Buscar facturas comerciales por Cobros (numero)
+     *
+     *
+     *
+     * @throws ManagerFacturacionServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+
+    public List<Factura> buscarFacturasCobrosPorFechaNo(Long numeroFactura,
+                                                      Integer idTipoFactura) throws ManagerFacturacionServiceBusinessException,
+            RemoteException;
+
+    /**
      * Buscar facturas comerciales por cobros
      *
-     * @param fechaDesde,    Fecha desde
-     * @param fechaHasta,    Fecha hasta
-     * @param idAlmacen,     Almacen de facturacion
-     * @param idTipoFactura, Tipo de factura
-     * @return List
+     *
+     *
      * @throws ManagerFacturacionServiceBusinessException,
      *                          Exception
      * @throws RemoteException, Exception
      */
 
     public List<Factura> buscarFacturasCobrosPorFecha(Date fechaDesde, Date fechaHasta, Integer idAlmacen,
-                                                Integer idTipoFactura, Integer idEstado, Integer idEstadoPagado) throws ManagerFacturacionServiceBusinessException,
+                                                      Integer idTipoFactura) throws ManagerFacturacionServiceBusinessException,
             RemoteException;
 
     /**

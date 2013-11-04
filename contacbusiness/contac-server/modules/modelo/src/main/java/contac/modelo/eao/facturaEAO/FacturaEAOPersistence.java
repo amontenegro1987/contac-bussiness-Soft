@@ -9,7 +9,6 @@ import contac.modelo.eao.genericEAO.GenericPersistenceEAO;
 import contac.modelo.eao.genericEAO.GenericPersistenceEAOException;
 import contac.modelo.eao.genericEAO.PersistenceClassNotFoundException;
 import contac.modelo.entity.Factura;
-import contac.modelo.entity.Producto;
 import contac.utils.jpa.QueryFragment;
 import contac.utils.jpa.QueryUtils;
 
@@ -66,15 +65,36 @@ public class FacturaEAOPersistence extends GenericPersistenceEAO<Factura, Intege
     }
 
     @Override
-    public List<Factura> findByFechasCobros(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura, Integer idEstado, Integer idEstadoPagado)
+    public List<Factura> findByFechasCobrosNo(Long numeroFactura, Integer idTipoFactura)
             throws GenericPersistenceEAOException {
-
-        //Init service
+        System.out.println(numeroFactura);
         initService();
-
         String fromClause = "Select f from Factura f ";
         String conditionClause = "";
+        List<QueryFragment> querySolver = new ArrayList<QueryFragment>();
+        //1. Agregando parametro no. de factura
+        querySolver.add(new QueryFragment(numeroFactura != null, "", " f.noDocumento = :numeroFactura", "numeroFactura", numeroFactura));
+        //2. Agregando parametro tipo de factura
+        querySolver.add(new QueryFragment(idTipoFactura != null, "", " f.tipoFactura = :idTipoFactura", "idTipoFactura",
+                idTipoFactura != null ? idTipoFactura.byteValue() : null));
+        //3. Agregado parametro Estado Movimiento
+        querySolver.add(new QueryFragment(true, "", " f.estadoMovimiento.id in(1,7,8)"));
 
+        String ejbQuery = QueryUtils.ejbQLcreator(fromClause, conditionClause, querySolver);
+        ejbQuery = ejbQuery + " " + "order by f.noDocumento ";
+
+        Query query = em.createQuery(ejbQuery);
+
+        return QueryUtils.ejbQLParametersSolver(query, querySolver).getResultList();
+    }
+
+    @Override
+    public List<Factura> findByFechasCobros(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura)
+            throws GenericPersistenceEAOException {
+
+        initService();
+        String fromClause = "Select f from Factura f ";
+        String conditionClause = "";
         List<QueryFragment> querySolver = new ArrayList<QueryFragment>();
         //1. Agregando parametro fecha desde
         querySolver.add(new QueryFragment(fechaDesde != null, "", " f.fechaAlta >= :fechaDesde ", "fechaDesde", fechaDesde));
@@ -86,8 +106,7 @@ public class FacturaEAOPersistence extends GenericPersistenceEAO<Factura, Intege
         querySolver.add(new QueryFragment(idTipoFactura != null, "", " f.tipoFactura = :idTipoFactura", "idTipoFactura",
                 idTipoFactura != null ? idTipoFactura.byteValue() : null));
         //5. Agregado parametro Estado Movimiento
-        querySolver.add(new QueryFragment(idEstado != null, "", " f.estadoMovimiento.id = :idEstado ", "idEstado",
-                idEstado != null ? idEstadoPagado : idEstadoPagado));
+        querySolver.add(new QueryFragment(true, "", " f.estadoMovimiento.id in(1,7,8)"));
 
         String ejbQuery = QueryUtils.ejbQLcreator(fromClause, conditionClause, querySolver);
         ejbQuery = ejbQuery + " " + "order by f.noDocumento ";
