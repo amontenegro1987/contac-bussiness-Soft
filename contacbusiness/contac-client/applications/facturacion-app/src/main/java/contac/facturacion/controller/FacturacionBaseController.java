@@ -99,6 +99,26 @@ public class FacturacionBaseController extends BaseController {
     }
 
     /**
+     * Buscar Factura de Cliente
+     *
+     * @param idFactura, Identificador de Factura
+     * @throws Exception, Exception
+     */
+    public Factura buscarFacturaCliente(Integer idFactura) throws Exception {
+        try {
+
+            //Getting Manager Facturacion
+            ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
+
+            return mgrFacturacion.buscarFacturaPorId(idFactura);
+
+        } catch (ManagerFacturacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
+    /**
      * Buscar producto por su codigo
      *
      * @param codigo, String
@@ -116,34 +136,6 @@ public class FacturacionBaseController extends BaseController {
 
             //Buscar producto por su codigo
             return mgrProducto.buscarProductoPorCodigo(codigo);
-
-        } catch (ManagerProductoServiceBusinessException e) {
-            logger.error(e.getMessage(), e);
-            throw new Exception(e.getMessage(), e);
-        } catch (RemoteException e) {
-            logger.error(e.getMessage(), e);
-            throw new Exception(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Buscar producto existencias
-     *
-     * @param codigo, String
-     * @return Producto
-     * @throws Exception, Existencia
-     */
-    public ProductoExistencia buscarProductoExistencia(String codigo, Integer idAlmacen) throws Exception {
-
-        logger.debug("Buscando producto con codigo: " + codigo);
-
-        try {
-
-            //Obtener manager de producto
-            ManagerProductoServiceBusiness mgrProducto = getMgrProductosService();
-
-            //Buscar existencia del producto
-            return mgrProducto.buscarProductoExistenciaPorAlmacen(codigo, idAlmacen);
 
         } catch (ManagerProductoServiceBusinessException e) {
             logger.error(e.getMessage(), e);

@@ -1229,6 +1229,32 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
+    public Factura buscarFacturaPorId(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException {
+
+        logger.debug("Buscar facturas por Id: [ID Factura]: " + idFactura);
+
+        //Iniciar servicio de autorizacion
+        boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
+
+        try {
+
+            //Buscar factura por Identificador
+            Factura factura = facturaEAO.findById(idFactura);
+
+            return factura;
+
+        } catch (PersistenceClassNotFoundException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
     public List<Factura> buscarFacturasPorEstado(String alias) throws ManagerFacturacionServiceBusinessException, RemoteException {
 
         logger.debug("Buscando facturas por estados: [estado]: " + alias);
@@ -1323,62 +1349,17 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
-    public List<Factura> buscarFacturasCobrosPorFechaNo(Long numeroFactura, Integer idTipoFactura)
+    public List<Factura> buscarFacturasCobrosPorFechaNo(Long numeroFactura, Date fechaDesde, Date fechaHasta)
             throws ManagerFacturacionServiceBusinessException, RemoteException {
 
         //Iniciar servicio de autorizacion
         boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
 
         try {
-            //Buscar almacen del usuario - First check authorization for user
-            boolean success = mgrAutorizacion.checkUserInRole(Roles.ROLFACTURACIONADMIN.toString());
 
-            return facturaEAO.findByFechasCobrosNo(numeroFactura, idTipoFactura);
+            //Return list of invoices
+            List<Factura> facturas = facturaEAO.findByFechasCobrosNo(numeroFactura);
 
-        } catch (GenericPersistenceEAOException e) {
-            logger.error(e.getMessage(), e);
-            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
-        } catch (ManagerAutorizacionServiceBusinessException e) {
-            logger.error(e.getMessage(), e);
-            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
-        /*} catch (ManagerSeguridadServiceBusinessException e) {
-            logger.error(e.getMessage(), e);
-            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);*/
-        } finally {
-            stopBusinessService(transaction);
-        }
-    }
-
-    @Override
-    public List<Factura> buscarFacturasCobrosPorFecha(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura)
-            throws ManagerFacturacionServiceBusinessException, RemoteException {
-
-        logger.debug("Buscando facturas comerciales por rangos de fecha: [fechaDesde]: " + fechaDesde + ", [fechaHasta]: " +
-                fechaHasta);
-
-        //Iniciar servicio de autorizacion
-        boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
-
-        try {
-
-           //Validar campos de la busqueda
-            if (fechaDesde == null)
-                throw new ManagerFacturacionServiceBusinessException("Debe seleccionar una fecha desde v\u00e1lida");
-
-            if (fechaHasta == null)
-                throw new ManagerFacturacionServiceBusinessException("Debe seleccionar una fecha hasta v\u00e1lida");
-
-            //Buscar almacen del usuario - First check authorization for user
-            boolean success = mgrAutorizacion.checkUserInRole(Roles.ROLFACTURACIONADMIN.toString());
-
-            Almacen almacen = null;
-            EstadosMovimiento estado = null;
-            if (success) {
-                almacen = almacenEAO.findById(idAlmacen);
-            } else {
-                almacen = mgrSeguridad.buscarUsuarioPorLogin(mgrAutorizacion.getUsername()).getAlmacen();
-            }
-                //estado = EstadosMovimiento.PAGADO;
             //Preparar fechas para busquedas
             GregorianCalendar gc = new GregorianCalendar();
             gc.setTime(fechaDesde);
@@ -1395,15 +1376,73 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             gc.set(Calendar.MILLISECOND, 0);
             fechaHasta = gc.getTime();
 
-            return facturaEAO.findByFechasCobros(fechaDesde, fechaHasta, almacen.getId(), idTipoFactura);
+            for (Iterator it = facturas.iterator() ; it.hasNext();) {
+                Factura factura = (Factura)it.next();
+
+                if (factura.getFechaAlta().before(fechaDesde) || factura.getFechaAlta().after(fechaHasta)) {
+                    it.remove();
+                }
+            }
+
+            return facturas;
 
         } catch (GenericPersistenceEAOException e) {
             logger.error(e.getMessage(), e);
             throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
-        } catch (ManagerAutorizacionServiceBusinessException e) {
-            logger.error(e.getMessage(), e);
-            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
-        } catch (ManagerSeguridadServiceBusinessException e) {
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
+    public List<Factura> buscarFacturasCobrosPorFecha(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura)
+            throws ManagerFacturacionServiceBusinessException, RemoteException {
+
+        logger.debug("Buscando facturas comerciales por rangos de fecha: [fechaDesde]: " + fechaDesde + ", [fechaHasta]: " +
+                fechaHasta + ", [idAlmacen]: " + idAlmacen + ", [idTipoFactura]: " + idTipoFactura);
+
+        //Iniciar servicio de autorizacion
+        boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
+
+        try {
+
+           //Validar campos de la busqueda
+            if (fechaDesde == null)
+                throw new ManagerFacturacionServiceBusinessException("Debe seleccionar una fecha desde v\u00e1lida");
+
+            if (fechaHasta == null)
+                throw new ManagerFacturacionServiceBusinessException("Debe seleccionar una fecha hasta v\u00e1lida");
+
+            //Get Estados Movimiento
+            List<EstadoMovimiento> estadosMovimientos = new ArrayList<EstadoMovimiento>();
+
+            EstadoMovimiento estadoIngresado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.INGRESADO.getEstado());
+            EstadoMovimiento estadoImpreso = estadoMovimientoEAO.findByAlias(EstadosMovimiento.IMPRESO.getEstado());
+            EstadoMovimiento estadoPagado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.PAGADO.getEstado());
+
+            estadosMovimientos.add(estadoIngresado);
+            estadosMovimientos.add(estadoImpreso);
+            estadosMovimientos.add(estadoPagado);
+
+            //Preparar fechas para busquedas
+            GregorianCalendar gc = new GregorianCalendar();
+            gc.setTime(fechaDesde);
+            gc.set(Calendar.HOUR_OF_DAY, 0);
+            gc.set(Calendar.MINUTE, 0);
+            gc.set(Calendar.SECOND, 0);
+            gc.set(Calendar.MILLISECOND, 0);
+            fechaDesde = gc.getTime();
+
+            gc.setTime(fechaHasta);
+            gc.set(Calendar.HOUR_OF_DAY, 0);
+            gc.set(Calendar.MINUTE, 0);
+            gc.set(Calendar.SECOND, 0);
+            gc.set(Calendar.MILLISECOND, 0);
+            fechaHasta = gc.getTime();
+
+            return facturaEAO.findByFechas(fechaDesde, fechaHasta, idAlmacen, idTipoFactura, estadosMovimientos);
+
+        } catch (GenericPersistenceEAOException e) {
             logger.error(e.getMessage(), e);
             throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
         } finally {

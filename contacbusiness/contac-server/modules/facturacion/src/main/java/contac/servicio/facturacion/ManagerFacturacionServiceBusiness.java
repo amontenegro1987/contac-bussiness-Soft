@@ -169,22 +169,22 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
     /**
      * Crear proforma a cliente
      *
-     * @param noProforma          Número de Proforma
-     * @param idCliente,          Cliente de la Proforma
-     * @param idAlmacen,          Almacen de Proforma
-     * @param idAgenteVentas,     Agente de Ventas
-     * @param porcIva,            Porcentaje Iva
-     * @param porcRetFuente,      Porcentaje Retención
-     * @param porcRetMunicipal    Porcentaje Retención Municipal
-     * @param tasaCambio          Tasa de Cambio
-     * @param nombreCliente       Nombre del Cliente
-     * @param idMoneda            Tipo de Moneda
-     * @param direccionEntrega    Dirección Entrega
-     * @param fechaAlta           Fecha Alta
-     * @param exonerada           Exonerado de impuestos
-     * @param retencionFuente     Retención en la Fuente
-     * @param retencionMunicipal  Retención Municipal
-     * @param articulos,          Listado de articulos en proforma
+     * @param noProforma         Número de Proforma
+     * @param idCliente,         Cliente de la Proforma
+     * @param idAlmacen,         Almacen de Proforma
+     * @param idAgenteVentas,    Agente de Ventas
+     * @param porcIva,           Porcentaje Iva
+     * @param porcRetFuente,     Porcentaje Retención
+     * @param porcRetMunicipal   Porcentaje Retención Municipal
+     * @param tasaCambio         Tasa de Cambio
+     * @param nombreCliente      Nombre del Cliente
+     * @param idMoneda           Tipo de Moneda
+     * @param direccionEntrega   Dirección Entrega
+     * @param fechaAlta          Fecha Alta
+     * @param exonerada          Exonerado de impuestos
+     * @param retencionFuente    Retención en la Fuente
+     * @param retencionMunicipal Retención Municipal
+     * @param articulos,         Listado de articulos en proforma
      * @return Proforma
      * @throws ManagerFacturacionServiceBusinessException,
      *                          Exception
@@ -280,6 +280,17 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
     public List<TasaCambio> buscarTasasCambioFacturacion() throws ManagerFacturacionServiceBusinessException, RemoteException;
 
     /**
+     * Buscar Factura por Identificador
+     *
+     * @param idFactura, Identificador de Factura
+     * @return Factura
+     * @throws ManagerFacturacionServiceBusinessException, Exception
+     *
+     * @throws RemoteException, Exception
+     */
+    public Factura buscarFacturaPorId(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException;
+
+    /**
      * Buscar facturas por estado
      *
      * @param alias, Estado de factura
@@ -296,7 +307,7 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
      *
      * @param fechaDesde, Fecha desde
      * @param fechaHasta, Fecha hasta
-     * @param idAlmacen, Almacen de Facturacion
+     * @param idAlmacen,  Almacen de Facturacion
      * @return List
      * @throws ManagerFacturacionServiceBusinessException,
      *                          Exception
@@ -308,21 +319,19 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
     /**
      * Buscar facturas comerciales por Cobros (numero)
      *
-     *
-     *
+     * @param numeroFactura, Numero de Factura
+     * @param fechaDesde,    Fecha desde
+     * @param fechaHasta,    Fecha hasta
      * @throws ManagerFacturacionServiceBusinessException,
      *                          Exception
      * @throws RemoteException, Exception
      */
 
-    public List<Factura> buscarFacturasCobrosPorFechaNo(Long numeroFactura,
-                                                      Integer idTipoFactura) throws ManagerFacturacionServiceBusinessException,
-            RemoteException;
+    public List<Factura> buscarFacturasCobrosPorFechaNo(Long numeroFactura, Date fechaDesde, Date fechaHasta)
+            throws ManagerFacturacionServiceBusinessException, RemoteException;
 
     /**
      * Buscar facturas comerciales por cobros
-     *
-     *
      *
      * @throws ManagerFacturacionServiceBusinessException,
      *                          Exception
@@ -372,7 +381,7 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
 
     public void usuarioEditaDatosFactura() throws ManagerFacturacionServiceBusinessException, RemoteException;
 
-    List<ArticuloProforma>buscarArticulosProforma(Integer idProforma) throws ManagerFacturacionServiceBusinessException,
+    List<ArticuloProforma> buscarArticulosProforma(Integer idProforma) throws ManagerFacturacionServiceBusinessException,
             RemoteException;
 }
 

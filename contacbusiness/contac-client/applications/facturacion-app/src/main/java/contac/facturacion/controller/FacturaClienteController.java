@@ -101,11 +101,11 @@ public class FacturaClienteController extends FacturacionBaseController {
         this.tipoFactura = tipoFactura;
     }
 
-    public EstadosMovimiento getEstadoMovimiento(){
+    public EstadosMovimiento getEstadoMovimiento() {
         return estadoMovimiento;
     }
 
-    public void setEstadoMovimiento(EstadosMovimiento estadoMovimiento){
+    public void setEstadoMovimiento(EstadosMovimiento estadoMovimiento) {
         this.estadoMovimiento = estadoMovimiento;
     }
 
@@ -361,6 +361,7 @@ public class FacturaClienteController extends FacturacionBaseController {
 
             //Setting almacen del usuario
             setAlmacen(buscarAlmacenUsuario());
+
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
@@ -430,10 +431,10 @@ public class FacturaClienteController extends FacturacionBaseController {
      * Init Cobro de factura
      *
      * @throws Exception, Exception
-     * @param idEstadoPagado
      */
 
-    public void initRegistroFacturaCobros(int[] idEstadoPagado) throws Exception{
+    public void initRegistroFacturaCobros() throws Exception {
+
         //Iniciar Registro de Facturas
         setFacturas(new ArrayList<Factura>());
 
@@ -446,12 +447,8 @@ public class FacturaClienteController extends FacturacionBaseController {
         //Buscar registro de facturas con fecha actual del servidor
         Date fechaFacturacion = buscarFechaFacturacion();
 
-        //Buscar Estados de Movimiento de Factura
-
         //Buscar Facturas de Clientes por fechas
-        buscarFacturasClientesCobrosPorFechas(fechaFacturacion, fechaFacturacion, almacen.getId(),
-                getTipoFactura() != null ? 2 : 2);
-
+        buscarFacturasClientesCobrosPorFechas(fechaFacturacion, fechaFacturacion, almacen.getId(), 1);
     }
 
     /**
@@ -545,7 +542,7 @@ public class FacturaClienteController extends FacturacionBaseController {
      * @throws Exception, Exception
      */
 
-    public void cobrarFactura() throws Exception{
+    public void cobrarFactura() throws Exception {
 
         logger.debug("Cambiar Estado de Factura a PAGADO");
 
@@ -565,14 +562,13 @@ public class FacturaClienteController extends FacturacionBaseController {
     }
 
 
-
     /**
      * Cambiar estado de factura a Impreso
      *
      * @throws Exception, Exception
      */
 
-    public void imprimirFactura() throws Exception{
+    public void imprimirFactura() throws Exception {
 
         logger.debug("Cambiar Estado de Factura a Impresa");
 
@@ -581,7 +577,7 @@ public class FacturaClienteController extends FacturacionBaseController {
             //Obtener manager de facturacion
             ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
 
-            //Anulamos registro de factura
+            //Cambiar registro de factura a impresa
             mgrFacturacion.imprimirFactura(getFactura().getId());
 
         } catch (ManagerFacturacionServiceBusinessException e) {
@@ -765,7 +761,6 @@ public class FacturaClienteController extends FacturacionBaseController {
                 subtract(this.montoRetMunicipal).add(this.iva));
     }
 
-
     /**
      * Agregar articulo
      *
@@ -915,20 +910,19 @@ public class FacturaClienteController extends FacturacionBaseController {
     /**
      * Buscar listado de cobro facturas a clientes por Numero.
      *
-     *
-     *
+     * @param numeroFactura, Numero de Factura
+     * @param fechaDesde,    Fecha Desde
+     * @param fechaHasta,    Fecha Hasta
      * @throws Exception, Exception
      */
-    public void buscarFacturasClientesCobrosPorNo(Long numeroFactura,Integer idTipoFactura)
-            throws Exception {
+    public void buscarFacturasClientesCobrosPorNo(Long numeroFactura, Date fechaDesde, Date fechaHasta) throws Exception {
         try {
 
             //Obtener manager facturacion
             ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
 
             //Buscar facturas
-            List<Factura> facturas = mgrFacturacion.buscarFacturasCobrosPorFechaNo(numeroFactura,
-                    idTipoFactura);
+            List<Factura> facturas = mgrFacturacion.buscarFacturasCobrosPorFechaNo(numeroFactura, fechaDesde, fechaHasta);
             getFacturas().clear();
             getFacturas().addAll(facturas);
 
@@ -940,8 +934,6 @@ public class FacturaClienteController extends FacturacionBaseController {
 
     /**
      * Buscar listado de cobro facturas a clientes
-     *
-     *
      *
      * @throws Exception, Exception
      */
@@ -962,6 +954,7 @@ public class FacturaClienteController extends FacturacionBaseController {
             //Buscar facturas
             List<Factura> facturas = mgrFacturacion.buscarFacturasCobrosPorFecha(fechaDesde, fechaHasta, idAlmacen,
                     idTipoFactura);
+
             getFacturas().clear();
             getFacturas().addAll(facturas);
 
@@ -971,7 +964,7 @@ public class FacturaClienteController extends FacturacionBaseController {
         }
     }
 
-     /**
+    /**
      * Buscar listado de facturas a clientes
      *
      * @param fechaDesde,    Fecha inicio de busqueda
