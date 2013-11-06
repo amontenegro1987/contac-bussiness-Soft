@@ -8,6 +8,7 @@ package contac.modelo.eao.facturaEAO;
 import contac.modelo.eao.genericEAO.GenericEAO;
 import contac.modelo.eao.genericEAO.GenericPersistenceEAOException;
 import contac.modelo.eao.genericEAO.PersistenceClassNotFoundException;
+import contac.modelo.entity.EstadoMovimiento;
 import contac.modelo.entity.Factura;
 
 import java.util.Date;
@@ -47,39 +48,39 @@ public interface FacturaEAO extends GenericEAO<Factura, Integer> {
     /**
      * Buscar Cobros facturas por rangos de fecha por numero
      *
-     *
+     * @param numeroFactura, Numero de Factura
      * @return List<Factura>
      * @throws GenericPersistenceEAOException,
      *          Exception
      */
-    public List<Factura> findByFechasCobrosNo(Long numeroFactura, Integer idTipoFactura)
-            throws GenericPersistenceEAOException;
+    public List<Factura> findByFechasCobrosNo(Long numeroFactura) throws GenericPersistenceEAOException;
 
     /**
      * Buscar Cobros facturas por rangos de fecha
      *
-     *
+     * @param fechaDesde,        Fecha Desde
+     * @param fechaHasta,        Fecha Hasta
+     * @param idAlmacen,         Identificador de almacen
+     * @param idTipoFactura,     Identificador de Tipo de Factura
+     * @param estadosMovimiento, Listado de Movimientos
      * @return List<Factura>
      * @throws GenericPersistenceEAOException,
      *          Exception
      */
-    public List<Factura> findByFechasCobros(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura)
-            throws GenericPersistenceEAOException;
+    public List<Factura> findByFechas(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura,
+                                      List<EstadoMovimiento> estadosMovimiento) throws GenericPersistenceEAOException;
 
     /**
      * Buscar facturas por rangos de fecha
      *
-     * @param fechaDesde, Fecha desde
-     * @param fechaHasta, Fecha hasta
-     * @param idAlmacen,  Identificador de almacen
+     * @param fechaDesde,    Fecha desde
+     * @param fechaHasta,    Fecha hasta
+     * @param idAlmacen,     Identificador de almacen
      * @param idTipoFactura, Identificador de Tipo de Factura
      * @return List<Factura>
      * @throws GenericPersistenceEAOException,
      *          Exception
      */
-
-
-
     public List<Factura> findByFechas(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura)
             throws GenericPersistenceEAOException;
 
