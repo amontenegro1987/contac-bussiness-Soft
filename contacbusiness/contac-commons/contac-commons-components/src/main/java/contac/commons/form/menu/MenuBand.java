@@ -64,7 +64,6 @@ public abstract class MenuBand extends JRibbonBand {
     protected ResizableIcon getResizableIconFromResource(String resource, Dimension dimension) {
 
         Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/contac/servicio/app/icons/" + resource));
-        //Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(resource));
                 
         return ImageWrapperResizableIcon.getIcon(image, dimension);
     }
