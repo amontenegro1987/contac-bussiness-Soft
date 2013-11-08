@@ -78,9 +78,8 @@ public class MenuBandFacturacion extends MenuBand {
         });
 
         //COBRO DE FACTURAS
-
         JCommandButton mnuCobroFacturas = new JCommandButton(LabelMessage.getInstance().getLabel("CONTAC.SUBMENU.FACTURACION.COBROFACTURAS"),
-                ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/icons/factura_cliente.png"), new Dimension(32, 32)));
+                ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/icons/actions/payment_2_48x48.png"), new Dimension(32, 32)));
 
         mnuCobroFacturas.addActionListener(new ActionListener() {
             @Override
@@ -90,7 +89,6 @@ public class MenuBandFacturacion extends MenuBand {
         });
 
         //REGISTRO DE PROFORMAS
-
         JCommandButton mnuRegistroProforma = new JCommandButton(LabelMessage.getInstance().getLabel("CONTAC.SUBMENU.PROFORMA.REGISTROPROFORMAS"),
                 ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/icons/folder-customer-icon.png"), new Dimension(32, 32)));
 
@@ -134,11 +132,21 @@ public class MenuBandFacturacion extends MenuBand {
                 style.addPanel("AgentesVentas", "contac.facturacion.app.pnlAgenteVentas");
             }
         }) ;
+
+        //CAJA
+        JCommandButton mnuCaja = new JCommandButton(LabelMessage.getInstance().getLabel("CONTAC.SUBMENU.FACTURACION.CAJA"),
+                ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/icons/cash_register.png"), new Dimension(32, 32)));
+
+        mnuCaja.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                style.addPanel("AgentesVentas", "contac.facturacion.app.pnlAgenteVentas");
+            }
+        }) ;
         
         //Start grouping
         startGroup();
 
-        //Add menu position
         addCommandButton(mnuNuevaFactura, RibbonElementPriority.TOP);
         addCommandButton(mnuRegistroFacturas, RibbonElementPriority.TOP);
         addCommandButton(mnuCobroFacturas, RibbonElementPriority.TOP);
@@ -146,6 +154,7 @@ public class MenuBandFacturacion extends MenuBand {
         addCommandButton(mnuRegistroProforma, RibbonElementPriority.TOP);
         addCommandButton(mnuDevoluciones, RibbonElementPriority.TOP);
         addCommandButton(mnuAgentesVentes, RibbonElementPriority.TOP);
+        addCommandButton(mnuCaja, RibbonElementPriority.TOP);
 
         //Call resize policies
         resizePolicies();

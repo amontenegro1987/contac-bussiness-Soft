@@ -489,6 +489,13 @@ public class pnlCobroFacturas extends GenericPanel {
             }
         });
 
+        btnCobrarFactura.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnCobrarFacturaActionPerformed(e);
+            }
+        });
+
         tblFacturasClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblFacturasClientesMouseClicked(evt);
@@ -503,12 +510,15 @@ public class pnlCobroFacturas extends GenericPanel {
             //Getting row selected
             int row = tblFacturasClientes.getSelectedRow();
 
-            //Codigo de almacen
-            this.idFactura = Integer.parseInt((String) tblFacturasClientes.getValueAt(row, 0));
+            if (row >= 0) {
+
+                //Codigo de almacen
+                this.idFactura = Integer.parseInt((String) tblFacturasClientes.getValueAt(row, 0));
 
 
-            //Setting Factura cliente
-            controller.setFactura(controller.buscarFacturaCliente(this.idFactura));
+                //Setting Factura cliente
+                controller.setFactura(controller.buscarFacturaCliente(this.idFactura));
+            }
 
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -571,22 +581,10 @@ public class pnlCobroFacturas extends GenericPanel {
     }
 
     private void btnCobrarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobrarFacturaActionPerformed
-        try {
 
-            // Si no ha seleccionado ninguna Factura a Cobrar
-            if (idFactura == null) {
-                throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.COBROFACTURA"));
-            }
-            //Cambiar estado de factura a PAGADO.
-            controller.cobrarFactura();
-            JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.INGRESO.EXITOSO"),
-                    messageBundle.getString("CONTAC.FORM.MSG.FACTURACLIENTE.COBRO.EXITOSO"));
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            //Show error message
-            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        if (controller.getFactura() != null) {
+            new pnlPagoFactura(this.getMDI(), true, controller);
         }
-
     }
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed

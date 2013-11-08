@@ -35,12 +35,6 @@ public class Pago implements Serializable {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * PROPERTY NAME: Tarjeta de credito
-     */
-    private TarjetaCredito tarjetaCredito;
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
      * PROPERTY NAME: Moneda
      */
     private Moneda moneda;
@@ -101,12 +95,6 @@ public class Pago implements Serializable {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * PROPERTY NAME: Caja de cobro
-     */
-    private Caja caja;
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
      * PROPERTY NAME: Audit (ctime)
      */
     private Date ctime;
@@ -150,16 +138,6 @@ public class Pago implements Serializable {
 
     public void setTipoPago(TipoPago tipoPago) {
         this.tipoPago = tipoPago;
-    }
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "N_ID_TARJETA_CREDITO", referencedColumnName = "N_ID", nullable = true)
-    public TarjetaCredito getTarjetaCredito() {
-        return tarjetaCredito;
-    }
-
-    public void setTarjetaCredito(TarjetaCredito tarjetaCredito) {
-        this.tarjetaCredito = tarjetaCredito;
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -251,16 +229,6 @@ public class Pago implements Serializable {
 
     public void setFactura(Factura factura) {
         this.factura = factura;
-    }
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "N_ID_CAJA", nullable = false)
-    public Caja getCaja() {
-        return caja;
-    }
-
-    public void setCaja(Caja caja) {
-        this.caja = caja;
     }
 
     // ==================================<METODOS DE AUDITORIA>========================================================
