@@ -27,10 +27,14 @@ import contac.modelo.eao.monedaEAO.MonedaEAO;
 import contac.modelo.eao.monedaEAO.MonedaEAOPersistence;
 import contac.modelo.eao.movimientoInventarioEAO.MovimientoInventarioEAO;
 import contac.modelo.eao.movimientoInventarioEAO.MovimientoInventarioEAOPersistence;
+import contac.modelo.eao.pagoEAO.PagoEAO;
+import contac.modelo.eao.pagoEAO.PagoEAOPersistence;
 import contac.modelo.eao.proformaEAO.ProformaEAO;
 import contac.modelo.eao.proformaEAO.ProformaEAOPersistence;
 import contac.modelo.eao.tasaCambioEAO.TasaCambioEAO;
 import contac.modelo.eao.tasaCambioEAO.TasaCambioEAOPersistence;
+import contac.modelo.eao.tipoPagoEAO.TipoPagoEAO;
+import contac.modelo.eao.tipoPagoEAO.TipoPagoEAOPersistence;
 import contac.modelo.entity.*;
 import contac.servicio.clientes.ManagerClientesServiceBusiness;
 import contac.servicio.clientes.ManagerClientesServiceBusinessImpl;
@@ -68,6 +72,8 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     protected MovimientoInventarioEAO movimientoInventarioEAO;
     protected AgenteVentasEAO agenteVentasEAO;
     protected MonedaEAO monedaEAO;
+    protected PagoEAO pagoEAO;
+    protected TipoPagoEAO tipoPagoEAO;
 
     //Access service manager
     protected ManagerAutorizacionServiceBusiness mgrAutorizacion;
@@ -96,6 +102,8 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
         movimientoInventarioEAO = new MovimientoInventarioEAOPersistence();
         agenteVentasEAO = new AgenteVentasEAOPersistence();
         monedaEAO = new MonedaEAOPersistence();
+        pagoEAO = new PagoEAOPersistence();
+        tipoPagoEAO = new TipoPagoEAOPersistence();
     }
 
     /**
@@ -740,8 +748,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             EstadoMovimiento estadoImpreso = estadoMovimientoEAO.findByAlias(EstadosMovimiento.IMPRESO.getEstado());
 
             //Validar datos generales de la factura
-            if (!factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado()) &&
-                    !factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.PAGADO.getEstado()))
+            if (!factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado()))
                 throw new ManagerFacturacionServiceBusinessException("Factura no se encuentra en un estado valido para poder imprimir.");
 
             //Setting Estado Movimiento Impreso
@@ -1353,7 +1360,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             throws ManagerFacturacionServiceBusinessException, RemoteException {
 
         //Iniciar servicio de autorizacion
-        boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
+        boolean transaction = initBusinessService(Roles.ROLCAJAADMIN.toString());
 
         try {
 
@@ -1402,7 +1409,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
                 fechaHasta + ", [idAlmacen]: " + idAlmacen + ", [idTipoFactura]: " + idTipoFactura);
 
         //Iniciar servicio de autorizacion
-        boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
+        boolean transaction = initBusinessService(Roles.ROLCAJAADMIN.toString());
 
         try {
 
@@ -1590,6 +1597,58 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
         } catch (ManagerAutorizacionServiceBusinessException e) {
             logger.error(e.getMessage(), e);
             throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public Pago registrarPagoFactura(Integer idFactura, Integer idTipoPago, BigDecimal montoRecibido) throws
+            ManagerFacturacionServiceBusinessException, RemoteException {
+
+        logger.debug("Registrar pago de factura : [IdFactura]: " + idFactura);
+
+        //Iniciar servicio de autorizacion
+        boolean transaction = initBusinessService(Roles.ROLCAJAADMIN.toString());
+
+        try {
+
+            //Search factura a cliente
+            Factura factura = facturaEAO.findById(idFactura);
+
+            //Search tipo de pago
+            TipoPago tipoPago = tipoPagoEAO.findById(idTipoPago);
+
+            //Crear pago a factura
+            Pago pago = new Pago();
+            pago.setTipoPago(tipoPago);
+            pago.setMoneda(factura.getMoneda());
+            pago.setTasaCambio(factura.getTasaCambio());
+            pago.setMontoCancelar(factura.getMontoNeto());
+            pago.setMontoRecibido(montoRecibido);
+            pago.setMontoConversion(new BigDecimal("0"));
+            pago.setMontoDevuelto(montoRecibido.subtract(factura.getMontoNeto()));
+            pago.setMontoComision(new BigDecimal("0"));
+            pago.setMontoRetencion(new BigDecimal("0"));
+            pago.setMontoNetoBanco(new BigDecimal("0"));
+            pago.setFactura(factura);
+
+            pago = pagoEAO.create(pago);
+
+
+            //Cambiar estado de factura a PAGADO
+            EstadoMovimiento estadoPagado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.PAGADO.getEstado());
+
+            factura.setEstadoMovimiento(estadoPagado);
+            factura.setPago(pago);
+
+            facturaEAO.update(factura);
+
+            return pago;
+
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
         }
     }
 

@@ -284,8 +284,8 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
      *
      * @param idFactura, Identificador de Factura
      * @return Factura
-     * @throws ManagerFacturacionServiceBusinessException, Exception
-     *
+     * @throws ManagerFacturacionServiceBusinessException,
+     *                          Exception
      * @throws RemoteException, Exception
      */
     public Factura buscarFacturaPorId(Integer idFactura) throws ManagerFacturacionServiceBusinessException, RemoteException;
@@ -370,18 +370,47 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
             RemoteException;
 
     /**
+     * Buscar listado de articulos proforma - Hibernate Load producto
+     *
+     * @param idProforma, Identificador de Proforma
+     * @return List<ArticuloProforma>
+     * @throws ManagerFacturacionServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    List<ArticuloProforma> buscarArticulosProforma(Integer idProforma) throws ManagerFacturacionServiceBusinessException,
+            RemoteException;
+
+    /**
+     * Usuario logueado tiene permisos de editar datos especificos de proforma
+     *
+     * @throws ManagerFacturacionServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public void usuarioEditaDatosProforma() throws ManagerFacturacionServiceBusinessException, RemoteException;
+
+    /**
      * Usuario logueado tiene permisos de editar datos especificos de factura
      *
      * @throws ManagerFacturacionServiceBusinessException,
      *                          Exception
      * @throws RemoteException, Exception
      */
-
-    public void usuarioEditaDatosProforma() throws ManagerFacturacionServiceBusinessException, RemoteException;
-
     public void usuarioEditaDatosFactura() throws ManagerFacturacionServiceBusinessException, RemoteException;
 
-    List<ArticuloProforma> buscarArticulosProforma(Integer idProforma) throws ManagerFacturacionServiceBusinessException,
-            RemoteException;
+    /**
+     * Registrar pago a factura
+     *
+     * @param idFactura,     Identificador de Factura
+     * @param idTipoPago,    Identificador de Tipo de Pago
+     * @param montoRecibido, Monto Recibido
+     * @return Pago
+     * @throws ManagerFacturacionServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public Pago registrarPagoFactura(Integer idFactura, Integer idTipoPago, BigDecimal montoRecibido) throws
+            ManagerFacturacionServiceBusinessException, RemoteException;
 }
 

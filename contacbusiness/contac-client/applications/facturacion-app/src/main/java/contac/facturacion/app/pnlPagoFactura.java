@@ -1,5 +1,6 @@
 package contac.facturacion.app;
 
+import contac.commons.form.label.JOptionErrorPane;
 import contac.commons.form.layout.XYConstraints;
 import contac.commons.form.layout.XYLayout;
 import contac.commons.form.panel.GenericFrame;
@@ -269,6 +270,51 @@ public class pnlPagoFactura extends JDialog {
                     txtImporteRecibido.setText(txtTotalFactura.getText());
                     txtImporteRecibido.setEditable(false);
                 }
+            }
+        });
+
+        btnAceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+
+                try {
+
+                    //Get tipo de pago
+                    TiposPago tiposPago = (TiposPago) ((TipoPagoComboBoxModel) cmbTipoPago.getModel()).getSelectedItem().getObject();
+
+                    //Get total factura
+                    BigDecimal totalFactura = new BigDecimal(txtTotalFactura.getText());
+
+                    //Get Importe Recibido
+                    BigDecimal importeRecibido = new BigDecimal("0");
+                    if (!txtImporteRecibido.getText().equals("")) {
+                        importeRecibido = new BigDecimal(txtImporteRecibido.getText());
+                    }
+
+                    if (importeRecibido.doubleValue() < totalFactura.doubleValue()) {
+                        throw new Exception(messageBundle.getString("CONTAC.FORM.COBROFACTURA.VALIDA.IMPORTERECIBIDO"));
+                    }
+
+                    //Registrar Pago Factura
+                    controller.registrarPagoFactura(tiposPago.getValue(), importeRecibido);
+
+                    //Close Panel Pago Factura
+                    dispose();
+
+                } catch (Exception e) {
+                    logger.error(e.getMessage(), e);
+                    JOptionErrorPane.showMessageError(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"),
+                            e.getMessage());
+                }
+            }
+        });
+
+        btnCancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                //Close Panel Pago Factura
+                dispose();
             }
         });
 

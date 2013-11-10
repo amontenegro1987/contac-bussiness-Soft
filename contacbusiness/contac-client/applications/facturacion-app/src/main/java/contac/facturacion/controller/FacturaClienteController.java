@@ -443,6 +443,9 @@ public class FacturaClienteController extends FacturacionBaseController {
 
         //Settin almacen del usuario
         setAlmacen(buscarAlmacenUsuario());
+        if (getAlmacen() == null) {
+            setAlmacen(getAlmacenes().get(0));
+        }
 
         //Buscar registro de facturas con fecha actual del servidor
         Date fechaFacturacion = buscarFechaFacturacion();
@@ -466,6 +469,9 @@ public class FacturaClienteController extends FacturacionBaseController {
 
         //Setting almacen del usuario
         setAlmacen(buscarAlmacenUsuario());
+        if (getAlmacen() == null) {
+            setAlmacen(getAlmacenes().get(0));
+        }
 
         //Buscar registro de facturas con fecha actual del servidor
         Date fechaFacturacion = buscarFechaFacturacion();
@@ -628,6 +634,31 @@ public class FacturaClienteController extends FacturacionBaseController {
 
             //Eliminar factura de compra
             mgrFacturacion.eliminarFactura(getFactura().getId());
+
+        } catch (ManagerFacturacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Registrar Pago factura
+     *
+     * @param idTipoPago,    Identificador de Tipo de Pago
+     * @param montoRecibido, Monto Recibido
+     * @throws Exception, Exception
+     */
+    public void registrarPagoFactura(int idTipoPago, BigDecimal montoRecibido) throws Exception {
+
+        logger.debug("Registrar pago de factura");
+
+        try {
+
+            //Obtener manager de facturacion
+            ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
+
+            //Registrar pago de factura
+            mgrFacturacion.registrarPagoFactura(getFactura().getId(), idTipoPago, montoRecibido);
 
         } catch (ManagerFacturacionServiceBusinessException e) {
             logger.error(e.getMessage(), e);
