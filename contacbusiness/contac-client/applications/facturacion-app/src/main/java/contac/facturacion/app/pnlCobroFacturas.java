@@ -170,40 +170,33 @@ public class pnlCobroFacturas extends GenericPanel {
         //Create Facturas table
         //*********************************************************************
 
-        ImageIcon cobrarIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/payment_2_48x48.png"));
-
-        ImageIcon imprimirIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/printer48x48.png"));
-        ImageIcon actualizarIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/refresh48x48.png"));
+        ImageIcon cobrarIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/payment.png"));
+        ImageIcon imprimirIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/print.png"));
+        ImageIcon actualizarIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/refresh.png"));
 
         btnImprimir = new JButton();
-        btnImprimir.setPreferredSize(new Dimension(120, 70));
-        btnImprimir.setFont(new Font(btnImprimir.getFont().getName(), Font.BOLD, 11));
-        btnImprimir.setText(messageBundle.getString("CONTAC.FORM.BTNIMPRIMIR"));
+        btnImprimir.setPreferredSize(new Dimension(40, 32));
         btnImprimir.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNIMPRIMIR"));
         btnImprimir.setIcon(imprimirIco);
-        btnImprimir.setVerticalTextPosition(SwingConstants.BOTTOM);
-        btnImprimir.setVerticalAlignment(SwingConstants.CENTER);
-        btnImprimir.setHorizontalTextPosition(SwingConstants.CENTER);
 
         btnActualizar = new JButton();
-        btnActualizar.setPreferredSize(new Dimension(120, 70));
-        btnActualizar.setFont(new Font(btnActualizar.getFont().getName(), Font.BOLD, 11));
-        btnActualizar.setText(messageBundle.getString("CONTAC.FORM.BTNACTUALIZAR"));
+        btnActualizar.setPreferredSize(new Dimension(40, 32));
         btnActualizar.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNACTUALIZAR"));
         btnActualizar.setIcon(actualizarIco);
-        btnActualizar.setVerticalTextPosition(SwingConstants.BOTTOM);
-        btnActualizar.setVerticalAlignment(SwingConstants.CENTER);
-        btnActualizar.setHorizontalTextPosition(SwingConstants.CENTER);
 
         btnCobrarFactura = new JButton();
-        btnCobrarFactura.setPreferredSize(new Dimension(120, 70));
-        btnCobrarFactura.setFont(new Font(btnCobrarFactura.getFont().getName(), Font.BOLD, 11));
-        btnCobrarFactura.setText(messageBundle.getString("CONTAC.FORM.BTNCOBRARFACTURA"));
+        btnCobrarFactura.setPreferredSize(new Dimension(40, 32));
         btnCobrarFactura.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNCOBRARFACTURA"));
         btnCobrarFactura.setIcon(cobrarIco);
-        btnCobrarFactura.setVerticalTextPosition(SwingConstants.BOTTOM);
-        btnCobrarFactura.setVerticalAlignment(SwingConstants.CENTER);
-        btnCobrarFactura.setHorizontalTextPosition(SwingConstants.CENTER);
+
+        JToolBar actionToolBar = new JToolBar();
+        actionToolBar.setPreferredSize(new Dimension(200, 32));
+
+        actionToolBar.add(btnActualizar);
+        actionToolBar.add(new JToolBar.Separator());
+        actionToolBar.add(btnImprimir);
+        actionToolBar.add(new JToolBar.Separator());
+        actionToolBar.add(btnCobrarFactura);
 
         //*********************************************************************
         //Create Cantidad Total de Facturas
@@ -319,9 +312,6 @@ public class pnlCobroFacturas extends GenericPanel {
         estadisticasPanel.add(pnlTotalFacturado);
         estadisticasPanel.add(pnlTotalPagado);
         estadisticasPanel.add(pnlTotalPendiente);
-        estadisticasPanel.add(btnActualizar);
-        estadisticasPanel.add(btnImprimir);
-        estadisticasPanel.add(btnCobrarFactura);
 
         JPanel facturasPanel = new JPanel(new BorderLayout());
         facturasPanel.setBorder(BorderFactory.createEtchedBorder());
@@ -331,6 +321,7 @@ public class pnlCobroFacturas extends GenericPanel {
         JScrollPane facturasScrollbar = new JScrollPane();
         facturasScrollbar.getViewport().add(tblFacturasClientes);
 
+        facturasPanel.add(actionToolBar, BorderLayout.NORTH);
         facturasPanel.add(facturasScrollbar, BorderLayout.CENTER);
         facturasPanel.add(estadisticasPanel, BorderLayout.SOUTH);
 
@@ -428,13 +419,13 @@ public class pnlCobroFacturas extends GenericPanel {
             montoTotalFacturas = montoTotalFacturas.add(factura.getMontoNeto());
 
             //Calcular Monto total pagado
-            if (factura.getEstadoMovimiento().getAlias() == EstadosMovimiento.PAGADO.getEstado()) {
+            if (factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.PAGADO.getEstado())) {
                 montoTotalPagado = montoTotalPagado.add(factura.getMontoNeto());
             }
 
             //Calcular Monto total pendiente
-            if (factura.getEstadoMovimiento().getAlias() == EstadosMovimiento.INGRESADO.getEstado() ||
-                    factura.getEstadoMovimiento().getAlias() == EstadosMovimiento.IMPRESO.getEstado()) {
+            if (factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado()) ||
+                    factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.IMPRESO.getEstado())) {
                 montoTotalPendiente = montoTotalPendiente.add(factura.getMontoNeto());
             }
 
@@ -478,6 +469,21 @@ public class pnlCobroFacturas extends GenericPanel {
         btnBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                btnBuscarActionPerformed(e);
+            }
+        });
+
+        btnCancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                initValues();
+            }
+        });
+
+        btnActualizar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Reset search Facturas
                 btnBuscarActionPerformed(e);
             }
         });
@@ -557,6 +563,7 @@ public class pnlCobroFacturas extends GenericPanel {
                 //Getting numero de factura
                 Long numeroFactura = Long.parseLong(txtNoFactura.getText());
 
+                //Buscar facturas clientes por numero de factura
                 controller.buscarFacturasClientesCobrosPorNo(numeroFactura, fechaDesde, fechaHasta);
             }
 
@@ -569,21 +576,34 @@ public class pnlCobroFacturas extends GenericPanel {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobrarFacturaActionPerformed
-        try {
-            //Iniciar registro de datos
-            //controller.initRegistroFacturaCobros();
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            JOptionErrorPane.showMessageError(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR.BUSQUEDA"),
-                    e.getMessage());
-        }
-    }
-
     private void btnCobrarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobrarFacturaActionPerformed
 
-        if (controller.getFactura() != null) {
-            new pnlPagoFactura(this.getMDI(), true, controller);
+        try {
+
+
+            if (controller.getFactura() != null) {
+
+                if (controller.getFactura().getEstadoMovimiento().getAlias().equals(EstadosMovimiento.PAGADO.getEstado())) {
+                    throw new Exception(messageBundle.getString("CONTAC.FORM.MSG.FACTURA.ESTADO.PAGADO"));
+                }
+
+                if (!controller.getFactura().getEstadoMovimiento().getAlias().equals(EstadosMovimiento.IMPRESO.getEstado())) {
+                    throw new Exception(messageBundle.getString("CONTAC.FORM.MSG.ERROR.ESTADOIMPRESO.FALLIDO"));
+                }
+
+                //Open Panel Pago Factura
+                new pnlPagoFactura(this.getMDI(), true, controller);
+
+                //Reset search Facturas
+                btnBuscarActionPerformed(evt);
+            }
+
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
         }
     }
 
@@ -611,6 +631,9 @@ public class pnlCobroFacturas extends GenericPanel {
 
             //Print Report Preview
             JRPrintReport.printPreviewReport(getMDI(), jasperPrint);
+
+            //Reset search Facturas
+            btnBuscarActionPerformed(evt);
 
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

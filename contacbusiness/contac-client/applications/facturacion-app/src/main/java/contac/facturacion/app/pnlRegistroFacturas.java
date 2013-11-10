@@ -168,7 +168,6 @@ public class pnlRegistroFacturas extends GenericPanel {
         ImageIcon anularIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/remove2.png"));
         ImageIcon cancelIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/remove.png"));
         ImageIcon imprimirIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/print.png"));
-        ImageIcon imprimirFacturaIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/factura.png"));
 
         btnAgregar = new JButton();
         btnAgregar.setPreferredSize(new Dimension(40, 32));
@@ -195,25 +194,6 @@ public class pnlRegistroFacturas extends GenericPanel {
         btnImprimir.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNIMPRIMIR"));
         btnImprimir.setIcon(imprimirIco);
 
-        btnImprimirFactura = new JButton();
-        btnImprimirFactura.setPreferredSize(new Dimension(40, 32));
-        btnImprimirFactura.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNIMPRIMIRFACTURA"));
-        btnImprimirFactura.setIcon(imprimirFacturaIco);
-
-      /*  btnImprimirFactura.setIcon(imprimirFacturaIco);
-        btnImprimirFactura.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNIMPRIMIRFACTURA"));
-        btnImprimirFactura.setFocusable(false);
-        btnImprimirFactura.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnImprimirFactura.setMaximumSize(new java.awt.Dimension(40,32));
-        btnImprimirFactura.setMinimumSize(new java.awt.Dimension(40,32));
-        btnImprimirFactura.setName(""); // NOI18N
-        btnImprimirFactura.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnImprimirFactura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImprimirFacturaActionPerformed(evt);
-            }
-        });*/
-
         JToolBar actionToolBar = new JToolBar();
         actionToolBar.setPreferredSize(new Dimension(500, 32));
 
@@ -226,8 +206,6 @@ public class pnlRegistroFacturas extends GenericPanel {
         actionToolBar.add(btnEliminar);
         actionToolBar.add(new JToolBar.Separator());
         actionToolBar.add(btnImprimir);
-        actionToolBar.add(new JToolBar.Separator());
-        actionToolBar.add(btnImprimirFactura);
 
         JPanel facturasPanel = new JPanel(new BorderLayout());
         facturasPanel.setBorder(BorderFactory.createEtchedBorder());
@@ -396,12 +374,6 @@ public class pnlRegistroFacturas extends GenericPanel {
             }
         });
 
-        btnImprimirFactura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImprimirFacturaActionPerformed(evt);
-            }
-        });
-
         tblFacturasClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblFacturasClientesMouseClicked(evt);
@@ -565,39 +537,6 @@ public class pnlRegistroFacturas extends GenericPanel {
             JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnImprimirFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
-
-        try {
-
-            // Si no ha seleccionado ninguna Factura a Imprimir
-            if (facturaSelected == null) {
-                throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.REPORTEFACTURA"));
-            }
-
-            //Cambiar estado de factura a impresa.
-            controller.imprimirFactura();
-
-            JasperReport report = (JasperReport) JRLoader.loadObject(pnlRegistroFacturas.class.
-                    getResourceAsStream("/contac/facturacion/app/reportes/Invoice_Garsa.jasper"));
-
-            Map parameters = new HashMap();
-            parameters.put("SUBREPORT_DIR", getClass().getClassLoader().getResource("contac/facturacion/app/reportes") + "/");
-            parameters.put("n_id_factura", facturaSelected.getId());
-
-            //Generate Report
-            JasperPrint jasperPrint = controller.getMgrReportesService().generateReport(parameters, report);
-
-            //Print Report Preview
-            JRPrintReport.printPreviewReport(getMDI(), jasperPrint);
-
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            //Show error message
-            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
-        }
-
-    }//GEN-LAST:event_btnImprimirFacturaActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
 
