@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>modules</artifactId>
+        <groupId>contac</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <groupId>contac</groupId>
+    <artifactId>reportes</artifactId>
+    <name>CONTAC PROJECT - REPORTES</name>
+    <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+
+        <!-- CONTAC DEPENDENCIES -->
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>modelo</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>seguridad</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>contac</groupId>
+            <artifactId>contac-commons-util</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- LOGGER LOG4J -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+        </dependency>
+
+        <!-- JASPERREPORTS -->
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>jasperreports</groupId>
+            <artifactId>jasperreports-fonts</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>jfree</groupId>
+            <artifactId>jcommon</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>jasperreports</groupId>
+            <artifactId>iText</artifactId>
+        </dependency>
+
+    </dependencies>
+
+
+</project>

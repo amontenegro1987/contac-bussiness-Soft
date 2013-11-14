@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>contac</groupId>
+    <artifactId>contac-project</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>CONTAC PROJECT</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+
+        <!-- MAVEN PROPERTIES -->
+        <maven.compile.source>1.6</maven.compile.source>
+        <maven.compile.target>1.6</maven.compile.target>
+        <maven.compile.deprecation>true</maven.compile.deprecation>
+        <maven.compile.optimize>true</maven.compile.optimize>
+        <maven.compiler.debug>true</maven.compiler.debug>
+
+        <!-- PROJECT ENCODING -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- PROJECT VERSIONS -->
+        <javax-persistence-version>1.0.0.Final</javax-persistence-version>
+        <hibernate-version>3.5.3-Final</hibernate-version>
+        <hibernate-core-version>4.1.8.Final</hibernate-core-version>
+        <hibernate-entity-manager-version>4.1.8.Final</hibernate-entity-manager-version>
+        <hibernate-c3p0-version>3.3.2.GA</hibernate-c3p0-version>
+        <hibernate-tools-version>3.2.4.GA</hibernate-tools-version>
+        <hibernate-commons-annotations>3.2.0.Final</hibernate-commons-annotations>
+        <hibernate-validator-version>4.3.0.Final</hibernate-validator-version>
+        <hibernate-jpa-model-gen-version>1.0.0.Final</hibernate-jpa-model-gen-version>
+        <mysql-connector-version>5.1.6</mysql-connector-version>
+        <mydoggy-version>1.4.2</mydoggy-version>
+
+    </properties>
+
+    <!-- ================================================= -->
+    <!-- REPOSITORIES                                      -->
+    <!-- ================================================= -->
+    <repositories>
+
+        <repository>
+            <id>jboss.org</id>
+            <name>jboss.org</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public</url>
+        </repository>
+
+        <!--repository>
+            <id>springRichclientRepository</id>
+            <name>Spring rich client repository</name>
+            <url>http://spring-rich-c.sourceforge.net/maven2repository</url>
+        </repository-->
+
+        <!--repository>
+            <id>java.net</id>
+            <name>java.net</name>
+            <url>http://download.java.net/maven/2</url>
+        </repository-->
+
+        <!--repository>
+            <id>jboss</id>
+            <name>Jboss Maven repository</name>
+            <url>http://repository.jboss.com/maven2</url>
+        </repository-->
+
+        <!--repository>
+            <id>jboss2</id>
+            <name>Jboss Maven 2 repository</name>
+            <url>http://repository.jboss.org/maven2</url>
+        </repository-->
+
+        <!--repository>
+            <id>jboss3</id>
+            <name>Jboss Maven 3 repository</name>
+            <url>http://repository.jboss.org</url>
+        </repository>
+
+        <repository>
+            <id>r.j.o-groups-public</id>
+            <url>https://repository.jboss.org/nexus/content/groups/public</url>
+        </repository>
+
+        <repository>
+            <id>cedarsoft</id>
+            <url>http://maven.cedarsoft.com/content/repositories/public</url>
+        </repository>
+
+        <repository>
+            <id>ibiblio</id>
+            <url>http://mirrors.ibiblio.org/pub/mirrors/maven2</url>
+        </repository-->
+
+    </repositories>
+
+    <!-- ================================================= -->
+    <!-- ORGANIZATION                                      -->
+    <!-- ================================================= -->
+    <organization>
+        <name>Contac Business Team</name>
+        <url>http://contact-project.sourceforge.net</url>
+    </organization>
+
+    <developers>
+
+        <developer>
+            <id>montenegro.eddy</id>
+            <name>Eddy Montenegro</name>
+            <email>montenegro.eddy@gmail.com</email>
+        </developer>
+
+        <developer>
+            <id>aalaniz</id>
+            <name>arjoalaniz</name>
+            <email>arjoalaniz@gmail.com</email>
+        </developer>
+
+        <developer>
+            <id>miguelurbin</id>
+            <name>Hernaldo Urbina</name>
+            <email>miguelurbin@gmail.com</email>
+        </developer>
+
+        <developer>
+            <id>robertoc</id>
+            <name>Roberto Carlos</name>
+            <email>robertoc.uni.fcys@gmail.com</email>
+        </developer>
+
+        <developer>
+            <id>cquintanasomarriba</id>
+            <name>Carlos Quintana</name>
+            <email>cquintanasomarriba@gmail.com</email>
+        </developer>
+
+    </developers>
+
+    <!-- ================================================= -->
+    <!-- MODULES                                           -->
+    <!-- ================================================= -->
+    <modules>
+        <module>contac-server</module>
+        <module>contac-client</module>
+        <module>contac-commons</module>
+    </modules>
+
+    <!-- ================================================= -->
+    <!-- DEPENDENCIES                                      -->
+    <!-- ================================================= -->
+    <dependencyManagement>
+
+        <dependencies>
+
+            <!-- CONTAC PROJECT DEPENDENCIES -->
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>contac-app</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>administracion-app</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>proveedores-app</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>inventarios-app</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>clientes-app</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>facturacion-app</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>modelo</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>catalogo</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>administracion</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>proveedores</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>clientes</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>seguridad</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>inventario</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>facturacion</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>servicio</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>reportes</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>contac-commons-util</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>contac-commons-app</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>contac-commons-components</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>contac</groupId>
+                <artifactId>contac-resources</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <!-- JAVAX PERSISTENCE -->
+            <dependency>
+                <groupId>org.hibernate.javax.persistence</groupId>
+                <artifactId>hibernate-jpa-2.0-api</artifactId>
+                <version>${javax-persistence-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate-core-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>${hibernate-entity-manager-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-commons-annotations</artifactId>
+                <version>${hibernate-commons-annotations}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-c3p0</artifactId>
+                <version>${hibernate-c3p0-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-tools</artifactId>
+                <version>${hibernate-tools-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-jpamodelgen</artifactId>
+                <version>${hibernate-jpa-model-gen-version}</version>
+            </dependency>
+
+            <!-- SERVLET AND MAIL LIBRARIES -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>2.5</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.mail</groupId>
+                <artifactId>mail</artifactId>
+                <version>1.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>web4j</groupId>
+                <artifactId>web4j</artifactId>
+                <version>4.6.2</version>
+            </dependency>
+
+            <!-- MYDOGGY LIBRARIES -->
+            <dependency>
+                <groupId>net.sourceforge.mydoggy</groupId>
+                <artifactId>mydoggy-api</artifactId>
+                <version>${mydoggy-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sourceforge.mydoggy</groupId>
+                <artifactId>mydoggy-itest</artifactId>
+                <version>${mydoggy-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sourceforge.mydoggy</groupId>
+                <artifactId>mydoggy-plaf</artifactId>
+                <version>${mydoggy-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sourceforge.mydoggy</groupId>
+                <artifactId>mydoggy-res</artifactId>
+                <version>${mydoggy-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sourceforge.mydoggy</groupId>
+                <artifactId>mydoggy-examples</artifactId>
+                <version>${mydoggy-version}</version>
+            </dependency>
+
+
+            <!-- JCALENDAR -->
+            <dependency>
+                <groupId>com.toedter</groupId>
+                <artifactId>jcalendar</artifactId>
+                <version>1.3.2</version>
+            </dependency>
+
+            <!-- JCOMMON -->
+            <dependency>
+                <groupId>jfree</groupId>
+                <artifactId>jcommon</artifactId>
+                <version>1.0.12</version>
+            </dependency>
+
+            <!-- SWINGX -->
+            <dependency>
+                <groupId>org.swinglabs</groupId>
+                <artifactId>swingx</artifactId>
+                <version>1.6</version>
+            </dependency>
+
+            <!-- SWING DEPENDENCIES -->
+            <dependency>
+                <groupId>org.java.net.substance</groupId>
+                <artifactId>substance</artifactId>
+                <version>6.0_02final</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.pushing-pixels</groupId>
+                <artifactId>trident</artifactId>
+                <version>1.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.java.dev.flamingo</groupId>
+                <artifactId>flamingo</artifactId>
+                <version>5.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.java.dev.flamingo</groupId>
+                <artifactId>flamingo-tst</artifactId>
+                <version>5.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.l2fprod</groupId>
+                <artifactId>l2fprod-common-all</artifactId>
+                <version>7.3</version>
+            </dependency>
+
+            <!-- TABLE LAYOUT -->
+            <dependency>
+                <groupId>tablelayout</groupId>
+                <artifactId>TableLayout</artifactId>
+                <version>20050920</version>
+            </dependency>
+
+            <!-- FRAMEWORK LIBRARIES -->
+            <dependency>
+                <groupId>aspectj</groupId>
+                <artifactId>aspectjtools</artifactId>
+                <version>1.5.2</version>
+            </dependency>
+
+            <!-- ABSOLUTE LAYOUT -->
+            <dependency>
+                <groupId>netbeans</groupId>
+                <artifactId>AbsoluteLayout</artifactId>
+                <version>7.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>TaskDialog</groupId>
+                <artifactId>TaskDialog</artifactId>
+                <version>1.2.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>miglayout</groupId>
+                <artifactId>miglayout-3.5.5-swing</artifactId>
+                <version>3.5.5</version>
+            </dependency>
+
+            <dependency>
+                <groupId>jgoodies</groupId>
+                <artifactId>jgoodies-validation</artifactId>
+                <version>2.3.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>jgoodies</groupId>
+                <artifactId>jgoodies-common</artifactId>
+                <version>1.2.0</version>
+            </dependency>
+
+            <!-- MYSQL JDBC CONNECTOR -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-version}</version>
+            </dependency>
+
+            <!-- LOGGER LOG4J -->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.14</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-jdk14</artifactId>
+                <version>1.5.8</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jdom</groupId>
+                <artifactId>jdom</artifactId>
+                <version>1.1</version>
+            </dependency>
+
+            <!-- COMMONS LIBRARIES -->
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.1.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>3.2.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-digester</groupId>
+                <artifactId>commons-digester</artifactId>
+                <version>2.1</version>
+            </dependency>
+
+            <!-- JASPERREPORTS -->
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy-all</artifactId>
+                <version>2.0.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>jasperreports</groupId>
+                <artifactId>jasperreports</artifactId>
+                <version>5.0.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>jasperreports</groupId>
+                <artifactId>jasperreports-fonts</artifactId>
+                <version>5.0.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>jfree</groupId>
+                <artifactId>jcommon</artifactId>
+                <version>1.0.17</version>
+            </dependency>
+
+            <dependency>
+                <groupId>jasperreports</groupId>
+                <artifactId>iText</artifactId>
+                <version>2.1.7</version>
+            </dependency>
+
+            <!-- ========================================= -->
+            <!-- UNIT TESTING                              -->
+            <!-- ========================================= -->
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>4.7</version>
+                <classifier>jdk15</classifier>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>3.8.1</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
+
+    <!-- ================================================= -->
+    <!-- BUILD PLUGIN MANAGEMENT                           -->
+    <!-- ================================================= -->
+    <build>
+
+        <pluginManagement>
+
+            <plugins>
+
+                <!-- Maven compiler plugin -->
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>${maven.compile.source}</source>
+                        <target>${maven.compile.target}</target>
+                        <optimize>${maven.compile.optimize}</optimize>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <!--
+                        TODO: Configure JPA Metamodel entity processor in future release
+                        <compilerArguments>
+                            <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+                        </compilerArguments>
+                        <includes>
+                            <include>gen/**</include>
+                            <include>core/**</include>
+                        </includes>
+                        -->
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+
+                    <executions>
+                        <execution>
+                            <id>unpack-resources</id>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>unpack</goal>
+                            </goals>
+                            <configuration>
+                                <artifactItems>
+                                    <artifactItem>
+                                        <groupId>contac</groupId>
+                                        <artifactId>contac-resources</artifactId>
+                                        <version>${project.version}</version>
+                                        <type>jar</type>
+                                        <outputDirectory>${project.build.directory}/classes/contac/resources/
+                                        </outputDirectory>
+                                        <!--outputDirectory>${project.build.directory}/contac/resources/</outputDirectory-->
+                                        <overWrite>true</overWrite>
+                                    </artifactItem>
+                                </artifactItems>
+                                <overWriteSnapshots>true</overWriteSnapshots>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+            </plugins>
+
+        </pluginManagement>
+
+    </build>
+
+    <!-- ================================================= -->
+    <!-- PROFILES                                          -->
+    <!-- ================================================= -->
+    <profiles>
+
+        <!-- Debug application profile -->
+        <profile>
+
+            <id>debug</id>
+
+            <properties>
+                <contac.business.testNgSuiteXmlFile>testng-debug.xml</contac.business.testNgSuiteXmlFile>
+            </properties>
+
+            <build>
+                <defaultGoal>test</defaultGoal>
+
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <file>src/test/resources/${contac.business.testNgSuiteXmlFile}</file>
+                            </suiteXmlFiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+
+</project>
+
