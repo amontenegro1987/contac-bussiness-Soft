@@ -73,7 +73,21 @@ public interface ManagerInventarioServiceBusiness extends ManagerInventarioServi
      *                          Exception
      * @throws RemoteException, Exception
      */
-    public List<OrdenEntrada> buscarOrdenesEntradaPorEstados(List<String> estados) throws ManagerInventarioServiceBusinessException,
+    public List<OrdenEntrada> buscarOrdenesEntradaPorEstados(List<String> estados, Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws ManagerInventarioServiceBusinessException,
+            RemoteException;
+
+    /**
+     * Buscar facturas comerciales por rangos de fecha
+     *
+     * @param fechaDesde,    Fecha desde
+     * @param fechaHasta,    Fecha hasta
+     * @param idAlmacen,     Almacen de facturacion
+     * @return List
+     * @throws ManagerInventarioServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public List<OrdenEntrada> buscarFacturasPorFechaAlmacen(List<String> estados, Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws ManagerInventarioServiceBusinessException,
             RemoteException;
 
     /**

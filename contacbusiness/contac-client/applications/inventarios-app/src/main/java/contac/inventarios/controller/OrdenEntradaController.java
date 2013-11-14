@@ -7,8 +7,11 @@ package contac.inventarios.controller;
 
 import contac.internationalization.LanguageLocale;
 import contac.modelo.entity.*;
+import contac.servicio.facturacion.ManagerFacturacionServiceBusiness;
+import contac.servicio.facturacion.ManagerFacturacionServiceBusinessException;
 import contac.servicio.inventario.ManagerInventarioServiceBusiness;
 import contac.servicio.inventario.ManagerInventarioServiceBusinessException;
+import contac.servicio.seguridad.ManagerSeguridadServiceBusinessException;
 import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
@@ -214,7 +217,20 @@ public class OrdenEntradaController extends InventarioBaseController {
 
     //Init registros de ordenes de entrada inventario
     public void initRegistrosOrdenesEntradaInventario() throws Exception {
-        setOrdenesEntrada(buscarOrdenesEntrada());
+
+        //Setting almacenes registrados
+        setAlmacenes(buscarAlmacenes());
+
+        //Setting almacen del usuario
+        setAlmacen(buscarAlmacenUsuario());
+        if (getAlmacen() == null) {
+            setAlmacen(getAlmacenes().get(0));
+        }
+
+        //Buscar registro de facturas con fecha actual del servidor
+        Date fechaFacturacion = buscarFechaFacturacion();
+
+       setOrdenesEntrada(buscarOrdenesEntrada(fechaFacturacion, fechaFacturacion, almacen.getId()));
     }
 
     //*************************************************************************************
@@ -300,7 +316,7 @@ public class OrdenEntradaController extends InventarioBaseController {
 
             //Actualizar registro de ordenes de entrada
             getOrdenesEntrada().clear();
-            getOrdenesEntrada().addAll(buscarOrdenesEntrada());
+            //getOrdenesEntrada().addAll(buscarOrdenesEntrada());
 
         } catch (ManagerInventarioServiceBusinessException e) {
             logger.error(e.getMessage(), e);
@@ -327,7 +343,7 @@ public class OrdenEntradaController extends InventarioBaseController {
 
             //Actualizar registro de ordenes de entrada
             getOrdenesEntrada().clear();
-            getOrdenesEntrada().addAll(buscarOrdenesEntrada());
+            //getOrdenesEntrada().addAll(buscarOrdenesEntrada());
 
         } catch (ManagerInventarioServiceBusinessException e) {
             logger.error(e.getMessage(), e);
@@ -427,11 +443,17 @@ public class OrdenEntradaController extends InventarioBaseController {
      *
      * @return List
      */
-    private List<OrdenEntrada> buscarOrdenesEntrada() throws Exception {
+    private List<OrdenEntrada> buscarOrdenesEntrada(Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws Exception {
 
         logger.debug("Obteniendo listado de ordenes de entrada ordinaria...!");
 
         try {
+            //Validar que los campos de fechas no sean nulos
+            if (fechaDesde == null)
+                throw new Exception("Debe ingresar una fecha de inicio de busqueda: [fecha desde]");
+
+            if (fechaHasta == null)
+                throw new Exception("Debe ingresar una fecha de fin de busqueda: [fecha hasta]");
 
             //Obtener manager inventario service
             ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
@@ -440,12 +462,40 @@ public class OrdenEntradaController extends InventarioBaseController {
             List<String> estados = new ArrayList<String>();
             estados.add(EstadosMovimiento.INGRESADO.getEstado());
 
-            return mgrInventario.buscarOrdenesEntradaPorEstados(estados);
+            return mgrInventario.buscarOrdenesEntradaPorEstados(estados, fechaDesde, fechaHasta, idAlmacen);
 
         } catch (ManagerInventarioServiceBusinessException e) {
             logger.error(e.getMessage(), e);
             throw new Exception(e.getMessage(), e);
         } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+    public void buscarOrdenesEntradasPorFechasAlmacen(Date fechaDesde, Date fechaHasta, Integer idAlmacen)
+            throws Exception {
+        try {
+
+            //Validar que los campos de fechas no sean nulos
+            if (fechaDesde == null)
+                throw new Exception("Debe ingresar una fecha de inicio de busqueda: [fecha desde]");
+
+            if (fechaHasta == null)
+                throw new Exception("Debe ingresar una fecha de fin de busqueda: [fecha hasta]");
+
+            //Obtener manager inventario service
+            ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
+
+            //Retornar listado de ordenes de ingreso ordinaria
+            List<String> estados = new ArrayList<String>();
+            estados.add(EstadosMovimiento.INGRESADO.getEstado());
+
+            //Buscar Orden Entrada
+            List<OrdenEntrada> ordenEntradas = mgrInventario.buscarFacturasPorFechaAlmacen(estados, fechaDesde, fechaHasta, idAlmacen);
+            getOrdenesEntrada().clear();
+            getOrdenesEntrada().addAll(ordenEntradas);
+
+        } catch (ManagerFacturacionServiceBusinessException e) {
             logger.error(e.getMessage(), e);
             throw new Exception(e.getMessage(), e);
         }

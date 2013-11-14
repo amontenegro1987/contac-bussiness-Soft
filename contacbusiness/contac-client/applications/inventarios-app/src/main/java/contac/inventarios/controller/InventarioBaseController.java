@@ -13,6 +13,7 @@ import contac.reports.JRPrintReport;
 import contac.reports.JRXReportGenerated;
 import contac.servicio.catalogo.ManagerProductoServiceBusiness;
 import contac.servicio.catalogo.ManagerProductoServiceBusinessException;
+import contac.servicio.facturacion.ManagerFacturacionServiceBusinessException;
 import contac.servicio.inventario.ManagerInventarioServiceBusiness;
 import contac.servicio.inventario.ManagerInventarioServiceBusinessException;
 import net.sf.jasperreports.engine.JRException;
@@ -25,6 +26,7 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.apache.log4j.Logger;
 
 import java.rmi.RemoteException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -115,7 +117,54 @@ public abstract class InventarioBaseController extends BaseController {
             throw new Exception(e.getMessage(), e);
         }
     }
+    /**
+     * Buscar almacen del usuario
+     *
+     * @return Almacen
+     * @throws Exception, Exception
+     */
+    public Almacen buscarAlmacenUsuario() throws Exception {
 
+        logger.debug("Obteniendo almacen del usuario...!");
+
+        try {
+
+            //Obtener manager inventario service
+            ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
+
+            //Retornar almacen del usuario
+            return mgrInventario.buscarAlmacenUsuario();
+
+        } catch (ManagerInventarioServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Buscar fecha alta facturacion
+     *
+     * @return Date
+     * @throws Exception, Exception
+     */
+    public Date buscarFechaFacturacion() throws Exception {
+
+        logger.debug("Buscando fecha de facturacion");
+
+        try {
+
+            return getMgrFacturacionService().getFechaServidor();
+        } catch (ManagerFacturacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
     /**
      * Obtener listado de almacenes
      *
