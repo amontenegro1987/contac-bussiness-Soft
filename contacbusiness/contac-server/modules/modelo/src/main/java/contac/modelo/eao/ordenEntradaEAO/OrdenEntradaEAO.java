@@ -36,7 +36,15 @@ public interface OrdenEntradaEAO extends GenericEAO<OrdenEntrada, Integer> {
      * @return List<OrdenEntrada>
      * @throws GenericPersistenceEAOException, Exception
      */
-    public List<OrdenEntrada> findByEstados(List<Integer> estados) throws GenericPersistenceEAOException;
+    public List<OrdenEntrada> findByEstados(List<Integer> estados, Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws GenericPersistenceEAOException;
+
+    /**
+     * Find Ordenes de Entrada por estados Almacen
+     * @param estados, List
+     * @return List<OrdenEntrada>
+     * @throws GenericPersistenceEAOException, Exception
+     */
+    public List<OrdenEntrada> findByEstadosAlmacen(List<Integer> estados, Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws GenericPersistenceEAOException;
 
     /**
      * Buscar ordenes de entrada por fechas de inicio y fecha fin

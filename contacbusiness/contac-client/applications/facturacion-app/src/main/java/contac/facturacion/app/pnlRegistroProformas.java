@@ -11,6 +11,8 @@
 package contac.facturacion.app;
 import contac.commons.form.label.JOptionErrorPane;
 import contac.commons.form.label.JOptionMessagePane;
+import contac.commons.form.layout.XYConstraints;
+import contac.commons.form.layout.XYLayout;
 import contac.commons.form.panel.GenericFrame;
 import contac.commons.form.panel.GenericPanel;
 import contac.commons.form.render.DecimalFormatRenderer;
@@ -26,6 +28,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.log4j.Logger;
+import org.jdesktop.swingx.JXHeader;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
@@ -47,6 +50,8 @@ public class pnlRegistroProformas extends GenericPanel {
     //Controller
     private ProformaClienteController controller;
 
+    private JXHeader header;
+
     //Message resource bundle
     private ResourceBundle messageBundle = ResourceBundle.getBundle("contac/facturacion/app/mensajes/mensajes",
             LanguageLocale.getInstance().getLocale());
@@ -59,6 +64,7 @@ public class pnlRegistroProformas extends GenericPanel {
         //Call super constructor
         super(frame, "RegistroProformas", "Registro de Proformas", true, "contac/facturacion/app/mensajes/Mensajes",
                 new Locale("es", "NIC"));
+
 
         //Init controller
         controller = new ProformaClienteController();
@@ -176,6 +182,15 @@ public class pnlRegistroProformas extends GenericPanel {
         scrollProformaWest = new JScrollPane();
         tblProformasClientes = new org.jdesktop.swingx.JXTable();
 
+        //***************************************************************************************
+        //Init Header Panel
+        //***************************************************************************************
+        header = new JXHeader();
+        header.setTitle(messageBundle.getString("CONTAC.FORM.REGISTROPROFORMAS.TITTLE")); // NOI18N
+        header.setForeground(new java.awt.Color(255, 153, 0));
+        header.setTitleForeground(new java.awt.Color(255, 153, 0));
+        header.setPreferredSize(new Dimension(50, 35));
+
         setLayout(new BorderLayout());
 
         ImageIcon imprimirFacturaIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/factura.png"));
@@ -187,11 +202,9 @@ public class pnlRegistroProformas extends GenericPanel {
         headerAlmacenes.setTitleForeground(new Color(255, 153, 0));
         add(headerAlmacenes, BorderLayout.PAGE_START);
 
-        pnlRegistroProformas.setPreferredSize(new Dimension(693, 394));
-        pnlRegistroProformas.setLayout(new BorderLayout());
-
-        pnlRegistroProformasWest.setPreferredSize(new Dimension(270, 394));
-
+        JPanel searchPanel = new JPanel(new XYLayout());
+        searchPanel.setBorder(BorderFactory.createEtchedBorder());
+        searchPanel.setPreferredSize(new Dimension(340, 400));
 
         tbProformasClientes.setBorder(null);
         tbProformasClientes.setFloatable(false);
@@ -213,8 +226,6 @@ public class pnlRegistroProformas extends GenericPanel {
                 btnAgregarActionPerformed(evt);
             }
         });
-        tbProformasClientes.add(btnAgregar);
-        tbProformasClientes.add(separatorOne);
 
         btnEditar.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/actions/edit.png")));
         btnEditar.setToolTipText(bundle.getString("CONTAC.FORM.BTNEDITAR")); // NOI18N
@@ -229,8 +240,6 @@ public class pnlRegistroProformas extends GenericPanel {
                 btnEditarActionPerformed(evt);
             }
         });
-        tbProformasClientes.add(btnEditar);
-        tbProformasClientes.add(separatorTwo);
 
         btnAnular.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/actions/remove2.png")));
         btnAnular.setToolTipText(bundle.getString("CONTAC.FORM.BTNANULAR")); // NOI18N
@@ -244,9 +253,6 @@ public class pnlRegistroProformas extends GenericPanel {
                 btnAnularActionPerformed(evt);
             }
         });
-
-        tbProformasClientes.add(btnAnular);
-        tbProformasClientes.add(separatorThree);
 
         btnCancelar.setToolTipText(bundle.getString("CONTAC.FORM.BTNCANCELAR")); // NOI18N
         btnCancelar.setFocusable(false);
@@ -273,8 +279,6 @@ public class pnlRegistroProformas extends GenericPanel {
                 btnEliminarActionPerformed(evt);
             }
         });
-        tbProformasClientes.add(btnEliminar);
-        tbProformasClientes.add(jSeparator1);
 
         btnImprimir.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/actions/print.png")));
         btnImprimir.setToolTipText(bundle.getString("CONTAC.FORM.BTNIMPRIMIR")); // NOI18N
@@ -289,7 +293,6 @@ public class pnlRegistroProformas extends GenericPanel {
                 btnImprimirActionPerformed(evt);
             }
         });
-        tbProformasClientes.add(btnImprimir);
 
         btnImprimirFactura = new JButton();
         btnImprimirFactura.setPreferredSize(new Dimension(40, 32));
@@ -301,7 +304,23 @@ public class pnlRegistroProformas extends GenericPanel {
             }
         });
 
-        tbProformasClientes.add(btnImprimirFactura);
+        JToolBar actionToolBar = new JToolBar();
+        actionToolBar.setPreferredSize(new Dimension(500, 32));
+
+        actionToolBar.add(btnAgregar);
+        actionToolBar.add(new JToolBar.Separator());
+        actionToolBar.add(btnEditar);
+        actionToolBar.add(new JToolBar.Separator());
+        actionToolBar.add(btnAnular);
+        actionToolBar.add(new JToolBar.Separator());
+        actionToolBar.add(btnEliminar);
+        actionToolBar.add(new JToolBar.Separator());
+        actionToolBar.add(btnImprimir);
+        actionToolBar.add(new JToolBar.Separator());
+        actionToolBar.add(btnImprimirFactura);
+
+        JPanel facturasPanel = new JPanel(new BorderLayout());
+        facturasPanel.setBorder(BorderFactory.createEtchedBorder());
 
         lblFechaDesde.setHorizontalAlignment(SwingConstants.LEFT);
         lblFechaDesde.setText(bundle.getString("CONTAC.FORM.REGISTROPROFORMAS.FECHADESDE")); //NOI18N
@@ -313,9 +332,6 @@ public class pnlRegistroProformas extends GenericPanel {
         dtpFechaDesde.setMinimumSize(new Dimension(160,22));
         dtpFechaDesde.setPreferredSize(new Dimension(160,22));
 
-        pnlRegistroProformasWest.add(lblFechaDesde, BorderLayout.BEFORE_LINE_BEGINS);
-        pnlRegistroProformasWest.add(dtpFechaDesde, BorderLayout.AFTER_LINE_ENDS);
-
         lblFechaHasta.setHorizontalAlignment(SwingConstants.LEFT);
         lblFechaHasta.setText(bundle.getString("CONTAC.FORM.REGISTROPROFORMAS.FECHAHASTA")); //NOI18N
         lblFechaHasta.setMaximumSize(new Dimension(75,22));
@@ -326,23 +342,16 @@ public class pnlRegistroProformas extends GenericPanel {
         dtpFechaHasta.setMinimumSize(new Dimension(160,22));
         dtpFechaHasta.setPreferredSize(new Dimension(160,22));
 
-        pnlRegistroProformasWest.add(lblFechaHasta, BorderLayout.BEFORE_LINE_BEGINS);
-        pnlRegistroProformasWest.add(dtpFechaHasta, BorderLayout.AFTER_LINE_ENDS);
-
         lblAlmacen.setText(bundle.getString("CONTAC.FORM.PROFORMA.ALMACEN")); //NOI18N
         lblAlmacen.setMaximumSize(new Dimension(75,22));
         lblAlmacen.setMinimumSize(new Dimension(75,22));
         lblAlmacen.setPreferredSize(new Dimension(75,22));
-
-        pnlRegistroProformasWest.add(lblAlmacen, BorderLayout.BEFORE_LINE_BEGINS);
 
         cmbAlmacen.setModel(new AlmacenComboBoxModel(controller.getAlmacenes()));
         cmbAlmacen.setLightWeightPopupEnabled(false);
         cmbAlmacen.setMaximumSize(new Dimension(160,22));
         cmbAlmacen.setMinimumSize(new Dimension(160,22));
         cmbAlmacen.setPreferredSize(new Dimension(160,22));
-
-        pnlRegistroProformasWest.add(cmbAlmacen, BorderLayout.AFTER_LINE_ENDS);
 
         btnBuscar.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/search.png")));
         btnBuscar.setText(bundle.getString("CONTAC.FORM.BTNBUSCAR")); // NOI18N
@@ -357,10 +366,14 @@ public class pnlRegistroProformas extends GenericPanel {
             }
         });
 
-        pnlRegistroProformasWest.add(btnBuscar, BorderLayout.CENTER);
-        pnlRegistroProformasWest.add(btnCancelar, BorderLayout.CENTER);
-
-        pnlRegistroProformas.add(tbProformasClientes, BorderLayout.PAGE_START);
+        searchPanel.add(lblFechaDesde, new XYConstraints(5, 5, 120, 23));
+        searchPanel.add(dtpFechaDesde, new XYConstraints(130, 5, 120, 23));
+        searchPanel.add(lblFechaHasta, new XYConstraints(5, 33, 120, 23));
+        searchPanel.add(dtpFechaHasta, new XYConstraints(130, 33, 120, 23));
+        searchPanel.add(lblAlmacen, new XYConstraints(5, 61, 90, 23));
+        searchPanel.add(cmbAlmacen, new XYConstraints(130, 61, 200, 23));
+        searchPanel.add(btnBuscar, new XYConstraints(75, 89, 90, 23));
+        searchPanel.add(btnCancelar, new XYConstraints(175, 89, 90, 23));
 
         tblProformasClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -372,9 +385,17 @@ public class pnlRegistroProformas extends GenericPanel {
 
         add(scrollProformaWest, BorderLayout.WEST);
 
-        pnlRegistroProformas.add(scrollProformasClientes, BorderLayout.CENTER);
+        JScrollPane facturasScrollbar = new JScrollPane();
+        facturasScrollbar.getViewport().add(tblProformasClientes);
 
-        add(pnlRegistroProformas, BorderLayout.CENTER);
+        facturasPanel.add(actionToolBar, BorderLayout.NORTH);
+        facturasPanel.add(facturasScrollbar, BorderLayout.CENTER);
+
+        this.setLayout(new BorderLayout());
+
+        this.add(header, BorderLayout.NORTH);
+        this.add(searchPanel, BorderLayout.WEST);
+        this.add(facturasPanel, BorderLayout.CENTER);
 
        }  // </editor-fold>//GEN-END:initComponents
 

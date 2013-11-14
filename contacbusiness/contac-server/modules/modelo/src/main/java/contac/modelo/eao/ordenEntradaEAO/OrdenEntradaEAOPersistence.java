@@ -58,8 +58,8 @@ public class OrdenEntradaEAOPersistence extends GenericPersistenceEAO<OrdenEntra
     }
 
     @Override
-    public List<OrdenEntrada> findByEstados(List<Integer> estados) throws GenericPersistenceEAOException {
-
+    public List<OrdenEntrada> findByEstadosAlmacen(List<Integer> estados, Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws GenericPersistenceEAOException {
+        System.out.println("Fecha Desde: " + fechaDesde + " Fecha Hasta: " + fechaHasta + " Id Almacen: " + idAlmacen);
         //Init service
         initService();
 
@@ -68,6 +68,64 @@ public class OrdenEntradaEAOPersistence extends GenericPersistenceEAO<OrdenEntra
         String conditionClause = "";
 
         List<QueryFragment> querySolver = new ArrayList<QueryFragment>();
+
+        //1. Agregando parametro fecha desde
+        querySolver.add(new QueryFragment(fechaDesde != null, "", " o.fechaAlta >= :fechaDesde ", "fechaDesde", fechaDesde));
+
+        //2. Agregando parametro fecha hasta
+        querySolver.add(new QueryFragment(fechaHasta != null, "", " o.fechaAlta <= :fechaHasta ", "fechaHasta", fechaHasta));
+
+        //3. Agregando parametro almacen
+        querySolver.add(new QueryFragment(idAlmacen != null, "", " o.almacen.id = :idAlmacen", "idAlmacen", idAlmacen));
+
+        //Arma un fragmento con los diferentes estados...
+        if ((estados != null) && (!estados.isEmpty())) {
+
+            String esConditionalClause = " ( ";
+            String prefijo = "";
+
+            for (Integer estado : estados) {
+                esConditionalClause += prefijo + " o.estado.id = " + estado;
+                prefijo = " or ";
+            }
+
+            esConditionalClause += " ) ";
+
+            //Solo creamos el fragmento si algun estado es distinto -1
+            if (!prefijo.equals("")) {
+                querySolver.add(new QueryFragment(true, "", esConditionalClause, null, null));
+            }
+        }
+
+        String ejbQuery = QueryUtils.ejbQLcreator(fromClause, conditionClause, querySolver);
+        Query query = em.createQuery(ejbQuery);
+
+        List<OrdenEntrada> listOrdenesEntrada = QueryUtils.ejbQLParametersSolver(query, querySolver).getResultList();
+
+        return listOrdenesEntrada;
+    }
+
+
+    @Override
+    public List<OrdenEntrada> findByEstados(List<Integer> estados, Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws GenericPersistenceEAOException {
+         System.out.println("Fecha Desde: " + fechaDesde + " Fecha Hasta: " + fechaHasta + " Id Almacen: " + idAlmacen);
+        //Init service
+        initService();
+
+        //Creating query
+        String fromClause = "Select o from OrdenEntrada o ";
+        String conditionClause = "";
+
+        List<QueryFragment> querySolver = new ArrayList<QueryFragment>();
+
+        //1. Agregando parametro fecha desde
+        querySolver.add(new QueryFragment(fechaDesde != null, "", " o.fechaAlta >= :fechaDesde ", "fechaDesde", fechaDesde));
+
+        //2. Agregando parametro fecha hasta
+        querySolver.add(new QueryFragment(fechaHasta != null, "", " o.fechaAlta <= :fechaHasta ", "fechaHasta", fechaHasta));
+
+        //3. Agregando parametro almacen
+        querySolver.add(new QueryFragment(idAlmacen != null, "", " o.almacen.id = :idAlmacen", "idAlmacen", idAlmacen));
 
         //Arma un fragmento con los diferentes estados...
         if ((estados != null) && (!estados.isEmpty())) {
