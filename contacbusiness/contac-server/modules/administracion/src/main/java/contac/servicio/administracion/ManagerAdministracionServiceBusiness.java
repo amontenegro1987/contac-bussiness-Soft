@@ -19,6 +19,13 @@ import java.util.Set;
 public interface ManagerAdministracionServiceBusiness extends ManagerAdministracionServiceBusinessRemote {
 
     /**
+     * Anular Registro de Almacen
+     */
+
+    public Almacen anularAlmacen(Integer idAlmacen) throws ManagerAdministracionServiceBusinessException, RemoteException;
+
+
+    /**
      * Registra una nueva compania.
      *
      * @param nit,                    numero comercial de la compania
