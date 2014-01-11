@@ -14,6 +14,7 @@ import contac.modelo.eao.companiaEAO.CompaniaEAO;
 import contac.modelo.eao.companiaEAO.CompaniaEAOPersistence;
 import contac.modelo.eao.departamentoEAO.DepartamentoEAO;
 import contac.modelo.eao.departamentoEAO.DepartamentoEAOPersistence;
+import contac.modelo.eao.estadoMovimientoEAO.EstadoMovimientoEAO;
 import contac.modelo.eao.genericEAO.GenericPersistenceEAOException;
 import contac.modelo.eao.genericEAO.PersistenceClassNotFoundException;
 import contac.modelo.eao.monedaEAO.MonedaEAO;
@@ -57,6 +58,7 @@ public class ManagerAdministracionServiceBusinessImpl extends UnicastRemoteObjec
     protected CompaniaEAO companiaEAO;
     protected ClasificadorEAO clasificadorEAO;
     protected AlmacenEAO almacenEAO;
+    protected EstadoMovimientoEAO estadoMovimientoEAO;
     protected ActividadEconomicaEAO actividadEconomicaEAO;
     protected UnidadMedidaEAO unidadMedidaEAO;
     protected BancoEAO bancoEAO;
@@ -163,6 +165,37 @@ public class ManagerAdministracionServiceBusinessImpl extends UnicastRemoteObjec
             throw new ManagerAdministracionServiceBusinessException(e.getMessage(), e);
         }
     }
+
+
+    @Override
+    public Almacen anularAlmacen(Integer idAlmacen) throws ManagerAdministracionServiceBusinessException, RemoteException {
+        logger.debug("Anular almacen con parametros: [idAlmacen]: " + idAlmacen);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLCOMPANIAADMIN.toString());
+        try{
+            //Preparar el contexto de ejecucion
+            Almacen almacen = buscarAlmacenPorId(idAlmacen);
+
+            //<Validar Almacen tiene estado ACTIVO>---
+            if (almacen.getEstatus() == EstadosActivacion.INACTIVO.getValue())
+                throw new ManagerAdministracionServiceBusinessException("El almacen se encuentra inactiva.");
+
+            //<Cambiar estado a INACTIVO>---
+            almacen.setEstatus(EstadosActivacion.INACTIVO.getValue());
+            almacen.setEstatusDesc("INACTIVO");
+
+            //<Persistir cambios>---
+            return almacenEAO.update(almacen);
+
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerAdministracionServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
 
     @Override
     public Compania registrarCompania(String nit, String razonSocial, String nombreComercial, Date fechaConstitucion,
@@ -329,6 +362,29 @@ public class ManagerAdministracionServiceBusinessImpl extends UnicastRemoteObjec
         } catch (GenericPersistenceEAOException e) {
             logger.error(e.getMessage(), e);
             rollbackBusinessService();
+            throw new ManagerAdministracionServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+
+    public Almacen buscarAlmacenPorId(Integer id) throws ManagerAdministracionServiceBusinessException, RemoteException {
+
+        logger.debug("Buscando Almacen con parametros: [id]: " + id);
+
+        //Iniciar servicio de autorizacion
+        boolean transaction = initBusinessService(Roles.ROLSYSTEMADMIN.toString());
+
+        try {
+
+            return this.almacenEAO.findById(id);
+
+        } catch (PersistenceClassNotFoundException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerAdministracionServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
             throw new ManagerAdministracionServiceBusinessException(e.getMessage(), e);
         } finally {
             stopBusinessService(transaction);

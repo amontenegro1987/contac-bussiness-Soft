@@ -158,6 +158,33 @@ public class AdministraCompaniaController extends BaseController {
         setAlmacenes(almacenesList);
     }
 
+
+    /**
+     * Anular Almacen
+     * @throws Exception, Exception
+     */
+
+    public void anularAlmacen() throws Exception {
+
+        logger.debug("Anular registro de Almacenes");
+
+        try {
+
+            //Obtener manager de administracion
+            ManagerAdministracionServiceBusiness mgr = getMgrAdministracionService();
+
+            //Anulamos registro de Almacen
+            mgr.anularAlmacen(almacen.getId());
+
+        } catch (ManagerAdministracionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
     /**
      * Registrar nueva compania
      * @throws Exception, Exception
@@ -412,6 +439,14 @@ public class AdministraCompaniaController extends BaseController {
 
     public Pais getPais() {
         return pais;
+    }
+
+     public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+        this.almacen = almacen;
     }
 
     public void setPais(Pais pais) {

@@ -19,7 +19,7 @@ public class AlmacenEAOPersistence extends GenericPersistenceEAO<Almacen, Intege
         //Init service
         initService();
 
-        List<Almacen> almacenes = em.createQuery("Select a from Almacen a where a.compania.id = :idCompania").
+        List<Almacen> almacenes = em.createQuery("Select a from Almacen a where a.compania.id = :idCompania and a.estatus = 1").
                 setParameter("idCompania", idCompania).getResultList();
 
         return almacenes;

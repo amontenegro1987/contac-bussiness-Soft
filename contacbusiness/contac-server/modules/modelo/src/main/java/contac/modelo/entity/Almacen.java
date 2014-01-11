@@ -223,7 +223,7 @@ public class Almacen implements Serializable {
      *
      * @return Direccion
      */
-    @OneToOne(cascade = {javax.persistence.CascadeType.ALL}, fetch = javax.persistence.FetchType.LAZY)
+    @OneToOne(cascade = {javax.persistence.CascadeType.ALL}, fetch = javax.persistence.FetchType.EAGER)
     @JoinColumn(name = "N_ID_DIRECCION", nullable = false)
     public contac.modelo.entity.Direccion getDireccion() {
         return direccion;
@@ -338,7 +338,7 @@ public class Almacen implements Serializable {
      *
      * @return Integer
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "N_ID_COMPANIA", nullable = false)
     public Compania getCompania() {
         return compania;

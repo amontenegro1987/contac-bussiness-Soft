@@ -5,10 +5,13 @@
 */
 package contac.administracion.compania.app;
 
+import contac.administracion.controller.AdministraAlmacenController;
 import contac.administracion.controller.AdministraCompaniaController;
 import contac.commons.app.BaseController;
 import contac.commons.components.ClasificadorPnl;
 import contac.commons.form.label.JOptionErrorPane;
+import contac.commons.form.label.JOptionMessagePane;
+import contac.commons.models.comboBox.AlmacenComboBoxModel;
 import contac.commons.models.comboBox.ComboBoxEmptySelectionRenderer;
 import contac.internationalization.LanguageLocale;
 import contac.commons.models.comboBox.MonedaComboBoxModel;
@@ -28,9 +31,12 @@ import org.apache.log4j.Logger;
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.text.MessageFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -51,6 +57,7 @@ public class pnlAdmonCompania extends GenericPanel {
 
     //Controller
     private AdministraCompaniaController controller;
+    private AdministraAlmacenController controllerAlmacen;
 
     /**
      * Creates new form AdmonCompaniaPnl
@@ -65,6 +72,7 @@ public class pnlAdmonCompania extends GenericPanel {
 
         //Init controller
         controller = new AdministraCompaniaController();
+        controllerAlmacen = new AdministraAlmacenController();
 
         //Init components
         initComponents();
@@ -564,6 +572,11 @@ public class pnlAdmonCompania extends GenericPanel {
         btnRemoverAlmacen.setMinimumSize(new java.awt.Dimension(40, 28));
         btnRemoverAlmacen.setName(""); // NOI18N
         btnRemoverAlmacen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnRemoverAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverAlmacenActionPerformed(evt);
+            }
+        });
         tbAlmacenes.add(btnRemoverAlmacen);
 
         pnlAlmacenes.add(tbAlmacenes, java.awt.BorderLayout.PAGE_START);
@@ -579,6 +592,37 @@ public class pnlAdmonCompania extends GenericPanel {
         header.setTitleForeground(new java.awt.Color(255, 153, 0));
         add(header, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRemoverAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverAlmacenActionPerformed
+        try{
+            //System.out.println(almacenSelected);
+            //confirmation message
+
+            boolean confirmation = JOptionMessagePane.showConfirmationInfo(null, messageBundle.getString("CONTAC.FORM.MSG.ADVERTENCIA"), MessageFormat.
+                    format(messageBundle.getString("CONTAC.FORM.ALMACEN.ANULARALMACEN.CONFIRMA"),
+                            new Object[]{almacenSelected.getDescripcion()}));
+
+            if(confirmation) {
+
+                //Setting Almacen seleccionado
+                controller.setAlmacen(almacenSelected);
+
+                //Anular Almacen
+                controller.anularAlmacen();
+
+                //Show confirmation message
+                JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.CONFIRMACION"),
+                        messageBundle.getString("CONTAC.FORM.MSG.ANULACION.EXITOSO"));
+
+                //Actualizar listado de articulos ingresados
+                ((BeanTableModel) tblAlmacenes.getModel()).fireTableDataChanged();
+            }
+        } catch (Exception e){
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        }
+
+    }
 
     private void btnAgregarClasificadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClasificadorActionPerformed
 
