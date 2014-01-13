@@ -32,10 +32,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.rmi.RemoteException;
 import java.util.*;
 import java.util.List;
@@ -155,6 +152,10 @@ public class pnlAdmonInventario extends GenericPanel {
         cmbProveedor = new JComboBox();
         cmbAlmacen = new JComboBox();
 
+        chkMostrarCostos = new JCheckBox();
+        chkMostrarCostos.setText(messageBundle.getString("CONTAC.FORM.BTNMOSTRARCOSTOS"));
+        chkMostrarCostos.setSelected(false);
+
         ImageIcon buscarIco = new ImageIcon(getClass().getResource("/contac/resources/icons/search.png"));
         ImageIcon cancelarIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/remove2.png"));
 
@@ -174,8 +175,9 @@ public class pnlAdmonInventario extends GenericPanel {
         searchPanel.add(cmbProveedor, new XYConstraints(130, 89, 200, 23));
         searchPanel.add(lblAlmacen, new XYConstraints(5, 117, 90, 23));
         searchPanel.add(cmbAlmacen, new XYConstraints(130, 117, 200, 23));
-        searchPanel.add(btnBuscar, new XYConstraints(75, 150, 90, 23));
-        searchPanel.add(btnCancelar, new XYConstraints(175, 150, 90, 23));
+        searchPanel.add(chkMostrarCostos, new XYConstraints(130, 145, 200, 23));
+        searchPanel.add(btnBuscar, new XYConstraints(75, 185, 90, 23));
+        searchPanel.add(btnCancelar, new XYConstraints(175, 185, 90, 23));
 
         //*********************************************************************
         //Create Productos Table
@@ -194,18 +196,12 @@ public class pnlAdmonInventario extends GenericPanel {
         btnAnular.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNANULAR"));
         btnAnular.setIcon(anularIco);
 
-        chkMostrarCostos = new JCheckBox();
-        chkMostrarCostos.setText(messageBundle.getString("CONTAC.FORM.BTNMOSTRARCOSTOS"));
-        chkMostrarCostos.setSelected(false);
-
         JPanel productosPanel = new JPanel(new BorderLayout());
         productosPanel.setBorder(BorderFactory.createEtchedBorder());
 
         JToolBar actionToolBar = new JToolBar();
         actionToolBar.setPreferredSize(new Dimension(500, 32));
 
-        actionToolBar.add(chkMostrarCostos);
-        actionToolBar.add(new JToolBar.Separator());
         actionToolBar.add(btnAnular);
         actionToolBar.add(new JToolBar.Separator());
         actionToolBar.add(btnImprimir);
@@ -389,10 +385,11 @@ public class pnlAdmonInventario extends GenericPanel {
             }
         });
 
-        btnImprimir.addActionListener(new ActionListener() {
+        btnImprimir.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                btnImprimirActionPerformed(e);
+            public void mouseClicked(MouseEvent e) {
+                ImprimirPopupMenu menu = new ImprimirPopupMenu();
+                menu.show(e.getComponent(), e.getX(), e.getY());
             }
         });
 
@@ -445,7 +442,60 @@ public class pnlAdmonInventario extends GenericPanel {
      *
      * @param event, ActionEvent
      */
-    private void btnImprimirActionPerformed(ActionEvent event) {
+    private void btnImprimirSolicitudInventarioActionPerformed(ActionEvent event) {
+
+        try {
+
+            //Param codigo desde
+            controller.setCodigoDesde(txtCodigoDesde.getText().equals("") ? "-1" : txtCodigoDesde.getText());
+            controller.setCodigoHasta(txtCodigoHasta.getText().equals("") ? "-1" : txtCodigoHasta.getText());
+            controller.setLinea(cmbLinea.getSelectedIndex() != -1 ?
+                    (Linea) ((LineaComboBoxModel) cmbLinea.getModel()).getSelectedItem().getObject() : null);
+            controller.setAlmacen(cmbAlmacen.getSelectedIndex() != -1 ?
+                    (Almacen) ((AlmacenComboBoxModel) cmbAlmacen.getModel()).getSelectedItem().getObject() : null);
+            controller.setProveedor(cmbProveedor.getSelectedIndex() != -1 ?
+                    (Proveedor) ((ProveedorComboBoxModel) cmbProveedor.getModel()).getSelectedItem().getObject() : null);
+            controller.setExistencias(true);
+
+            // Prepared Jasper Report
+            JasperReport report = (JasperReport) JRLoader.loadObject(pnlAdmonInventario.class
+                        .getResourceAsStream("/contac/inventarios/app/reportes/solicitud_inventario_report.jasper"));
+
+            Map parameters = new HashMap();
+            parameters.put("SUBREPORT_DIR", getClass().getClassLoader().getResource("contac/inventarios/app/reportes") + "/");
+            parameters.put("p_codigo_desde", controller.getCodigoDesde());
+            parameters.put("p_codigo_hasta", controller.getCodigoHasta());
+            parameters.put("p_id_linea", controller.getLinea() != null ? controller.getLinea().getId() : -1);
+            parameters.put("p_codigo_proveedor", controller.getProveedor() != null ? controller.getProveedor().getCodigo() : -1);
+            parameters.put("p_id_almacen", controller.getAlmacen() != null ? controller.getAlmacen().getId() : -1);
+
+            //Generate Report
+            JasperPrint jasperPrint = controller.getMgrReportesService().generateReport(parameters, report);
+
+            //Print Report Preview
+            JRPrintReport.printPreviewReport(getMDI(), jasperPrint);
+
+        } catch (JRException e) {
+            logger.error(e.getMessage(), e);
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        }
+    }
+
+    /**
+     * Print Inventory Report
+     *
+     * @param event, ActionEvent
+     */
+    private void btnImprimirExistenciasActionPerformed(ActionEvent event) {
 
         try {
 
@@ -541,6 +591,64 @@ public class pnlAdmonInventario extends GenericPanel {
             JOptionErrorPane.showMessageError(null, messageBundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.ERROR.REGISTRO"),
                     e.getMessage());
         }
+    }
+
+    /**
+     * Imprimir Popup Menu
+     */
+    public class ImprimirPopupMenu extends JPopupMenu {
+
+        /**
+         * Menu Reporte Existencias
+         */
+        JMenuItem mnuReporteExistencias;
+
+        /**
+         * Menu Reporte Solicitud Inventario
+         */
+        JMenuItem mnuReporteSolicitudInventario;
+
+        /**
+         * Imprimir Popup Menu Constructor
+         */
+        public ImprimirPopupMenu() {
+
+            ImageIcon mnuIcon_existencias = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/print.png"));
+            ImageIcon mnuIcon_inventario = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/print.png"));
+
+            mnuReporteExistencias = new JMenuItem(messageBundle.getString("CONTAC.FORM.MNUREPORTEEXISTENCIAS"));
+            mnuReporteExistencias.setIcon(mnuIcon_existencias);
+
+            mnuReporteSolicitudInventario = new JMenuItem(messageBundle.getString("CONTAC.FORM.MNUREPORTEINVENTARIO"));
+            mnuReporteSolicitudInventario.setIcon(mnuIcon_inventario);
+
+            add(mnuReporteExistencias);
+            add(mnuReporteSolicitudInventario);
+
+            //Init Components Listeners
+            initComponentsListeners();
+        }
+
+        /**
+         * Init Components Listeners
+         */
+        public void initComponentsListeners() {
+
+            mnuReporteExistencias.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    btnImprimirExistenciasActionPerformed(e);
+                }
+            });
+
+            mnuReporteSolicitudInventario.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    btnImprimirSolicitudInventarioActionPerformed(e);
+                }
+            });
+        }
+
     }
 
 }
