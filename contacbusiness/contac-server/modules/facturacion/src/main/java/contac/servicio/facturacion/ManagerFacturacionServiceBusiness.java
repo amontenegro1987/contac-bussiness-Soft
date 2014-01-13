@@ -342,7 +342,7 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
                                                       Integer idTipoFactura) throws ManagerFacturacionServiceBusinessException,
             RemoteException;
 
-    /**
+        /**
      * Buscar facturas comerciales por rangos de fecha
      *
      * @param fechaDesde,    Fecha desde

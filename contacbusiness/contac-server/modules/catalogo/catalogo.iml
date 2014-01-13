@@ -45,10 +45,13 @@
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.14" level="project" />
     <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2.1" level="project" />
-    <orderEntry type="library" name="Maven: jasperreports:jasperreports:4.5.0" level="project" />
-    <orderEntry type="library" name="Maven: jasperreports:jasperreports-applet:4.5.0" level="project" />
-    <orderEntry type="library" name="Maven: jasperreports:jasperreports-fonts:4.5.0" level="project" />
-    <orderEntry type="library" name="Maven: jasperreports:jasperreports-javaflow:4.5.0" level="project" />
+    <orderEntry type="library" name="Maven: commons-digester:commons-digester:2.1" level="project" />
+    <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.8.3" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-all:2.0.4" level="project" />
+    <orderEntry type="library" name="Maven: jasperreports:jasperreports:5.0.4" level="project" />
+    <orderEntry type="library" name="Maven: jasperreports:jasperreports-fonts:5.0.4" level="project" />
+    <orderEntry type="library" name="Maven: jfree:jcommon:1.0.17" level="project" />
+    <orderEntry type="library" name="Maven: jasperreports:iText:2.1.7" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-commons-annotations:3.2.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.5.8" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-validator:4.3.0.Final" level="project" />

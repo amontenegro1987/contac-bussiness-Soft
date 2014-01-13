@@ -32,6 +32,17 @@ public interface ProductoEAO extends GenericEAO<Producto, Integer> {
     public List<Producto> find(String codigo, String nombre, String codigoFabricante) throws PersistenceClassNotFoundException,
             GenericPersistenceEAOException;
 
+
+    /**
+     * Buscar productos con parametros
+     *
+     * @param idAlmacen
+     * @return List
+     * @throws GenericPersistenceEAOException,
+     *          Exception
+     */
+    public List<Producto> findByAlmacen(Integer idAlmacen) throws GenericPersistenceEAOException;
+
     /**
      * Buscar productos con parametros
      *

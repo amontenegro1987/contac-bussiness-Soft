@@ -7,10 +7,12 @@ import contac.commons.form.navigation.Navigation;
 import contac.modelo.entity.*;
 import contac.servicio.administracion.ManagerAdministracionServiceBusiness;
 import contac.servicio.administracion.ManagerAdministracionServiceBusinessException;
+import contac.servicio.catalogo.ManagerProductoServiceBusinessException;
 import org.apache.log4j.Logger;
 import org.jdesktop.swingx.renderer.ListCellContext;
 
 import javax.swing.*;
+import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.util.*;
 
@@ -46,6 +48,7 @@ public class AdministraCompaniaController extends BaseController {
     private String telefonoOficina;
     private String telefonoMovil;
     private String fax;
+    private boolean existencias;
     //private Direccion direccion;
     private Moneda moneda;
     private TiposPersona tipoPersona;
@@ -156,6 +159,53 @@ public class AdministraCompaniaController extends BaseController {
         List<Almacen> almacenesList = new ArrayList<Almacen>();
         almacenesList.addAll(this.compania.getAlmacenes());
         setAlmacenes(almacenesList);
+    }
+
+
+    /**
+     * Validar Existencias en Almacen
+     *
+     * @throws Exception, Exception
+     */
+    public void validarExistenciasAlmacen() throws Exception {
+        try {
+
+            //Obtener listado de productos
+            List<Producto> productos = getMgrProductosService().buscarExistenciasPorAlmacen(almacen.getId());
+            if(!productos.isEmpty()){
+                throw new Exception("Este almacen tiene productos con Existencias!.");
+            }
+
+        } catch (ManagerProductoServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Anular Almacen
+     * @throws Exception, Exception
+     */
+
+    public void anularAlmacen() throws Exception {
+
+        logger.debug("Anular registro de Almacenes");
+
+        try {
+
+            //Obtener manager de administracion
+            ManagerAdministracionServiceBusiness mgr = getMgrAdministracionService();
+
+            //Anulamos registro de Almacen
+            mgr.anularAlmacen(almacen.getId());
+
+        } catch (ManagerAdministracionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
     }
 
     /**
@@ -414,6 +464,14 @@ public class AdministraCompaniaController extends BaseController {
         return pais;
     }
 
+     public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+        this.almacen = almacen;
+    }
+
     public void setPais(Pais pais) {
         this.pais = pais;
     }
@@ -424,6 +482,13 @@ public class AdministraCompaniaController extends BaseController {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+    public boolean isExistencias() {
+        return existencias;
+    }
+
+    public void setExistencias(boolean existencias) {
+        this.existencias = existencias;
     }
 
     public String getCiudad() {
