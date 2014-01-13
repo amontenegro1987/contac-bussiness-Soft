@@ -26,4 +26,5 @@ public class CompaniaNoEncontradaException extends ManagerAdministracionServiceB
         super("No se encontro Compania con criterio " + criterio);
     }
 
+
 }

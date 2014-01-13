@@ -46,6 +46,17 @@ public interface ManagerProductoServiceBusiness extends ManagerProductoServiceBu
             RemoteException;
 
     /**
+     * Buscar producto por Almacen
+     * @param idAlmacen,    Codigo de Almacen
+     * @return List
+     * @throws ManagerProductoServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public List<Producto> buscarExistenciasPorAlmacen(Integer idAlmacen) throws ManagerProductoServiceBusinessException,
+            RemoteException;
+
+    /**
      * Buscar producto por parametros
      *
      * @param codigoDesde,  Codigo desde

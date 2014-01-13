@@ -179,7 +179,7 @@ public class ManagerAdministracionServiceBusinessImpl extends UnicastRemoteObjec
 
             //<Validar Almacen tiene estado ACTIVO>---
             if (almacen.getEstatus() == EstadosActivacion.INACTIVO.getValue())
-                throw new ManagerAdministracionServiceBusinessException("El almacen se encuentra inactiva.");
+                throw new ManagerAdministracionServiceBusinessException("El Almacen se encuentra en Estado Inactivo.");
 
             //<Cambiar estado a INACTIVO>---
             almacen.setEstatus(EstadosActivacion.INACTIVO.getValue());
