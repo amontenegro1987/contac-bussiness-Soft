@@ -67,6 +67,96 @@ public class ProductoEAOPersistence extends GenericPersistenceEAO<Producto, Inte
     }
 
     @Override
+    public List<Producto> findByAlmacen(Integer idAlmacen) throws GenericPersistenceEAOException {
+
+        //Init service
+        initService();
+
+        final Integer p_id_almacen = idAlmacen;
+
+        final List<Producto> productos = new ArrayList<Producto>();
+
+        Session session = em.unwrap(Session.class);
+        session.doWork(new Work() {
+            @Override
+            public void execute(Connection connection) throws SQLException {
+
+                StringBuffer query = new StringBuffer();
+                query.append("select prod.N_ID, prod.C_CODIGO, prod.C_NOMBRE, prod.C_CODIGOFABRICANTE, ");
+                query.append("sum(mov_inventario.N_CANTIDAD * mov_inventario.N_AFECTACION) as EXISTENCIA, sum(prod_existencia.N_CANTIDAD) as PROD_EXISTENCIA, ");
+                query.append("unidadmed.C_NOMBRE, prod.N_COSTOFOB, prod.N_COSTOPROM, prod.N_COSTOUND, prod.N_PRECIOESTANDAR ");
+                query.append("FROM INV_PRODUCTO as prod left join INV_MOV_INVENTARIO as mov_inventario ");
+                query.append("on prod.N_ID = mov_inventario.N_ID_PRODUCTO ");
+                query.append("left join INV_ESTADO_MOVIMIENTO as estado ");
+                query.append("on mov_inventario.N_ID_ESTADO = estado.N_ID ");
+                query.append("left join INV_ALMACEN as almacen_mov on mov_inventario.N_ID_ALMACEN = almacen_mov.N_ID ");
+                query.append("left join INV_PRODUCTOEXISTENCIA as prod_existencia ");
+                query.append("on prod.N_ID = prod_existencia.N_ID_PRODUCTO ");
+                query.append("left join INV_ALMACEN as almacen_prod on prod_existencia.N_ID_ALMACEN = almacen_prod.N_ID ");
+                query.append("inner join INV_UNIDADMEDIDA as unidadmed on prod.N_ID_UNIDADMEDIDA = unidadmed.N_ID ");
+                query.append("inner join INV_LINEA as linea on prod.N_ID_LINEA = linea.N_ID ");
+                query.append("inner join CMP_PROVEEDOR proveedor ON prod.N_ID_PROVEEDOR = proveedor.N_ID ");
+
+                if (p_id_almacen > 0) {
+                    query.append("where (almacen_mov.N_ID = ? OR almacen_mov.N_ID= ?) ");
+                }
+
+                query.append("group by prod.N_ID, prod.C_CODIGO, prod.C_NOMBRE, prod.C_CODIGOFABRICANTE ");
+                query.append("HAVING EXISTENCIA > 0 ");
+                query.append("order by prod.C_CODIGO ");
+
+                PreparedStatement pstmt = connection.prepareStatement(query.toString());
+
+                if (p_id_almacen > 0) {
+                    pstmt.setInt(1, p_id_almacen);
+                    pstmt.setInt(2, p_id_almacen);
+                }
+
+                ResultSet rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    Producto producto = new Producto();
+                    producto.setId(rs.getInt("N_ID"));
+                    producto.setCodigo(rs.getString("C_CODIGO"));
+                    producto.setNombre(rs.getString("C_NOMBRE"));
+                    producto.setCodigoFabricante(rs.getString("C_CODIGOFABRICANTE"));
+                    producto.setCostoFOB(rs.getBigDecimal("N_COSTOFOB"));
+                    producto.setCostoPROM(rs.getBigDecimal("N_COSTOPROM"));
+                    producto.setCostoUND(rs.getBigDecimal("N_COSTOUND"));
+                    producto.setPrecioESTANDAR(rs.getBigDecimal("N_PRECIOESTANDAR"));
+
+                    UnidadMedida unidadMedida = new UnidadMedida();
+                    unidadMedida.setNombre(rs.getString("C_NOMBRE"));
+                    producto.setUnidadMedida(unidadMedida);
+
+                    //Calcular existencia
+                    long existencia = rs.getLong("EXISTENCIA");
+
+                    if (rs.getLong("PROD_EXISTENCIA") > 0) {
+                        existencia += rs.getLong("PROD_EXISTENCIA");
+                    }
+
+                    ProductoExistencia prodExistencia = new ProductoExistencia();
+                    prodExistencia.setExistencia(existencia);
+
+                    Set<ProductoExistencia> existencias = new HashSet<ProductoExistencia>();
+                    existencias.add(prodExistencia);
+
+                    producto.setExistencias(existencias);
+
+                    //Agregando producto al listado
+                    productos.add(producto);
+                }
+
+            }
+        });
+
+        return productos;
+
+    }
+
+
+    @Override
     public List<Producto> find(String codigoDesde, String codigoHasta, Integer idLinea, Integer idAlmacen,
                                Long codigoProveedor) throws GenericPersistenceEAOException {
 

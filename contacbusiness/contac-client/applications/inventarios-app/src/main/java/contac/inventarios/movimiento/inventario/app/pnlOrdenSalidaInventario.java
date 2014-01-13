@@ -515,7 +515,7 @@ public class pnlOrdenSalidaInventario extends GenericPanel {
                     txtCodigo.requestFocusInWindow();
                 } else {
                     //Show error message
-                    JOptionErrorPane.showMessageError(null, messageBundle.getString("CONTAC.FORM.ORDENENTRADA.CANTIDAD.VALIDA"),
+                    JOptionErrorPane.showMessageError(null, messageBundle.getString("CONTAC.FORM.ORDENgENTRADA.CANTIDAD.VALIDA"),
                             messageBundle.getString("CONTAC.FORM.ORDENENTRADA.CANTIDAD.VALIDA"));
                     //Request focus in window
                     txtCantidad.requestFocusInWindow();

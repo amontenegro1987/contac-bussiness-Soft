@@ -7,10 +7,12 @@ import contac.commons.form.navigation.Navigation;
 import contac.modelo.entity.*;
 import contac.servicio.administracion.ManagerAdministracionServiceBusiness;
 import contac.servicio.administracion.ManagerAdministracionServiceBusinessException;
+import contac.servicio.catalogo.ManagerProductoServiceBusinessException;
 import org.apache.log4j.Logger;
 import org.jdesktop.swingx.renderer.ListCellContext;
 
 import javax.swing.*;
+import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.util.*;
 
@@ -46,6 +48,7 @@ public class AdministraCompaniaController extends BaseController {
     private String telefonoOficina;
     private String telefonoMovil;
     private String fax;
+    private boolean existencias;
     //private Direccion direccion;
     private Moneda moneda;
     private TiposPersona tipoPersona;
@@ -158,6 +161,26 @@ public class AdministraCompaniaController extends BaseController {
         setAlmacenes(almacenesList);
     }
 
+
+    /**
+     * Validar Existencias en Almacen
+     *
+     * @throws Exception, Exception
+     */
+    public void validarExistenciasAlmacen() throws Exception {
+        try {
+
+            //Obtener listado de productos
+            List<Producto> productos = getMgrProductosService().buscarExistenciasPorAlmacen(almacen.getId());
+            if(!productos.isEmpty()){
+                throw new Exception("Este almacen tiene productos con Existencias!.");
+            }
+
+        } catch (ManagerProductoServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
 
     /**
      * Anular Almacen
@@ -459,6 +482,13 @@ public class AdministraCompaniaController extends BaseController {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+    public boolean isExistencias() {
+        return existencias;
+    }
+
+    public void setExistencias(boolean existencias) {
+        this.existencias = existencias;
     }
 
     public String getCiudad() {

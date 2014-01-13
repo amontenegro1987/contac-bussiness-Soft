@@ -91,6 +91,12 @@ public abstract class InventarioBaseController extends BaseController {
     }
 
     /**
+     * Buscar Existencias por Almacen
+     *
+     * @throws Exception, Existencia
+     */
+
+    /**
      * Buscar producto existencias
      *
      * @param codigo, String

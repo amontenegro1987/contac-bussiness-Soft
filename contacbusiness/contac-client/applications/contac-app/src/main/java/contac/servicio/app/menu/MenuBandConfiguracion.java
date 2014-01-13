@@ -73,7 +73,7 @@ public class MenuBandConfiguracion extends MenuBand {
         menuUsuarios.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 style.addPanel("AdministraUsuarios", "contac.administracion.usuario.app.pnlAdmonUsuario");
-            }
+         }
         });
 
         //Add menu to position

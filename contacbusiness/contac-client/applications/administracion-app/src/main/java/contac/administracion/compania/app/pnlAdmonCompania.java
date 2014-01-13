@@ -593,18 +593,22 @@ public class pnlAdmonCompania extends GenericPanel {
         add(header, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void btnRemoverAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverAlmacenActionPerformed
         try{
-            //System.out.println(almacenSelected);
-            //confirmation message
+            controller.setAlmacen(almacenSelected);
+            controller.validarExistenciasAlmacen();
+
+            // Si no ha seleccionado ningun almacen a inactivar
+            if (almacenSelected == null) {
+                throw new Exception(messageBundle.getString("CONTAC.FORM.ALMACEN.VALIDA.INACTIVACION"));
+            }
 
             boolean confirmation = JOptionMessagePane.showConfirmationInfo(null, messageBundle.getString("CONTAC.FORM.MSG.ADVERTENCIA"), MessageFormat.
                     format(messageBundle.getString("CONTAC.FORM.ALMACEN.ANULARALMACEN.CONFIRMA"),
                             new Object[]{almacenSelected.getDescripcion()}));
 
             if(confirmation) {
-
-                //Setting Almacen seleccionado
                 controller.setAlmacen(almacenSelected);
 
                 //Anular Almacen
@@ -1170,7 +1174,7 @@ public class pnlAdmonCompania extends GenericPanel {
         });
     }
 
-    //<Valida datos del formulario>
+   //<Valida datos del formulario>
     private void validaDatosForm() throws Exception {
 
         //Nombre Comercial
