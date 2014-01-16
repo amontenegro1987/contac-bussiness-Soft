@@ -209,6 +209,32 @@ public class AdministraCompaniaController extends BaseController {
     }
 
     /**
+     * Activar Almacen
+     * @throws Exception, Exception
+     */
+
+    public void activarAlmacen() throws Exception {
+
+        logger.debug("Activar registro de Almacenes");
+
+        try {
+
+            //Obtener manager de administracion
+            ManagerAdministracionServiceBusiness mgr = getMgrAdministracionService();
+
+            //Anulamos registro de Almacen
+            mgr.activarAlmacen(almacen.getId());
+
+        } catch (ManagerAdministracionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
+    /**
      * Registrar nueva compania
      * @throws Exception, Exception
      */
