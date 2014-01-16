@@ -196,6 +196,35 @@ public class ManagerAdministracionServiceBusinessImpl extends UnicastRemoteObjec
         }
     }
 
+    @Override
+    public Almacen activarAlmacen(Integer idAlmacen) throws ManagerAdministracionServiceBusinessException, RemoteException {
+        logger.debug("Activar almacen con parametros: [idAlmacen]: " + idAlmacen);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLCOMPANIAADMIN.toString());
+        try{
+            //Preparar el contexto de ejecucion
+            Almacen almacen = buscarAlmacenPorId(idAlmacen);
+
+            //<Validar Almacen tiene estado INACTIVO>---
+            if (almacen.getEstatus() == EstadosActivacion.ACTIVO.getValue())
+                throw new ManagerAdministracionServiceBusinessException("El Almacen se encuentra en Estado ACTIVO.");
+
+            //<Cambiar estado a ACTIVO>---
+            almacen.setEstatus(EstadosActivacion.ACTIVO.getValue());
+            almacen.setEstatusDesc("ACTIVO");
+
+            //<Persistir cambios>---
+            return almacenEAO.update(almacen);
+
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerAdministracionServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
 
     @Override
     public Compania registrarCompania(String nit, String razonSocial, String nombreComercial, Date fechaConstitucion,
