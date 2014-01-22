@@ -99,7 +99,7 @@ public class MenuBandFacturacion extends MenuBand {
                 style.addPanel("proformaClientes", "contac.facturacion.app.pnlProformaCliente");
             }
         });
-
+         /*
         //DEVOLUCIONES
         JCommandButton mnuDevoluciones = new JCommandButton(LabelMessage.getInstance().getLabel("CONTAC.SUBMENU.FACTURACION.DEVOLUCIONES"),
                 ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/images/payment_back_256x32.png"), new Dimension(32, 32)));
@@ -110,7 +110,7 @@ public class MenuBandFacturacion extends MenuBand {
                 style.addPanel("Devoluciones", "contac.facturacion.app.pnlFacturaCliente");
             }
         });
-        
+           */
         //AGENTES DE VENTAS
         JCommandButton mnuAgentesVentes = new JCommandButton(LabelMessage.getInstance().getLabel("CONTAC.SUBMENU.FACTURACION.AGENTEVENTAS"),
                 ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/icons/salesman_refresh_256x32.png"), new Dimension(32, 32)));
@@ -133,6 +133,17 @@ public class MenuBandFacturacion extends MenuBand {
             }
         });
 
+        //REPORTES FACTURACION
+        JCommandButton mnuReportes = new JCommandButton(LabelMessage.getInstance().getLabel("CONTAC.SUBMENU.FACTURACION.REPORTES"),
+                ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/icons/LReportes.png"), new Dimension(32, 32)));
+
+        mnuReportes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                style.addPanel("ReportesFacturacion", "contac.facturacion.app.pnlReportesFacturacion");
+            }
+        });
+
         //Start grouping
         startGroup();
 
@@ -140,9 +151,10 @@ public class MenuBandFacturacion extends MenuBand {
         addCommandButton(mnuRegistroFacturas, RibbonElementPriority.TOP);
         addCommandButton(mnuRegistroProformas, RibbonElementPriority.TOP);
         addCommandButton(mnuRegistroProforma, RibbonElementPriority.TOP);
-        addCommandButton(mnuDevoluciones, RibbonElementPriority.TOP);
+        //addCommandButton(mnuDevoluciones, RibbonElementPriority.TOP);
         addCommandButton(mnuAgentesVentes, RibbonElementPriority.TOP);
         addCommandButton(mnuCaja, RibbonElementPriority.TOP);
+        addCommandButton(mnuReportes, RibbonElementPriority.TOP);
 
         //Call resize policies
         resizePolicies();
