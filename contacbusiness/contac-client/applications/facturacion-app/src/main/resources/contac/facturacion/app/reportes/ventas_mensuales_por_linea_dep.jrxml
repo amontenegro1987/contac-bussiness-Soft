@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facturas_report" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="822" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" uuid="890b3d28-27c9-480c-b0fd-96727cd2e07f">
+	<property name="ireport.zoom" value="1.8150000000000004"/>
+	<property name="ireport.x" value="332"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\desarrollo\\Carpeta nueva\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="anyo_busqueda" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT -- fdf.C_CODIGO AS "CODIGO_PRODUCTO",
+       -- YEAR(fdf.D_CTIME) AS "anyo_venta",
+       -- fdf.C_NOMBRE AS "NOMBRE_PRODUCTO",
+       -- fdf.C_UNIDAD_MEDIDA as "unidad_medida",
+       -- sum(fdf.N_CANTIDAD) AS "cantidad",
+       -- sum(fdf.N_PRECIONETO) AS "total",
+       il.c_descripcion,
+       almacen.N_ID_COMPANIA as "idcompania",
+       SUM(IF(month(fdf.d_ctime) = 1,ABS(fdf.N_PRECIONETO),0)) AS "ENERO",
+       SUM(IF(month(fdf.d_ctime) = 2,ABS(fdf.N_PRECIONETO),0)) AS "FEBRERO",
+       SUM(IF(month(fdf.d_ctime) = 3,ABS(fdf.N_PRECIONETO),0)) AS "MARZO",
+       SUM(IF(month(fdf.d_ctime) = 4,ABS(fdf.N_PRECIONETO),0)) AS "ABRIL",
+       SUM(IF(month(fdf.d_ctime) = 5,ABS(fdf.N_PRECIONETO),0)) AS "MAYO",
+       SUM(IF(month(fdf.d_ctime) = 6,ABS(fdf.N_PRECIONETO),0)) AS "JUNIO",
+       SUM(IF(month(fdf.d_ctime) = 7,ABS(fdf.N_PRECIONETO),0)) AS "JULIO",
+       SUM(IF(month(fdf.d_ctime) = 8,ABS(fdf.N_PRECIONETO),0)) AS "AGOSTO",
+       SUM(IF(month(fdf.d_ctime) = 9,ABS(fdf.N_PRECIONETO),0)) AS "SEPTIEMBRE",
+	   SUM(IF(month(fdf.d_ctime) = 10,ABS(fdf.N_PRECIONETO),0)) AS "OCTUBRE",
+	   SUM(IF(month(fdf.d_ctime) = 11,ABS(fdf.N_PRECIONETO),0)) AS "NOVIEMBRE",
+	   SUM(IF(month(fdf.d_ctime) = 12,ABS(fdf.N_PRECIONETO),0)) AS "DICIEMBRE"
+
+FROM FAC_DETALLE_FACTURA fdf
+LEFT JOIN INV_PRODUCTO ip
+ON fdf.N_ID_PRODUCTO = ip.N_ID
+-- left join inv_unidadmedida as um
+-- on ip.n_id_unidadmedida  = um.n_id
+INNER JOIN inv_linea il
+ON ip.n_id_linea = il.n_id
+INNER JOIN fac_factura ff
+ON fdf.N_ID_FACTURA = ff.N_ID
+inner join inv_almacen almacen on
+ff.N_ID_ALMACEN = almacen.N_ID
+WHERE ff.N_ID_ESTADO <> 2
+AND year(fdf.d_ctime) = $P{anyo_busqueda}
+GROUP BY  il.c_descripcion;]]>
+	</queryString>
+	<field name="c_descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idcompania" class="java.lang.Integer"/>
+	<field name="ENERO" class="java.math.BigDecimal"/>
+	<field name="FEBRERO" class="java.math.BigDecimal"/>
+	<field name="MARZO" class="java.math.BigDecimal"/>
+	<field name="ABRIL" class="java.math.BigDecimal"/>
+	<field name="MAYO" class="java.math.BigDecimal"/>
+	<field name="JUNIO" class="java.math.BigDecimal"/>
+	<field name="JULIO" class="java.math.BigDecimal"/>
+	<field name="AGOSTO" class="java.math.BigDecimal"/>
+	<field name="SEPTIEMBRE" class="java.math.BigDecimal"/>
+	<field name="OCTUBRE" class="java.math.BigDecimal"/>
+	<field name="NOVIEMBRE" class="java.math.BigDecimal"/>
+	<field name="DICIEMBRE" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="110" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="71a6a771-d4f2-4e1b-8bbb-92a495a88204" x="544" y="60" width="78" height="15"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Almacén:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a371851b-c858-4ffa-a42e-4f37d62bdb3e" x="625" y="60" width="179" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONSOLIDADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0c19a39d-1c5a-420d-822d-29ee286f3169" x="544" y="45" width="78" height="15"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Año:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="593964cd-a9d5-401c-9a2d-9318701eab9e" x="625" y="45" width="179" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{anyo_busqueda}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement uuid="f841be39-561f-41e7-bc7b-758a119c6684" x="0" y="0" width="524" height="110"/>
+				<subreportParameter name="p_codigo_compania">
+					<subreportParameterExpression><![CDATA[$F{idcompania}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "_facturas_header.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="a6437845-f2be-4111-81ee-8d344ba4dc79" x="544" y="10" width="260" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ventas Mensuales por Línea Deportiva]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="02e53672-421f-4ecd-85a1-3621684317eb" mode="Transparent" x="524" y="0" width="298" height="96"/>
+			</rectangle>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<line>
+				<reportElement uuid="5f51f118-811f-497a-acbe-e11e624fc91b" x="0" y="0" width="822" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="e4066f8a-2f08-480d-9f73-ea1aee8b45f2" x="0" y="1" width="163" height="20"/>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Línea Deportiva]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="bf797c66-677e-4025-bd74-4ffbdf13ae5b" x="0" y="20" width="822" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="68217b6e-c87e-4b6b-9bbc-86399ee341bd" x="163" y="1" width="55" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Enero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="92460b0c-2dc2-4e7d-b7a1-85cea4993240" x="218" y="0" width="55" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Febrero	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0551f52b-e19a-444a-b2ef-e73cf4ff8bdd" x="273" y="0" width="55" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Marzo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="585b8285-3efc-4672-b897-b9264b279f25" x="328" y="0" width="55" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Abril]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cdaf946e-5cc2-4f13-8f8e-142434c1cd61" x="383" y="0" width="55" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mayo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="587aef30-6c0f-41a3-92b5-a1c423cb596a" x="438" y="2" width="55" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Junio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="03209197-fa0d-4f8f-adea-ff401e2e42d6" x="493" y="1" width="55" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Julio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0f1a9da5-8012-40bb-9994-e7b4a6e18e98" x="548" y="0" width="55" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Agosto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a2474ec0-d213-40b2-8581-16d4ce073d98" x="603" y="0" width="55" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Septiembre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a7e3344b-9abd-4c4f-b3f2-d4a88ead2d83" x="658" y="0" width="55" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Octubre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="95850af2-378c-42e8-85d4-d22740c4c1dc" x="713" y="0" width="53" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Noviembre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fa46effe-44a5-4943-8628-e4bbd19fa4b3" x="766" y="0" width="56" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diciembre]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="C$###,###.###">
+				<reportElement uuid="b3a57d6a-8e2a-483c-97a8-cbd5691eb152" x="166" y="0" width="52" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ENERO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="C$###,###.###">
+				<reportElement uuid="653e9d14-4463-4d4c-9165-8939cba98091" x="273" y="0" width="55" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MARZO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="C$###,###.###" isBlankWhenNull="false">
+				<reportElement uuid="fd64091e-1d5b-4f49-a2b7-614375e64452" x="328" y="0" width="55" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ABRIL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="C$###,###.###">
+				<reportElement uuid="68421ef6-946b-49ff-a0a6-aa2bb834ef36" x="383" y="0" width="55" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MAYO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="C$###,###.###">
+				<reportElement uuid="7f427ea0-e7f6-4f59-a675-6a3c2b9b09b3" x="438" y="0" width="55" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{JUNIO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="C$###,###.###">
+				<reportElement uuid="2a1b4ac5-f20b-4afd-8db6-2ebb26317eb0" x="548" y="0" width="55" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AGOSTO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="C$###,###.###">
+				<reportElement uuid="68a43e79-bd6f-44e1-89bb-485a907d59fa" x="603" y="0" width="55" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SEPTIEMBRE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="C$###,###.###">
+				<reportElement uuid="ee93391e-7467-449c-8a7d-3f6531990476" x="658" y="0" width="55" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OCTUBRE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="C$###,###.###">
+				<reportElement uuid="2c1e12f9-79f3-4d39-84d2-c8ab6fe5fe3b" x="713" y="0" width="53" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOVIEMBRE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="C$###,###.###">
+				<reportElement uuid="ba606565-a110-4cb8-89d1-9e3b99a63fe9" x="766" y="0" width="56" height="19"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DICIEMBRE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="C$###,###.###" isBlankWhenNull="false">
+				<reportElement uuid="894c1a15-fbbc-45a6-bff3-6c071de88aed" x="218" y="0" width="55" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FEBRERO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="C$###,###.###">
+				<reportElement uuid="c01b6031-7b09-41ba-82ed-4f0a936e95c7" x="493" y="0" width="55" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{JULIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ec3d6ca5-5bbe-40a3-ac21-134fe3e70523" x="0" y="0" width="163" height="20"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c_descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="18">
+			<textField pattern="MM/dd/yyyy HH.mm.ss">
+				<reportElement uuid="f859ffe8-1aea-41bf-adf4-fb8905b13402" x="722" y="6" width="100" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="eafc5129-75a9-4f15-8bb9-af23e4da6aaa" x="80" y="5" width="40" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3e66a874-47cd-4fc2-979e-2a4a4c8abdd1" x="0" y="5" width="80" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="25">
+			<line>
+				<reportElement uuid="7a7e7d1b-4200-41e6-9133-173861f98851" x="0" y="0" width="822" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement uuid="9e63de35-fda5-40c5-a1fd-9716988a3a85" x="0" y="22" width="822" height="1"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+		</band>
+	</lastPageFooter>
+</jasperReport>
