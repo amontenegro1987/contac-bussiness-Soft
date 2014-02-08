@@ -61,9 +61,32 @@ public class MenuBandProveedores extends MenuBand {
 
         //MENU ORDENES DE COMPRA
         JCommandButton menuOrdenCompra = new JCommandButton(LabelMessage.getInstance().getLabel("CONTAC.SUBMENU.PROVEEDORES.ORDENCOMPRA"),
-                getResizableIconFromResource("contac/servicio/app/images/salesman_refresh_256x32.png", new Dimension(32, 32)));
+                //getResizableIconFromResource("contac/servicio/app/images/salesman_refresh_256x32.png", new Dimension(32, 32)));
+                ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/icons/salesman_refresh_256x32.png"), new Dimension(32, 32)));
 
         menuOrdenCompra.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                style.addPanel("ordenCompra", "contac.administracion.proveedor.app.pnlOrdenCompra");
+            }
+        });
+
+        //MENU REGISTRO ORDENES DE COMPRA
+        JCommandButton mnuRegistroOrdenCompra = new JCommandButton(LabelMessage.getInstance().getLabel("CONTAC.SUBMENU.PROVEEDORES.REGISTROORDENCOMPRA"),
+                //getResizableIconFromResource("contac/servicio/app/images/salesman_refresh_256x32.png", new Dimension(32, 32)));
+                ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/icons/registroOrdenCompra.png"), new Dimension(32, 32)));
+
+        mnuRegistroOrdenCompra.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                style.addPanel("ordenCompra", "contac.administracion.proveedor.app.pnlOrdenCompra");
+            }
+        });
+
+        //MENU RECEPCION DE PRODUCTOS
+        JCommandButton menuRecepcionProductos = new JCommandButton(LabelMessage.getInstance().getLabel("CONTAC.SUBMENU.PROVEEDORES.RECEPCIONPRODUCTOS"),
+                //getResizableIconFromResource("contac/servicio/app/images/salesman_refresh_256x32.png", new Dimension(32, 32)));
+                ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/icons/reciboProducto.png"), new Dimension(32, 32)));
+
+        menuRecepcionProductos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //TODO: Implement code here
             }
@@ -113,7 +136,10 @@ public class MenuBandProveedores extends MenuBand {
         //Add menu to position
         this.addCommandButton(menuRegistroProveedores, RibbonElementPriority.TOP);
         this.addCommandButton(menuBusquedaProveedores, RibbonElementPriority.TOP);
+        //this.addCommandButton(menuRequisicion, RibbonElementPriority.TOP);
         this.addCommandButton(menuOrdenCompra, RibbonElementPriority.TOP);
+        this.addCommandButton(mnuRegistroOrdenCompra, RibbonElementPriority.TOP);
+        this.addCommandButton(menuRecepcionProductos, RibbonElementPriority.TOP);
         this.addCommandButton(menuProveedoresActivos, RibbonElementPriority.TOP);
         this.addCommandButton(menuProveedoresInactivos, RibbonElementPriority.TOP);
         this.addCommandButton(menuCuentasxPagar, RibbonElementPriority.TOP);

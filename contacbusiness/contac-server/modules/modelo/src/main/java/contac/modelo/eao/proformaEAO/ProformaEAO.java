@@ -30,12 +30,12 @@ public interface ProformaEAO extends GenericEAO<Proforma, Integer> {
     public Proforma findByNumero(long noProforma, Integer idAlmacen) throws GenericPersistenceEAOException,
             PersistenceClassNotFoundException;
     /**
-     * Buscar facturas por rangos de fecha
+     * Buscar Proformas por rangos de fecha
      *
      * @param fechaDesde, Fecha desde
      * @param fechaHasta, Fecha hasta
      * @param idAlmacen,  Identificador de almacen
-     * @return List<Factura>
+     * @return List<Proforma>
      * @throws GenericPersistenceEAOException,
      *          Exception
      */

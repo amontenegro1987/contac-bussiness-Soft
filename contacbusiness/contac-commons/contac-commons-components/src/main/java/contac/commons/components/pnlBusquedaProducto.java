@@ -214,7 +214,7 @@ public class pnlBusquedaProducto extends JDialog {
         //****************************************************
         DecimalFormatRenderer decimalFormatRenderer = new DecimalFormatRenderer();
         decimalFormatRenderer.setHorizontalAlignment(JLabel.RIGHT);
-        productoColumnModel.getColumn(3).setCellRenderer(decimalFormatRenderer);
+        productoColumnModel.getColumn(2).setCellRenderer(decimalFormatRenderer);
 
         //****************************************************
         //Ordering table columns
