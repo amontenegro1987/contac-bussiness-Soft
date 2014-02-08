@@ -1,11 +1,10 @@
 package contac.servicio.proveedores;
 
-import contac.modelo.entity.ActividadEconomica;
-import contac.modelo.entity.Direccion;
-import contac.modelo.entity.Proveedor;
+import contac.modelo.entity.*;
 
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -109,6 +108,45 @@ public interface ManagerProveedoresServiceBusiness extends ManagerProveedoresSer
      */
     public void removerProveedor(Integer id) throws ManagerProveedoresServiceBusinessException, RemoteException;
 
+    /**
+     * Buscar listado de articulos OrdenCompra - Hibernate Load producto
+     *
+     * @param idOrdenCompra, Identificador de Orden de Compra
+     * @return List<ArticuloOrdenCompra>
+     * @throws ManagerProveedoresServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    List<ArticuloOrdenCompra> buscarArticulosOrdenCompra(Integer idOrdenCompra) throws ManagerProveedoresServiceBusinessException, RemoteException;
+
+    /**
+     * Crear Orden de Compra a Proveedor
+     *
+     * @param noOrdenCompra         Número de Proforma
+     * @param idProveedor,         Cliente de la Proforma
+     * @param porcIva,           Porcentaje Iva
+     * @param porcRetFuente,     Porcentaje Retención
+     * @param porcRetMunicipal   Porcentaje Retención Municipal
+     * @param tasaCambio         Tasa de Cambio
+     * @param idMoneda           Tipo de Moneda
+     * @param direccionEntrega   Dirección Entrega
+     * @param fechaAlta          Fecha Alta
+     * @param exonerada          Exonerado de impuestos
+     * @param retencionFuente    Retención en la Fuente
+     * @param retencionMunicipal Retención Municipal
+     * @param articulos,         Listado de articulos en proforma
+     * @return OrdenCompra
+     * @throws ManagerProveedoresServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public OrdenCompra crearOrdenCompra(long noOrdenCompra, Integer idProveedor,
+                                  BigDecimal porcDescuento, BigDecimal porcIva,
+                                  BigDecimal porcRetFuente, BigDecimal porcRetMunicipal, BigDecimal tasaCambio,
+                                  String nombreProveedor, Integer idMoneda, Direccion direccionEntrega,
+                                  boolean exonerada, boolean retencionFuente, boolean retencionMunicipal,
+                                  List<ArticuloOrdenCompra> articulos,Date fechaAlta, Date fechaRequerida, String descripcionCompra, String facturaCompraProveedor)
+            throws ManagerProveedoresServiceBusinessException, RemoteException;
 
     /**
      * Valida si un proveedor ya se encuentra registrado
@@ -121,4 +159,7 @@ public interface ManagerProveedoresServiceBusiness extends ManagerProveedoresSer
      */
     public boolean isProveedorParaRegistro(long codigo) throws RemoteException;
 
+
 }
+
+
