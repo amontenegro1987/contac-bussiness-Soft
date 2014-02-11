@@ -372,13 +372,6 @@ public class pnlOrdenCompra extends GenericPanel {
             }
         });
 
-        btnEditarFechaRegistro.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                btnEditarFechaRegistroActionPerformed(e);
-            }
-        });
-
         btnEditarFechaRequerida.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -473,7 +466,7 @@ public class pnlOrdenCompra extends GenericPanel {
         txtNombreProveedor = new JTextField();
         txtNombreProveedor.setEditable(false);
 
-        txtFacturaProveedor = new JTextField();
+        txtReferenciaProveedor = new JTextField();
 
         txtDescripcionCompra = new JTextField();
 
@@ -488,15 +481,19 @@ public class pnlOrdenCompra extends GenericPanel {
 
         JPanel pnlHeaderComp = new JPanel(new XYLayout());
         pnlHeaderComp.add(lblNoRequisicion, new XYConstraints(5, 5, 99, 23));
-        pnlHeaderComp.add(txtNoOrdenCompra, new XYConstraints(105, 5, 160, 23));
-        pnlHeaderComp.add(lblFechaAlta, new XYConstraints(312, 5, 105, 23));
-        pnlHeaderComp.add(dtpFechaAlta, new XYConstraints(420, 5, 160, 23));
-        pnlHeaderComp.add(btnEditarFechaRegistro, new XYConstraints(585, 5, 30, 23));
+        pnlHeaderComp.add(txtNoOrdenCompra, new XYConstraints(105, 5, 100, 23));
+
+        pnlHeaderComp.add(lblFacturaAsociada, new XYConstraints(215, 5, 125, 23));
+        pnlHeaderComp.add(txtReferenciaProveedor, new XYConstraints(350, 5, 230, 23));
+
         pnlHeaderComp.add(lblFechaRequerida, new XYConstraints(630,5,100,23));
         pnlHeaderComp.add(dtpFechaRequerida, new XYConstraints(740,5,165,23));
         pnlHeaderComp.add(btnEditarFechaRequerida, new XYConstraints(915,5,30,23));
-        pnlHeaderComp.add(lblFacturaAsociada, new XYConstraints(955,5,110,23));
-        pnlHeaderComp.add(txtFacturaProveedor, new XYConstraints(1080,5,155,23));
+
+        pnlHeaderComp.add(lblFechaAlta, new XYConstraints(955,5,110,23));
+        pnlHeaderComp.add(dtpFechaAlta, new XYConstraints(1030,5,160,23));
+        pnlHeaderComp.add(btnEditarFechaRegistro, new XYConstraints(1204, 5, 30, 23));
+
         pnlHeaderComp.add(lblProveedor, new XYConstraints(5, 33, 90, 23));
         pnlHeaderComp.add(txtCodigoProveedor, new XYConstraints(105, 33, 100, 23));
         pnlHeaderComp.add(txtNombreProveedor, new XYConstraints(210, 33, 370, 23));
@@ -749,24 +746,6 @@ public class pnlOrdenCompra extends GenericPanel {
 
     }//GEN-LAST:event_btnEditarFechaRegistroActionPerformed
 
-    private void btnEditarFechaRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarFechaRegistroActionPerformed
-
-     /*   try {
-
-            //Evaluar si usuario tiene permiso de edicion de fecha de Orden de Compra
-            controller.editarDatosFactura();
-
-            //Habilitar campo de fecha de Orden de Compra
-            dtpFechaAlta.setEnabled(true);
-
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            //Show confirmation message
-            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ADVERTENCIA"),
-                    e.getMessage());
-        }*/
-
-    }//GEN-LAST:event_btnEditarFechaRegistroActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         //Init controller data
@@ -787,7 +766,7 @@ public class pnlOrdenCompra extends GenericPanel {
             controller.setFechaRequerida(dtpFechaRequerida.getDate());
             controller.setProveedor(proveedorSelected);
             controller.setDescripcionCompra(txtDescripcionCompra.getText());
-            controller.setFacturaCompraProveedor(txtFacturaProveedor.getText());
+            controller.setNumeroReferencia(Integer.valueOf((txtReferenciaProveedor.getText())));
             if (tasaCambioSelected != null) {
                 controller.setTasaCambio(tasaCambioSelected.getTasaConversion());
                 controller.setMoneda(tasaCambioSelected.getMonedaConversion());
@@ -840,9 +819,9 @@ public class pnlOrdenCompra extends GenericPanel {
             throw new Exception(messageBundle.getString("CONTAC.FORM.ORDENCOMPRA.VALIDA.FECHAREQUERIDA"));
         }
         //Proveedor
-        if (txtCodigo.getText().equals("") && txtCodigo.getText().equals("")) {
+        if (txtCodigoProveedor.getText().equals("") && txtCodigoProveedor.getText().equals("")) {
             //Request focus
-            txtCodigo.requestFocusInWindow();
+            txtCodigoProveedor.requestFocusInWindow();
             //Throw error message
             throw new Exception(messageBundle.getString("CONTAC.FORM.COMPRA.VALIDA.CLIENTE"));
         }
@@ -876,15 +855,13 @@ public class pnlOrdenCompra extends GenericPanel {
     private javax.swing.JTextField txtDescuento;
     private javax.swing.JTextField txtNoOrdenCompra;
     private javax.swing.JTextField txtNombreProveedor;
-    private javax.swing.JTextField txtFacturaProveedor;
+    private javax.swing.JTextField txtReferenciaProveedor;
     private javax.swing.JTextField txtDescripcionCompra;
     private javax.swing.JTextField txtNombreProducto;
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtSubtotal;
     // End of variables declaration//GEN-END:variables
-
     private Proveedor proveedorSelected;
-    private AgenteVentas agenteVentasSelected;
     private TasaCambio tasaCambioSelected;
     private Producto productoSelected;
     private long renglonSelected;

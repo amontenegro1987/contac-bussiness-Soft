@@ -145,7 +145,7 @@ public interface ManagerProveedoresServiceBusiness extends ManagerProveedoresSer
                                   BigDecimal porcRetFuente, BigDecimal porcRetMunicipal, BigDecimal tasaCambio,
                                   String nombreProveedor, Integer idMoneda, Direccion direccionEntrega,
                                   boolean exonerada, boolean retencionFuente, boolean retencionMunicipal,
-                                  List<ArticuloOrdenCompra> articulos,Date fechaAlta, Date fechaRequerida, String descripcionCompra, String facturaCompraProveedor)
+                                  List<ArticuloOrdenCompra> articulos,Date fechaAlta, Date fechaRequerida, String descripcionCompra, Integer numeroReferencia)
             throws ManagerProveedoresServiceBusinessException, RemoteException;
 
     /**
