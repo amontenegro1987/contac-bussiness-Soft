@@ -375,7 +375,7 @@ public class ManagerProveedoresServiceBusinessImpl extends UnicastRemoteObject i
                                   BigDecimal porcRetFuente, BigDecimal porcRetMunicipal,
                                   BigDecimal tasaCambio,    String nombreProveedor, Integer idMoneda, Direccion direccionEntrega,
                                  boolean exonerada, boolean retencionFuente, boolean retencionMunicipal,
-                                  List<ArticuloOrdenCompra> articulos, Date fechaAlta, Date fechaRequerida, String descripcionCompra, String facturaCompraProveedor)
+                                  List<ArticuloOrdenCompra> articulos, Date fechaAlta, Date fechaRequerida, String descripcionCompra, Integer numeroReferencia)
             throws ManagerProveedoresServiceBusinessException, RemoteException {
          System.out.println("Id Moneda: " + idMoneda);
         logger.debug("Creando Orden de Compra con parametros: [noOrdenCompra]: " + noOrdenCompra  +
@@ -384,7 +384,7 @@ public class ManagerProveedoresServiceBusinessImpl extends UnicastRemoteObject i
                 ", [idMoneda]: " + idMoneda + ", [direccionEntrega]: " +  direccionEntrega +
                 ", [exonerada]: " + exonerada + ", [retencionFuente]" + retencionFuente +
                 ", [retencionMunicipal]: " + retencionMunicipal + "[nombreProveedor]: " + nombreProveedor +
-               ", [tasaCambio]: " + tasaCambio + "[descripcioncompra]: " + descripcionCompra + "[facturaCompraProveedor]: " + facturaCompraProveedor);
+               ", [tasaCambio]: " + tasaCambio + "[descripcioncompra]: " + descripcionCompra + "[facturaCompraProveedor]: " + numeroReferencia);
 
         //Iniciar servicio de autenticacion
         boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
@@ -420,8 +420,7 @@ public class ManagerProveedoresServiceBusinessImpl extends UnicastRemoteObject i
             ordenCompra.setMoneda(moneda);
             ordenCompra.setProveedor(proveedor);
             ordenCompra.setDescripcionCompra(descripcionCompra);
-            ordenCompra.setFacturaCompraProveedor(facturaCompraProveedor);
-            //ordenCompra.setNombreCliente(cliente.getRazonSocial());
+            ordenCompra.setNumeroReferencia(numeroReferencia);
             ordenCompra.setExonerada(exonerada);
             ordenCompra.setRetencionF(retencionFuente);
             ordenCompra.setRetencionM(retencionMunicipal);

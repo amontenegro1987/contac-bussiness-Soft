@@ -72,7 +72,7 @@ public abstract class DocumentoOrdenCompra implements java.io.Serializable {
      * <!-- end-user-doc -->
      * PROPERTY NAME: descripcionCompra
      */
-    private String facturaCompraProveedor;
+    private Integer numeroReferencia;
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -298,13 +298,13 @@ public abstract class DocumentoOrdenCompra implements java.io.Serializable {
         this.descripcionCompra = descripcionCompra;
     }
 
-    @Column(name = "C_FACTURA_COMPRA_PROVEEDOR", nullable = false)
-    public String getFacturaCompraProveedor() {
-        return facturaCompraProveedor;
+    @Column(name = "NO_REFERENCIA", nullable = false)
+    public Integer getNumeroReferencia() {
+        return numeroReferencia;
     }
 
-    public void setFacturaCompraProveedor(String facturaCompraProveedor) {
-        this.facturaCompraProveedor = facturaCompraProveedor;
+    public void setNumeroReferencia(Integer numeroReferencia) {
+        this.numeroReferencia = numeroReferencia;
     }
 
 

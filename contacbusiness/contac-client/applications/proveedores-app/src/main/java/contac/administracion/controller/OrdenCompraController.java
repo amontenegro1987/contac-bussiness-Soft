@@ -47,7 +47,7 @@ public class OrdenCompraController extends FacturacionBaseController {
     private OrdenCompra ordenCompra;
     private Moneda moneda;
     private String descripcionCompra;
-    private String facturaCompraProveedor;
+    private Integer numeroReferencia;
 
     private BigDecimal porcIVA = new BigDecimal("0.00");
     private BigDecimal porcDescuento = new BigDecimal("0.00");
@@ -141,12 +141,12 @@ public class OrdenCompraController extends FacturacionBaseController {
         this.descripcionCompra = descripcionCompra;
     }
 
-    public String getFacturaCompraProveedor() {
-        return facturaCompraProveedor;
+    public Integer getNumeroReferencia() {
+        return numeroReferencia;
     }
 
-    public void setFacturaCompraProveedor(String facturaCompraProveedor) {
-        this.facturaCompraProveedor = facturaCompraProveedor;
+    public void setNumeroReferencia(Integer numeroReferencia) {
+        this.numeroReferencia = numeroReferencia;
     }
 
     public boolean isExonerada() {
@@ -305,7 +305,7 @@ public class OrdenCompraController extends FacturacionBaseController {
         setProveedor(null);
         setNombreProveedor(VALUE_STRING_NOT_DEFINED);
         setDescripcionCompra(VALUE_STRING_NOT_DEFINED);
-        setFacturaCompraProveedor(VALUE_STRING_NOT_DEFINED);
+        setNumeroReferencia(null);
         setDireccionEntrega(null);
         setArticulos(new ArrayList<ArticuloOrdenCompra>());
         setExonerada(false);
@@ -372,7 +372,7 @@ public class OrdenCompraController extends FacturacionBaseController {
         setProveedor(ordenCompra.getProveedor());
         setNombreProveedor(ordenCompra.getNombreProveedor());
         setDescripcionCompra(ordenCompra.getDescripcionCompra());
-        setFacturaCompraProveedor(ordenCompra.getFacturaCompraProveedor());
+        setNumeroReferencia(ordenCompra.getNumeroReferencia());
         setDireccionEntrega(ordenCompra.getDireccionEntrega());
         setTasaCambio(ordenCompra.getTasaCambio());
         setExonerada(ordenCompra.isExonerada());
@@ -441,7 +441,7 @@ public class OrdenCompraController extends FacturacionBaseController {
             OrdenCompra ordenCompra = mgrProveedores.crearOrdenCompra(getNoOrdenCompra(),getProveedor().getId(),
                     getPorcDescuento(), getPorcIVA(), getPorcRetFuente(),
                     getPorcRetMunicipal(), getTasaCambio(), getNombreProveedor(), getMoneda().getId(), getDireccionEntrega(),
-                    isExonerada(), isRetFuente(), isRetMunicipal(), getArticulos(),getFechaAlta(), getFechaRequerida(), getDescripcionCompra(), getFacturaCompraProveedor());
+                    isExonerada(), isRetFuente(), isRetMunicipal(), getArticulos(),getFechaAlta(), getFechaRequerida(), getDescripcionCompra(), getNumeroReferencia());
 
             setOrdenCompra(ordenCompra);
 
