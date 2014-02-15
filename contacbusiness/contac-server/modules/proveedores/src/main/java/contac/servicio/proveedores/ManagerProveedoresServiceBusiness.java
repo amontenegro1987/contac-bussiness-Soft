@@ -149,6 +149,46 @@ public interface ManagerProveedoresServiceBusiness extends ManagerProveedoresSer
             throws ManagerProveedoresServiceBusinessException, RemoteException;
 
     /**
+     * Modificar Orden de Compra
+     *
+     * @param idOrdenCompra,      Identificador de Orden de Compra a guardar
+     * @param tasaCambio,         Tasa de cambio
+     * @param porcDescuento,      Porcentaje de descuento
+     * @param porcIva,            Porcentaje de Iva
+     * @param porcRetFuente,      Porcentaje de retencion en la fuente
+     * @param porcRetMunicipal,   Porcentaje de retencion municipal
+     * @param fechaAlta,          Fecha alta factura
+     * @param exonerada,          Exonerada
+     * @param retencionFuente,    Retencion en la fuente
+     * @param retencionMunicipal, Retencion municipal
+     * @param articulos,          Listado de articulos
+     * @param fechaRequerida,     Fecha requerida de la compra
+     * @param descripcionCompra,   Descripcion de la Orden de Compra
+     * @param numeroReferencia,    Referencia de la Orden de compra
+     * @return OrdenCompra
+     * @throws ManagerProveedoresServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public OrdenCompra modificarOrdenCompra(Integer idOrdenCompra, BigDecimal tasaCambio, BigDecimal porcDescuento,
+                                        BigDecimal porcIva, BigDecimal porcRetFuente, BigDecimal porcRetMunicipal,
+                                        Date fechaAlta, boolean exonerada, boolean retencionFuente,
+                                        boolean retencionMunicipal, List<ArticuloOrdenCompra> articulos,
+                                        Date fechaRequerida, String descripcionCompra, Integer numeroReferencia)
+            throws ManagerProveedoresServiceBusinessException, RemoteException;
+
+      /**
+     * Buscar ordenes de compra
+     *
+     * @return List
+     * @throws ManagerProveedoresServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public List<OrdenCompra> buscarOrdenesComprasPorFechasRegistro(Date fechaDesde, Date fechaHasta) throws ManagerProveedoresServiceBusinessException,
+            RemoteException;
+
+    /**
      * Valida si un proveedor ya se encuentra registrado
      *
      * @param codigo, long

@@ -307,7 +307,7 @@ public class ProformaClienteController extends FacturacionBaseController {
         set_edit(false);
 
         setNoProforma(VALUE_INT_NOT_DEFINED);
-        setCorreo(null);
+        //setCorreo(null);
         setTasaCambio(null);
         setCliente(null);
         setNombreCliente(VALUE_STRING_NOT_DEFINED);

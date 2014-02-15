@@ -8,6 +8,8 @@ import contac.modelo.eao.monedaEAO.MonedaEAOPersistence;
 import contac.modelo.eao.genericEAO.PersistenceClassNotFoundException;
 import contac.modelo.eao.ordenCompraEAO.OrdenCompraEAO;
 import contac.modelo.eao.ordenCompraEAO.OrdenCompraEAOPersistence;
+import contac.modelo.eao.articuloOrdenCompraEAO.ArticuloOrdenCompraEAO;
+import contac.modelo.eao.articuloOrdenCompraEAO.ArticuloOrdenCompraEAOPersistence;
 import contac.modelo.eao.proveedorEAO.ProveedorEAO;
 import contac.modelo.eao.proveedorEAO.ProveedorEAOPersistence;
 import contac.modelo.eao.estadoMovimientoEAO.EstadoMovimientoEAO;
@@ -15,15 +17,14 @@ import contac.modelo.eao.estadoMovimientoEAO.EstadoMovimientoEAOPersistence;
 import contac.modelo.entity.*;
 import contac.servicio.seguridad.ManagerAutorizacionServiceBusiness;
 import contac.servicio.seguridad.ManagerAutorizacionServiceBusinessException;
+import contac.servicio.seguridad.ManagerSeguridadServiceBusinessException;
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * ManagerProveedoresServiceBusinessImpl . Implementa todas las operaciones soportadas para el proveedor
@@ -44,6 +45,8 @@ public class ManagerProveedoresServiceBusinessImpl extends UnicastRemoteObject i
      * Acceso EAO
      */
     private ProveedorEAO proveedorEAO;
+
+    protected ArticuloOrdenCompraEAO articuloOrdenCompraEAO;
 
     /**
      * Acceso al Manager Autorizacion Service
@@ -75,6 +78,8 @@ public class ManagerProveedoresServiceBusinessImpl extends UnicastRemoteObject i
         ordenCompraEAO = new OrdenCompraEAOPersistence();
         monedaEAO = new MonedaEAOPersistence();
         estadoMovimientoEAO = new EstadoMovimientoEAOPersistence();
+        articuloOrdenCompraEAO = new ArticuloOrdenCompraEAOPersistence();
+
     }
 
     /**
@@ -366,7 +371,30 @@ public class ManagerProveedoresServiceBusinessImpl extends UnicastRemoteObject i
 
     @Override
     public List<ArticuloOrdenCompra> buscarArticulosOrdenCompra(Integer idOrdenCompra) throws ManagerProveedoresServiceBusinessException, RemoteException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        logger.debug("Buscando articulos de Orden de Compra con parametros: [IDORDENCOMPRA]: " + idOrdenCompra);
+
+        //Iniciar servicio de autorizacion
+        boolean transaction = initBusinessService(Roles.ROLPROVEEDORADMIN.toString());
+
+        try {
+
+            //Search factura a cliente
+            OrdenCompra ordenCompra = ordenCompraEAO.findById(idOrdenCompra);
+
+            for (ArticuloOrdenCompra articulo : ordenCompra.getArticulos()) {
+                Hibernate.initialize(articulo.getProducto());
+                Hibernate.initialize(articulo.getProducto().getUnidadMedida());
+            }
+
+            return new ArrayList<ArticuloOrdenCompra>(ordenCompra.getArticulos());
+
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerProveedoresServiceBusinessException(e.getMessage(), e);
+        }  finally {
+            stopBusinessService(transaction);
+        }
+
     }
 
     @Override
@@ -518,6 +546,163 @@ public class ManagerProveedoresServiceBusinessImpl extends UnicastRemoteObject i
         }
     }
 
+    @Override
+    public OrdenCompra modificarOrdenCompra(Integer idOrdenCompra, BigDecimal tasaCambio, BigDecimal porcDescuento,
+                                      BigDecimal porcIva, BigDecimal porcRetFuente, BigDecimal porcRetMunicipal, Date fechaAlta,
+                                      boolean exonerada, boolean retencionFuente, boolean retencionMunicipal, List<ArticuloOrdenCompra> articulos,
+                                      Date fechaRequerida, String descripcionCompra, Integer numeroReferencia)
+            throws ManagerProveedoresServiceBusinessException, RemoteException {
+
+        logger.debug("Modificar Orden de Compra con parámetros: [idOrdenCompra]: " + idOrdenCompra + ", [tasaCambio]: " + tasaCambio +
+                ", [porcDescuento]: " + porcDescuento + ", [porcIva]: " +
+                ", [porcRetFuente]: " + porcRetFuente + ", [porcRetMunicipal]: " + porcRetMunicipal + ", [fechaAlta]: " + fechaAlta +
+                ", [exonerada]: " + exonerada + ", [retencionFuente]: " + retencionFuente + ", [retencionMunicipal]: " + retencionMunicipal +
+                ", [fechaRequerida]: " + fechaRequerida + ", [descripcionCompra]: " + descripcionCompra + ", [numeroReferencia] " + numeroReferencia);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
+
+        try{
+
+            //Preparar el contexto de ejecucion
+            OrdenCompra ordenCompra = ordenCompraEAO.findById(idOrdenCompra);
+
+            if(!ordenCompra.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado()))
+                throw new ManagerProveedoresServiceBusinessException("El estado de la Orden de Compra no es consistente para poder modificar");
+
+            if(articulos.isEmpty())
+                throw new ManagerProveedoresServiceBusinessException("Debes ingresar al menos un articulo");
+
+            ordenCompra.setTasaCambio(tasaCambio);
+            ordenCompra.setPorcDescuento(porcDescuento);
+            ordenCompra.setPorcIVA(porcIva);
+            ordenCompra.setPorcRetFuente(porcRetFuente);
+            ordenCompra.setPorcRetMunicipal(porcRetMunicipal);
+            ordenCompra.setFechaAlta(fechaAlta);
+            ordenCompra.setExonerada(exonerada);
+            ordenCompra.setRetencionF(retencionFuente);
+            ordenCompra.setRetencionM(retencionMunicipal);
+            ordenCompra.setFechaRequerida(fechaRequerida);
+            ordenCompra.setDescripcionCompra(descripcionCompra);
+            ordenCompra.setNumeroReferencia(numeroReferencia);
+
+
+            //<Persistir Articulos de Orden de Compra
+            BigDecimal montoTotalAntesImpuesto = new BigDecimal("0.00");
+            BigDecimal montoTotalNeto = new BigDecimal("0.00");
+            BigDecimal montoTotalIVA = new BigDecimal("0.00");
+            BigDecimal montoTotalDescuento = new BigDecimal("0.00");
+            BigDecimal montoTotalRetFuente = new BigDecimal("0.00");
+            BigDecimal montoTotalRetMunicipal = new BigDecimal("0.00");
+
+            int renglon = 1;
+
+            for (Iterator it = articulos.iterator(); it.hasNext(); ) {
+                ArticuloOrdenCompra articulo = (ArticuloOrdenCompra) it.next();
+
+                if(articulo.isCreate()){
+
+                    //Borrar articulos con cantidad menor o igual a cero
+                    if(articulo.getCantidad() <= 0){
+                        it.remove();
+                        continue;
+                    }
+
+                    articulo.setOrdenCompra(ordenCompra);
+                    //articulo.setNoOrdenCompra(proforma.getNoOrdenCompra());
+
+                }
+                if(articulo.isUpdate()){
+
+                    //Borrar articulos con cantidad menor o igual a cero
+                    if(articulo.getCantidad() <= 0){
+                        //Remover el articulo si su Id es distinto de nulo
+                        if (articulo.getId() != null)
+                            articuloOrdenCompraEAO.remove(articulo.getId());
+                        it.remove();
+                        continue;
+                    }
+                }
+
+                //*************************************************************************
+                //Acumular montos totales
+                //*************************************************************************
+                montoTotalAntesImpuesto = montoTotalAntesImpuesto.add(articulo.getPrecioAntesImpuesto());
+                montoTotalDescuento = montoTotalDescuento.add(articulo.getDescuento());
+                montoTotalIVA = montoTotalIVA.add(articulo.getIva());
+                montoTotalRetFuente = montoTotalRetFuente.add(articulo.getRetencionFuente());
+                montoTotalRetMunicipal = montoTotalRetMunicipal.add(articulo.getRetencionMunicipal());
+                montoTotalNeto = montoTotalNeto.add(articulo.getPrecioNeto());
+
+                //Actualizar Renglon
+                articulo.setRenglon(renglon);
+                renglon++;
+            }
+            //<Persist articulos Orden de compra>
+            ordenCompra.setMontoBruto(montoTotalAntesImpuesto.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            ordenCompra.setMontoDescuento(montoTotalDescuento.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            ordenCompra.setMontoIVA(montoTotalIVA.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            ordenCompra.setRetencionFuente(montoTotalRetFuente.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            ordenCompra.setRetencionMunicipal(montoTotalRetMunicipal.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            ordenCompra.setMontoNeto(montoTotalNeto.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            ordenCompra.setArticulos(new HashSet<ArticuloOrdenCompra>(articulos));
+
+            ordenCompra = ordenCompraEAO.update(ordenCompra);
+            return ordenCompra;
+
+        } catch(PersistenceClassNotFoundException e){
+            logger.error(e.getMessage(), e);
+            throw new ManagerProveedoresServiceBusinessException(e.getMessage(), e);
+        } catch(GenericPersistenceEAOException e){
+            logger.error(e.getMessage(), e);
+            throw new ManagerProveedoresServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
+    public List<OrdenCompra> buscarOrdenesComprasPorFechasRegistro(Date fechaDesde, Date fechaHasta) throws ManagerProveedoresServiceBusinessException, RemoteException {
+
+        logger.info("Buscar ordenes de compra");
+
+        //Iniciar servicio authentication
+        boolean value = initBusinessService(Roles.ROLPROVEEDORADMIN.toString());
+
+        try {
+            //Validar campos de la busqueda
+            if (fechaDesde == null)
+                throw new ManagerProveedoresServiceBusinessException("Debe seleccionar una fecha desde v\u00e1lida");
+
+            if (fechaHasta == null)
+                throw new ManagerProveedoresServiceBusinessException("Debe seleccionar una fecha hasta v\u00e1lida");
+
+            //Preparar fechas para busquedas
+            GregorianCalendar gc = new GregorianCalendar();
+            gc.setTime(fechaDesde);
+            gc.set(Calendar.HOUR_OF_DAY, 0);
+            gc.set(Calendar.MINUTE, 0);
+            gc.set(Calendar.SECOND, 0);
+            gc.set(Calendar.MILLISECOND, 0);
+            fechaDesde = gc.getTime();
+
+            gc.setTime(fechaHasta);
+            gc.set(Calendar.HOUR_OF_DAY, 0);
+            gc.set(Calendar.MINUTE, 0);
+            gc.set(Calendar.SECOND, 0);
+            gc.set(Calendar.MILLISECOND, 0);
+            fechaHasta = gc.getTime();
+
+
+            return ordenCompraEAO.findByFechas(fechaDesde, fechaHasta);
+
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerProveedoresServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(value);
+        }
+    }
 
     @Override
     public boolean isProveedorParaRegistro(long codigo) throws RemoteException {

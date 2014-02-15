@@ -156,12 +156,15 @@ public interface ManagerInventarioServiceBusiness extends ManagerInventarioServi
      * Buscar Ordenes de traslado por estados
      *
      * @param estados, List
+     * @Param fechaDesde, Date
+     * @Param fechaHasta, Date
+     * @Param idAlmacen, Integer
      * @return List
      * @throws ManagerInventarioServiceBusinessException,
      *                          Exception
      * @throws RemoteException, Exception
      */
-    public List<OrdenTraslado> buscarOrdenesTrasladoPorEstados(List<String> estados) throws ManagerInventarioServiceBusinessException,
+    public List<OrdenTraslado> buscarOrdenesTrasladoPorEstados(List<String> estados, Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws ManagerInventarioServiceBusinessException,
             RemoteException;
 
     /**
@@ -174,7 +177,7 @@ public interface ManagerInventarioServiceBusiness extends ManagerInventarioServi
      *                          Exception
      * @throws RemoteException, Exception
      */
-    public List<OrdenTraslado> buscarOrdenesTrasladoPorRangosFechas(Date fechaInicio, Date fechaFin) throws ManagerInventarioServiceBusinessException,
+    public List<OrdenTraslado> buscarOrdenesTrasladoPorRangosFechas(Date fechaInicio, Date fechaFin, Integer idAlmacen, Integer idAlmacenSalida) throws ManagerInventarioServiceBusinessException,
             RemoteException;
 
     /**

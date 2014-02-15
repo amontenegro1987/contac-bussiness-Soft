@@ -5,6 +5,7 @@
 
 package contac.inventarios.controller;
 
+import com.sun.corba.se.impl.presentation.rmi.ExceptionHandlerImpl;
 import contac.internationalization.LanguageLocale;
 import contac.modelo.entity.*;
 import contac.servicio.inventario.ManagerInventarioServiceBusiness;
@@ -45,6 +46,7 @@ public class OrdenTrasladoController extends InventarioBaseController {
     private String personaRecibe;
     private String descripcion;
     private List<ArticuloTraslado> articulos;
+    private Almacen almacen;
 
     private OrdenTraslado ordenTraslado;
     private List<OrdenTraslado> ordenesTraslado;
@@ -128,6 +130,14 @@ public class OrdenTrasladoController extends InventarioBaseController {
         this.articulos = articulos;
     }
 
+    public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+        this.almacen = almacen;
+    }
+
     public OrdenTraslado getOrdenTraslado() {
         return ordenTraslado;
     }
@@ -181,6 +191,9 @@ public class OrdenTrasladoController extends InventarioBaseController {
             //Cargar listado de almacenes
             setAlmacenes(buscarAlmacenes());
 
+
+            //Setting almacen del usuario
+            setAlmacen(buscarAlmacenUsuario());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
@@ -213,8 +226,20 @@ public class OrdenTrasladoController extends InventarioBaseController {
     public void initRegistroOrdenesTraslado() {
 
         try {
-            //Buscar ordenes de traslado
-            setOrdenesTraslado(buscarOrdenesTraslado());
+            //Setting almacenes registrados
+            setAlmacenes(buscarAlmacenes());
+
+            //Setting almacen del usuario
+            setAlmacen(buscarAlmacenUsuario());
+            if (getAlmacen() == null) {
+                setAlmacen(getAlmacenes().get(0));
+            }
+
+            //Buscar registro de facturas con fecha actual del servidor
+            Date fechaFacturacion = buscarFechaFacturacion();
+
+            setOrdenesTraslado(buscarOrdenesTraslado(fechaFacturacion, fechaFacturacion, almacen.getId()));
+
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
@@ -396,17 +421,24 @@ public class OrdenTrasladoController extends InventarioBaseController {
      * @param fechaHasta, Fecha donde termina la busqueda
      * @throws Exception, Exception
      */
-    public void buscarOrdenesTraslado(Date fechaDesde, Date fechaHasta) throws Exception {
+    public void buscarOrdenesTraslado(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idAlmacenSalida) throws Exception {
 
         logger.debug("Buscando ordenes de traslado por rangos de fecha");
 
         try {
 
+            //Validar que los campos de fechas no sean nulos
+            if (fechaDesde == null)
+                throw new Exception("Debe ingresar una fecha de inicio de busqueda: [fecha desde]");
+
+            if (fechaHasta == null)
+                throw new Exception("Debe ingresar una fecha de fin de busqueda: [fecha hasta]");
+
             //Obtener manager de inventario
             ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
 
             //Buscar ordenes de traslado por rangos de fecha
-            List<OrdenTraslado> ordenesTraslado = mgrInventario.buscarOrdenesTrasladoPorRangosFechas(fechaDesde, fechaHasta);
+            List<OrdenTraslado> ordenesTraslado = mgrInventario.buscarOrdenesTrasladoPorRangosFechas(fechaDesde, fechaHasta, idAlmacen, idAlmacenSalida);
 
             //Setting ordenes de traslado
             getOrdenesTraslado().clear();
@@ -431,11 +463,17 @@ public class OrdenTrasladoController extends InventarioBaseController {
      * @return List
      * @throws Exception, Exception
      */
-    private List<OrdenTraslado> buscarOrdenesTraslado() throws Exception {
+    private List<OrdenTraslado> buscarOrdenesTraslado(Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws Exception {
 
         logger.debug("Buscando ordenes de traslado del periodo");
 
         try {
+            //Validar que los campos de fechas no sean nulos
+            if (fechaDesde == null)
+                throw new Exception("Debe ingresar una fecha de inicio de busqueda: [fecha desde]");
+
+            if (fechaHasta == null)
+                throw new Exception("Debe ingresar una fecha de fin de busqueda: [fecha hasta]");
 
             //Obtener manager de inventario
             ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
@@ -445,7 +483,7 @@ public class OrdenTrasladoController extends InventarioBaseController {
             estados.add(EstadosMovimiento.INGRESADO.getEstado());
 
             //Retornar listado encontrado
-            List<OrdenTraslado> ordenesTraslado = mgrInventario.buscarOrdenesTrasladoPorEstados(estados);
+            List<OrdenTraslado> ordenesTraslado = mgrInventario.buscarOrdenesTrasladoPorEstados(estados, fechaDesde, fechaHasta, idAlmacen);
             if (ordenesTraslado == null) {
                 ordenesTraslado = new ArrayList<OrdenTraslado>();
             }
@@ -461,4 +499,6 @@ public class OrdenTrasladoController extends InventarioBaseController {
         }
 
     }
+
+
 }

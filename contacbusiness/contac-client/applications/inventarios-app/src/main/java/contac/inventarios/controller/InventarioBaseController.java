@@ -16,6 +16,7 @@ import contac.servicio.catalogo.ManagerProductoServiceBusinessException;
 import contac.servicio.facturacion.ManagerFacturacionServiceBusinessException;
 import contac.servicio.inventario.ManagerInventarioServiceBusiness;
 import contac.servicio.inventario.ManagerInventarioServiceBusinessException;
+import contac.servicio.seguridad.ManagerSeguridadServiceBusinessException;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -58,10 +59,31 @@ public abstract class InventarioBaseController extends BaseController {
         this.almacenes = almacenes;
     }
 
+
     //*************************************************************************************
     //PRIVATE METHODS
     //*************************************************************************************
+    /**
+     * Check Permission User by role
+     *
+     * @param roleName, Role Name
+     * @return boolean
+     * @throws Exception, Exception
+     */
+    public boolean checkUserInRole(String roleName) throws Exception {
 
+        logger.debug("Verificando si usuario tiene rol asignado: " + roleName);
+
+        try {
+            return getMgrSeguridadService().isUserInRole(roleName);
+        } catch (ManagerSeguridadServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
     /**
      * Buscar producto por su codigo
      *

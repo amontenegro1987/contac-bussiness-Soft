@@ -4,6 +4,8 @@ import contac.internationalization.LanguageLocale;
 import contac.modelo.entity.*;
 import contac.servicio.facturacion.ManagerFacturacionServiceBusiness;
 import contac.servicio.facturacion.ManagerFacturacionServiceBusinessException;
+import contac.servicio.inventario.ManagerInventarioServiceBusiness;
+import contac.servicio.inventario.ManagerInventarioServiceBusinessException;
 import contac.servicio.proveedores.ManagerProveedoresServiceBusiness;
 import contac.servicio.proveedores.ManagerProveedoresServiceBusinessException;
 import org.apache.log4j.Logger;
@@ -295,7 +297,7 @@ public class OrdenCompraController extends FacturacionBaseController {
     //Init values
     public void init() {
 
-        logger.debug("Iniciando carga de datos Orden de Compra");
+        logger.debug("Iniciando carga de datos controller");
 
         //Editar Orden de Compra
         set_edit(false);
@@ -312,7 +314,7 @@ public class OrdenCompraController extends FacturacionBaseController {
         setRetFuente(false);
         setRetMunicipal(false);
 
-        //Reiniciar valores de factura
+        //Reiniciar valores de Orden de Compra
         porcIVA = new BigDecimal("15.00");
         porcDescuento = new BigDecimal("0.00");
         porcRetFuente = new BigDecimal("0.00");
@@ -396,27 +398,13 @@ public class OrdenCompraController extends FacturacionBaseController {
         }
     }
 
-    /**
-     * Init registros de Orden de Compra
-     *
-     * @throws Exception, Exception
-     */
-    public void initRegistrosOrdenCompra() throws Exception {
-/*
-        //Iniciar registro de Proformas
-        setOrdenCompras(new ArrayList<OrdenCompra>());
+    //Init registros de ordenes de compra
+    public void initRegistrosOrdenesCompra() throws Exception {
 
-        //Setting almacenes registrados
-        setAlmacenes(buscarAlmacenes());
-
-        //Setting almacen del usuario
-        setAlmacen(buscarAlmacenUsuario());
-
-        //Buscar registro de Proformas con fecha actual del servidor
+        //Buscar registro de orden de compra con fecha actual del servidor
         Date fechaFacturacion = buscarFechaFacturacion();
 
-        //Buscar Proformas de clientes por fechas
-        buscarProformasPorFechas(fechaFacturacion, fechaFacturacion, almacen.getId());*/
+        setOrdenCompras(buscarOrdenesComprasPorFechas(fechaFacturacion, fechaFacturacion));
     }
 
     //*************************************************************************************
@@ -457,7 +445,7 @@ public class OrdenCompraController extends FacturacionBaseController {
      * @throws Exception, Exception
      */
     public void modificarOrdenCompra() throws Exception {
-/*
+
         logger.debug("Modificar registro de Orden de Compra.");
 
         try {
@@ -466,10 +454,10 @@ public class OrdenCompraController extends FacturacionBaseController {
             ManagerProveedoresServiceBusiness mgrProveedor = getMgrProveedoresService();
 
             //Creamos registro de Orden de Compra
-            OrdenCompra ordenCompra = mgrProveedor.modificarOrdenCompra(getNoOrdenCompra(),getProveedor().getId(),
-                    getPorcDescuento(), getPorcIVA(), getPorcRetFuente(), getPorcRetMunicipal(), getTasaCambio(),
-                    getNombreProveedor(), getMoneda().getId(), getDireccionEntrega(), getFechaAlta(),
-                    getFechaRequerida(), isExonerada(), isRetFuente(), isRetMunicipal(), getArticulos());
+            OrdenCompra ordenCompra = mgrProveedor.modificarOrdenCompra(getOrdenCompra().getId(), getTasaCambio(),
+                    getPorcDescuento(), getPorcIVA(), getPorcRetFuente(), getPorcRetMunicipal(), getFechaAlta(),
+                    isExonerada(), isRetFuente(), isRetMunicipal(), getArticulos(), getFechaRequerida(),
+                    getDescripcionCompra(), getNumeroReferencia());
 
             //Guardar Orden de Compra;
             setOrdenCompras(ordenCompras);
@@ -477,9 +465,8 @@ public class OrdenCompraController extends FacturacionBaseController {
         } catch (ManagerProveedoresServiceBusinessException e) {
             logger.error(e.getMessage(), e);
             throw new Exception(e.getMessage(), e);
-        }*/
-
-    }
+        }
+     }
 
     /**
      * Anular Orden de Compra
@@ -650,8 +637,8 @@ public class OrdenCompraController extends FacturacionBaseController {
      *
      * @param producto,      Producto asociado al articulo
      * @param renglon,       Renglon del producto agregar
-     * @param cantidad,      Cantidad en factura
-     * @param precioBruto,   Precio bruto factura
+     * @param cantidad,      Cantidad en Orden de Compra
+     * @param precioBruto,   Precio bruto Orden de Compra
      * @param porcDescuento, Descuento del producto
      * @throws Exception, Exception
      */
@@ -799,7 +786,39 @@ public class OrdenCompraController extends FacturacionBaseController {
      * @param fechaHasta, Fecha fin de busqueda
      * @throws Exception, Exception
      */
-    public void buscarOrdenesComprasPorFechas(Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws Exception {
+    /**
+     * Obteniendo listado de ordenes de entrada inventario ordinaria
+     *
+     * @return List
+     */
+    public List<OrdenCompra> buscarOrdenesComprasPorFechas(Date fechaDesde, Date fechaHasta) throws Exception {
+
+        logger.debug("Obteniendo listado de ordenes de Compra...!");
+
+        try {
+            //Validar que los campos de fechas no sean nulos
+            if (fechaDesde == null)
+                throw new Exception("Debe ingresar una fecha de inicio de busqueda: [fecha desde]");
+
+            if (fechaHasta == null)
+                throw new Exception("Debe ingresar una fecha de fin de busqueda: [fecha hasta]");
+
+            //Obtener manager inventario service
+            ManagerProveedoresServiceBusiness mgrProveedoresService = getMgrProveedoresService();
+
+            return mgrProveedoresService.buscarOrdenesComprasPorFechasRegistro(fechaDesde, fechaHasta);
+
+        } catch (ManagerProveedoresServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
+    public void buscarOrdenesComprasPorFechasRegistros(Date fechaDesde, Date fechaHasta)
+            throws Exception {
         try {
 
             //Validar que los campos de fechas no sean nulos
@@ -809,11 +828,11 @@ public class OrdenCompraController extends FacturacionBaseController {
             if (fechaHasta == null)
                 throw new Exception("Debe ingresar una fecha de fin de busqueda: [fecha hasta]");
 
-            //Obtener manager facturacion
-            ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
+            //Obtener manager inventario service
+            ManagerProveedoresServiceBusiness mgrProveedoresService = getMgrProveedoresService();
 
-            //Buscar Proformas
-            List<Proforma> proformas = mgrFacturacion.buscarProformasPorFecha(fechaDesde, fechaHasta, idAlmacen);
+            //Buscar Orden Compra
+            List<OrdenCompra> ordenCompras = mgrProveedoresService.buscarOrdenesComprasPorFechasRegistro(fechaDesde, fechaHasta);
             getOrdenCompras().clear();
             getOrdenCompras().addAll(ordenCompras);
 

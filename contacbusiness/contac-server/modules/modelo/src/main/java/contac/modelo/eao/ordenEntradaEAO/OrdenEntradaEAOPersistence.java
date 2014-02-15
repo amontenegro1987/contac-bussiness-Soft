@@ -59,7 +59,6 @@ public class OrdenEntradaEAOPersistence extends GenericPersistenceEAO<OrdenEntra
 
     @Override
     public List<OrdenEntrada> findByEstadosAlmacen(List<Integer> estados, Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws GenericPersistenceEAOException {
-        System.out.println("Fecha Desde: " + fechaDesde + " Fecha Hasta: " + fechaHasta + " Id Almacen: " + idAlmacen);
         //Init service
         initService();
 

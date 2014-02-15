@@ -51,7 +51,7 @@ public class OrdenTrasladoEAOPersistence extends GenericPersistenceEAO<OrdenTras
     }
 
     @Override
-    public List<OrdenTraslado> findByEstados(List<Integer> estados) throws GenericPersistenceEAOException {
+    public List<OrdenTraslado> findByEstados(List<Integer> estados,Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws GenericPersistenceEAOException {
 
         //Init service
         initService();
@@ -61,6 +61,15 @@ public class OrdenTrasladoEAOPersistence extends GenericPersistenceEAO<OrdenTras
         String conditionClause = "";
 
         List<QueryFragment> querySolver = new ArrayList<QueryFragment>();
+
+        //1. Agregando parametro fecha desde
+        querySolver.add(new QueryFragment(fechaDesde != null, "", " o.fechaAlta >= :fechaDesde ", "fechaDesde", fechaDesde));
+
+        //2. Agregando parametro fecha hasta
+        querySolver.add(new QueryFragment(fechaHasta != null, "", " o.fechaAlta <= :fechaHasta ", "fechaHasta", fechaHasta));
+
+        //3. Agregando parametro almacen
+        querySolver.add(new QueryFragment(idAlmacen != null, "", " o.almacenSalida.id = :idAlmacen", "idAlmacen", idAlmacen));
 
         //Arma un fragmento con los diferentes estados...
         if ((estados != null) && (!estados.isEmpty())) {
@@ -90,15 +99,34 @@ public class OrdenTrasladoEAOPersistence extends GenericPersistenceEAO<OrdenTras
     }
 
     @Override
-    public List<OrdenTraslado> findByFechas(Date fechaInicio, Date fechaFin) throws GenericPersistenceEAOException {
-
+    public List<OrdenTraslado> findByFechas(Date fechaInicio, Date fechaFin, Integer idAlmacen, Integer idAlmacenSalida) throws GenericPersistenceEAOException {
+         System.out.println("idAlmacen [almacenEntrada] " + idAlmacen + " idAlmacenSalida " + idAlmacenSalida );
         //Init service
         initService();
 
         //Creating query
-        String query = "Select o From OrdenTraslado o Where o.fechaAlta >= :fechaInicio and o.fechaAlta <= :fechaFin";
+        String fromClause = "Select o from OrdenTraslado o ";
+        String conditionClause = "";
 
-        //Creating query JPA
-        return em.createQuery(query).setParameter("fechaInicio", fechaInicio).setParameter("fechaFin", fechaFin).getResultList();
+        List<QueryFragment> querySolver = new ArrayList<QueryFragment>();
+
+        //1. Agregando parametro fecha desde
+        querySolver.add(new QueryFragment(fechaInicio != null, "", " o.fechaAlta >= :fechaInicio ", "fechaInicio", fechaInicio));
+
+        //2. Agregando parametro fecha hasta
+        querySolver.add(new QueryFragment(fechaFin != null, "", " o.fechaAlta <= :fechaFin ", "fechaFin", fechaFin));
+
+        //3. Agregando parametro almacen Entrada
+        querySolver.add(new QueryFragment(idAlmacen != null, "", " o.almacenEntrada.id = :idAlmacen", "idAlmacen", idAlmacen));
+
+        //4. Agregando parametro almacen
+        querySolver.add(new QueryFragment(idAlmacenSalida != null, "", " o.almacenSalida.id = :idAlmacenSalida", "idAlmacenSalida", idAlmacenSalida));
+
+        String ejbQuery = QueryUtils.ejbQLcreator(fromClause, conditionClause, querySolver);
+        Query query = em.createQuery(ejbQuery);
+
+        List<OrdenTraslado> listOrdenesTraslado = QueryUtils.ejbQLParametersSolver(query, querySolver).getResultList();
+
+        return listOrdenesTraslado;
     }
 }

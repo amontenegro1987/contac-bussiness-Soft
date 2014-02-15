@@ -4,7 +4,7 @@
  */
 
 /*
- * pnlProformaCliente.java
+ * nlProformaCliente.java
  *
  * Created on 14-07-2013, 04:48:52 PM
  */
@@ -162,6 +162,16 @@ public class pnlProformaCliente extends GenericPanel {
         } else {
             txtNoProforma.setText("");
         }
+
+        //Correo
+        if (controller.getCorreo() != null){
+            txtCorreo.setText(controller.getCorreo());
+
+        } else {
+            txtCorreo.setText("");
+        }
+
+
         //Seleccione almacen de egreso
         ListCellRenderer rendererAlmacen = new ComboBoxEmptySelectionRenderer(cmbAlmacen, messageBundle.getString("CONTAC.FORM.MSG.SELECCIONE"));
         if (controller.getAlmacen() != null) {

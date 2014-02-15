@@ -29,10 +29,12 @@ public interface OrdenTrasladoEAO extends GenericEAO<OrdenTraslado, Integer> {
 
     /**
      * Buscar ordenes de traslado por estados
+     * @param fechaDesde, Date
+     * @param fechaHasta, Date
      * @return List
      * @throws GenericPersistenceEAOException, Exception
      */
-    public List<OrdenTraslado> findByEstados(List<Integer> estados) throws GenericPersistenceEAOException;
+    public List<OrdenTraslado> findByEstados(List<Integer> estados, Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws GenericPersistenceEAOException;
 
     /**
      * Buscar ordenes de traslado por rango de fechas
@@ -41,5 +43,5 @@ public interface OrdenTrasladoEAO extends GenericEAO<OrdenTraslado, Integer> {
      * @return List
      * @throws GenericPersistenceEAOException, Exception
      */
-    public List<OrdenTraslado> findByFechas(Date fechaInicio, Date fechaFin) throws GenericPersistenceEAOException;
+    public List<OrdenTraslado> findByFechas(Date fechaInicio, Date fechaFin, Integer idAlmacen, Integer idAlmacenSalida) throws GenericPersistenceEAOException;
 }
