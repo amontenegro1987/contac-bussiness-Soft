@@ -5,6 +5,7 @@
 
 package contac.commons.app;
 
+import contac.modelo.entity.Almacen;
 import contac.servicio.administracion.ManagerAdministracionServiceBusiness;
 import contac.servicio.aplicacion.AplicacionBaseRemote;
 import contac.servicio.catalogo.ManagerCatalogoServiceBusiness;
@@ -12,12 +13,14 @@ import contac.servicio.catalogo.ManagerProductoServiceBusiness;
 import contac.servicio.clientes.ManagerClientesServiceBusiness;
 import contac.servicio.facturacion.ManagerFacturacionServiceBusiness;
 import contac.servicio.inventario.ManagerInventarioServiceBusiness;
+import contac.servicio.inventario.ManagerInventarioServiceBusinessException;
 import contac.servicio.proveedores.ManagerProveedoresServiceBusiness;
 import contac.servicio.reportes.ManagerGeneradorReporteServiceBusiness;
 import contac.servicio.seguridad.ManagerSeguridadServiceBusiness;
 import org.apache.log4j.Logger;
 
 import java.rmi.RemoteException;
+import java.util.List;
 
 /**
  * Main Controller for implementation
@@ -94,6 +97,59 @@ public abstract class BaseController implements Constantes {
         } catch (RemoteException e) {
             logger.error(e.getMessage(), e);
             return null;
+        }
+    }
+    /**
+     * Obtener listado de almacenes
+     *
+     * @return List
+     * @throws Exception, Exception
+     */
+    public List<Almacen> buscarAlmacenes() throws Exception {
+
+        logger.debug("Obteniendo listado de almacenes...!");
+
+        try {
+
+            //Obtener manager inventario service
+            ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
+
+            //Retornar listado de almacenes
+            return mgrInventario.buscarAlmacenesPorUsuario();
+
+        } catch (ManagerInventarioServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Buscar almacen del usuario
+     *
+     * @return Almacen
+     * @throws Exception, Exception
+     */
+    public Almacen buscarAlmacenUsuario() throws Exception {
+
+        logger.debug("Obteniendo almacen del usuario...!");
+
+        try {
+
+            //Obtener manager inventario service
+            ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
+
+            //Retornar almacen del usuario
+            return mgrInventario.buscarAlmacenUsuario();
+
+        } catch (ManagerInventarioServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
         }
     }
 

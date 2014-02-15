@@ -327,7 +327,6 @@ public class pnlRegistroOrdenesEntradaInventario extends GenericPanel {
     }
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         try {
-
             //Obteniendo fechas de busqueda
             Date fechaDesde = dtpFechaDesde.getDate();
             Date fechaHasta = dtpFechaHasta.getDate();

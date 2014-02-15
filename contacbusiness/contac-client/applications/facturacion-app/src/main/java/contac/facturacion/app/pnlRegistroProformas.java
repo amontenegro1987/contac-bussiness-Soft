@@ -34,7 +34,6 @@ import javax.swing.*;
 import javax.swing.table.TableColumnModel;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.rmi.RemoteException;
 import java.text.MessageFormat;
 import java.util.*;
@@ -294,13 +293,13 @@ public class pnlRegistroProformas extends GenericPanel {
             }
         });
 
-        btnImprimirFactura = new JButton();
-        btnImprimirFactura.setPreferredSize(new Dimension(40, 32));
-        btnImprimirFactura.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNIMPRIMIRPROFORMA"));
-        btnImprimirFactura.setIcon(imprimirFacturaIco);
-        btnImprimirFactura.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(java.awt.event.ActionEvent evt){
-                btnImprimirFacturaActionPerformed(evt);
+        btnImprimirProforma = new JButton();
+        btnImprimirProforma.setPreferredSize(new Dimension(40, 32));
+        btnImprimirProforma.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNIMPRIMIRPROFORMA"));
+        btnImprimirProforma.setIcon(imprimirFacturaIco);
+        btnImprimirProforma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirProformaActionPerformed(evt);
             }
         });
 
@@ -317,7 +316,7 @@ public class pnlRegistroProformas extends GenericPanel {
         actionToolBar.add(new JToolBar.Separator());
         actionToolBar.add(btnImprimir);
         actionToolBar.add(new JToolBar.Separator());
-        actionToolBar.add(btnImprimirFactura);
+        actionToolBar.add(btnImprimirProforma);
 
         JPanel facturasPanel = new JPanel(new BorderLayout());
         facturasPanel.setBorder(BorderFactory.createEtchedBorder());
@@ -541,14 +540,14 @@ public class pnlRegistroProformas extends GenericPanel {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void btnImprimirFacturaActionPerformed(java.awt.event.ActionEvent evt){ //GEN-FIRST:event.btnImprimirFacturaActionPerformed
+    private void btnImprimirProformaActionPerformed(java.awt.event.ActionEvent evt){ //GEN-FIRST:event.btnImprimirProformaActionPerformed
         try {
             // Si no ha seleccionado ninguna proforma a Imprimir
             if (proformaSelected == null) {
                 throw new Exception(messageBundle.getString("CONTAC.FORM.PROFORMA.VALIDA.REPORTEPROFORMA"));
             }
 
-            //Cambiar estado de factura a impresa.
+            //Cambiar estado de Proforma a impresa.
             /*controller.imprimirProforma();*/  //TODO : No se si se va a cambiar de estado luego de impresa la proforma
 
             JasperReport report = (JasperReport) JRLoader.loadObject(pnlRegistroFacturas.class.
@@ -634,7 +633,7 @@ private JButton btnBuscar;
 private JButton btnEditar;
 private JButton btnEliminar;
 private JButton btnImprimir;
-private JButton btnImprimirFactura;
+private JButton btnImprimirProforma;
 private JComboBox cmbAlmacen;
 private org.jdesktop.swingx.JXDatePicker dtpFechaDesde;
 private org.jdesktop.swingx.JXDatePicker dtpFechaHasta;

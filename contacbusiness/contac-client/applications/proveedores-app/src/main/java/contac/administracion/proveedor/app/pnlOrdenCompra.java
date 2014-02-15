@@ -150,13 +150,6 @@ public class pnlOrdenCompra extends GenericPanel {
             btnAceptar.setText(messageBundle.getString("CONTAC.FORM.BTNMODIFICAR"));
         }
 
-        //Numero de Orden de Compra
-        if (controller.getNoOrdenCompra() > 0) {
-            txtNoOrdenCompra.setText(String.valueOf(controller.getNoOrdenCompra()));
-        } else {
-            txtNoOrdenCompra.setText("");
-        }
-
         //Fecha de alta Orden de Compra
         dtpFechaAlta.setFormats("dd/MM/yyyy");
         dtpFechaAlta.setDate(controller.getFechaAlta());
@@ -173,6 +166,28 @@ public class pnlOrdenCompra extends GenericPanel {
             txtNombreProveedor.setText("");
         }
 
+        //Seleccionar Descripcion de la Compra
+        if (controller.getDescripcionCompra() != null){
+            txtDescripcionCompra.setText(controller.getDescripcionCompra());
+        } else {
+            txtDescripcionCompra.setText("");
+        }
+         //TODO crear un nuevo numero de factura
+        //Numero de Orden de Compra
+        /*if (controller.getOrdenCompra().getId() > 0) {
+            txtNoOrdenCompra.setText(String.valueOf(controller.getOrdenCompra().getId()));
+        } else {
+            txtNoOrdenCompra.setText("");
+        }*/
+
+
+        //Seleccionar Número de Referencia
+        if (controller.getNumeroReferencia() != null){
+            txtReferenciaProveedor.setText(String.valueOf(controller.getNumeroReferencia()));
+        } else {
+            txtReferenciaProveedor.setText("");
+        }
+
         //Inicializar datos del producto
         txtCodigo.setText("");
         txtNombreProducto.setText("");
@@ -184,7 +199,6 @@ public class pnlOrdenCompra extends GenericPanel {
         //************************************************************
         //Init articulo bean table model
         //************************************************************
-        //TODO  CAMBIAR ARTICULOFACTURA A ARTICULOORDENCOMPRA
 
         articuloBeanTableModel = new BeanTableModel<ArticuloOrdenCompra>(ArticuloOrdenCompra.class, Articulo.class, controller.getArticulos());
         articuloBeanTableModel.setModelEditable(false);
@@ -235,9 +249,7 @@ public class pnlOrdenCompra extends GenericPanel {
     public void initValuesAccess() {
 
         try {
-
-            // TODO NO SE SI SE VA A CREAR OTRO ROL ACA
-            if (controller.checkUserInRole(Roles.ROLFACTURACIONADMIN.toString())) {
+             if (controller.checkUserInRole(Roles.ROLFACTURACIONADMIN.toString())) {
                 txtNoOrdenCompra.setEnabled(true);
                 //cmbAlmacen.setEnabled(true);
                 dtpFechaAlta.setEnabled(true);
@@ -491,15 +503,15 @@ public class pnlOrdenCompra extends GenericPanel {
         pnlHeaderComp.add(btnEditarFechaRequerida, new XYConstraints(915,5,30,23));
 
         pnlHeaderComp.add(lblFechaAlta, new XYConstraints(955,5,110,23));
-        pnlHeaderComp.add(dtpFechaAlta, new XYConstraints(1030,5,160,23));
-        pnlHeaderComp.add(btnEditarFechaRegistro, new XYConstraints(1204, 5, 30, 23));
+        pnlHeaderComp.add(dtpFechaAlta, new XYConstraints(1030,5,140,23));
+        pnlHeaderComp.add(btnEditarFechaRegistro, new XYConstraints(1184, 5, 30, 23));
 
         pnlHeaderComp.add(lblProveedor, new XYConstraints(5, 33, 90, 23));
         pnlHeaderComp.add(txtCodigoProveedor, new XYConstraints(105, 33, 100, 23));
         pnlHeaderComp.add(txtNombreProveedor, new XYConstraints(210, 33, 370, 23));
         pnlHeaderComp.add(btnBuscarProveedor, new XYConstraints(585, 33, 30, 23));
         pnlHeaderComp.add(lblDescripcion, new XYConstraints(630,33,100,23));
-        pnlHeaderComp.add(txtDescripcionCompra, new XYConstraints(740,33,495,23));
+        pnlHeaderComp.add(txtDescripcionCompra, new XYConstraints(740,33,488,23));
 
         //***************************************************************************************
         //Init Articulos Table Panel
@@ -766,7 +778,8 @@ public class pnlOrdenCompra extends GenericPanel {
             controller.setFechaRequerida(dtpFechaRequerida.getDate());
             controller.setProveedor(proveedorSelected);
             controller.setDescripcionCompra(txtDescripcionCompra.getText());
-            controller.setNumeroReferencia(Integer.valueOf((txtReferenciaProveedor.getText())));
+            controller.setNumeroReferencia(Integer.parseInt((txtReferenciaProveedor.getText())));
+            controller.setNombreProveedor(txtNombreProveedor.getText());
             if (tasaCambioSelected != null) {
                 controller.setTasaCambio(tasaCambioSelected.getTasaConversion());
                 controller.setMoneda(tasaCambioSelected.getMonedaConversion());
@@ -778,7 +791,6 @@ public class pnlOrdenCompra extends GenericPanel {
                 controller.crearOrdenCompra();
 
                 //Actualizar numero de Orden de Compra generado
-                //txtNoOrdenCompra.setText(controller.getOrdenCompra().getNoDocumento() + "");
                 txtNoOrdenCompra.setText(String.valueOf(controller.getOrdenCompra().getId()));
 
                 //Show confirmation message

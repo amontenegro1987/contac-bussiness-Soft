@@ -77,7 +77,7 @@ public class MenuBandProveedores extends MenuBand {
 
         mnuRegistroOrdenCompra.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                style.addPanel("ordenCompra", "contac.administracion.proveedor.app.pnlOrdenCompra");
+                style.addPanel("ordenCompra", "contac.administracion.proveedor.app.pnlRegistroOrdenesCompra");
             }
         });
 

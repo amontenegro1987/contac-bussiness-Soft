@@ -543,14 +543,47 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
     }
 
     @Override
-    public List<OrdenTraslado> buscarOrdenesTrasladoPorEstados(List<String> estados) throws ManagerInventarioServiceBusinessException, RemoteException {
+    public List<OrdenTraslado> buscarOrdenesTrasladoPorEstados(List<String> estados, Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws ManagerInventarioServiceBusinessException, RemoteException {
 
-        logger.debug("Buscar ordenes de traslado por estados");
+        logger.debug("Buscar ordenes de traslado por estados: [estados] " + " fechaDesde: " + fechaDesde + " fechaHasta: " + fechaHasta + " Almacen: " + idAlmacen);
 
         //Iniciar servicio authentication
         boolean value = initBusinessService(Roles.ROLINVENTARIOADMIN.toString());
 
         try {
+
+            //Validar campos de la busqueda
+            if (fechaDesde == null)
+                throw new ManagerInventarioServiceBusinessException("Debe seleccionar una fecha desde v\u00e1lida");
+
+            if (fechaHasta == null)
+                throw new ManagerInventarioServiceBusinessException("Debe seleccionar una fecha hasta v\u00e1lida");
+
+            //Buscar almacen del usuario - First check authorization for user
+            boolean success = mgrAutorizacion.checkUserInRole(Roles.ROLINVENTARIOADMIN.toString());
+
+            Almacen almacen = null;
+            if (success) {
+                almacen = almacenEAO.findById(idAlmacen);
+            } else {
+                almacen = mgrSeguridad.buscarUsuarioPorLogin(mgrAutorizacion.getUsername()).getAlmacen();
+            }
+
+            //Preparar fechas para busquedas
+            GregorianCalendar gc = new GregorianCalendar();
+            gc.setTime(fechaDesde);
+            gc.set(Calendar.HOUR_OF_DAY, 0);
+            gc.set(Calendar.MINUTE, 0);
+            gc.set(Calendar.SECOND, 0);
+            gc.set(Calendar.MILLISECOND, 0);
+            fechaDesde = gc.getTime();
+
+            gc.setTime(fechaHasta);
+            gc.set(Calendar.HOUR_OF_DAY, 0);
+            gc.set(Calendar.MINUTE, 0);
+            gc.set(Calendar.SECOND, 0);
+            gc.set(Calendar.MILLISECOND, 0);
+            fechaHasta = gc.getTime();
 
             //Preparar el contexto
             List<Integer> idEstados = new ArrayList<Integer>();
@@ -559,9 +592,15 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
                 idEstados.add(estadoMovimientoEAO.findByAlias(estado).getId());
             }
 
-            return ordenTrasladoEAO.findByEstados(idEstados);
+            return ordenTrasladoEAO.findByEstados(idEstados, fechaDesde, fechaHasta, idAlmacen);
 
         } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
+        } catch (ManagerAutorizacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
+        } catch (ManagerSeguridadServiceBusinessException e) {
             logger.error(e.getMessage(), e);
             throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
         } finally {
@@ -570,11 +609,11 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
     }
 
     @Override
-    public List<OrdenTraslado> buscarOrdenesTrasladoPorRangosFechas(Date fechaInicio, Date fechaFin) throws ManagerInventarioServiceBusinessException,
+    public List<OrdenTraslado> buscarOrdenesTrasladoPorRangosFechas(Date fechaInicio, Date fechaFin, Integer idAlmacen, Integer idAlmacenSalida) throws ManagerInventarioServiceBusinessException,
             RemoteException {
 
         logger.debug("Buscar ordenes de traslado por rangos de fecha con parametros: [fechaInicio]: " + fechaInicio + ", " +
-                " [fechaFin]: " + fechaFin);
+                " [fechaFin]: " + fechaFin + " [idAlmacen]: " + idAlmacen + " [idAlmacenSalida]: " + idAlmacenSalida);
 
         //Iniciar servicio authentication
         boolean value = initBusinessService(Roles.ROLINVENTARIOADMIN.toString());
@@ -588,16 +627,50 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
             if (fechaFin == null)
                 throw new ManagerInventarioServiceBusinessException("Debes ingresar una fecha fin.");
 
+            //Buscar almacen del usuario - First check authorization for user
+            boolean success = mgrAutorizacion.checkUserInRole(Roles.ROLINVENTARIOADMIN.toString());
+
+            Almacen almacen = null;
+            if (success) {
+                almacen = almacenEAO.findById(idAlmacen);
+            } else {
+                almacen = mgrSeguridad.buscarUsuarioPorLogin(mgrAutorizacion.getUsername()).getAlmacen();
+            }
+
+            //Preparar fechas para busquedas
+            GregorianCalendar gc = new GregorianCalendar();
+            gc.setTime(fechaInicio);
+            gc.set(Calendar.HOUR_OF_DAY, 0);
+            gc.set(Calendar.MINUTE, 0);
+            gc.set(Calendar.SECOND, 0);
+            gc.set(Calendar.MILLISECOND, 0);
+            fechaInicio = gc.getTime();
+
+            gc.setTime(fechaFin);
+            gc.set(Calendar.HOUR_OF_DAY, 0);
+            gc.set(Calendar.MINUTE, 0);
+            gc.set(Calendar.SECOND, 0);
+            gc.set(Calendar.MILLISECOND, 0);
+            fechaFin = gc.getTime();
+
             //Buscar ordenes de traslado por rangos de fechas
-            return ordenTrasladoEAO.findByFechas(fechaInicio, fechaFin);
+            return ordenTrasladoEAO.findByFechas(fechaInicio, fechaFin, idAlmacen, idAlmacenSalida);
+
 
         } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
+        } catch (ManagerAutorizacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
+        } catch (ManagerSeguridadServiceBusinessException e) {
             logger.error(e.getMessage(), e);
             throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
         } finally {
             stopBusinessService(value);
         }
     }
+
 
     @Override
     public OrdenEntrada crearOrdenEntrada(int tipoEntrada, Date fechaAlta, Date fechaSolicitud, Integer idAlmacenIngreso,
