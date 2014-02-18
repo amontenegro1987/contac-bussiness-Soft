@@ -434,6 +434,11 @@ public class OrdenTrasladoController extends InventarioBaseController {
             if (fechaHasta == null)
                 throw new Exception("Debe ingresar una fecha de fin de busqueda: [fecha hasta]");
 
+            if (idAlmacen == null)
+                idAlmacen = -1;
+
+            if (idAlmacenSalida == null)
+                idAlmacenSalida = -1;
             //Obtener manager de inventario
             ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
 

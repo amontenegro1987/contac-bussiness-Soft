@@ -503,8 +503,8 @@ public class pnlOrdenCompra extends GenericPanel {
         pnlHeaderComp.add(btnEditarFechaRequerida, new XYConstraints(915,5,30,23));
 
         pnlHeaderComp.add(lblFechaAlta, new XYConstraints(955,5,110,23));
-        pnlHeaderComp.add(dtpFechaAlta, new XYConstraints(1030,5,140,23));
-        pnlHeaderComp.add(btnEditarFechaRegistro, new XYConstraints(1184, 5, 30, 23));
+        pnlHeaderComp.add(dtpFechaAlta, new XYConstraints(1030,5,148,23));
+        pnlHeaderComp.add(btnEditarFechaRegistro, new XYConstraints(1192, 5, 30, 23));
 
         pnlHeaderComp.add(lblProveedor, new XYConstraints(5, 33, 90, 23));
         pnlHeaderComp.add(txtCodigoProveedor, new XYConstraints(105, 33, 100, 23));

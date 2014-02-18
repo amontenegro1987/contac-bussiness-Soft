@@ -550,6 +550,53 @@ public class pnlAdmonInventario extends GenericPanel {
     }
 
     /**
+     * Print Inventory Report
+     *
+     * @param event, ActionEvent
+     */
+    private void btnImprimirExistenciasAlmacenActionPerformed(ActionEvent event) {
+
+        try {
+
+            //Param codigo desde
+            controller.setCodigoDesde(txtCodigoDesde.getText().equals("") ? "-1" : txtCodigoDesde.getText());
+            controller.setCodigoHasta(txtCodigoHasta.getText().equals("") ? "-1" : txtCodigoHasta.getText());
+
+            controller.setExistencias(true);
+
+            // Prepared Jasper Report
+            JasperReport report;
+
+                report = (JasperReport) JRLoader.loadObject(pnlAdmonInventario.class
+                        .getResourceAsStream("/contac/inventarios/app/reportes/existencia_almacenes_report.jasper"));
+
+            Map parameters = new HashMap();
+            parameters.put("SUBREPORT_DIR", getClass().getClassLoader().getResource("contac/inventarios/app/reportes") + "/");
+            parameters.put("p_codigo_desde", controller.getCodigoDesde());
+            parameters.put("p_codigo_hasta", controller.getCodigoHasta());
+
+            //Generate Report
+            JasperPrint jasperPrint = controller.getMgrReportesService().generateReport(parameters, report);
+
+            //Print Report Preview
+            JRPrintReport.printPreviewReport(getMDI(), jasperPrint);
+
+        } catch (JRException e) {
+            logger.error(e.getMessage(), e);
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        }
+    }
+
+    /**
      * Anular Inventory Products
      *
      * @param event, ActionEvent
@@ -609,12 +656,18 @@ public class pnlAdmonInventario extends GenericPanel {
         JMenuItem mnuReporteSolicitudInventario;
 
         /**
+         * Menu Reporte Existencias Almacen Consolidado
+         */
+        JMenuItem mnuReporteExistenciasAlmacen;
+
+        /**
          * Imprimir Popup Menu Constructor
          */
         public ImprimirPopupMenu() {
 
             ImageIcon mnuIcon_existencias = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/print.png"));
             ImageIcon mnuIcon_inventario = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/print.png"));
+            ImageIcon menuIcon_existencias_almacen = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/print.png"));
 
             mnuReporteExistencias = new JMenuItem(messageBundle.getString("CONTAC.FORM.MNUREPORTEEXISTENCIAS"));
             mnuReporteExistencias.setIcon(mnuIcon_existencias);
@@ -622,8 +675,12 @@ public class pnlAdmonInventario extends GenericPanel {
             mnuReporteSolicitudInventario = new JMenuItem(messageBundle.getString("CONTAC.FORM.MNUREPORTEINVENTARIO"));
             mnuReporteSolicitudInventario.setIcon(mnuIcon_inventario);
 
+            mnuReporteExistenciasAlmacen = new JMenuItem(messageBundle.getString("CONTAC.FORM.MNUREPORTEEXISTENCIASALMACEN"));
+            mnuReporteExistenciasAlmacen.setIcon(menuIcon_existencias_almacen);
+
             add(mnuReporteExistencias);
             add(mnuReporteSolicitudInventario);
+            add(mnuReporteExistenciasAlmacen);
 
             //Init Components Listeners
             initComponentsListeners();
@@ -633,6 +690,13 @@ public class pnlAdmonInventario extends GenericPanel {
          * Init Components Listeners
          */
         public void initComponentsListeners() {
+
+            mnuReporteExistenciasAlmacen.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    btnImprimirExistenciasAlmacenActionPerformed(e);
+                }
+            });
 
             mnuReporteExistencias.addActionListener(new ActionListener() {
                 @Override

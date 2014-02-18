@@ -101,12 +101,12 @@ public class pnlRegistroOrdenesTrasladoInventario extends GenericPanel {
         cmbAlmacen.setModel(new AlmacenComboBoxModel(controller.buscarAlmacenes()));
         ListCellRenderer rendererAlmacen = new ComboBoxEmptySelectionRenderer(cmbAlmacen, messageBundle.getString("CONTAC.FORM.MSG.SELECCIONE"));
         cmbAlmacen.setRenderer(rendererAlmacen);
-        cmbAlmacen.setSelectedIndex(-1);
+        //cmbAlmacen.setSelectedIndex(-1);
 
         cmbAlmacenSalida.setModel(new AlmacenComboBoxModel(controller.buscarAlmacenes()));
         ListCellRenderer rendererAlmacenRecibe = new ComboBoxEmptySelectionRenderer(cmbAlmacenSalida, messageBundle.getString("CONTAC.FORM.MSG.SELECCIONE"));
         cmbAlmacenSalida.setRenderer(rendererAlmacenRecibe);
-        cmbAlmacenSalida.setSelectedIndex(-1);
+        //cmbAlmacenSalida.setSelectedIndex(-1);
 
         controller.setAlmacen(null);
 
@@ -438,6 +438,7 @@ public class pnlRegistroOrdenesTrasladoInventario extends GenericPanel {
 
             //Actualizar listado de articulos ingresados
             ((BeanTableModel) tblOrdenesTraslado.getModel()).fireTableDataChanged();
+
         } catch (Exception e) {
             //Show error message
             JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
