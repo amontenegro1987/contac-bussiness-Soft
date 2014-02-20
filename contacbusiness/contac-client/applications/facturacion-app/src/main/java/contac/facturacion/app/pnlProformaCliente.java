@@ -542,25 +542,25 @@ public class pnlProformaCliente extends GenericPanel {
 
         JPanel pnlHeaderComp = new JPanel(new XYLayout());
         pnlHeaderComp.add(lblNoProforma, new XYConstraints(5, 5, 90, 23));
-        pnlHeaderComp.add(txtTasaCambio, new XYConstraints(1055, 33, 160, 23));
-        pnlHeaderComp.add(btnBuscarTasaCambio, new XYConstraints(1220, 33, 30, 23));
-        pnlHeaderComp.add(lblTasaCambio, new XYConstraints(960, 33, 90, 23));
+        pnlHeaderComp.add(lblTasaCambio, new XYConstraints(935, 33, 90, 23));
+        pnlHeaderComp.add(txtTasaCambio, new XYConstraints(1015, 33, 160, 23));
+        pnlHeaderComp.add(btnBuscarTasaCambio, new XYConstraints(1185, 33, 30, 23));
         pnlHeaderComp.add(txtNoProforma, new XYConstraints(100, 5, 160, 23));
         pnlHeaderComp.add(btnEditarNoProforma, new XYConstraints(265, 5, 30, 23));
-        pnlHeaderComp.add(lblAlmacen, new XYConstraints(660, 5, 90, 23));
-        pnlHeaderComp.add(cmbAlmacen, new XYConstraints(755, 5, 200, 23));
+        pnlHeaderComp.add(lblAlmacen, new XYConstraints(640, 5, 90, 23));
+        pnlHeaderComp.add(cmbAlmacen, new XYConstraints(715, 5, 200, 23));
         pnlHeaderComp.add(lblCliente, new XYConstraints(5, 33, 90, 23));
         pnlHeaderComp.add(txtCodigoCliente, new XYConstraints(100, 33, 80, 23));
         pnlHeaderComp.add(txtNombreCliente, new XYConstraints(185, 33, 405, 23));
         pnlHeaderComp.add(btnBuscarCliente, new XYConstraints(600, 33, 30, 23));
-        pnlHeaderComp.add(lblFechaAlta, new XYConstraints(960, 5, 90, 23));
-        pnlHeaderComp.add(dtpFechaAlta, new XYConstraints(1055, 5, 160, 23));
-        pnlHeaderComp.add(btnEditarFechaRegistro, new XYConstraints(1220, 5, 30, 23));
+        pnlHeaderComp.add(lblFechaAlta, new XYConstraints(935, 5, 90, 23));
+        pnlHeaderComp.add(dtpFechaAlta, new XYConstraints(1015, 5, 160, 23));
+        pnlHeaderComp.add(btnEditarFechaRegistro, new XYConstraints(1185, 5, 30, 23));
         pnlHeaderComp.add(lblAgente, new XYConstraints(305, 5, 90, 23));
         pnlHeaderComp.add(txtAgente,  new XYConstraints(380, 5, 210, 23));
         pnlHeaderComp.add(btnBuscarAgente, new XYConstraints(600, 5, 30, 23));
-        pnlHeaderComp.add(lblCorreo, new XYConstraints(660,33,90,23));
-        pnlHeaderComp.add(txtCorreo, new XYConstraints(755,33,200,23));
+        pnlHeaderComp.add(lblCorreo, new XYConstraints(640,33,90,23));
+        pnlHeaderComp.add(txtCorreo, new XYConstraints(715,33,200,23));
 
         //***************************************************************************************
         //Init Articulos Table Panel

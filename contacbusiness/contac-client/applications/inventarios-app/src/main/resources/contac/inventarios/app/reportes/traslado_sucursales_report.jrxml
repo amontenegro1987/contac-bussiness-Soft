@@ -73,7 +73,7 @@ WHERE IOT.N_ID = $P{n_id_traslado}]]>
 	<pageHeader>
 		<band height="113" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="539ac276-0ef3-484c-8f55-d23253abe3d4" mode="Transparent" x="477" y="3" width="275" height="110"/>
+				<reportElement uuid="539ac276-0ef3-484c-8f55-d23253abe3d4" mode="Transparent" x="476" y="3" width="275" height="110"/>
 			</rectangle>
 			<subreport>
 				<reportElement uuid="96e490c2-f9c7-43b5-8f61-ab192b89bdcd" x="0" y="3" width="476" height="110"/>
@@ -152,35 +152,35 @@ WHERE IOT.N_ID = $P{n_id_traslado}]]>
 			</line>
 			<staticText>
 				<reportElement uuid="25d111f6-b7f6-4a25-a340-dc99ee2f6980" x="415" y="2" width="117" height="18"/>
-				<textElement textAlignment="Left">
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[REFERENCIA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="11b1c44d-e303-46ea-bffe-b95167acda81" x="532" y="2" width="72" height="18"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CANTIDAD]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="1de0d12c-c930-4bf1-9e47-a3073edc5651" x="0" y="2" width="102" height="18"/>
-				<textElement textAlignment="Left">
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CODIGO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="11e8f22c-c89a-41e8-b5a6-bc25b5758a08" x="604" y="2" width="148" height="18"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[P/VENTA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="49ac1d12-009a-45b5-847f-f4e8f19570a0" x="102" y="2" width="313" height="18"/>
-				<textElement textAlignment="Left">
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DESCRIPCION]]></text>
@@ -188,37 +188,37 @@ WHERE IOT.N_ID = $P{n_id_traslado}]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="27" splitType="Stretch">
+		<band height="16" splitType="Stretch">
 			<textField>
-				<reportElement uuid="74ec3fbd-a9db-4dfd-a5e9-231da0df859e" x="415" y="1" width="117" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement uuid="74ec3fbd-a9db-4dfd-a5e9-231da0df859e" x="415" y="1" width="117" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{C_CODIGOFABRICANTE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="ffc02416-608d-49db-bdfb-740a706f9021" x="532" y="1" width="72" height="20"/>
+				<reportElement uuid="ffc02416-608d-49db-bdfb-740a706f9021" x="532" y="1" width="72" height="15"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{N_CANTIDAD}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="3648e473-307c-4a4f-9eec-73d083b5c3f7" x="3" y="1" width="99" height="20"/>
+				<reportElement uuid="3648e473-307c-4a4f-9eec-73d083b5c3f7" x="3" y="1" width="99" height="15"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{C_CODIGO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="36449fb5-1c6b-411e-a15b-21d2d744eb66" x="102" y="1" width="313" height="20"/>
+				<reportElement uuid="36449fb5-1c6b-411e-a15b-21d2d744eb66" x="102" y="1" width="313" height="15"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{C_NOMBRE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="C$###,###.###">
-				<reportElement uuid="dba72123-c07c-4f7f-a5b4-2fac79865a2c" x="604" y="1" width="148" height="20"/>
+				<reportElement uuid="dba72123-c07c-4f7f-a5b4-2fac79865a2c" x="604" y="1" width="148" height="15"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
@@ -266,25 +266,45 @@ WHERE IOT.N_ID = $P{n_id_traslado}]]>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="856f5847-4c9f-4b45-9eb4-5976b390d9d9" x="1" y="28" width="193" height="1"/>
+				<reportElement uuid="856f5847-4c9f-4b45-9eb4-5976b390d9d9" x="1" y="28" width="147" height="1"/>
 			</line>
 			<staticText>
-				<reportElement uuid="50f9f19b-0396-4201-88eb-93d752ee2259" x="558" y="31" width="194" height="16"/>
+				<reportElement uuid="50f9f19b-0396-4201-88eb-93d752ee2259" x="603" y="31" width="148" height="16"/>
 				<textElement textAlignment="Center">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[RECIBIDO POR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d73f5d13-4625-454a-ab8e-75b4ae928ab3" x="0" y="31" width="194" height="16"/>
+				<reportElement uuid="d73f5d13-4625-454a-ab8e-75b4ae928ab3" x="0" y="31" width="148" height="16"/>
 				<textElement textAlignment="Center">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ENVIADO POR]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="e01cf74f-2926-4868-83ac-3bfe3abc9073" x="558" y="28" width="194" height="1"/>
+				<reportElement uuid="e01cf74f-2926-4868-83ac-3bfe3abc9073" x="604" y="28" width="148" height="1"/>
 			</line>
+			<line>
+				<reportElement uuid="be5704b8-5ad2-402f-8949-080d6cfe7098" x="167" y="27" width="147" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="c555b301-2566-43aa-a03a-4e780f2b0629" x="166" y="30" width="148" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AUTORIZADO POR]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="d81910e5-b2b6-4d47-89da-5b831856558d" x="443" y="28" width="147" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="2a230295-6c4c-4fc6-9259-0057152fbf75" x="442" y="31" width="148" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TRASLADADO POR]]></text>
+			</staticText>
 		</band>
 	</lastPageFooter>
 </jasperReport>
