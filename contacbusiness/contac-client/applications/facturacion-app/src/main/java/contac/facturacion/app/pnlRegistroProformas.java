@@ -53,7 +53,9 @@ public class pnlRegistroProformas extends GenericPanel {
 
     //Message resource bundle
     private ResourceBundle messageBundle = ResourceBundle.getBundle("contac/facturacion/app/mensajes/mensajes",
-            LanguageLocale.getInstance().getLocale());
+    LanguageLocale.getInstance().getLocale());
+
+
 
     /*
      * Creates new form pnlRegistroProformas
@@ -64,6 +66,8 @@ public class pnlRegistroProformas extends GenericPanel {
         super(frame, "RegistroProformas", "Registro de Proformas", true, "contac/facturacion/app/mensajes/Mensajes",
                 new Locale("es", "NIC"));
 
+
+        //Call super constructor
 
         //Init controller
         controller = new ProformaClienteController();
