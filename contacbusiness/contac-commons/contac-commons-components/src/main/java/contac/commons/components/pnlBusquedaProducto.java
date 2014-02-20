@@ -212,10 +212,10 @@ public class pnlBusquedaProducto extends JDialog {
         //****************************************************
         //Adding cell renderer class to currency price values
         //****************************************************
-        DecimalFormatRenderer decimalFormatRenderer = new DecimalFormatRenderer();
+       /* DecimalFormatRenderer decimalFormatRenderer = new DecimalFormatRenderer();
         decimalFormatRenderer.setHorizontalAlignment(JLabel.RIGHT);
         productoColumnModel.getColumn(2).setCellRenderer(decimalFormatRenderer);
-
+*/
         //****************************************************
         //Ordering table columns
         //****************************************************
