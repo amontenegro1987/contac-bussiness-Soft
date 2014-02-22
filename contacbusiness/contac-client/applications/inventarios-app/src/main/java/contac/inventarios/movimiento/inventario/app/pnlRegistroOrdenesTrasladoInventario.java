@@ -357,6 +357,11 @@ public class pnlRegistroOrdenesTrasladoInventario extends GenericPanel {
         btnCancelar.setMinimumSize(new Dimension(80, 21));
         btnCancelar.setPreferredSize(new Dimension(80,21));
         btnCancelar.setText(bundle.getString("CONTAC.FORM.BTNCANCELAR")); // NOI18N
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/search.png")));
         btnBuscar.setText(bundle.getString("CONTAC.FORM.BTNBUSCAR.TRASLADO")); // NOI18N
@@ -446,6 +451,15 @@ public class pnlRegistroOrdenesTrasladoInventario extends GenericPanel {
 
 
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        //Init controller data
+        controller.init();
+
+        //Init formulario
+        initValues();
+
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         //Open formulario de administracion de compania

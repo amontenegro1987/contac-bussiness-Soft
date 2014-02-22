@@ -6,19 +6,28 @@ package contac.inventarios.movimiento.inventario.app;
 
 import contac.commons.form.label.JOptionErrorPane;
 import contac.commons.form.label.JOptionMessagePane;
+import contac.commons.form.layout.XYConstraints;
+import contac.commons.form.layout.XYLayout;
 import contac.commons.form.panel.GenericFrame;
 import contac.commons.form.panel.GenericPanel;
 import contac.commons.form.render.*;
+import contac.commons.models.comboBox.AlmacenComboBoxModel;
+import contac.commons.models.comboBox.ComboBoxEmptySelectionRenderer;
 import contac.commons.models.tables.BeanTableModel;
 import contac.internationalization.LanguageLocale;
 import contac.inventarios.controller.OrdenLevantamientoController;
+import contac.modelo.entity.Almacen;
 import contac.modelo.entity.OrdenLevantamientoFisico;
 import contac.modelo.entity.OrdenMovimiento;
 import org.apache.log4j.Logger;
+import org.jdesktop.swingx.JXDatePicker;
+import org.jdesktop.swingx.JXHeader;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
+import java.awt.*;
 import java.text.MessageFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -36,6 +45,8 @@ public class pnlRegistroLevantamientoFisico extends GenericPanel {
     //Message resource bundle
     private ResourceBundle messageBundle = ResourceBundle.getBundle("contac/inventarios/app/mensajes/Mensajes",
             LanguageLocale.getInstance().getLocale());
+
+    private JXHeader header;
 
     /**
      * Creates new form pnlRegistroLevantamientoFisico
@@ -69,6 +80,14 @@ public class pnlRegistroLevantamientoFisico extends GenericPanel {
 
     @Override
     public void initValues() {
+      try{
+
+        //Init campos de busqueda
+        dtpFechaDesde.setFormats("dd/MM/yyyy");
+        dtpFechaDesde.setDate(new Date());
+
+        dtpFechaHasta.setFormats("dd/MM/yyyy");
+        dtpFechaHasta.setDate(new Date());
 
         //Config table model para lavantamiento inventario fisico
         ordenLevantamientoFisicoBeanTableModel = new BeanTableModel<OrdenLevantamientoFisico>(OrdenLevantamientoFisico.class, OrdenMovimiento.class,
@@ -106,8 +125,19 @@ public class pnlRegistroLevantamientoFisico extends GenericPanel {
         tableColumnModel.getColumn(0).setPreferredWidth(15);
         tableColumnModel.getColumn(2).setPreferredWidth(200);
 
-    }
+          cmbAlmacen.setModel(new AlmacenComboBoxModel(controller.buscarAlmacenes()));
+          ListCellRenderer rendererAlmacen = new ComboBoxEmptySelectionRenderer(cmbAlmacen, messageBundle.getString("CONTAC.FORM.MSG.SELECCIONE"));
+          cmbAlmacen.setRenderer(rendererAlmacen);
+          //cmbAlmacen.setSelectedIndex(-1);
 
+          controller.setAlmacen(null);
+
+      } catch (Exception e) {
+          logger.error(e.getMessage(), e);
+          JOptionErrorPane.showMessageError(null, messageBundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.ERROR.REGISTRO"),
+                  e.getMessage());
+      }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -116,6 +146,12 @@ public class pnlRegistroLevantamientoFisico extends GenericPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        header = new JXHeader();
+        header.setTitle(messageBundle.getString("CONTAC.FORM.ORDENLEVANTAMIENTO.TITTLE")); // NOI18N
+        header.setForeground(new java.awt.Color(255, 153, 0));
+        header.setTitleForeground(new java.awt.Color(255, 153, 0));
+        header.setPreferredSize(new Dimension(50, 35));
 
         pnlRegistroLevantamientoFisico = new javax.swing.JPanel();
         tbRegistroInventarios = new javax.swing.JToolBar();
@@ -130,8 +166,58 @@ public class pnlRegistroLevantamientoFisico extends GenericPanel {
         tblOrdenesLevantamiento = new org.jdesktop.swingx.JXTable();
         headerAlmacenes = new org.jdesktop.swingx.JXHeader();
 
-        setLayout(new java.awt.BorderLayout());
+        //*********************************************************************
+        //Create Search Panel
+        //*********************************************************************
 
+        JPanel searchPanel = new JPanel(new XYLayout());
+        searchPanel.setBorder(BorderFactory.createEtchedBorder());
+        searchPanel.setPreferredSize(new Dimension(340, 400));
+
+        lblFechaDesde = new JLabel(messageBundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.FECHADESDE"));
+        lblFechaDesde.setHorizontalAlignment(JLabel.LEFT);
+
+        lblFechaHasta = new JLabel(messageBundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.FECHAHASTA"));
+        lblFechaHasta.setHorizontalAlignment(JLabel.LEFT);
+
+        lblAlmacen = new JLabel(messageBundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.ALMACEN"));
+        lblAlmacen.setHorizontalAlignment(JLabel.LEFT);
+
+        dtpFechaDesde = new JXDatePicker();
+        dtpFechaHasta = new JXDatePicker();
+
+        cmbAlmacen = new JComboBox();
+
+        ImageIcon buscarIco = new ImageIcon(getClass().getResource("/contac/resources/icons/search.png"));
+        ImageIcon cancelarIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/remove2.png"));
+
+        btnBuscar = new JButton(messageBundle.getString("CONTAC.FORM.BTNBUSCAR"));
+        btnBuscar.setIcon(buscarIco);
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar = new JButton(messageBundle.getString("CONTAC.FORM.BTNCANCELAR"));
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+        btnCancelar.setIcon(cancelarIco);
+
+        searchPanel.add(lblFechaDesde, new XYConstraints(5, 5, 120, 23));
+        searchPanel.add(dtpFechaDesde, new XYConstraints(130, 5, 120, 23));
+        searchPanel.add(lblFechaHasta, new XYConstraints(5, 33, 120, 23));
+        searchPanel.add(dtpFechaHasta, new XYConstraints(130, 33, 120, 23));
+        searchPanel.add(lblAlmacen, new XYConstraints(5, 61, 90, 23));
+        searchPanel.add(cmbAlmacen, new XYConstraints(130, 61, 200, 23));
+        searchPanel.add(btnBuscar, new XYConstraints(75, 89, 90, 23));
+        searchPanel.add(btnCancelar, new XYConstraints(175, 89, 90, 23));
+
+        setLayout(new java.awt.BorderLayout());
+  /**/
         pnlRegistroLevantamientoFisico.setLayout(new java.awt.BorderLayout());
 
         tbRegistroInventarios.setBorder(null);
@@ -215,17 +301,71 @@ public class pnlRegistroLevantamientoFisico extends GenericPanel {
 
         pnlRegistroLevantamientoFisico.add(scrollOrdenesEntrada, java.awt.BorderLayout.CENTER);
 
-        add(pnlRegistroLevantamientoFisico, java.awt.BorderLayout.CENTER);
+        //add(pnlRegistroLevantamientoFisico, java.awt.BorderLayout.CENTER);
 
         headerAlmacenes.setForeground(new java.awt.Color(255, 153, 0));
         headerAlmacenes.setPreferredSize(new java.awt.Dimension(51, 35));
         headerAlmacenes.setTitle(bundle.getString("CONTAC.FORM.REGISTROENTRADAINVENTARIO.TITLE")); // NOI18N
         headerAlmacenes.setTitleForeground(new java.awt.Color(255, 153, 0));
         add(headerAlmacenes, java.awt.BorderLayout.PAGE_START);
+
+        JScrollPane ordenesEntradaScrollbar = new JScrollPane();
+        ordenesEntradaScrollbar.getViewport().add(tblOrdenesLevantamiento);
+
+        pnlRegistroLevantamientoFisico.add(tbRegistroInventarios, BorderLayout.NORTH);
+        pnlRegistroLevantamientoFisico.add(ordenesEntradaScrollbar, BorderLayout.CENTER);
+
+        //*********************************************************************
+        //Create Main View
+        //*********************************************************************
+        this.setLayout(new BorderLayout());
+
+        this.add(header, BorderLayout.NORTH);
+        this.add(searchPanel, BorderLayout.WEST);
+        this.add(pnlRegistroLevantamientoFisico, java.awt.BorderLayout.CENTER);
+
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        try {
+            //Obteniendo fechas de busqueda
+            Date fechaDesde = dtpFechaDesde.getDate();
+            Date fechaHasta = dtpFechaHasta.getDate();
+
+            //Obtener parametros de busqueda
+            Almacen almacen = ((Almacen) ((AlmacenComboBoxModel) cmbAlmacen.getModel()).getSelectedItem().
+                    getObject());
+
+            //Consultando listado de Levantamiento Inventario Fisico
+
+            controller.buscarOrdenesLevantamientoFisico(fechaDesde, fechaHasta, almacen.getId());
+
+            //Actualizar listado de articulos ingresados
+            ((BeanTableModel) tblOrdenesLevantamiento.getModel()).fireTableDataChanged();
+
+        } catch (Exception e) {
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        }
+
+
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        //Init controller data
+        controller.init();
+
+        //Init formulario
+        initValues();
+
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
     private void btnAplicarAjusteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarAjusteActionPerformed
-        
+       try{
+
+           //Buscar Estado Ajuste
+           controller.estadoAjusteInventario();
+
         if (ordenLevantamientoSelected != null) {
             //Open formulario de aplicar ajuste de inventario fisico
             getMDI().getStyle().addPanel("pnlAplicarAjusteLevantamientoInventarioFisico",
@@ -235,6 +375,11 @@ public class pnlRegistroLevantamientoFisico extends GenericPanel {
             //Remove this panel
             getMDI().getStyle().removePanel(this);
         }
+       } catch (Exception e) {
+           logger.error(e.getMessage(), e);
+           //Show error message
+           JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+       }
     }//GEN-LAST:event_btnAplicarAjusteActionPerformed
 
     private void tblOrdenesLevantamientoMouseClicked(java.awt.event.MouseEvent evt) {
@@ -304,6 +449,8 @@ public class pnlRegistroLevantamientoFisico extends GenericPanel {
     private javax.swing.JButton btnAnular;
     private javax.swing.JButton btnAplicarAjuste;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnBuscar;
     private org.jdesktop.swingx.JXHeader headerAlmacenes;
     private javax.swing.JPanel pnlRegistroLevantamientoFisico;
     private javax.swing.JScrollPane scrollOrdenesEntrada;
@@ -312,6 +459,14 @@ public class pnlRegistroLevantamientoFisico extends GenericPanel {
     private javax.swing.JToolBar.Separator separatorTwo;
     private javax.swing.JToolBar tbRegistroInventarios;
     private org.jdesktop.swingx.JXTable tblOrdenesLevantamiento;
+
+    private javax.swing.JLabel lblAlmacen;
+    private javax.swing.JLabel lblFechaDesde;
+    private javax.swing.JLabel lblFechaHasta;
+    private javax.swing.JComboBox cmbAlmacen;
+    private org.jdesktop.swingx.JXDatePicker dtpFechaDesde;
+    private org.jdesktop.swingx.JXDatePicker dtpFechaHasta;
+
     // End of variables declaration//GEN-END:variables
     private BeanTableModel<OrdenLevantamientoFisico> ordenLevantamientoFisicoBeanTableModel;
     private OrdenLevantamientoFisico ordenLevantamientoSelected;

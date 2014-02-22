@@ -167,6 +167,31 @@ public interface ManagerInventarioServiceBusiness extends ManagerInventarioServi
     public List<OrdenTraslado> buscarOrdenesTrasladoPorEstados(List<String> estados, Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws ManagerInventarioServiceBusinessException,
             RemoteException;
 
+     /**
+     * Buscar estado del Registro de Levantamiento Inventario Físico
+     *
+     * @param idLevantamiento, Identificador de Orden
+     * @throws ManagerInventarioServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public void buscarEstadoAjuste(Integer idLevantamiento) throws ManagerInventarioServiceBusinessException, RemoteException;
+
+    /**
+     * Buscar registro de Levantamiento de Inventario por rangos de fecha
+     *
+     * @param fechaInicio, Date
+     * @param fechaFin,    Date
+     * @param idAlmacen,   Integer
+     * @return List
+     * @throws ManagerInventarioServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public List<OrdenLevantamientoFisico> buscarOrdenesLevantamientoFisicoPorFechas(Date fechaInicio, Date fechaFin, Integer idAlmacen) throws ManagerInventarioServiceBusinessException,
+            RemoteException;
+
+
     /**
      * Buscar ordenes de traslado por rangos de fecha
      *

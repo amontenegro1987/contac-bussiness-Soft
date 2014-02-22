@@ -263,6 +263,72 @@ public class OrdenLevantamientoController extends InventarioBaseController {
         }
     }
 
+     /**
+     * Buscar el Estado del Ajuste
+     *
+     * @throws Exception, Exception
+     */
+
+    public void estadoAjusteInventario() throws Exception {
+
+        logger.debug("Buscar Estado del Ajuste");
+
+        try {
+
+            //Obtener manager de Inventario
+            ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
+
+            //Buscar estado del Ajuste
+            mgrInventario.buscarEstadoAjuste(getOrdenLevantamiento().getId());
+
+        } catch (ManagerInventarioServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
+     /**
+     * Buscar Ordenes de Levantamiento Inventario Físico por Fechas y Almacen
+     * @param fechaDesde, Fecha desde donde inicia la busqueda
+     * @param fechaHasta, Fecha donde termina la busqueda
+     * @param idAlmacen, Almacen donde se hara el Levantamiento de Inventario
+     * @throws Exception, Exception
+     */
+     public void buscarOrdenesLevantamientoFisico(Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws Exception {
+
+        logger.debug("Buscando Registros de Levantamiento de Inventario por rangos de fecha");
+
+        try {
+
+            //Validar que los campos de fechas no sean nulos
+            if (fechaDesde == null)
+                throw new Exception("Debe ingresar una fecha de inicio de busqueda: [fecha desde]");
+
+            if (fechaHasta == null)
+                throw new Exception("Debe ingresar una fecha de fin de busqueda: [fecha hasta]");
+
+            if (idAlmacen == null)
+                idAlmacen = -1;
+
+            //Obtener manager de inventario
+            ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
+
+            //Buscar ordenes de levantamiento de Inventario por rango de fechas
+            List<OrdenLevantamientoFisico> ordenesLevantamiento = mgrInventario.buscarOrdenesLevantamientoFisicoPorFechas(fechaDesde, fechaHasta, idAlmacen);
+
+            //Setting ordenes de Levantamiento de Inventario
+            getOrdenesLevantamiento().clear();
+            getOrdenesLevantamiento().addAll(ordenesLevantamiento);
+
+        } catch (ManagerInventarioServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
     /**
      * Remover orden de Levantamiento de Inventario Físico
      *

@@ -13,6 +13,7 @@ import contac.utils.jpa.QueryUtils;
 
 import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -99,4 +100,32 @@ public class OrdenLevantamientoFisicoEAOPersistence extends GenericPersistenceEA
         em.createQuery(query).setParameter("idLevantamientoFisico", idLevantamientoFisico).executeUpdate();
     }
 
+    @Override
+    public List<OrdenLevantamientoFisico> findByFechas(Date fechaInicio, Date fechaFin, Integer idAlmacen) throws GenericPersistenceEAOException {
+        System.out.println("idAlmacen [almacenEntrada] " + idAlmacen + " idAlmacenSalida ");
+        //Init service
+        initService();
+
+        //Creating query
+        String fromClause = "Select o from OrdenLevantamientoFisico o ";
+        String conditionClause = "";
+
+        List<QueryFragment> querySolver = new ArrayList<QueryFragment>();
+
+        //1. Agregando parametro fecha desde
+        querySolver.add(new QueryFragment(fechaInicio != null, "", " o.fechaAlta >= :fechaInicio ", "fechaInicio", fechaInicio));
+
+        //2. Agregando parametro fecha hasta
+        querySolver.add(new QueryFragment(fechaFin != null, "", " o.fechaAlta <= :fechaFin ", "fechaFin", fechaFin));
+
+        //3. Agregando parametro almacen Entrada
+        querySolver.add(new QueryFragment(idAlmacen != null, "", " o.almacen.id = :idAlmacen", "idAlmacen", idAlmacen));
+
+        String ejbQuery = QueryUtils.ejbQLcreator(fromClause, conditionClause, querySolver);
+        Query query = em.createQuery(ejbQuery);
+
+        List<OrdenLevantamientoFisico> listOrdenesLevantamientoFisico = QueryUtils.ejbQLParametersSolver(query, querySolver).getResultList();
+
+        return listOrdenesLevantamientoFisico;
+    }
 }
