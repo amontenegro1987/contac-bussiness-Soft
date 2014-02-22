@@ -152,6 +152,11 @@ public class pnlRegistroOrdenesEntradaInventario extends GenericPanel {
         btnBuscar.setIcon(buscarIco);
 
         btnCancelar = new JButton(messageBundle.getString("CONTAC.FORM.BTNCANCELAR"));
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
         btnCancelar.setIcon(cancelarIco);
 
         searchPanel.add(lblFechaDesde, new XYConstraints(5, 5, 120, 23));
@@ -346,6 +351,16 @@ public class pnlRegistroOrdenesEntradaInventario extends GenericPanel {
             JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        //Init controller data
+        controller.init();
+
+        //Init formulario
+        initValues();
+
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
     private void tblOrdenesEntradaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOrdenesEntradaMouseClicked
 
         // Getting orden de entrada selected

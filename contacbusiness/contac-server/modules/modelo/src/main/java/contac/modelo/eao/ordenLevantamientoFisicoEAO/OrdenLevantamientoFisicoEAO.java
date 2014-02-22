@@ -7,7 +7,9 @@ package contac.modelo.eao.ordenLevantamientoFisicoEAO;
 import contac.modelo.eao.genericEAO.GenericEAO;
 import contac.modelo.eao.genericEAO.GenericPersistenceEAOException;
 import contac.modelo.entity.OrdenLevantamientoFisico;
+import contac.modelo.entity.OrdenTraslado;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,4 +43,13 @@ public interface OrdenLevantamientoFisicoEAO extends GenericEAO<OrdenLevantamien
      *          Exception
      */
     public void deleteDetalleLevantamientoFisico(Integer idLevantamientoFisico) throws GenericPersistenceEAOException;
+
+    /**
+     * Buscar ordenes de traslado por rango de fechas
+     * @param fechaInicio, Date
+     * @param fechaFin, Date
+     * @return List
+     * @throws GenericPersistenceEAOException, Exception
+     */
+    public List<OrdenLevantamientoFisico> findByFechas(Date fechaInicio, Date fechaFin, Integer idAlmacen) throws GenericPersistenceEAOException;
 }
