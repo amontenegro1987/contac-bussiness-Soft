@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: net.sourceforge.mydoggy:mydoggy-examples:1.4.2">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/sourceforge/mydoggy/mydoggy-examples/1.4.2/mydoggy-examples-1.4.2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/net/sourceforge/mydoggy/mydoggy-examples/1.4.2/mydoggy-examples-1.4.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/sourceforge/mydoggy/mydoggy-examples/1.4.2/mydoggy-examples-1.4.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

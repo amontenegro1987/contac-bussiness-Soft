@@ -1588,10 +1588,11 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
             for (ArticuloLevantamientoFisico articulo : articulos) {
 
                 //Borrar articulos con cantidad menor o igual a zero
-                if (articulo.getCantidad() <= 0) {
+                /*if (articulo.getCantidad() <= 0) {
                     articulos.remove(articulo);
                     continue;
-                }
+                }*/
+                //Se quitó esta validación el 22/02/2014 para que aceptara Productos con cantidad 0
 
                 //Setting orden de levantamiento
                 costoNeto += articulo.getCosto().doubleValue() * articulo.getCantidad();

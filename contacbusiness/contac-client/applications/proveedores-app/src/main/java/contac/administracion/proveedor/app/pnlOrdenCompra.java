@@ -123,29 +123,26 @@ public class pnlOrdenCompra extends GenericPanel {
         //************************************************************
         //Init data values components
         //************************************************************
-//        cmbTipoFactura.setModel(new TipoFacturaComboBoxModel(TiposFactura.values()));
 
         txtNoOrdenCompra.setEditable(false);
         dtpFechaAlta.setEnabled(false);
 
         if (!controller.is_edit()) {
 
-           // cmbTipoFactura.setEnabled(true);
-            //cmbAlmacen.setEnabled(false);
             txtCodigoProveedor.setEditable(true);
 
-           // btnBuscarAgente.setEnabled(true);
             btnBuscarProveedor.setEnabled(true);
+
             //Cambiar label del boton aceptar
             btnAceptar.setText(messageBundle.getString("CONTAC.FORM.BTNACEPTAR"));
         }
 
         if (controller.is_edit()) {
 
-            //cmbTipoFactura.setEnabled(true);
             txtCodigoProveedor.setEditable(false);
 
             btnBuscarProveedor.setEnabled(false);
+
             //Cambiar label del boton modificar
             btnAceptar.setText(messageBundle.getString("CONTAC.FORM.BTNMODIFICAR"));
         }
@@ -172,7 +169,7 @@ public class pnlOrdenCompra extends GenericPanel {
         } else {
             txtDescripcionCompra.setText("");
         }
-         //TODO crear un nuevo numero de factura
+         //TODO crear un nuevo numero de Orden de Compra
         //Numero de Orden de Compra
         /*if (controller.getOrdenCompra().getId() > 0) {
             txtNoOrdenCompra.setText(String.valueOf(controller.getOrdenCompra().getId()));
@@ -251,7 +248,6 @@ public class pnlOrdenCompra extends GenericPanel {
         try {
              if (controller.checkUserInRole(Roles.ROLFACTURACIONADMIN.toString())) {
                 txtNoOrdenCompra.setEnabled(true);
-                //cmbAlmacen.setEnabled(true);
                 dtpFechaAlta.setEnabled(true);
             }
         } catch (Exception e) {
@@ -398,13 +394,6 @@ public class pnlOrdenCompra extends GenericPanel {
             }
         });
 
-        btnCompletar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO
-            }
-        });
-
         btnAceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -499,19 +488,19 @@ public class pnlOrdenCompra extends GenericPanel {
         pnlHeaderComp.add(txtReferenciaProveedor, new XYConstraints(350, 5, 230, 23));
 
         pnlHeaderComp.add(lblFechaRequerida, new XYConstraints(630,5,100,23));
-        pnlHeaderComp.add(dtpFechaRequerida, new XYConstraints(740,5,165,23));
-        pnlHeaderComp.add(btnEditarFechaRequerida, new XYConstraints(915,5,30,23));
+        pnlHeaderComp.add(dtpFechaRequerida, new XYConstraints(740,5,135,23));
+        pnlHeaderComp.add(btnEditarFechaRequerida, new XYConstraints(885,5,30,23));
 
-        pnlHeaderComp.add(lblFechaAlta, new XYConstraints(955,5,110,23));
-        pnlHeaderComp.add(dtpFechaAlta, new XYConstraints(1030,5,148,23));
-        pnlHeaderComp.add(btnEditarFechaRegistro, new XYConstraints(1192, 5, 30, 23));
+        pnlHeaderComp.add(lblFechaAlta, new XYConstraints(925,5,110,23));
+        pnlHeaderComp.add(dtpFechaAlta, new XYConstraints(1000,5,135,23));
+        pnlHeaderComp.add(btnEditarFechaRegistro, new XYConstraints(1148, 5, 30, 23));
 
         pnlHeaderComp.add(lblProveedor, new XYConstraints(5, 33, 90, 23));
         pnlHeaderComp.add(txtCodigoProveedor, new XYConstraints(105, 33, 100, 23));
         pnlHeaderComp.add(txtNombreProveedor, new XYConstraints(210, 33, 370, 23));
         pnlHeaderComp.add(btnBuscarProveedor, new XYConstraints(585, 33, 30, 23));
         pnlHeaderComp.add(lblDescripcion, new XYConstraints(630,33,100,23));
-        pnlHeaderComp.add(txtDescripcionCompra, new XYConstraints(740,33,488,23));
+        pnlHeaderComp.add(txtDescripcionCompra, new XYConstraints(740,33,440,23));
 
         //***************************************************************************************
         //Init Articulos Table Panel
@@ -564,16 +553,6 @@ public class pnlOrdenCompra extends GenericPanel {
         btnCalcular = new JButton();
         btnCalcular.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/calculator.png")));
 
-        btnCompletar = new javax.swing.JButton(messageBundle.getString("CONTAC.FORM.ORDENCOMPRA_COMPLETAR"));
-        btnCompletar.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/engranaje-rojo.png")));
-
-        btnCompletar.setPreferredSize(new Dimension(160, 23));
-
-        btnEnviarCorreo = new javax.swing.JButton(messageBundle.getString("CONTAC.FORM.ORDENCOMPRA_ENVIAR_CORREO"));
-        btnEnviarCorreo.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/enviarCorreo.png")));
-
-        btnEnviarCorreo.setPreferredSize(new Dimension(154, 23));
-
         JPanel pnlAddProducto = new JPanel(new FlowLayout(FlowLayout.LEFT));
         pnlAddProducto.add(txtCodigo);
         pnlAddProducto.add(btnBuscarProducto);
@@ -584,8 +563,6 @@ public class pnlOrdenCompra extends GenericPanel {
         pnlAddProducto.add(lblSubtotal);
         pnlAddProducto.add(txtSubtotal);
         pnlAddProducto.add(btnCalcular);
-        pnlAddProducto.add(btnCompletar);
-        pnlAddProducto.add(btnEnviarCorreo);
 
         //Adding to Main Panel
         JPanel pnlMainOrder = new JPanel(new BorderLayout());
@@ -780,6 +757,7 @@ public class pnlOrdenCompra extends GenericPanel {
             controller.setDescripcionCompra(txtDescripcionCompra.getText());
             controller.setNumeroReferencia(Integer.parseInt((txtReferenciaProveedor.getText())));
             controller.setNombreProveedor(txtNombreProveedor.getText());
+
             if (tasaCambioSelected != null) {
                 controller.setTasaCambio(tasaCambioSelected.getTasaConversion());
                 controller.setMoneda(tasaCambioSelected.getMonedaConversion());
@@ -845,8 +823,6 @@ public class pnlOrdenCompra extends GenericPanel {
     private javax.swing.JButton btnBuscarProveedor;
     private javax.swing.JButton btnBuscarProducto;
     private javax.swing.JButton btnCalcular;
-    private javax.swing.JButton btnCompletar;
-    private javax.swing.JButton btnEnviarCorreo;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditarFechaRegistro;
     private javax.swing.JButton btnEditarFechaRequerida;
