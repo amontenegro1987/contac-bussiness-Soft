@@ -620,7 +620,6 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
 
             //Preparar el contexto de ejecucion
             OrdenLevantamientoFisico ordenLevantamiento = ordenLevantamientoFisicoEAO.findById(idLevantamiento);
-            //EstadoMovimiento estadoImpreso = estadoMovimientoEAO.findByAlias(EstadosMovimiento.IMPRESO.getEstado());
 
             //Validar datos generales del Levantamiento Inventario Fisico
             if (ordenLevantamiento.getEstado().getAlias().equals(EstadosMovimiento.APLICADO.getEstado()))
