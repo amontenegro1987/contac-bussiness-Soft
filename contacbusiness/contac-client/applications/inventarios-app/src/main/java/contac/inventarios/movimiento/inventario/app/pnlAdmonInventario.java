@@ -561,8 +561,10 @@ public class pnlAdmonInventario extends GenericPanel {
             //Param codigo desde
             controller.setCodigoDesde(txtCodigoDesde.getText().equals("") ? "-1" : txtCodigoDesde.getText());
             controller.setCodigoHasta(txtCodigoHasta.getText().equals("") ? "-1" : txtCodigoHasta.getText());
+            controller.setProveedor(cmbProveedor.getSelectedIndex() != -1 ?
+                    (Proveedor) ((ProveedorComboBoxModel) cmbProveedor.getModel()).getSelectedItem().getObject() : null);
 
-            controller.setExistencias(true);
+            //controller.setExistencias(true);
 
             // Prepared Jasper Report
             JasperReport report;
@@ -574,6 +576,7 @@ public class pnlAdmonInventario extends GenericPanel {
             parameters.put("SUBREPORT_DIR", getClass().getClassLoader().getResource("contac/inventarios/app/reportes") + "/");
             parameters.put("p_codigo_desde", controller.getCodigoDesde());
             parameters.put("p_codigo_hasta", controller.getCodigoHasta());
+            parameters.put("p_codigo_proveedor", controller.getProveedor() != null ? controller.getProveedor().getCodigo() : -1);
 
             //Generate Report
             JasperPrint jasperPrint = controller.getMgrReportesService().generateReport(parameters, report);
