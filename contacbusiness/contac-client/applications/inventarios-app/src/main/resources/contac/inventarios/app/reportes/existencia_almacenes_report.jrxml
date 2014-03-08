@@ -29,10 +29,10 @@ $P{p_codigo_hasta} + "' AND PROD.N_ID_ESTADOPRODUCTO <> 6 ")
           COALESCE(SUM(MOV_INVENTARIO.N_CANTIDAD * MOV_INVENTARIO.N_AFECTACION),0) AS EXISTENCIA,
 	SUM(PROD_EXISTENCIA.N_CANTIDAD) AS PROD_EXISTENCIA,
 	UNIDADMED.C_NOMBRE AS UNIDAD_MEDIDA,
-	PROD.N_COSTOFOB,
-          PROD.N_COSTOCIF,
-	PROD.N_COSTOUND,
-	PROD.N_PRECIOESTANDAR,
+          ROUND(PROD.N_COSTOFOB,2) AS N_COSTOFOB,
+          ROUND(PROD.N_COSTOCIF,2) AS N_COSTOCIF,
+	ROUND(PROD.N_COSTOUND,2) AS N_COSTOUND,
+	ROUND(PROD.N_PRECIOESTANDAR,2) AS N_PRECIOESTANDAR,
 	PROD.N_ID_COMPANIA,
 	LINEA.C_DESCRIPCION AS LINEA_DESC,
 	PROVEEDOR.C_RAZONSOCIAL AS PROVEEDOR_DESC,
@@ -482,7 +482,7 @@ ORDER BY PROD.C_CODIGO]]>
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textField>
-								<reportElement uuid="08148544-d1c6-4e90-8b03-d6fe94de82b5" style="Crosstab Data Text" x="0" y="0" width="57" height="31"/>
+								<reportElement uuid="08148544-d1c6-4e90-8b03-d6fe94de82b5" style="Crosstab Data Text" x="0" y="0" width="53" height="31"/>
 								<box>
 									<pen lineWidth="0.5"/>
 									<topPen lineWidth="0.5"/>
@@ -511,7 +511,9 @@ ORDER BY PROD.C_CODIGO]]>
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
 								<text><![CDATA[Total]]></text>
 							</staticText>
 						</cellContents>
@@ -520,26 +522,28 @@ ORDER BY PROD.C_CODIGO]]>
 				<measure name="EXISTENCIAMeasure" class="java.math.BigDecimal" calculation="Sum">
 					<measureExpression><![CDATA[$F{EXISTENCIA}]]></measureExpression>
 				</measure>
-				<crosstabCell width="57" height="25">
+				<crosstabCell width="53" height="25">
 					<cellContents>
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textField>
-							<reportElement uuid="57819cc1-0932-4d56-9957-162e92a1a421" style="Crosstab Data Text" x="0" y="0" width="57" height="25"/>
+							<reportElement uuid="57819cc1-0932-4d56-9957-162e92a1a421" style="Crosstab Data Text" x="0" y="0" width="53" height="25"/>
 							<textElement verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[($V{EXISTENCIAMeasure} != null) ? $V{EXISTENCIAMeasure} : "0"]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="57" height="25" rowTotalGroup="C_CODIGO">
+				<crosstabCell width="53" height="25" rowTotalGroup="C_CODIGO">
 					<cellContents backcolor="#BFE1FF" mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textField>
-							<reportElement uuid="f404d906-8ce2-4fc8-9dd6-daefa9b26d06" style="Crosstab Data Text" x="0" y="0" width="57" height="25" forecolor="#000000"/>
-							<textElement verticalAlignment="Middle"/>
+							<reportElement uuid="f404d906-8ce2-4fc8-9dd6-daefa9b26d06" style="Crosstab Data Text" x="0" y="0" width="53" height="25" forecolor="#000000"/>
+							<textElement verticalAlignment="Middle">
+								<font size="8"/>
+							</textElement>
 							<textFieldExpression><![CDATA[$V{EXISTENCIAMeasure}]]></textFieldExpression>
 						</textField>
 					</cellContents>
@@ -568,7 +572,7 @@ ORDER BY PROD.C_CODIGO]]>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="57" height="0" rowTotalGroup="C_NOMBRE">
+				<crosstabCell width="53" height="0" rowTotalGroup="C_NOMBRE">
 					<cellContents backcolor="#005FB3" mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>

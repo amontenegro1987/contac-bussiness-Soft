@@ -960,7 +960,8 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
             //Preparar el contexto de ejecucion
             Almacen almacenSalida = almacenEAO.findById(idAlmacenSalida);
             Almacen almacenIngreso = almacenEAO.findById(idAlmacenIngreso);
-            EstadoMovimiento estado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.INGRESADO.getEstado());
+            //EstadoMovimiento estado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.INGRESADO.getEstado());
+            EstadoMovimiento estado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.PENDIENTE.getEstado());
 
             //Obtener numero consecutivo de traslado
             long noTraslado = ordenTrasladoEAO.obtenerNoTraslado();
@@ -1112,6 +1113,81 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
             throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
         } finally {
             stopBusinessService(value);
+        }
+    }
+
+    @Override
+    public void validarImpresionOrdenTraslado(Integer idOrdenTraslado) throws ManagerInventarioServiceBusinessException, RemoteException {
+
+        logger.debug("Validar Impresión de Orden de Traslado: [idOrdenTraslado]: " + idOrdenTraslado);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLINVENTARIOADMIN.toString());
+
+        try {
+
+            //Preparar el contexto de ejecucion
+            OrdenTraslado ordenTrasladoAplicar = ordenTrasladoEAO.findById(idOrdenTraslado);
+
+            EstadoMovimiento estadoIngresado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.INGRESADO.getEstado());
+
+            //Validar datos generales de la Orden de Traslado
+            if (ordenTrasladoAplicar.getEstado().getAlias().equals(EstadosMovimiento.PENDIENTE.getEstado()))
+                throw new ManagerInventarioServiceBusinessException("Orden de Traslado no se encuentra en un estado valido para poder imprimir.");
+
+
+        } catch (PersistenceClassNotFoundException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
+    public void aplicarTraslado(Integer idOrdenTraslado) throws ManagerInventarioServiceBusinessException, RemoteException {
+
+        logger.debug("Cambiar Estado Orden de Traslado a INGRESADA con parametros: [idOrdenTraslado]: " + idOrdenTraslado);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLINVENTARIOADMIN.toString());
+
+        try {
+
+            //Preparar el contexto de ejecucion
+            OrdenTraslado ordenTrasladoAplicar = ordenTrasladoEAO.findById(idOrdenTraslado);
+
+            EstadoMovimiento estadoIngresado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.INGRESADO.getEstado());
+
+            //Validar datos generales de la Orden de Traslado
+            if (!ordenTrasladoAplicar.getEstado().getAlias().equals(EstadosMovimiento.PENDIENTE.getEstado()))
+                throw new ManagerInventarioServiceBusinessException("Orden de Traslado no se encuentra en un estado valido para poder Aplicar.");
+
+            //Eliminar movimientos de inventario de los articulos
+            for (ArticuloTraslado articulo : ordenTrasladoAplicar.getArticulos()) {
+                for (MovimientoInventario movimiento : articulo.getMovimientosInventario()) {
+                    movimiento.setEstado(estadoIngresado);
+                 }
+
+               }
+
+            //Setting Estado Movimiento Impreso
+            ordenTrasladoAplicar.setEstado(estadoIngresado);
+
+            //Update OrdenTraslado
+            ordenTrasladoEAO.update(ordenTrasladoAplicar);
+
+        } catch (PersistenceClassNotFoundException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
         }
     }
 
