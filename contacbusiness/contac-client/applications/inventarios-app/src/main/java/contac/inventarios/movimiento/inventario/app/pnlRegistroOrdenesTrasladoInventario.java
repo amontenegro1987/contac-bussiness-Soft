@@ -172,6 +172,7 @@ public class pnlRegistroOrdenesTrasladoInventario extends GenericPanel {
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnEditar = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
+        btnAplicarTraslado = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         btnAnular = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
@@ -294,6 +295,20 @@ public class pnlRegistroOrdenesTrasladoInventario extends GenericPanel {
         });
         //tbRegistroInventarios.add(btnImprimir);
 
+        btnAplicarTraslado.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/actions/trasladar16.png")));
+        btnAplicarTraslado.setToolTipText(bundle.getString("CONTAC.FORM.BTNAPLICARTRASLADO")); // NOI18N
+        btnAplicarTraslado.setFocusable(false);
+        btnAplicarTraslado.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnAplicarTraslado.setMaximumSize(new Dimension(40, 32));
+        btnAplicarTraslado.setMinimumSize(new Dimension(40, 32));
+        btnAplicarTraslado.setName(""); // NOI18N
+
+        btnAplicarTraslado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAplicarTrasladoActionPerformed(evt);
+            }
+        });
+
         JToolBar actionToolBar = new JToolBar();
         actionToolBar.setPreferredSize(new Dimension(500, 32));
 
@@ -304,6 +319,8 @@ public class pnlRegistroOrdenesTrasladoInventario extends GenericPanel {
         actionToolBar.add(btnAnular);
         actionToolBar.add(new JToolBar.Separator());
         actionToolBar.add(btnImprimir);
+        actionToolBar.add(new JToolBar.Separator());
+        actionToolBar.add(btnAplicarTraslado);
 
         JPanel trasladoPanel = new JPanel(new BorderLayout());
         trasladoPanel.setBorder(BorderFactory.createEtchedBorder());
@@ -481,12 +498,40 @@ public class pnlRegistroOrdenesTrasladoInventario extends GenericPanel {
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void btnAplicarTrasladoActionPerformed(java.awt.event.ActionEvent evt) {  //GEN-FIRST:event_btnAplicarTrasladoActionPerformed
+        try {
+
+            // Si no ha seleccionado ningún Traslado a Imprimir
+            if (ordenTrasladoSelected != null) {
+               //Cambiar estado a Traslado y MI
+                controller.aplicarOrdenTraslado();
+                //Actualizar listado de articulos ingresados
+                ((BeanTableModel) tblOrdenesTraslado.getModel()).fireTableDataChanged();
+                //Show confirmation message
+                JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.INGRESO.EXITOSO"),
+                        messageBundle.getString("CONTAC.FORM.MSG.INGRESO.EXITOSO"));
+            }else{
+                JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.ADVERTENCIA"),
+                        messageBundle.getString("CONTAC.FORM.MSG.SELECCIONAR.TRASLADO.VALIDACION"));
+            }
+
+    } catch (Exception e) {
+        logger.error(e.getMessage(), e);
+        JOptionErrorPane.showMessageError(null, messageBundle.getString("CONTAC.FORM.MSG.REGISTRO.FALLIDO"),
+                e.getMessage());
+    }
+   }
+
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_btnImprimirActionPerformed
         try {
+
             // Si no ha seleccionado ninguna Orden de Traslado a Imprimir
             if (ordenTrasladoSelected == null) {
                 throw new Exception(messageBundle.getString("CONTAC.FORM.ORDENTRASLADO.IMPRIMIR.VALIDA"));
             }
+
+            //Validar Estado de Orden de Traslado
+            controller.ordenTrasladoImprimir();
 
                 JasperReport report = (JasperReport) JRLoader.loadObject(pnlRegistroOrdenesTrasladoInventario.class
                   .getResourceAsStream("/contac/inventarios/app/reportes/traslado_sucursales_report.jasper"));
@@ -550,6 +595,7 @@ public class pnlRegistroOrdenesTrasladoInventario extends GenericPanel {
     private javax.swing.JButton btnAnular;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnImprimir;
+    private javax.swing.JButton btnAplicarTraslado;
     private JButton btnCancelar;
     private JButton btnBuscar;
     private org.jdesktop.swingx.JXHeader headerAlmacenes;

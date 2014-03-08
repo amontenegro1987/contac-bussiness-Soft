@@ -281,7 +281,60 @@ public class OrdenTrasladoController extends InventarioBaseController {
             throw new Exception(e.getMessage(), e);
         }
     }
+    //*************************************************************************************
+    //ACTION EVENTS
+    //*************************************************************************************
 
+    /**
+     * Validar Estado de Orden de Traslado a Imprimir
+     *
+     * @throws Exception, Exception
+     */
+
+    public void ordenTrasladoImprimir() throws Exception {
+
+        logger.debug("Validar Estado de Orden de Traslado");
+
+        try {
+
+            //Obtener manager de Inventario
+            ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
+
+            //Validar Estado de Orden de Traslado
+            mgrInventario.validarImpresionOrdenTraslado(getOrdenTraslado().getId());
+
+        } catch (ManagerInventarioServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+
+    }
+
+    /**
+     * Aplicar orden de traslado
+     *
+     * @throws Exception, Exception
+     */
+    public void aplicarOrdenTraslado() throws Exception {
+
+        logger.debug("Aplicando Orden de Traslado de inventario");
+
+        try {
+
+            //Obtener manager de inventario
+            ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
+
+            //Cambiar Estado de Orden de Traslado
+            mgrInventario.aplicarTraslado(getOrdenTraslado().getId());
+
+        } catch (ManagerInventarioServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
     /**
      * Modificar orden de traslado
      *
@@ -486,6 +539,7 @@ public class OrdenTrasladoController extends InventarioBaseController {
             //Buscar ordenes de traslado por estados
             List<String> estados = new ArrayList<String>();
             estados.add(EstadosMovimiento.INGRESADO.getEstado());
+            estados.add(EstadosMovimiento.PENDIENTE.getEstado());
 
             //Retornar listado encontrado
             List<OrdenTraslado> ordenesTraslado = mgrInventario.buscarOrdenesTrasladoPorEstados(estados, fechaDesde, fechaHasta, idAlmacen);

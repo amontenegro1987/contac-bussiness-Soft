@@ -10,6 +10,7 @@ public enum EstadosMovimiento {
 
     INGRESADO("IN"),
     ANULADO("AN"),
+    PENDIENTE("PD"),
     APLICADO("AP"),
     PROCESADO("PC"),
     CALCULADO("CA"),

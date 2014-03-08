@@ -285,6 +285,29 @@ public interface ManagerInventarioServiceBusiness extends ManagerInventarioServi
             throws ManagerInventarioServiceBusinessException, RemoteException;
 
     /**
+     * Validar Orden de Traslado a Imprimir
+     *
+     * @param idOrdenTraslado, Identificador de solicitud de traslado
+     * @return OrdenTraslado
+     * @throws ManagerInventarioServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public void validarImpresionOrdenTraslado(Integer idOrdenTraslado) throws ManagerInventarioServiceBusinessException, RemoteException;
+
+
+    /**
+     * Aplicar orden de traslado de inventario
+     *
+     * @param idOrdenTraslado, Identificador de solicitud de traslado
+     * @return OrdenTraslado
+     * @throws ManagerInventarioServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public void aplicarTraslado(Integer idOrdenTraslado) throws ManagerInventarioServiceBusinessException, RemoteException;
+
+    /**
      * Modificar orden de traslado de inventario
      *
      * @param idOrdenTraslado, Identificador de solicitud de traslado
