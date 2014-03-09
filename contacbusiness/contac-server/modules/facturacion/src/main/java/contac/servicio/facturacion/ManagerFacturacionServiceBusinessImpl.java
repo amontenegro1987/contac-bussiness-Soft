@@ -739,7 +739,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
         logger.debug("Cambiar Estado factura a IMPRESA con parametros: [idFactura]: " + idFactura);
 
         //Iniciar servicio de autenticacion
-        boolean transaction = initBusinessService(Roles.ROLFACTURACIONADMIN.toString());
+        boolean transaction = initBusinessService(Roles.ROLCAJAADMIN.toString());
 
         try {
 
@@ -824,7 +824,8 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             EstadoMovimiento estadoAnulado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.ANULADO.getEstado());
 
             //Validar datos generales de la factura
-            if (!factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado()))
+            if (!factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado()) &&
+                !factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.IMPRESO.getEstado()))
                 throw new ManagerFacturacionServiceBusinessException("Factura no se encuentra en un estado valido para poder anular.");
 
             //Setting estado anulado
@@ -909,7 +910,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
 
             //Validar datos generales de la factura
             if (!factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado()) &&
-                    !factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.ANULADO.getEstado()))
+                !factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.ANULADO.getEstado()))
                 throw new ManagerFacturacionServiceBusinessException("Factura no se encuentra en un estado valido para poder eliminar.");
 
                 //Eliminar movimientos de inventario de los productos solo si esta INGRESADO

@@ -6,6 +6,7 @@
 package contac.commons.models.comboBox;
 
 import contac.modelo.entity.Almacen;
+import contac.modelo.entity.EstadosMovimiento;
 
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;

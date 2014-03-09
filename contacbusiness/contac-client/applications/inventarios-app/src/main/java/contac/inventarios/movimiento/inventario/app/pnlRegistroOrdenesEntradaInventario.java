@@ -118,6 +118,7 @@ public class pnlRegistroOrdenesEntradaInventario extends GenericPanel {
         btnEditar = new javax.swing.JButton();
         separatorTwo = new javax.swing.JToolBar.Separator();
         btnAnular = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
         scrollProformasClientes = new JScrollPane();
         scrollProformaWest = new JScrollPane();
         //*********************************************************************
@@ -252,6 +253,22 @@ public class pnlRegistroOrdenesEntradaInventario extends GenericPanel {
         pnlRegistroInventario.add(tbRegistroInventarios, BorderLayout.NORTH);
         pnlRegistroInventario.add(ordenesEntradaScrollbar, BorderLayout.CENTER);
         //pnlRegistroInventario.add(tbRegistroInventarios, java.awt.BorderLayout.PAGE_START);
+
+        btnImprimir.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/actions/print.png")));
+        btnImprimir.setToolTipText(bundle.getString("CONTAC.FORM.BTNIMPRIMIR")); // NOI18N
+        btnImprimir.setFocusable(false);
+        btnImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnImprimir.setMaximumSize(new Dimension(40, 32));
+        btnImprimir.setMinimumSize(new Dimension(40, 32));
+        btnImprimir.setName(""); // NOI18N
+        tbRegistroInventarios.add(btnImprimir);
+
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+        //tbRegistroInventarios.add(btnImprimir)
 
         //*********************************************************************
         //Create Main View
@@ -389,6 +406,41 @@ public class pnlRegistroOrdenesEntradaInventario extends GenericPanel {
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+       /*
+        try {
+
+            // Si no ha seleccionado ninguna Orden de Traslado a Imprimir
+            if (ordenTrasladoSelected == null) {
+                throw new Exception(messageBundle.getString("CONTAC.FORM.ORDENTRASLADO.IMPRIMIR.VALIDA"));
+            }
+
+            //Validar Estado de Orden de Traslado
+            controller.ordenTrasladoImprimir();
+
+                JasperReport report = (JasperReport) JRLoader.loadObject(pnlRegistroOrdenesTrasladoInventario.class
+                  .getResourceAsStream("/contac/inventarios/app/reportes/traslado_sucursales_report.jasper"));
+
+            Map parameters = new HashMap();
+            parameters.put("SUBREPORT_DIR", getClass().getClassLoader().getResource("contac/inventarios/app/reportes") + "/");
+            parameters.put("n_id_traslado", ordenTrasladoSelected.getId());
+
+            //Generate Report
+            JasperPrint jasperPrint = controller.getMgrReportesService().generateReport(parameters, report);
+
+            //Print Report Preview
+            JRPrintReport.printPreviewReport(getMDI(), jasperPrint);
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        }
+
+        */
+
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
     private void btnAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularActionPerformed
 
         try {
@@ -427,6 +479,7 @@ public class pnlRegistroOrdenesEntradaInventario extends GenericPanel {
     private javax.swing.JButton btnAnular;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnBuscar;
     private org.jdesktop.swingx.JXHeader headerAlmacenes;
     private javax.swing.JPanel pnlRegistroInventario;

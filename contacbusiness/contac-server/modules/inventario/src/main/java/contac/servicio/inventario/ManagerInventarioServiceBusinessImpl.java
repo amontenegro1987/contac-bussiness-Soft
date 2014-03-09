@@ -982,7 +982,7 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
             if (articulos.isEmpty())
                 throw new ManagerInventarioServiceBusinessException("Debes ingresar al menos un articulo.");
 
-            //Crear orden de traslado en estado preliminar INGRESADO
+            //Crear orden de traslado en estado preliminar PENDIENTE
             OrdenTraslado ordenTraslado = new OrdenTraslado();
             ordenTraslado.setNoMovimiento(noTraslado);
             ordenTraslado.setAlmacenSalida(almacenSalida);
