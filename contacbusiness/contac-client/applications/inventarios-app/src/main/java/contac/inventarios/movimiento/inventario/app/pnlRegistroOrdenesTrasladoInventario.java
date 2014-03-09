@@ -108,7 +108,7 @@ public class pnlRegistroOrdenesTrasladoInventario extends GenericPanel {
         cmbAlmacenSalida.setRenderer(rendererAlmacenRecibe);
         //cmbAlmacenSalida.setSelectedIndex(-1);
 
-        controller.setAlmacen(null);
+            controller.setAlmacen(null);
 
         ordenTrasladoBeanTableModel = new BeanTableModel<OrdenTraslado>(OrdenTraslado.class, OrdenMovimiento.class,
               controller.getOrdenesTraslado());
@@ -551,9 +551,7 @@ public class pnlRegistroOrdenesTrasladoInventario extends GenericPanel {
             //Show error message
             JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
         }
-
-
-    }
+  }
 
     private void btnAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularActionPerformed
 
