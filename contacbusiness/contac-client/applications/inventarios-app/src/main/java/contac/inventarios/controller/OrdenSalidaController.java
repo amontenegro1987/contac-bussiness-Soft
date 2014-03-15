@@ -43,6 +43,7 @@ public class OrdenSalidaController extends InventarioBaseController {
 
     private Date fechaDesde;
     private Date fechaHasta;
+    private Almacen almacen;
 
     //*************************************************************************************
     //GETTERS AND SETTERS
@@ -64,6 +65,13 @@ public class OrdenSalidaController extends InventarioBaseController {
         this.fechaAlta = fechaAlta;
     }
 
+    public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+        this.almacen = almacen;
+    }
     public Date getFechaSolicitud() {
         return fechaSolicitud;
     }
@@ -180,14 +188,89 @@ public class OrdenSalidaController extends InventarioBaseController {
     }
 
     //Init registro de ordenes de salida
-    public void initRegistroOrdenesSalida() {
+    public void initRegistroOrdenesSalida() throws Exception {
         try {
             //Buscar ordenes de salida
-            setOrdenesSalida(buscarOrdenesSalida());
+            //setOrdenesSalida(buscarOrdenesSalida());
+
+            //Setting almacenes registrados
+            setAlmacenes(buscarAlmacenes());
+
+            //Setting almacen del usuario
+            setAlmacen(buscarAlmacenUsuario());
+            if (getAlmacen() == null) {
+                setAlmacen(getAlmacenes().get(0));
+            }
+
+            //Buscar Ordenes de Salida con fecha actual del servidor
+            Date fechaSalida = buscarFechaFacturacion();
+
+            setOrdenesSalida(buscarOrdenesSalidaInit(fechaSalida, fechaSalida, almacen.getId()));
+
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
     }
+
+    /**
+     * Validar Estado de Orden de Baja a Imprimir
+     *
+     * @throws Exception, Exception
+     */
+     public void ordenBajaImprimir() throws Exception {
+
+        logger.debug("Validar Estado de Orden de Baja");
+
+        try {
+
+            //Obtener manager de Inventario
+            ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
+
+            //Validar Estado de Orden de Baja
+            mgrInventario.validarImpresionOrdenBaja(getOrdenSalida().getId());
+
+        } catch (ManagerInventarioServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+
+     }
+
+    /**
+     * Obteniendo listado de ordenes de entrada inventario ordinaria
+     *
+     * @return List
+     */
+    private List<OrdenSalida> buscarOrdenesSalidaInit(Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws Exception {
+
+        logger.debug("Obteniendo listado de ordenes de Salida ordinaria...!");
+
+        try {
+            //Validar que los campos de fechas no sean nulos
+            if (fechaDesde == null)
+                throw new Exception("Debe ingresar una fecha de inicio de busqueda: [fecha desde]");
+
+            if (fechaHasta == null)
+                throw new Exception("Debe ingresar una fecha de fin de busqueda: [fecha hasta]");
+
+            //Obtener manager inventario service
+            ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
+
+            //Retornar listado de ordenes de Salida ordinaria
+            List<String> estados = new ArrayList<String>();
+            estados.add(EstadosMovimiento.INGRESADO.getEstado());
+
+            return mgrInventario.buscarOrdenesSalidaPorEstados(estados, fechaDesde, fechaHasta, idAlmacen);
+
+        } catch (ManagerInventarioServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
 
     //*************************************************************************************
     //ACTION EVENTS
@@ -341,21 +424,33 @@ public class OrdenSalidaController extends InventarioBaseController {
      * @param fechaHasta, Fecha hasta finaliza la busqueda
      * @throws Exception, Exception
      */
-    public void buscarOrdenesSalida(Date fechaDesde, Date fechaHasta) throws Exception {
-
+     public void buscarOrdenesSalida(Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws Exception {
         logger.debug("Buscar ordenes de salida por rangos de fecha");
 
         try {
+            //Validar que los campos de fechas no sean nulos
+            if (fechaDesde == null)
+                throw new Exception("Debe ingresar una fecha de inicio de busqueda: [fecha desde]");
+
+            if (fechaHasta == null)
+                throw new Exception("Debe ingresar una fecha de fin de busqueda: [fecha hasta]");
 
             //Obteniendo manager de inventario
             ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
 
-            //Buscar ordenes de salida por rangos de fecha
-            List<OrdenSalida> ordenesSalidas = mgrInventario.buscarOrdnesSalidaPorRangosFechas(fechaDesde, fechaHasta);
+            //Retornar listado de ordenes de salida
+            List<String> estados = new ArrayList<String>();
+            estados.add(EstadosMovimiento.INGRESADO.getEstado());
 
-            //Actualizar registro de ordenes de salida
+            //Buscar ordenes de salida por rangos de fecha
+            List<OrdenSalida> ordenSalidas = mgrInventario.buscarOrdnesSalidaPorRangosFechas(estados, fechaDesde, fechaHasta, idAlmacen);
             getOrdenesSalida().clear();
-            getOrdenesSalida().addAll(ordenesSalida);
+            getOrdenesSalida().addAll(ordenSalidas);
+
+            //return mgrInventario.buscarOrdnesSalidaPorRangosFechas(estados, fechaDesde, fechaHasta, idAlmacen);
+            /*//Actualizar registro de ordenes de salida
+            getOrdenesSalida().clear();
+            getOrdenesSalida().addAll(ordenesSalida);*/
 
         } catch (ManagerInventarioServiceBusinessException e) {
             logger.error(e.getMessage(), e);
@@ -377,7 +472,7 @@ public class OrdenSalidaController extends InventarioBaseController {
      * @return List
      * @throws Exception, Exception
      */
-    private List<OrdenSalida> buscarOrdenesSalida() throws Exception {
+ /*   private List<OrdenSalida> buscarOrdenesSalida() throws Exception {
 
         logger.debug("Buscando ordenes de salida del periodo");
 
@@ -391,7 +486,8 @@ public class OrdenSalidaController extends InventarioBaseController {
             estados.add(EstadosMovimiento.INGRESADO.getEstado());
 
             //Retornar listado encontrado
-            List<OrdenSalida> ordenesSalida = mgrInventario.buscarOrdenesSalidaPorEstados(estados);
+            List<OrdenSalida> ordenesSalida = mgrInventario.buscarOrdenesSalidaPorEstados(estados, fechaDesde, fechaHasta, idAlmacen);
+
             if (ordenesSalida == null) {
                 ordenesSalida = new ArrayList<OrdenSalida>();
             }
@@ -406,4 +502,7 @@ public class OrdenSalidaController extends InventarioBaseController {
             throw new Exception(e.getMessage(), e);
         }
     }
+*/
+
+
 }

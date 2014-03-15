@@ -227,7 +227,7 @@ public class OrdenEntradaController extends InventarioBaseController {
             setAlmacen(getAlmacenes().get(0));
         }
 
-        //Buscar registro de facturas con fecha actual del servidor
+        //Buscar Ordenes de Entrada con fecha actual del servidor
         Date fechaFacturacion = buscarFechaFacturacion();
 
        setOrdenesEntrada(buscarOrdenesEntrada(fechaFacturacion, fechaFacturacion, almacen.getId()));
@@ -295,6 +295,30 @@ public class OrdenEntradaController extends InventarioBaseController {
             logger.error(e.getMessage(), e);
             throw new Exception(e.getMessage(), e);
         }
+    }
+
+/**
+     * Validar Estado de Orden de Entrada a Imprimir
+     *
+     * @throws Exception, Exception
+     */
+    public void ordenEntradaImprimir() throws Exception {
+
+        logger.debug("Validar Estado de Orden de Entrada");
+
+        try {
+
+            //Obtener manager de Inventario
+            ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
+
+            //Validar Estado de Orden de Entrada
+            mgrInventario.validarImpresionOrdenEntrada(getOrdenEntrada().getId());
+
+        } catch (ManagerInventarioServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+
     }
 
     /**
