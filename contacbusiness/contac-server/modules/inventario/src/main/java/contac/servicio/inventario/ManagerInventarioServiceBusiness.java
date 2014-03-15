@@ -124,23 +124,24 @@ public interface ManagerInventarioServiceBusiness extends ManagerInventarioServi
      *                          Exception
      * @throws RemoteException, Exception
      */
-    public List<OrdenSalida> buscarOrdenesSalidaPorEstados(List<String> estados) throws ManagerInventarioServiceBusinessException,
+    public List<OrdenSalida> buscarOrdenesSalidaPorEstados(List<String> estados, Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws ManagerInventarioServiceBusinessException,
             RemoteException;
 
     /**
      * Buscar Ordenes de salida por rangos de fecha
-     *
+     * @param estados, List<String>
      * @param fechaInicio, Date
      * @param fechaFin,    Date
+     * @param idAlmacen, Integer
      * @return List
      * @throws ManagerInventarioServiceBusinessException,
      *                          Exception
      * @throws RemoteException, Exception
      */
-    public List<OrdenSalida> buscarOrdnesSalidaPorRangosFechas(Date fechaInicio, Date fechaFin) throws ManagerInventarioServiceBusinessException,
+    public List<OrdenSalida> buscarOrdnesSalidaPorRangosFechas(List<String> estados, Date fechaInicio, Date fechaFin, Integer idAlmacen) throws ManagerInventarioServiceBusinessException,
             RemoteException;
 
-    /**
+     /**
      * Buscar Orden de Traslado por su identificador
      *
      * @param idOrdenTraslado, Integer
@@ -295,6 +296,27 @@ public interface ManagerInventarioServiceBusiness extends ManagerInventarioServi
      */
     public void validarImpresionOrdenTraslado(Integer idOrdenTraslado) throws ManagerInventarioServiceBusinessException, RemoteException;
 
+    /**
+     * Validar Orden de Baja a Imprimir
+     *
+     * @param idOrdenSalida, Identificador de solicitud de traslado
+     * @return OrdenSalida
+     * @throws ManagerInventarioServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public void validarImpresionOrdenBaja(Integer idOrdenSalida) throws ManagerInventarioServiceBusinessException, RemoteException;
+
+    /**
+     * Validar Orden de Entrada a Imprimir
+     *
+     * @param idOrdenEntrada, Identificador de orden de entrada
+     * @return OrdenEntrada
+     * @throws ManagerInventarioServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public void validarImpresionOrdenEntrada(Integer idOrdenEntrada) throws ManagerInventarioServiceBusinessException, RemoteException;
 
     /**
      * Aplicar orden de traslado de inventario

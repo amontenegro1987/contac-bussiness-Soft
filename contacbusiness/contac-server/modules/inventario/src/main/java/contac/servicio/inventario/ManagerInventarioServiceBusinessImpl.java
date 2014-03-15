@@ -464,7 +464,7 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
     }
 
     @Override
-    public List<OrdenSalida> buscarOrdenesSalidaPorEstados(List<String> estados) throws ManagerInventarioServiceBusinessException, RemoteException {
+    public List<OrdenSalida> buscarOrdenesSalidaPorEstados(List<String> estados, Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws ManagerInventarioServiceBusinessException, RemoteException {
 
         logger.debug("Buscar ordenes de salida por estados");
 
@@ -472,6 +472,35 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
         boolean value = initBusinessService(Roles.ROLINVENTARIOADMIN.toString());
 
         try {
+            //Validar campos de la busqueda
+            if (fechaDesde == null)
+                throw new ManagerInventarioServiceBusinessException("Debe seleccionar una fecha desde v\u00e1lida");
+
+            if (fechaHasta == null)
+                throw new ManagerInventarioServiceBusinessException("Debe seleccionar una fecha hasta v\u00e1lida");
+
+            Almacen almacen = null;
+            if (value) {
+                almacen = almacenEAO.findById(idAlmacen);
+            } else {
+                almacen = mgrSeguridad.buscarUsuarioPorLogin(mgrAutorizacion.getUsername()).getAlmacen();
+            }
+
+            //Preparar fechas para busquedas
+            GregorianCalendar gc = new GregorianCalendar();
+            gc.setTime(fechaDesde);
+            gc.set(Calendar.HOUR_OF_DAY, 0);
+            gc.set(Calendar.MINUTE, 0);
+            gc.set(Calendar.SECOND, 0);
+            gc.set(Calendar.MILLISECOND, 0);
+            fechaDesde = gc.getTime();
+
+            gc.setTime(fechaHasta);
+            gc.set(Calendar.HOUR_OF_DAY, 0);
+            gc.set(Calendar.MINUTE, 0);
+            gc.set(Calendar.SECOND, 0);
+            gc.set(Calendar.MILLISECOND, 0);
+            fechaHasta = gc.getTime();
 
             //Preparar el contexto
             List<Integer> idEstados = new ArrayList<Integer>();
@@ -480,9 +509,15 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
                 idEstados.add(estadoMovimientoEAO.findByAlias(estado).getId());
             }
 
-            return ordenSalidaEAO.findByEstados(idEstados);
+            return ordenSalidaEAO.findByEstados(idEstados, fechaDesde, fechaHasta, almacen.getId());
 
         } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
+        } catch (ManagerAutorizacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
+        } catch (ManagerSeguridadServiceBusinessException e) {
             logger.error(e.getMessage(), e);
             throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
         } finally {
@@ -490,11 +525,12 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
         }
     }
 
-    @Override
-    public List<OrdenSalida> buscarOrdnesSalidaPorRangosFechas(Date fechaInicio, Date fechaFin) throws ManagerInventarioServiceBusinessException, RemoteException {
 
-        logger.debug("Buscar ordenes de salida por rangos de fecha con parametros: [fechaInicio]: " + fechaInicio + ", " +
-                " [fechaFin]: " + fechaFin);
+    @Override
+    public List<OrdenSalida> buscarOrdnesSalidaPorRangosFechas(List<String> estados, Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws ManagerInventarioServiceBusinessException, RemoteException {
+
+        logger.debug("Buscar ordenes de salida por rangos de fecha con parametros: [fechaDesde]: " + fechaDesde + ", " +
+                " [fechaHasta]: " + fechaHasta);
 
         //Iniciar servicio authentication
         boolean value = initBusinessService(Roles.ROLINVENTARIOADMIN.toString());
@@ -502,23 +538,58 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
         try {
 
             //Validar datos
-            if (fechaInicio == null)
-                throw new ManagerInventarioServiceBusinessException("Debes ingresar una fecha de inicio.");
+            if (fechaDesde == null)
+                throw new ManagerInventarioServiceBusinessException("Debe seleccionar una fecha desde v\u00e1lida");
 
-            if (fechaFin == null)
-                throw new ManagerInventarioServiceBusinessException("Debes ingresar una fecha fin.");
+            if (fechaHasta == null)
+                throw new ManagerInventarioServiceBusinessException("Debe seleccionar una fecha hasta v\u00e1lida");
+
+            Almacen almacen = null;
+            if (value) {
+                almacen = almacenEAO.findById(idAlmacen);
+            } else {
+                almacen = mgrSeguridad.buscarUsuarioPorLogin(mgrAutorizacion.getUsername()).getAlmacen();
+            }
+
+            //Preparar fechas para busquedas
+            GregorianCalendar gc = new GregorianCalendar();
+            gc.setTime(fechaDesde);
+            gc.set(Calendar.HOUR_OF_DAY, 0);
+            gc.set(Calendar.MINUTE, 0);
+            gc.set(Calendar.SECOND, 0);
+            gc.set(Calendar.MILLISECOND, 0);
+            fechaDesde = gc.getTime();
+
+            gc.setTime(fechaHasta);
+            gc.set(Calendar.HOUR_OF_DAY, 0);
+            gc.set(Calendar.MINUTE, 0);
+            gc.set(Calendar.SECOND, 0);
+            gc.set(Calendar.MILLISECOND, 0);
+            fechaHasta = gc.getTime();
+
+            //Preparar el contexto
+            List<Integer> idEstados = new ArrayList<Integer>();
+
+            for (String estado : estados) {
+                idEstados.add(estadoMovimientoEAO.findByAlias(estado).getId());
+            }
 
             //Buscar ordenes de salida por rangos de fechas
-            return ordenSalidaEAO.findByFechas(fechaInicio, fechaFin);
+            return ordenSalidaEAO.findByEstados(idEstados,fechaDesde, fechaHasta,idAlmacen);
 
         } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
+        } catch (ManagerAutorizacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
+        } catch (ManagerSeguridadServiceBusinessException e) {
             logger.error(e.getMessage(), e);
             throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
         } finally {
             stopBusinessService(value);
         }
     }
-
     @Override
     public OrdenTraslado buscarOrdenTrasladoPorId(Integer idOrdenTraslado) throws ManagerInventarioServiceBusinessException, RemoteException {
 
@@ -1117,6 +1188,65 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
     }
 
     @Override
+    public void validarImpresionOrdenEntrada(Integer idOrdenEntrada) throws ManagerInventarioServiceBusinessException, RemoteException {
+
+        logger.debug("Validar Impresión de Orden de Entrada: [idOrdenEntrada]: " + idOrdenEntrada);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLINVENTARIOADMIN.toString());
+
+        try {
+
+            //Preparar el contexto de ejecucion
+            OrdenEntrada ordenEntradaAplicar = ordenEntradaEAO.findById(idOrdenEntrada);
+
+            EstadoMovimiento estadoIngresado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.INGRESADO.getEstado());
+
+            //Validar datos generales de la Orden de Traslado
+            if (ordenEntradaAplicar.getEstado().getAlias().equals(EstadosMovimiento.ANULADO.getEstado()))
+                throw new ManagerInventarioServiceBusinessException("Orden de de Entrada no se encuentra en un estado valido para poder imprimir.");
+        } catch (PersistenceClassNotFoundException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
+    public void validarImpresionOrdenBaja(Integer idOrdenSalida) throws ManagerInventarioServiceBusinessException, RemoteException {
+
+        logger.debug("Validar Impresión de Orden de Traslado: [idOrdenSalida]: " + idOrdenSalida);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLINVENTARIOADMIN.toString());
+
+        try {
+
+            //Preparar el contexto de ejecucion
+            OrdenSalida ordenSalidaAplicar = ordenSalidaEAO.findById(idOrdenSalida);
+
+            EstadoMovimiento estadoIngresado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.INGRESADO.getEstado());
+
+            //Validar datos generales de la Orden de Traslado
+            if (ordenSalidaAplicar.getEstado().getAlias().equals(EstadosMovimiento.ANULADO.getEstado()))
+                throw new ManagerInventarioServiceBusinessException("Orden de de Baja no se encuentra en un estado valido para poder imprimir.");
+        } catch (PersistenceClassNotFoundException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+
+    @Override
     public void validarImpresionOrdenTraslado(Integer idOrdenTraslado) throws ManagerInventarioServiceBusinessException, RemoteException {
 
         logger.debug("Validar Impresión de Orden de Traslado: [idOrdenTraslado]: " + idOrdenTraslado);
@@ -1132,7 +1262,7 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
             EstadoMovimiento estadoIngresado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.INGRESADO.getEstado());
 
             //Validar datos generales de la Orden de Traslado
-            if (ordenTrasladoAplicar.getEstado().getAlias().equals(EstadosMovimiento.PENDIENTE.getEstado()))
+            if (ordenTrasladoAplicar.getEstado().getAlias().equals(EstadosMovimiento.ANULADO.getEstado()))
                 throw new ManagerInventarioServiceBusinessException("Orden de Traslado no se encuentra en un estado valido para poder imprimir.");
 
 

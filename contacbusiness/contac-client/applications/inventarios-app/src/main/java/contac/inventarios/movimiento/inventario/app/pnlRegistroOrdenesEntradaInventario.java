@@ -24,6 +24,10 @@ import contac.commons.models.tables.BeanTableModel;
 import contac.internationalization.LanguageLocale;
 import contac.inventarios.controller.OrdenEntradaController;
 import contac.modelo.entity.*;
+import contac.reports.JRPrintReport;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.log4j.Logger;
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.JXHeader;
@@ -34,9 +38,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.MessageFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * @author EMontenegro
@@ -328,7 +330,7 @@ public class pnlRegistroOrdenesEntradaInventario extends GenericPanel {
         cmbAlmacen.setModel(new AlmacenComboBoxModel(controller.buscarAlmacenes()));
         ListCellRenderer rendererAlmacen = new ComboBoxEmptySelectionRenderer(cmbAlmacen, messageBundle.getString("CONTAC.FORM.MSG.SELECCIONE"));
         cmbAlmacen.setRenderer(rendererAlmacen);
-        cmbAlmacen.setSelectedIndex(-1);
+        //cmbAlmacen.setSelectedIndex(-1);
 
         controller.setAlmacen(null);
 
@@ -407,23 +409,23 @@ public class pnlRegistroOrdenesEntradaInventario extends GenericPanel {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
-       /*
+
         try {
 
-            // Si no ha seleccionado ninguna Orden de Traslado a Imprimir
-            if (ordenTrasladoSelected == null) {
-                throw new Exception(messageBundle.getString("CONTAC.FORM.ORDENTRASLADO.IMPRIMIR.VALIDA"));
+            // Si no ha seleccionado ninguna Orden de Entrada a Imprimir
+            if (ordenEntradaSelected == null) {
+                throw new Exception(messageBundle.getString("CONTAC.FORM.ORDENENTRADA.IMPRIMIR.VALIDA"));
             }
 
             //Validar Estado de Orden de Traslado
-            controller.ordenTrasladoImprimir();
+            controller.ordenEntradaImprimir();
 
                 JasperReport report = (JasperReport) JRLoader.loadObject(pnlRegistroOrdenesTrasladoInventario.class
-                  .getResourceAsStream("/contac/inventarios/app/reportes/traslado_sucursales_report.jasper"));
+                .getResourceAsStream("/contac/inventarios/app/reportes/orden_entrada_almacen_report.jasper"));
 
             Map parameters = new HashMap();
             parameters.put("SUBREPORT_DIR", getClass().getClassLoader().getResource("contac/inventarios/app/reportes") + "/");
-            parameters.put("n_id_traslado", ordenTrasladoSelected.getId());
+            parameters.put("n_id_orden_entrada", ordenEntradaSelected.getId());
 
             //Generate Report
             JasperPrint jasperPrint = controller.getMgrReportesService().generateReport(parameters, report);
@@ -436,8 +438,6 @@ public class pnlRegistroOrdenesEntradaInventario extends GenericPanel {
             //Show error message
             JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
         }
-
-        */
 
     }//GEN-LAST:event_btnImprimirActionPerformed
 

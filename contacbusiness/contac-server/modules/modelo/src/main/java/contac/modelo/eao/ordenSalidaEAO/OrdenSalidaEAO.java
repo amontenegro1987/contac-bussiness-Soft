@@ -33,7 +33,8 @@ public interface OrdenSalidaEAO extends GenericEAO<OrdenSalida, Integer> {
      * @return List
      * @throws GenericPersistenceEAOException, Exception
      */
-    public List<OrdenSalida> findByEstados(List<Integer> estados) throws GenericPersistenceEAOException;
+
+    public List<OrdenSalida> findByEstados(List<Integer> estados, Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws GenericPersistenceEAOException;
 
     /**
      * Buscar ordenes de salida por rango de fechas

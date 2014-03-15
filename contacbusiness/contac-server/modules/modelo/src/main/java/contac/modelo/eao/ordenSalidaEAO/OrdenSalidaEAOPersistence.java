@@ -50,7 +50,7 @@ public class OrdenSalidaEAOPersistence extends GenericPersistenceEAO<OrdenSalida
     }
 
     @Override
-    public List<OrdenSalida> findByEstados(List<Integer> estados) throws GenericPersistenceEAOException {
+    public List<OrdenSalida> findByEstados(List<Integer> estados, Date fechaDesde, Date fechaHasta, Integer idAlmacen) throws GenericPersistenceEAOException {
 
         //Init service
         initService();
@@ -60,6 +60,15 @@ public class OrdenSalidaEAOPersistence extends GenericPersistenceEAO<OrdenSalida
         String conditionClause = "";
 
         List<QueryFragment> querySolver = new ArrayList<QueryFragment>();
+
+        //1. Agregando parametro fecha desde
+        querySolver.add(new QueryFragment(fechaDesde != null, "", " o.fechaAlta >= :fechaDesde ", "fechaDesde", fechaDesde));
+
+        //2. Agregando parametro fecha hasta
+        querySolver.add(new QueryFragment(fechaHasta != null, "", " o.fechaAlta <= :fechaHasta ", "fechaHasta", fechaHasta));
+
+        //3. Agregando parametro almacen
+        querySolver.add(new QueryFragment(idAlmacen != null, "", " o.almacen.id = :idAlmacen", "idAlmacen", idAlmacen));
 
         //Arma un fragmento con los diferentes estados...
         if ((estados != null) && (!estados.isEmpty())) {
