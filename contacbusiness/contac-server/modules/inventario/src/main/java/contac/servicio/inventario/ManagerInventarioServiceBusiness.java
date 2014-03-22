@@ -391,7 +391,6 @@ public interface ManagerInventarioServiceBusiness extends ManagerInventarioServi
      */
     public OrdenSalida modificarOrdenSalida(Integer idOrdenSalida, Date fechaAlta, Date fechaSolicitud, String personaAutoriza,
                                             String descripcion, List<ArticuloSalida> articulos) throws ManagerInventarioServiceBusinessException, RemoteException;
-
     /**
      * Anular Orden de Salida
      *
@@ -402,7 +401,6 @@ public interface ManagerInventarioServiceBusiness extends ManagerInventarioServi
      * @throws RemoteException, Exception
      */
     public OrdenSalida anularOrdenSalida(Integer idOrdenSalida) throws ManagerInventarioServiceBusinessException, RemoteException;
-
     /**
      * Crear orden de Levantamiento de inventario
      *
