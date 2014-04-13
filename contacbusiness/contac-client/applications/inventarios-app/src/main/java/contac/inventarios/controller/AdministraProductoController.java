@@ -252,6 +252,7 @@ public class AdministraProductoController extends InventarioBaseController {
 
             //Obtener manager de productos
             ManagerProductoServiceBusiness mgrProducto = getMgrProductosService();
+            System.out.println("Fotografia N2: " + this.fotografia);
 
             //Modificar producto
             mgrProducto.modificarProducto(producto.getId(), this.codigo, this.compuesto, this.nombre, this.codigoFabricante,
