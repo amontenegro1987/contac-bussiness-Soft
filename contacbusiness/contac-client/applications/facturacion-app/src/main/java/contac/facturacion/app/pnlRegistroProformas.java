@@ -49,11 +49,11 @@ public class pnlRegistroProformas extends GenericPanel {
     //Controller
     private ProformaClienteController controller;
 
-    private JXHeader header;
-
     //Message resource bundle
-    private ResourceBundle messageBundle = ResourceBundle.getBundle("contac/facturacion/app/mensajes/mensajes",
-    LanguageLocale.getInstance().getLocale());
+    private ResourceBundle messageBundle = ResourceBundle.getBundle("contac/facturacion/app/mensajes/Mensajes",
+            LanguageLocale.getInstance().getLocale());
+
+    private JXHeader header;
 
     /*
      * Creates new form pnlRegistroProformas

@@ -597,7 +597,7 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
                                       UnidadMedida unidadMedida, Proveedor proveedor, Clasificador clasificador,
                                       Linea linea, Pais paisOrigen, byte[] fotografia, Set<ProductoCompuesto> productos)
             throws ManagerProductoServiceBusinessException, RemoteException {
-
+        System.out.println(" prueba 4: " + fotografia);
         logger.info("Modificando producto con parametros: [codigo]: " + codigo + ", [compuesto]: " + compuesto + ", [nombre]: " +
                 nombre + ", [codigoFabricante]: " + codigoFabricante + ", [alias]: " + alias + ", [marca]: " + marca +
                 ", [modelo]: " + modelo + ", [observaciones]: " + observaciones + ", [minimo]: " + minimo + ", [maximo]: " +
@@ -649,10 +649,10 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
 
             if (fotografia != null) {
                 ProductoImageLOB image = entity.getFotografia();
+                System.out.println(" Imagen: " + image);
                 image.setImage(fotografia);
                 entity.setFotografia(image);
             }
-
             //Actualizar entidad
             entity = productoEAO.update(entity);
 

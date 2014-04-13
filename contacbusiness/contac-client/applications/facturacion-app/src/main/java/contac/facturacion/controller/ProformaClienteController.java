@@ -22,7 +22,7 @@ public class ProformaClienteController extends FacturacionBaseController {
     private static final Logger logger = Logger.getLogger(ProformaClienteController.class);
 
     //Message resource bundle
-    private ResourceBundle messageBundle = ResourceBundle.getBundle("contac/facturacion/app/mensajes/Mensajes",
+     private ResourceBundle messageBundle = ResourceBundle.getBundle("contac/facturacion/app/mensajes/Mensajes",
             LanguageLocale.getInstance().getLocale());
 
     private static final BigDecimal MONTO_MINIMO_RET_FUENTE = new BigDecimal("1000.00");
