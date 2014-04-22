@@ -97,12 +97,13 @@ public class pnlRegistroFacturas extends GenericPanel {
             JOptionErrorPane.showMessageError(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR.BUSQUEDA"),
                     e.getMessage());
         }
+
     }
 
     /**
      * Init Components UI
      */
-    private void initComponents() {
+     private void initComponents() {
 
         //***************************************************************************************
         //Init Header Panel

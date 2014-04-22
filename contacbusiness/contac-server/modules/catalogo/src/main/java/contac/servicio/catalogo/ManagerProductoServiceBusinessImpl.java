@@ -619,7 +619,7 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
             //<Evaluar si es un producto compuesto el listado de productos no puede ser empty>
             if (compuesto && productos.isEmpty())
                 throw new ManagerProductoServiceBusinessException("Debes registrar los productos compuestos.");
-
+            System.out.println("Entre Aqui 2");
             //<Registrar producto>
             entity.setCodigo(codigo);
             entity.setCompuesto(compuesto);
@@ -647,12 +647,22 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
             entity.setProductosCompuestos(null);
             entity.setFotografia(null);
 
-            if (fotografia != null) {
+            //Metodo utilizado anteriormente para modificar Producto -- Se reparo para que permita modificar la fotografia
+            //TODO = Actualmente esta insertando una imagen nueva en vez de modificar la actual, estaba dando problemas al
+            //       Modificar la imagen del producto (Revisar el metodo entity.getFotografia() vuelve null
+
+            /*if (fotografia != null) {
                 ProductoImageLOB image = entity.getFotografia();
-                System.out.println(" Imagen: " + image);
+                image.setImage(fotografia);
+                entity.setFotografia(image);
+            }*/
+
+            if (fotografia != null) {
+                ProductoImageLOB image = new ProductoImageLOB();
                 image.setImage(fotografia);
                 entity.setFotografia(image);
             }
+
             //Actualizar entidad
             entity = productoEAO.update(entity);
 
