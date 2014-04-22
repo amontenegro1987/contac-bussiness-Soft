@@ -1056,6 +1056,7 @@ public class pnlAdmonProducto extends GenericPanel {
         );
 
         frmDatosGenerales.add(pnlPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 40, 180, -1));
+        frmDatosGenerales.add(pnlFotografia, new org.netbeans.lib.awtextra.AbsoluteConstraints(850,40,350,390));
 
         btnBuscarClasificador1.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/folder_find.png")));
         btnBuscarClasificador1.addActionListener(new java.awt.event.ActionListener() {
@@ -1178,20 +1179,20 @@ public class pnlAdmonProducto extends GenericPanel {
                 .addContainerGap()
                 .add(pnlFotografiaLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(btnAgregarImagen, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(lblFotografia, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 465, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(lblFotografia, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 340, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(455, Short.MAX_VALUE))
         );
         pnlFotografiaLayout.setVerticalGroup(
             pnlFotografiaLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(pnlFotografiaLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(lblFotografia, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 413, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(lblFotografia, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 340, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(btnAgregarImagen)
                 .addContainerGap(93, Short.MAX_VALUE))
         );
 
-        productoTab.addTab(bundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.TAB.FOTOGRAFIA"), pnlFotografia); // NOI18N
+       // productoTab.addTab(bundle.getString("CONTAC.FORM.ADMINISTRAPRODUCTO.TAB.FOTOGRAFIA"), pnlFotografia); // NOI18N
 
         pnlProductosCompuestos.setLayout(new java.awt.BorderLayout());
 
