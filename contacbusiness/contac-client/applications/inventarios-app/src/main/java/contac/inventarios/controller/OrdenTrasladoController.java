@@ -538,7 +538,10 @@ public class OrdenTrasladoController extends InventarioBaseController {
 
             //Buscar ordenes de traslado por estados
             List<String> estados = new ArrayList<String>();
-            estados.add(EstadosMovimiento.INGRESADO.getEstado());
+
+            //04-26-2014 Se quita el estado Ingresado para que solo aparezcan los pendientes al momento de ingresar por primera vez a la pantalla
+            //estados.add(EstadosMovimiento.INGRESADO.getEstado());
+
             estados.add(EstadosMovimiento.PENDIENTE.getEstado());
 
             //Retornar listado encontrado
