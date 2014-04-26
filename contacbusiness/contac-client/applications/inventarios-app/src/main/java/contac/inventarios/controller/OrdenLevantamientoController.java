@@ -263,6 +263,31 @@ public class OrdenLevantamientoController extends InventarioBaseController {
         }
     }
 
+    /**
+     * Imprimir la Orden de Levantamiento de Inventario
+     *
+     * @throws Exception, Exception
+     */
+
+    public void ordenLevantamientoImprimir() throws Exception {
+
+        logger.debug("Validar Estado de Orden de Levantamiento de Inventario");
+
+        try {
+
+            //Obtener manager de Inventario
+            ManagerInventarioServiceBusiness mgrInventario = getMgrInventarioService();
+
+            //Validar Estado de Orden de Levantamiento de Inventario
+            mgrInventario.validarImpresionOrdenLevantamiento(getOrdenLevantamiento().getId());
+
+        } catch (ManagerInventarioServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+
+    }
+
      /**
      * Buscar el Estado del Ajuste
      *

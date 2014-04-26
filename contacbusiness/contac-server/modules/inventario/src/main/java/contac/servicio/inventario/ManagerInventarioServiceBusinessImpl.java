@@ -1247,6 +1247,37 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
 
 
     @Override
+    public void validarImpresionOrdenLevantamiento(Integer idOrdenLevantamiento) throws ManagerInventarioServiceBusinessException, RemoteException {
+
+        logger.debug("Validar Impresión de Orden de Levantamiento de Inventario: [idOrdenLevantamiento]: " + idOrdenLevantamiento);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLINVENTARIOADMIN.toString());
+
+        try {
+
+            //Preparar el contexto de ejecucion
+            OrdenLevantamientoFisico ordenLevantamitoFisicoAplicar = ordenLevantamientoFisicoEAO.findById(idOrdenLevantamiento);
+
+            EstadoMovimiento estadoAplicado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.APLICADO.getEstado());
+
+            //Validar datos generales de la Orden de Traslado
+            if (!ordenLevantamitoFisicoAplicar.getEstado().getAlias().equals(EstadosMovimiento.APLICADO.getEstado()))
+                throw new ManagerInventarioServiceBusinessException("Orden de Levantamiento de Inventario no se encuentra en un estado valido para poder imprimir.");
+
+
+        } catch (PersistenceClassNotFoundException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
     public void validarImpresionOrdenTraslado(Integer idOrdenTraslado) throws ManagerInventarioServiceBusinessException, RemoteException {
 
         logger.debug("Validar Impresión de Orden de Traslado: [idOrdenTraslado]: " + idOrdenTraslado);

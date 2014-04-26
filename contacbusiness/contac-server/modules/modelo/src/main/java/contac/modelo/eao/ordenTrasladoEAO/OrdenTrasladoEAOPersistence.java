@@ -62,14 +62,18 @@ public class OrdenTrasladoEAOPersistence extends GenericPersistenceEAO<OrdenTras
 
         List<QueryFragment> querySolver = new ArrayList<QueryFragment>();
 
-        //1. Agregando parametro fecha desde
+        /*//1. Agregando parametro fecha desde
         querySolver.add(new QueryFragment(fechaDesde != null, "", " o.fechaAlta >= :fechaDesde ", "fechaDesde", fechaDesde));
 
         //2. Agregando parametro fecha hasta
-        querySolver.add(new QueryFragment(fechaHasta != null, "", " o.fechaAlta <= :fechaHasta ", "fechaHasta", fechaHasta));
+        querySolver.add(new QueryFragment(fechaHasta != null, "", " o.fechaAlta <= :fechaHasta ", "fechaHasta", fechaHasta));*/
 
-        //3. Agregando parametro almacen
+
+        //04-26-2014 Se mandó a quitar este parámetro para que al abrir la pantalla de Registro de Traslados apareciera los traslados pendientes de todos los Almacenes
+
+        /*//3. Agregando parametro almacen
         querySolver.add(new QueryFragment(idAlmacen != null, "", " o.almacenSalida.id = :idAlmacen", "idAlmacen", idAlmacen));
+        */
 
         //Arma un fragmento con los diferentes estados...
         if ((estados != null) && (!estados.isEmpty())) {

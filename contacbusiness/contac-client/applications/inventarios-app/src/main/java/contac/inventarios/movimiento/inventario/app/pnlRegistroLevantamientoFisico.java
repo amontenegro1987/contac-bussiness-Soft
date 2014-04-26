@@ -19,6 +19,10 @@ import contac.inventarios.controller.OrdenLevantamientoController;
 import contac.modelo.entity.Almacen;
 import contac.modelo.entity.OrdenLevantamientoFisico;
 import contac.modelo.entity.OrdenMovimiento;
+import contac.reports.JRPrintReport;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.log4j.Logger;
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.JXHeader;
@@ -27,9 +31,7 @@ import javax.swing.*;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.text.MessageFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * @author Alex
@@ -162,6 +164,7 @@ public class pnlRegistroLevantamientoFisico extends GenericPanel {
         btnAnular = new javax.swing.JButton();
         separatorThree = new javax.swing.JToolBar.Separator();
         btnAplicarAjuste = new javax.swing.JButton();
+        btnImprimirAjuste = new javax.swing.JButton();
         scrollOrdenesEntrada = new javax.swing.JScrollPane();
         tblOrdenesLevantamiento = new org.jdesktop.swingx.JXTable();
         headerAlmacenes = new org.jdesktop.swingx.JXHeader();
@@ -290,6 +293,21 @@ public class pnlRegistroLevantamientoFisico extends GenericPanel {
         });
         tbRegistroInventarios.add(btnAplicarAjuste);
 
+        btnImprimirAjuste.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/actions/print.png")));
+        btnImprimirAjuste.setToolTipText(bundle.getString("CONTAC.FORM.BTNIMPRIMIRAJUSTE")); // NOI18N
+        btnImprimirAjuste.setFocusable(false);
+        btnImprimirAjuste.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnImprimirAjuste.setMaximumSize(new java.awt.Dimension(40, 32));
+        btnImprimirAjuste.setMinimumSize(new java.awt.Dimension(40, 32));
+        btnImprimirAjuste.setName(""); // NOI18N
+        btnImprimirAjuste.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnImprimirAjuste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirAjusteActionPerformed(evt);
+            }
+        });
+        tbRegistroInventarios.add(btnImprimirAjuste);
+
         pnlRegistroLevantamientoFisico.add(tbRegistroInventarios, java.awt.BorderLayout.PAGE_START);
 
         tblOrdenesLevantamiento.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -359,6 +377,37 @@ public class pnlRegistroLevantamientoFisico extends GenericPanel {
         initValues();
 
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnImprimirAjusteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirAjusteActionPerformed
+        try {
+
+            // Si no ha seleccionado ninguna Orden de Levantamiento de Inventario a Imprimir
+            if (ordenLevantamientoSelected == null) {
+                throw new Exception(messageBundle.getString("CONTAC.FORM.ORDENLEVANTAMIENTO.IMPRIMIR.VALIDA"));
+            }
+
+            //Validar Estado de Orden de Levantamiento de Inventario
+            controller.ordenLevantamientoImprimir();
+
+            JasperReport report = (JasperReport) JRLoader.loadObject(pnlRegistroOrdenesTrasladoInventario.class
+                    .getResourceAsStream("/contac/inventarios/app/reportes/ajuste_de_inventario_fisico.jasper"));
+
+            Map parameters = new HashMap();
+            parameters.put("SUBREPORT_DIR", getClass().getClassLoader().getResource("contac/inventarios/app/reportes") + "/");
+            parameters.put("n_id_orden_levantamiento", ordenLevantamientoSelected.getId());
+
+            //Generate Report
+            JasperPrint jasperPrint = controller.getMgrReportesService().generateReport(parameters, report);
+
+            //Print Report Preview
+            JRPrintReport.printPreviewReport(getMDI(), jasperPrint);
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        }
+    }
 
     private void btnAplicarAjusteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarAjusteActionPerformed
        try{
@@ -448,6 +497,7 @@ public class pnlRegistroLevantamientoFisico extends GenericPanel {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAnular;
     private javax.swing.JButton btnAplicarAjuste;
+    private javax.swing.JButton btnImprimirAjuste;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnBuscar;

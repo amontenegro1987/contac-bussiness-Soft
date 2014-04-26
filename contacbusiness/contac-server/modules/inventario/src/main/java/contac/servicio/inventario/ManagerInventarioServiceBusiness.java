@@ -448,6 +448,19 @@ public interface ManagerInventarioServiceBusiness extends ManagerInventarioServi
     public OrdenLevantamientoFisico anularOrdenLevantamientoFisico(Integer idOrdenLevantamientoFisico) throws ManagerInventarioServiceBusinessException,
             RemoteException;
 
+
+    /**
+     * Validar Orden de Levantamiento de Inventario a Imprimir
+     *
+     * @param idOrdenLevantamiento, Identificador de solicitud de Levantamiento de Inventario
+     * @return OrdenLevantamiento
+     * @throws ManagerInventarioServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public void validarImpresionOrdenLevantamiento(Integer idOrdenLevantamiento) throws ManagerInventarioServiceBusinessException, RemoteException;
+
+
     /**
      * Eliminar orden de levantamiento Fisico
      *

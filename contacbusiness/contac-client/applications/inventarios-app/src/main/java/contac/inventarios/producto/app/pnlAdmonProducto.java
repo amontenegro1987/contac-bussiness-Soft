@@ -1056,7 +1056,7 @@ public class pnlAdmonProducto extends GenericPanel {
         );
 
         frmDatosGenerales.add(pnlPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 40, 180, -1));
-        frmDatosGenerales.add(pnlFotografia, new org.netbeans.lib.awtextra.AbsoluteConstraints(850,40,350,390));
+        frmDatosGenerales.add(pnlFotografia, new org.netbeans.lib.awtextra.AbsoluteConstraints(850,40,320,390));
 
         btnBuscarClasificador1.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/folder_find.png")));
         btnBuscarClasificador1.addActionListener(new java.awt.event.ActionListener() {
@@ -1179,7 +1179,7 @@ public class pnlAdmonProducto extends GenericPanel {
                 .addContainerGap()
                 .add(pnlFotografiaLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(btnAgregarImagen, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(lblFotografia, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 340, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(lblFotografia, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 310, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(455, Short.MAX_VALUE))
         );
         pnlFotografiaLayout.setVerticalGroup(
