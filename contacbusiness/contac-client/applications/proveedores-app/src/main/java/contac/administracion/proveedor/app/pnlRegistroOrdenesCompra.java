@@ -21,6 +21,11 @@ import contac.commons.form.panel.GenericPanel;
 import contac.commons.models.tables.BeanTableModel;
 import contac.internationalization.LanguageLocale;
 import contac.modelo.entity.*;
+import contac.reports.JRPrintReport;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.log4j.Logger;
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.JXHeader;
@@ -31,6 +36,7 @@ import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.util.*;
 
 /**
@@ -142,6 +148,7 @@ public class pnlRegistroOrdenesCompra extends GenericPanel {
         ImageIcon anularIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/remove2.png"));
         ImageIcon cancelIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/remove.png"));
         ImageIcon imprimirIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/print.png"));
+        ImageIcon confirmarIcon = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/aplicar.png"));
 
         btnAgregar = new JButton();
         btnAgregar.setPreferredSize(new Dimension(40, 32));
@@ -168,6 +175,11 @@ public class pnlRegistroOrdenesCompra extends GenericPanel {
         btnImprimir.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNIMPRIMIR"));
         btnImprimir.setIcon(imprimirIco);
 
+        btnConfirmar = new JButton();
+        btnConfirmar.setPreferredSize(new Dimension(40,32));
+        btnConfirmar.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNCONFIRMAR"));
+        btnConfirmar.setIcon(confirmarIcon);
+
         JToolBar actionToolBar = new JToolBar();
         actionToolBar.setPreferredSize(new Dimension(500, 32));
 
@@ -178,6 +190,8 @@ public class pnlRegistroOrdenesCompra extends GenericPanel {
         actionToolBar.add(btnAnular);
         actionToolBar.add(new JToolBar.Separator());
         actionToolBar.add(btnEliminar);
+        actionToolBar.add(new JToolBar.Separator());
+        actionToolBar.add(btnConfirmar);
         actionToolBar.add(new JToolBar.Separator());
         actionToolBar.add(btnImprimir);
 
@@ -314,6 +328,13 @@ public class pnlRegistroOrdenesCompra extends GenericPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 btnImprimirActionPerformed(e);
+            }
+        });
+
+        btnConfirmar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnConfirmarActionPerformed(e);
             }
         });
 
@@ -475,39 +496,24 @@ public class pnlRegistroOrdenesCompra extends GenericPanel {
 
     private void btnImprimirActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
 
-       /* try {
+        try {
 
             //Validar datos del formulario para procesar
             if (dtpFechaDesde.getDate() == null) {
-                throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.FECHADESDE"));
+                throw new Exception(messageBundle.getString("CONTAC.FORM.REGISTROPROFORMAS.FECHADESDE"));
             }
 
             if (dtpFechaHasta.getDate() == null) {
-                throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.FECHAHASTA"));
+                throw new Exception(messageBundle.getString("CONTAC.FORM.REGISTROPROFORMAS.FECHAHASTA"));
             }
-
-            if (cmbAlmacen.getSelectedItem() == null) {
-                throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.ALMACEN"));
-            }
-
-            //Obtener parametros de busqueda
-            Almacen almacen = ((Almacen) ((AlmacenComboBoxModel) cmbAlmacen.getModel()).getSelectedItem().
-                    getObject());
-
-            TiposFactura tiposFactura = cmbTipoFactura.getModel().getSelectedItem() != null ?
-                    ((TiposFactura) ((TipoFacturaComboBoxModel) cmbTipoFactura.getModel()).getSelectedItem().getObject()) :
-                    null;
 
             // Prepared Jasper Report
-            JasperReport report = (JasperReport) JRLoader.loadObject(pnlRegistroFacturas.class
-                    .getResourceAsStream("/contac/facturacion/app/reportes/facturas_report.jasper"));
+            JasperReport report = (JasperReport) JRLoader.loadObject(pnlRegistroOrdenesCompra.class
+                    .getResourceAsStream("/contac/facturacion/app/reportes/orden_compra_report.jasper"));
 
             Map parameters = new HashMap();
             parameters.put("SUBREPORT_DIR", getClass().getClassLoader().getResource("contac/facturacion/app/reportes") + "/");
-            parameters.put("p_fecha_desde", dtpFechaDesde.getDate());
-            parameters.put("p_fecha_hasta", dtpFechaHasta.getDate());
-            parameters.put("p_codigo_almacen", almacen.getId());
-            parameters.put("p_tipo_factura", tiposFactura != null ? tiposFactura.getValue() : null);
+            parameters.put("n_id_orden_compra", ordenCompraSelected.getId());
 
             //Generate Report
             JasperPrint jasperPrint = controller.getMgrReportesService().generateReport(parameters, report);
@@ -527,8 +533,12 @@ public class pnlRegistroOrdenesCompra extends GenericPanel {
             logger.error(e.getMessage(), e);
             //Show error message
             JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
-        }*/
+        }
     }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void btnConfirmarActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton btnAgregar;
@@ -537,6 +547,7 @@ public class pnlRegistroOrdenesCompra extends GenericPanel {
     private JButton btnBuscar;
     private JButton btnEditar;
     private JButton btnEliminar;
+    private JButton btnConfirmar;
     private JButton btnImprimir;
     private JXDatePicker dtpFechaDesde;
     private JXDatePicker dtpFechaHasta;
