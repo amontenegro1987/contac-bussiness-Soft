@@ -20,7 +20,10 @@ import contac.commons.form.layout.XYLayout;
 import contac.commons.form.panel.GenericFrame;
 import contac.commons.form.panel.GenericPanel;
 import contac.commons.form.render.DecimalFormatRenderer;
+import contac.commons.models.comboBox.AlmacenComboBoxModel;
+import contac.commons.models.comboBox.ComboBoxEmptySelectionRenderer;
 import contac.commons.models.tables.BeanTableModel;
+import contac.facturacion.app.pnlTotalFacturaCliente;
 import contac.internationalization.LanguageLocale;
 import contac.modelo.entity.*;
 import contac.text.TextUtil;
@@ -123,12 +126,12 @@ public class pnlOrdenCompra extends GenericPanel {
         //************************************************************
         //Init data values components
         //************************************************************
+        //cmbTax.setModel(new AlmacenComboBoxModel(controller.getAlmacenes()));
 
         txtNoOrdenCompra.setEditable(false);
         dtpFechaAlta.setEnabled(false);
 
         if (!controller.is_edit()) {
-
             txtCodigoProveedor.setEditable(true);
 
             btnBuscarProveedor.setEnabled(true);
@@ -138,7 +141,6 @@ public class pnlOrdenCompra extends GenericPanel {
         }
 
         if (controller.is_edit()) {
-
             txtCodigoProveedor.setEditable(false);
 
             btnBuscarProveedor.setEnabled(false);
@@ -153,6 +155,17 @@ public class pnlOrdenCompra extends GenericPanel {
 
         dtpFechaRequerida.setFormats("dd/MM/yyyy");
         dtpFechaRequerida.setDate(controller.getFechaAlta());
+
+        //Seleccione almacen de egreso
+        /*ListCellRenderer rendererAlmacen = new ComboBoxEmptySelectionRenderer(cmbAlmacen, messageBundle.getString("CONTAC.FORM.MSG.SELECCIONE"));
+        if (controller.getAlmacen() != null) {
+            AlmacenComboBoxModel almacenModel = (AlmacenComboBoxModel) cmbAlmacen.getModel();
+            cmbTax.setRenderer(rendererAlmacen);
+            cmbTax.setSelectedItem(almacenModel.searchSelectedItem(controller.getAlmacen().getId()));
+        } else {
+            cmbTax.setRenderer(rendererAlmacen);
+            cmbTax.setSelectedIndex(-1);
+        }*/
 
         //Seleccionar Proveedor
         if (controller.getProveedor() != null) {
@@ -266,6 +279,15 @@ public class pnlOrdenCompra extends GenericPanel {
                 }
             }
      });
+
+        txtReferenciaProveedor.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (!TextUtil.isValidDigit(e.getKeyChar())) {
+                    e.consume();
+                }
+            }
+        });
 
         txtCodigo.addKeyListener(new KeyAdapter() {
             @Override
@@ -563,6 +585,7 @@ public class pnlOrdenCompra extends GenericPanel {
         pnlAddProducto.add(lblSubtotal);
         pnlAddProducto.add(txtSubtotal);
         pnlAddProducto.add(btnCalcular);
+        //pnlAddProducto.add(btnCalcular);
 
         //Adding to Main Panel
         JPanel pnlMainOrder = new JPanel(new BorderLayout());
@@ -699,7 +722,14 @@ public class pnlOrdenCompra extends GenericPanel {
     }//GEN-LAST:event_txtSubtotalKeyPressed
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
+        //Open pnl total de factura
+       new pnlTotalOrdenCompraCliente(mdi, controller, true);
 
+        //Actualizar listado de articulos ingresados
+        ((BeanTableModel) tblArticulosOrdenCompra.getModel()).fireTableDataChanged();
+
+        //Mostrar Subtotal de la factura
+        txtSubtotal.setText(TextUtil.formatCurrency(controller.getMontoAntesImpuesto().doubleValue()));
     }//GEN-LAST:event_btnCalcularActionPerformed
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
