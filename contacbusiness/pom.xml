@@ -112,6 +112,12 @@
             <email>montenegro.eddy@gmail.com</email>
         </developer>
 
+		<developer>
+            <id>amontenegro</id>
+            <name>Alejandro Montenegro</name>
+            <email>alexlat1uni@hotmail.com</email>
+        </developer>
+		
         <developer>
             <id>aalaniz</id>
             <name>arjoalaniz</name>
@@ -486,7 +492,7 @@
                 <version>2.3.0</version>
             </dependency>
 
-            <dependency>
+			<dependency>
                 <groupId>jgoodies</groupId>
                 <artifactId>jgoodies-common</artifactId>
                 <version>1.2.0</version>
@@ -549,14 +555,14 @@
                 <artifactId>jasperreports</artifactId>
                 <version>5.0.4</version>
             </dependency>
-
+			
             <dependency>
                 <groupId>jasperreports</groupId>
                 <artifactId>jasperreports-fonts</artifactId>
                 <version>5.0.4</version>
             </dependency>
-                   
-            <dependency>
+            
+			<dependency>
                 <groupId>jfree</groupId>
                 <artifactId>jcommon</artifactId>
                 <version>1.0.17</version>
@@ -568,7 +574,7 @@
                 <version>2.1.7</version>
             </dependency>
 
-            <!-- ========================================= -->
+		    <!-- ========================================= -->
             <!-- UNIT TESTING                              -->
             <!-- ========================================= -->
             <dependency>

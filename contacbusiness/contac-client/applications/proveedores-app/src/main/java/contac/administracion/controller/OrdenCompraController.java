@@ -475,20 +475,19 @@ public class OrdenCompraController extends FacturacionBaseController {
      */
     public void anularOrdenCompra() throws Exception {
 
-  /*      logger.debug("Anular registro de Orden de Compra");
-
+        logger.debug("Anular registro de Orden de Compra");
         try {
 
             //Obtener manager de Proveedores
             ManagerProveedoresServiceBusiness mgrProveedor = getMgrProveedoresService();
 
-            //Anulamos registro de Proforma
+            //Anulamos Orden de Compra
             mgrProveedor.anularOrdenCompra(getOrdenCompra().getId());
 
         } catch (ManagerProveedoresServiceBusinessException e) {
             logger.error(e.getMessage(), e);
             throw new Exception(e.getMessage(), e);
-        }*/
+        }
     }
 
     /**
@@ -498,20 +497,71 @@ public class OrdenCompraController extends FacturacionBaseController {
      */
     public void eliminarOrdenCompra() throws Exception {
 
-   /*     logger.debug("Eliminar Orden de Compra");
+        logger.debug("Eliminar factura de compra");
 
         try {
 
-            //Obtener manager de Proveedor
+            //Obtener manager de Proveedores
             ManagerProveedoresServiceBusiness mgrProveedor = getMgrProveedoresService();
 
-            //Eliminar Orden de Compra
+            //Eliminar factura de compra
             mgrProveedor.eliminarOrdenCompra(getOrdenCompra().getId());
 
         } catch (ManagerProveedoresServiceBusinessException e) {
             logger.error(e.getMessage(), e);
             throw new Exception(e.getMessage(), e);
-        }*/
+        }
+    }
+
+    /**
+     * Validar Estado de Orden de Compra a Imprimir
+     *
+     * @throws Exception, Exception
+     */
+
+    public void ordenCompraImprimir() throws Exception {
+
+        logger.debug("Validar Estado de Orden de Compra");
+
+        try {
+
+            //Obtener manager de Inventario
+            ManagerProveedoresServiceBusiness mgrProveedor = getMgrProveedoresService();
+
+            //Validar Estado de Orden de Compra
+            mgrProveedor.validarImpresionOrdenCompra(getOrdenCompra().getId());
+
+        } catch (ManagerProveedoresServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+
+    }
+
+    /**
+     * Aplicar orden de traslado
+     *
+     * @throws Exception, Exception
+     */
+    public void aplicarOrdenCompra() throws Exception {
+
+        logger.debug("Aplicando Orden de Compra");
+
+        try {
+
+            //Obtener manager de Inventario
+            ManagerProveedoresServiceBusiness mgrProveedor = getMgrProveedoresService();
+
+            //Cambiar Estado de Orden de Traslado
+            mgrProveedor.aplicarOrdenCompra(getOrdenCompra().getId());
+
+        } catch (ManagerProveedoresServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
     }
 
     /**
