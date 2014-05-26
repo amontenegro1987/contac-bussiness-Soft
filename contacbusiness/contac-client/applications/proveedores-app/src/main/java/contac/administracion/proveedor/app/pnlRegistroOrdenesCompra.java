@@ -37,6 +37,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
+import java.text.MessageFormat;
 import java.util.*;
 
 /**
@@ -364,40 +365,33 @@ public class pnlRegistroOrdenesCompra extends GenericPanel {
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
+
+
     private void btnAnularActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnAnularActionPerformed
-       /* try {
+        try {
 
             //Confirmation message
             boolean confirmation = JOptionMessagePane.showConfirmationInfo(null, messageBundle.getString("CONTAC.FORM.MSG.ADVERTENCIA"), MessageFormat.
-                    format(messageBundle.getString("CONTAC.FORM.FACTURACION.ANULAR.CONFIRMA"),
-                            new Object[]{ordenCompraSelected.getNoDocumento()}));
+                    format(messageBundle.getString("CONTAC.FORM.ORDENCOMPRA.ANULAR.CONFIRMA"),
+                            new Object[]{ordenCompraSelected.getId()}));
 
             if (confirmation) {
 
-                //Setting factura seleccionada
-                controller.setFactura(ordenCompraSelected);
+                //Setting Orden de Compra seleccionada
+                controller.setOrdenCompra(ordenCompraSelected);
 
                 //Anular factura
-                controller.anularFactura();
+                controller.anularOrdenCompra();
 
                 //Show confirmation message
-                JOptionErrorPane.showMessageInfo(this.getMDI(), messageBundle.getString("CONTAC.FORM.MSG.CONFIRMACION"),
-                        messageBundle.getString("CONTAC.FORM.MSG.ANULACION.EXITOSO"));
+                JOptionErrorPane.showMessageInfo(this.getMDI(), messageBundle.getString("CONTAC.FORM.MSG.CONFIRMACIONORDENCOMPRA"),
+                        messageBundle.getString("CONTAC.FORM.MSG.ANULACIONORDENCOMPRA.EXITOSO"));
 
                 //Realizar busqueda de facturas nuevamente
                 Date fechaDesde = dtpFechaDesde.getDate() != null ? dtpFechaDesde.getDate() : new Date();
                 Date fechaHasta = dtpFechaHasta.getDate() != null ? dtpFechaHasta.getDate() : new Date();
 
-                //Obtener parametros de busqueda
-                Almacen almacen = ((Almacen) ((AlmacenComboBoxModel) cmbAlmacen.getModel()).getSelectedItem().
-                        getObject());
-
-                TiposFactura tiposFactura = cmbTipoFactura.getModel().getSelectedItem() != null ?
-                        ((TiposFactura) ((TipoFacturaComboBoxModel) cmbTipoFactura.getModel()).getSelectedItem().getObject()) :
-                        null;
-
-                controller.buscarFacturasClientesPorFechas(fechaDesde, fechaHasta, almacen.getId(),
-                        tiposFactura != null ? tiposFactura.getValue() : null);
+                controller.buscarOrdenesComprasPorFechas(fechaDesde, fechaHasta);
 
                 //Actualizar listado de articulos ingresados
                 ((BeanTableModel) tblRegistroOrdenCompra.getModel()).fireTableDataChanged();
@@ -405,8 +399,8 @@ public class pnlRegistroOrdenesCompra extends GenericPanel {
 
         } catch (Exception e) {
             //Show error message
-            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());*/
-        //}
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        }
     }//GEN-LAST:event_btnAnularActionPerformed
 
     private void btnCancelarActionPerformed(ActionEvent evt) { //GEN-FIRST: event_btnCancelarActionperformed
@@ -446,41 +440,34 @@ public class pnlRegistroOrdenesCompra extends GenericPanel {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEliminarActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-       /* try {
+        try {
 
             if (ordenCompraSelected != null) {
 
                 //Confirmation message
                 boolean confirmation = JOptionMessagePane.showConfirmationInfo(null, messageBundle.
                         getString("CONTAC.FORM.MSG.ADVERTENCIA"), MessageFormat.format(messageBundle.
-                        getString("CONTAC.FORM.FACTURACION.ELIMINAR.CONFIRMA"), new Object[]{ordenCompraSelected.getNoDocumento()}));
+                        getString("CONTAC.FORM.ORDENCOMPRA.ELIMINAR.CONFIRMA"), new Object[]{ordenCompraSelected.getId()}));
 
                 if (confirmation) {
 
-                    //Setting factura seleccionada
-                    controller.setFactura(ordenCompraSelected);
+                    //Setting Orden Compra seleccionada
+                    controller.setOrdenCompra(ordenCompraSelected);
 
-                    //Anular factura
-                    controller.eliminarFactura();
+                    //Anular Orden Compra
+                    controller.eliminarOrdenCompra();
 
                     //Show confirmation message
                     JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.CONFIRMACION"),
-                            messageBundle.getString("CONTAC.FORM.MSG.ELIMINACION.EXITOSO"));
+                            messageBundle.getString("CONTAC.FORM.MSG.ORDENCOMPRA.ELIMINACION.EXITOSO"));
 
-                    //Realizar busqueda de facturas nuevamente
+                    //Realizar busqueda de Orden de Compra nuevamente
                     Date fechaDesde = dtpFechaDesde.getDate() != null ? dtpFechaDesde.getDate() : new Date();
                     Date fechaHasta = dtpFechaHasta.getDate() != null ? dtpFechaHasta.getDate() : new Date();
 
                     //Obtener parametros de busqueda
-                    Almacen almacen = ((Almacen) ((AlmacenComboBoxModel) cmbAlmacen.getModel()).getSelectedItem().
-                            getObject());
 
-                    TiposFactura tiposFactura = cmbTipoFactura.getModel().getSelectedItem() != null ?
-                            ((TiposFactura) ((TipoFacturaComboBoxModel) cmbTipoFactura.getModel()).getSelectedItem().getObject()) :
-                            null;
-
-                    controller.buscarFacturasClientesPorFechas(fechaDesde, fechaHasta, almacen.getId(),
-                            tiposFactura != null ? tiposFactura.getValue() : null);
+                    controller.buscarOrdenesComprasPorFechas(fechaDesde, fechaHasta);
 
                     //Actualizar listado de articulos ingresados
                     ((BeanTableModel) tblRegistroOrdenCompra.getModel()).fireTableDataChanged();
@@ -491,7 +478,7 @@ public class pnlRegistroOrdenesCompra extends GenericPanel {
         } catch (Exception e) {
             //Show error message
             JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
-        }*/
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnImprimirActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
@@ -506,6 +493,9 @@ public class pnlRegistroOrdenesCompra extends GenericPanel {
             if (dtpFechaHasta.getDate() == null) {
                 throw new Exception(messageBundle.getString("CONTAC.FORM.REGISTROPROFORMAS.FECHAHASTA"));
             }
+
+            //Validar Estado de Orden de Traslado
+            controller.ordenCompraImprimir();
 
             // Prepared Jasper Report
             JasperReport report = (JasperReport) JRLoader.loadObject(pnlRegistroOrdenesCompra.class
@@ -537,6 +527,27 @@ public class pnlRegistroOrdenesCompra extends GenericPanel {
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void btnConfirmarActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        try {
+
+            // Si no ha seleccionado ninguna Orden de Compra a Imprimir
+            if (ordenCompraSelected != null) {
+                //Cambiar estado a Orden de Compra
+                controller.aplicarOrdenCompra();
+                //Actualizar listado de Ordenes de Compra ingresados
+                ((BeanTableModel) tblRegistroOrdenCompra.getModel()).fireTableDataChanged();
+                //Show confirmation message
+                JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.INGRESO.EXITOSO.COMPRA"),
+                        messageBundle.getString("CONTAC.FORM.MSG.INGRESO.EXITOSO.COMPRA"));
+            }else{
+                JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.ADVERTENCIA"),
+                        messageBundle.getString("CONTAC.FORM.MSG.SELECCIONAR.ORDENCOMPRA.VALIDACION"));
+            }
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            JOptionErrorPane.showMessageError(null, messageBundle.getString("CONTAC.FORM.MSG.REGISTRO.FALLIDO"),
+                    e.getMessage());
+        }
 
     }//GEN-LAST:event_btnConfirmarActionPerformed
 

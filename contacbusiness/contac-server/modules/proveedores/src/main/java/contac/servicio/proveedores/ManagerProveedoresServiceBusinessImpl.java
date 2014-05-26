@@ -662,6 +662,73 @@ public class ManagerProveedoresServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
+    public void eliminarOrdenCompra(Integer idOrdenCompra) throws ManagerProveedoresServiceBusinessException, RemoteException {
+        logger.debug("Eliminar Orden de Compra con parametros: [idOrdenCompra]: " + idOrdenCompra);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLFACTURACIONADMIN.toString());
+
+        try {
+
+            //Preparar el contexto de ejecucion
+            OrdenCompra ordenCompra = ordenCompraEAO.findById(idOrdenCompra);
+
+            //Validar datos generales de la Orden de Compra
+            if (!ordenCompra.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado()))
+                    //!ordenCompra.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.ANULADO.getEstado()))
+                throw new ManagerProveedoresServiceBusinessException("Orden de Compra no se encuentra en un estado valido para poder eliminar.");
+
+
+            ordenCompraEAO.remove(ordenCompra.getId());
+
+        } catch (PersistenceClassNotFoundException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerProveedoresServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerProveedoresServiceBusinessException(e.getMessage(), e);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerProveedoresServiceBusinessException(e.getMessage(), e);
+        } finally{
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
+    public void anularOrdenCompra(Integer idOrdenCompra) throws ManagerProveedoresServiceBusinessException, RemoteException {
+
+        logger.debug("Anular Orden Compra con parametros: [idOrdenCompra]: " + idOrdenCompra);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLFACTURACIONADMIN.toString());
+
+        try {
+
+            //Preparar el contexto de ejecucion
+            OrdenCompra ordenCompra = ordenCompraEAO.findById(idOrdenCompra);
+            EstadoMovimiento estadoAnulado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.ANULADO.getEstado());
+
+            //Validar datos generales de la Orden de Compra
+            if (!ordenCompra.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado()))
+                throw new ManagerProveedoresServiceBusinessException("Orden de Compra no se encuentra en un estado válido para poder anular");
+
+            ordenCompra.setEstadoMovimiento(estadoAnulado);
+
+            ordenCompraEAO.update(ordenCompra);
+
+        } catch (PersistenceClassNotFoundException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerProveedoresServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerProveedoresServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
     public List<OrdenCompra> buscarOrdenesComprasPorFechasRegistro(Date fechaDesde, Date fechaHasta) throws ManagerProveedoresServiceBusinessException, RemoteException {
 
         logger.info("Buscar ordenes de compra");
@@ -701,6 +768,79 @@ public class ManagerProveedoresServiceBusinessImpl extends UnicastRemoteObject i
             throw new ManagerProveedoresServiceBusinessException(e.getMessage(), e);
         } finally {
             stopBusinessService(value);
+        }
+    }
+
+    @Override
+    public void aplicarOrdenCompra(Integer idOrdenCompra) throws ManagerProveedoresServiceBusinessException, RemoteException {
+
+        logger.debug("Cambiar Estado Orden de Compra a APLICADA con parametros: [idOrdenCompra]: " + idOrdenCompra);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLINVENTARIOADMIN.toString());
+
+        try {
+
+            //Preparar el contexto de ejecucion
+            OrdenCompra ordenCompraAplicar = ordenCompraEAO.findById(idOrdenCompra);
+
+            EstadoMovimiento estadoAplicado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.APLICADO.getEstado());
+
+            //Validar datos generales de la Orden de Traslado
+            //if (!ordenTrasladoAplicar.getEstado().getAlias().equals(EstadosMovimiento.PENDIENTE.getEstado()))
+             //   throw new ManagerInventarioServiceBusinessException("Orden de Traslado no se encuentra en un estado valido para poder Aplicar.");
+
+            //Preparar el contexto de ejecucion
+            //OrdenCompra ordenCompraAplicar = ordenCompraEAO.findById(idOrdenCompra);
+
+            //Validar datos generales de la Orden de Compra
+            if(!ordenCompraAplicar.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado()))
+                throw new ManagerProveedoresServiceBusinessException("Orden de Compra no se encuentra en un estado valido para poder imprimir.");
+
+            //Setting Estado Movimiento Impreso
+            ordenCompraAplicar.setEstadoMovimiento(estadoAplicado);
+
+            //Update Orden de Compra
+            ordenCompraEAO.update(ordenCompraAplicar);
+
+        } catch (PersistenceClassNotFoundException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerProveedoresServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerProveedoresServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
+    public void validarImpresionOrdenCompra(Integer idOrdenCompra) throws ManagerProveedoresServiceBusinessException, RemoteException {
+
+        logger.debug("Validar Impresión de Orden de Compra: [idOrdenCompra]: " + idOrdenCompra);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLINVENTARIOADMIN.toString());
+
+        try {
+
+            //Preparar el contexto de ejecucion
+            OrdenCompra ordenCompraAplicar = ordenCompraEAO.findById(idOrdenCompra);
+            EstadoMovimiento estadoIngresado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.INGRESADO.getEstado());
+
+            //Validar datos generales de la Orden de Compra
+            if(!ordenCompraAplicar.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.APLICADO.getEstado()))
+                throw new ManagerProveedoresServiceBusinessException("Orden de Compra no se encuentra en un estado valido para poder imprimir.");
+
+
+        } catch (PersistenceClassNotFoundException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerProveedoresServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerProveedoresServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
         }
     }
 

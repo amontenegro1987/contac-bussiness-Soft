@@ -177,6 +177,26 @@ public interface ManagerProveedoresServiceBusiness extends ManagerProveedoresSer
                                         Date fechaRequerida, String descripcionCompra, Integer numeroReferencia)
             throws ManagerProveedoresServiceBusinessException, RemoteException;
 
+    /**
+     * Anular Orden de Compra
+     *
+     * @param idOrdenCompra, Identificador de Orden de Compra
+     * @throws contac.servicio.proveedores.ManagerProveedoresServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public void anularOrdenCompra(Integer idOrdenCompra) throws ManagerProveedoresServiceBusinessException, RemoteException;
+
+    /**
+     * Eliminar Orden de Compra
+     *
+     * @param idOrdenCompra, Identificador de Orden de Compra
+     * @throws contac.servicio.proveedores.ManagerProveedoresServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public void eliminarOrdenCompra(Integer idOrdenCompra) throws ManagerProveedoresServiceBusinessException, RemoteException;
+
       /**
      * Buscar ordenes de compra
      *
@@ -187,6 +207,28 @@ public interface ManagerProveedoresServiceBusiness extends ManagerProveedoresSer
      */
     public List<OrdenCompra> buscarOrdenesComprasPorFechasRegistro(Date fechaDesde, Date fechaHasta) throws ManagerProveedoresServiceBusinessException,
             RemoteException;
+
+    /**
+     * Validar Orden de Compra a Imprimir
+     *
+     * @param idOrdenCompra, Identificador de solicitud de Orden de Compra
+     * @return orden de compra
+     * @throws ManagerProveedoresServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public void validarImpresionOrdenCompra(Integer idOrdenCompra) throws ManagerProveedoresServiceBusinessException, RemoteException;
+
+    /**
+     * Aplicar orden de traslado de inventario
+     *
+     * @param idOrdenCompra, Identificador de solicitud de Orden de Compra
+     * @return OrdenCompra
+     * @throws contac.servicio.proveedores.ManagerProveedoresServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public void aplicarOrdenCompra(Integer idOrdenCompra) throws ManagerProveedoresServiceBusinessException, RemoteException;
 
     /**
      * Valida si un proveedor ya se encuentra registrado

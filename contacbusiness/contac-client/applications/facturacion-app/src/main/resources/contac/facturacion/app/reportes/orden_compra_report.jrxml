@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="inventario_report" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="89f2bef7-c0ab-4e09-8bf6-83f9cac9b4f1">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="336"/>
-	<property name="ireport.y" value="99"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="98"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA["C:\\desarrollo\\Carpeta nueva\\"]]></defaultValueExpression>
 	</parameter>
@@ -54,7 +54,9 @@
        FDOC.N_NO_ORDEN_COMPRA,
        FDOC.N_PORC_DESCUENTO,
        FDOC.N_PORC_IVA,
-       FDOC.N_PRECIO_ANTES_IMPUESTO - FDOC.N_DESCUENTO AS N_PRECIO_ANTES_IMPUESTO,
+       -- FDOC.N_PRECIO_ANTES_IMPUESTO - FDOC.N_DESCUENTO AS N_PRECIO_ANTES_IMPUESTO,
+       FDOC.N_PRECIO_ANTES_IMPUESTO + FOC.N_MONTODESCUENTO AS N_PRECIO_ANTES_IMPUESTO,
+       FDOC.N_PRECIO_ANTES_IMPUESTO AS N_PRECIO_ANTES_IMPUESTO2,
        FDOC.N_PRECIOBRUTO,
        FDOC.N_PRECIONETO,
        INV_PROD.C_NOMBRE AS NOMBRE_PRODUCTO,
@@ -181,6 +183,7 @@ WHERE FOC.N_ID = $P{n_id_orden_compra}]]>
 	<field name="N_PRECIO_ANTES_IMPUESTO" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="N_PRECIO_ANTES_IMPUESTO2" class="java.math.BigDecimal"/>
 	<field name="N_PRECIOBRUTO" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -199,7 +202,7 @@ WHERE FOC.N_ID = $P{n_id_orden_compra}]]>
 	<pageHeader>
 		<band height="170" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="539ac276-0ef3-484c-8f55-d23253abe3d4" mode="Transparent" x="477" y="3" width="275" height="110"/>
+				<reportElement uuid="539ac276-0ef3-484c-8f55-d23253abe3d4" mode="Transparent" x="476" y="3" width="275" height="110"/>
 			</rectangle>
 			<subreport>
 				<reportElement uuid="96e490c2-f9c7-43b5-8f61-ab192b89bdcd" x="0" y="3" width="476" height="110"/>
@@ -217,21 +220,21 @@ WHERE FOC.N_ID = $P{n_id_orden_compra}]]>
 				<text><![CDATA[Orden de Compra]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="37f3627d-d71b-4225-9df7-c729722e2022" x="503" y="32" width="78" height="16"/>
+				<reportElement uuid="37f3627d-d71b-4225-9df7-c729722e2022" x="503" y="42" width="78" height="16"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nº.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cda82e4c-664b-4398-ac42-d700a29e20d5" x="503" y="72" width="78" height="16"/>
+				<reportElement uuid="cda82e4c-664b-4398-ac42-d700a29e20d5" x="503" y="82" width="78" height="16"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Teléfono]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0baf92b9-f87c-4ea7-a127-bea9ba358cd5" x="503" y="52" width="78" height="16"/>
+				<reportElement uuid="0baf92b9-f87c-4ea7-a127-bea9ba358cd5" x="503" y="62" width="78" height="16"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -245,19 +248,12 @@ WHERE FOC.N_ID = $P{n_id_orden_compra}]]>
 				<text><![CDATA[Descripción:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="67625a22-4acc-4668-9ee1-d55083b84d7a" x="596" y="32" width="145" height="16"/>
+				<reportElement uuid="67625a22-4acc-4668-9ee1-d55083b84d7a" x="596" y="42" width="145" height="16"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{N_ID}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement uuid="d41df310-4b5b-4dab-84af-78ba586aee9f" x="503" y="92" width="78" height="16"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Contacto]]></text>
-			</staticText>
 			<textField>
-				<reportElement uuid="0bc0b57a-e6ef-4dfc-a895-4eec330f7814" x="596" y="52" width="145" height="16"/>
+				<reportElement uuid="0bc0b57a-e6ef-4dfc-a895-4eec330f7814" x="596" y="62" width="145" height="16"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{D_FECHAALTA}]]></textFieldExpression>
 			</textField>
@@ -296,7 +292,7 @@ WHERE FOC.N_ID = $P{n_id_orden_compra}]]>
 				<textFieldExpression><![CDATA[$F{DIRECCION_PROVEEDOR}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="eaa78789-7205-4ba7-87ea-87ac09d63f33" x="596" y="72" width="145" height="16"/>
+				<reportElement uuid="eaa78789-7205-4ba7-87ea-87ac09d63f33" x="596" y="82" width="145" height="16"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{TEL_EMPRESA}]]></textFieldExpression>
 			</textField>
@@ -322,7 +318,7 @@ WHERE FOC.N_ID = $P{n_id_orden_compra}]]>
 			<textField>
 				<reportElement uuid="a0a515e8-5858-4d49-a830-8e9381340d9a" x="477" y="151" width="92" height="17"/>
 				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NO_REFERENCIA}]]></textFieldExpression>
 			</textField>
@@ -532,7 +528,7 @@ WHERE FOC.N_ID = $P{n_id_orden_compra}]]>
 				<textElement textAlignment="Right">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{N_PRECIO_ANTES_IMPUESTO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{N_PRECIO_ANTES_IMPUESTO2}]]></textFieldExpression>
 			</textField>
 		</band>
 	</lastPageFooter>
