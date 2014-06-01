@@ -209,6 +209,34 @@ public class AdministraCompaniaController extends BaseController {
     }
 
     /**
+     * Eliminar Almacen
+     * @throws Exception, Exception
+     */
+
+    public void eliminarAlmacen() throws Exception {
+
+        logger.debug("Eliminar registro de Almacenes");
+
+        try {
+
+            //Obtener manager de administracion
+            ManagerAdministracionServiceBusiness mgr = getMgrAdministracionService();
+
+            //Eliminar registro de Almacen
+            //mgr.eliminarAlmacen(almacen.getId());
+            mgr.eliminarAlmacen(getAlmacen().getId());
+            //mgrFacturacion.eliminarFactura(getFactura().getId());
+
+        } catch (ManagerAdministracionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
+
+    /**
      * Activar Almacen
      * @throws Exception, Exception
      */

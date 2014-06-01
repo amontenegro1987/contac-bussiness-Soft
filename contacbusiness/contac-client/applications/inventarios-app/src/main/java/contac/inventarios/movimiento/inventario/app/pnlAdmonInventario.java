@@ -599,6 +599,42 @@ public class pnlAdmonInventario extends GenericPanel {
     }
 
     /**
+     * Print Inventory Report
+     *
+     * @param event, ActionEvent
+     */
+    private void btnImprimirExistenciasInventarioLineasActionPerformed(ActionEvent event) {
+
+        try {
+
+            // Prepared Jasper Report
+            JasperReport report = (JasperReport) JRLoader.loadObject(pnlAdmonInventario.class
+                    .getResourceAsStream("/contac/inventarios/app/reportes/existencias_inventario_mensuales_por_linea_dep.jasper"));
+
+            Map parameters = new HashMap();
+            parameters.put("SUBREPORT_DIR", getClass().getClassLoader().getResource("contac/inventarios/app/reportes") + "/");
+
+            //Generate Report
+            JasperPrint jasperPrint = controller.getMgrReportesService().generateReport(parameters, report);
+
+            //Print Report Preview
+            JRPrintReport.printPreviewReport(getMDI(), jasperPrint);
+
+        } catch (JRException e) {
+            logger.error(e.getMessage(), e);
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        }
+    }
+    /**
      * Anular Inventory Products
      *
      * @param event, ActionEvent
@@ -658,6 +694,11 @@ public class pnlAdmonInventario extends GenericPanel {
         JMenuItem mnuReporteSolicitudInventario;
 
         /**
+         * Menu Reporte Solicitud Inventario
+         */
+        JMenuItem mnuReporteExistenciaInventarioLinea;
+
+        /**
          * Menu Reporte Existencias Almacen Consolidado
          */
         JMenuItem mnuReporteExistenciasAlmacen;
@@ -680,9 +721,13 @@ public class pnlAdmonInventario extends GenericPanel {
             mnuReporteExistenciasAlmacen = new JMenuItem(messageBundle.getString("CONTAC.FORM.MNUREPORTEEXISTENCIASALMACEN"));
             mnuReporteExistenciasAlmacen.setIcon(menuIcon_existencias_almacen);
 
+            mnuReporteExistenciaInventarioLinea = new JMenuItem(messageBundle.getString("CONTAC.FORM.MNUREPORTEEXISTENCIASALMACENPORLINEA"));
+            mnuReporteExistenciaInventarioLinea.setIcon(menuIcon_existencias_almacen);
+
             add(mnuReporteExistencias);
             add(mnuReporteSolicitudInventario);
             add(mnuReporteExistenciasAlmacen);
+            add(mnuReporteExistenciaInventarioLinea);
 
             //Init Components Listeners
             initComponentsListeners();
@@ -713,8 +758,14 @@ public class pnlAdmonInventario extends GenericPanel {
                     btnImprimirSolicitudInventarioActionPerformed(e);
                 }
             });
+
+            mnuReporteExistenciaInventarioLinea.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    btnImprimirExistenciasInventarioLineasActionPerformed(e);
+                }
+            });
         }
 
     }
-
 }

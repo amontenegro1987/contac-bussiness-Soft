@@ -202,6 +202,7 @@ public class pnlAdmonCompania extends GenericPanel {
         btnEditarAlmacen = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
         btnRemoverAlmacen = new javax.swing.JButton();
+        btnEliminarAlmacen = new javax.swing.JButton();
         btnActivarAlmacen = new javax.swing.JButton();
         header = new org.jdesktop.swingx.JXHeader();
 
@@ -580,6 +581,21 @@ public class pnlAdmonCompania extends GenericPanel {
         });
         tbAlmacenes.add(btnRemoverAlmacen);
 
+        btnEliminarAlmacen.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/actions/remove.png")));
+        btnEliminarAlmacen.setToolTipText(bundle.getString("CONTAC.FORM.BTNELIMINARALMACENESTADO")); // NOI18N
+        btnEliminarAlmacen.setFocusable(false);
+        btnEliminarAlmacen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEliminarAlmacen.setMaximumSize(new java.awt.Dimension(40, 28));
+        btnEliminarAlmacen.setMinimumSize(new java.awt.Dimension(40, 28));
+        btnEliminarAlmacen.setName(""); // NOI18N
+        btnEliminarAlmacen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnEliminarAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarAlmacenActionPerformed(evt);
+            }
+        });
+        tbAlmacenes.add(btnEliminarAlmacen);
+
         btnActivarAlmacen.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/actions/accept.png")));
         btnActivarAlmacen.setToolTipText(bundle.getString("CONTAC.FORM.BTNACTIVARALMACEN")); // NOI18N
         btnActivarAlmacen.setFocusable(false);
@@ -655,13 +671,49 @@ public class pnlAdmonCompania extends GenericPanel {
 
             if(confirmation) {
                 controller.setAlmacen(almacenSelected);
-
+                controller.validarExistenciasAlmacen();
                 //Anular Almacen
                 controller.anularAlmacen();
 
                 //Show confirmation message
                 JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.CONFIRMACION"),
                         messageBundle.getString("CONTAC.FORM.MSG.ANULACION.EXITOSO"));
+
+                //Actualizar listado de articulos ingresados
+                ((BeanTableModel) tblAlmacenes.getModel()).fireTableDataChanged();
+            }
+        } catch (Exception e){
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        }
+
+    }
+
+    private void btnEliminarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarAlmacenActionPerformed
+        try{
+            //*********************Valida Existencias en el Almacen***************************//*
+            controller.setAlmacen(almacenSelected);
+            //controller.validarExistenciasAlmacen();
+
+            // Si no ha seleccionado ningun almacen a eliminar
+            if (almacenSelected == null) {
+                throw new Exception(messageBundle.getString("CONTAC.FORM.ALMACEN.VALIDA.ELIMINACION"));
+            }
+            boolean confirmation = JOptionMessagePane.showConfirmationInfo(null, messageBundle.getString("CONTAC.FORM.MSG.ADVERTENCIA"), MessageFormat.
+                    format(messageBundle.getString("CONTAC.FORM.ALMACEN.ELIMINARALMACEN.CONFIRMA"),
+                            new Object[]{almacenSelected.getDescripcion()}));
+
+
+            if(confirmation) {
+                controller.setAlmacen(almacenSelected);
+
+                //Anular Almacen
+                controller.validarExistenciasAlmacen();
+                controller.eliminarAlmacen();
+
+                //Show confirmation message
+                JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.CONFIRMACION"),
+                        messageBundle.getString("CONTAC.FORM.MSG.ELIMINACION.EXITOSO"));
 
                 //Actualizar listado de articulos ingresados
                 ((BeanTableModel) tblAlmacenes.getModel()).fireTableDataChanged();
@@ -1323,6 +1375,7 @@ public class pnlAdmonCompania extends GenericPanel {
     private javax.swing.JButton btnEditarAlmacen;
     private javax.swing.JButton btnEditarClasificador;
     private javax.swing.JButton btnRemoverAlmacen;
+    private javax.swing.JButton btnEliminarAlmacen;
     private javax.swing.JButton btnActivarAlmacen;
     private javax.swing.JButton btnRemoverClasificador;
     private javax.swing.JComboBox cmbMoneda;

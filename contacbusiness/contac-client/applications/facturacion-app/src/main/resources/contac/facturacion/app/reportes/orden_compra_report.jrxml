@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="inventario_report" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="89f2bef7-c0ab-4e09-8bf6-83f9cac9b4f1">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="98"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA["C:\\desarrollo\\Carpeta nueva\\"]]></defaultValueExpression>
 	</parameter>
@@ -517,12 +517,6 @@ WHERE FOC.N_ID = $P{n_id_orden_compra}]]>
 				</textElement>
 				<text><![CDATA[SUB TOTAL]]></text>
 			</staticText>
-			<componentElement>
-				<reportElement uuid="552f0492-7103-41fa-b35b-6680acfa7e41" x="186" y="21" width="189" height="40"/>
-				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Codabar" drawText="false" checksumRequired="false">
-					<jr:codeExpression><![CDATA[$F{N_ID}]]></jr:codeExpression>
-				</jr:barbecue>
-			</componentElement>
 			<textField pattern="C$###,###.###">
 				<reportElement uuid="2f64919b-5869-4d07-801b-9e014d68050d" x="665" y="18" width="86" height="14"/>
 				<textElement textAlignment="Right">
