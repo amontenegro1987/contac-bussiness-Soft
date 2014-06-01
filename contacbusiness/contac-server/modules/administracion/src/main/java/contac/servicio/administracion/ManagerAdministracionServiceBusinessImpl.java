@@ -166,6 +166,37 @@ public class ManagerAdministracionServiceBusinessImpl extends UnicastRemoteObjec
         }
     }
 
+    @Override
+    public void eliminarAlmacen(Integer idAlmacen) throws ManagerAdministracionServiceBusinessException, RemoteException {
+        logger.debug("Eliminar almacen con parametros: [idAlmacen]: " + idAlmacen);
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLCOMPANIAADMIN.toString());
+        try{
+            //Preparar el contexto de ejecucion
+            Almacen almacen = almacenEAO.findById(idAlmacen);
+
+            //<Validar Almacen tiene estado ACTIVO>---
+            if (almacen.getEstatus() == EstadosActivacion.ACTIVO.getValue()){
+                throw new ManagerAdministracionServiceBusinessException("El Almacen se encuentra en Estado Activo.");
+            }
+            //<Persistir cambios>
+            almacenEAO.remove(idAlmacen);
+
+        } catch (PersistenceClassNotFoundException e) {
+            logger.error(e.getMessage(), e);
+        throw new ManagerAdministracionServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+        throw new ManagerAdministracionServiceBusinessException(e.getMessage(), e);
+        } catch (Exception e) {
+        logger.error(e.getMessage(), e);
+            throw new ManagerAdministracionServiceBusinessException(e.getMessage(), e);
+        } finally{
+          stopBusinessService(transaction);
+        }
+    }
+
 
     @Override
     public Almacen anularAlmacen(Integer idAlmacen) throws ManagerAdministracionServiceBusinessException, RemoteException {

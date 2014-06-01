@@ -536,8 +536,8 @@ public class pnlRegistroOrdenesCompra extends GenericPanel {
                 //Actualizar listado de Ordenes de Compra ingresados
                 ((BeanTableModel) tblRegistroOrdenCompra.getModel()).fireTableDataChanged();
                 //Show confirmation message
-                JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.INGRESO.EXITOSO.COMPRA"),
-                        messageBundle.getString("CONTAC.FORM.MSG.INGRESO.EXITOSO.COMPRA"));
+                JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.INGRESO.ORDENCOMPRA.COMPRA"),
+                        messageBundle.getString("CONTAC.FORM.MSG.INGRESO.ORDENCOMPRA.COMPRA"));
             }else{
                 JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.ADVERTENCIA"),
                         messageBundle.getString("CONTAC.FORM.MSG.SELECCIONAR.ORDENCOMPRA.VALIDACION"));

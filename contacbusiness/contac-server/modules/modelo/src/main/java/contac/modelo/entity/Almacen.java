@@ -223,13 +223,15 @@ public class Almacen implements Serializable {
      *
      * @return Direccion
      */
-    @OneToOne(cascade = {javax.persistence.CascadeType.ALL}, fetch = javax.persistence.FetchType.EAGER)
-    @JoinColumn(name = "N_ID_DIRECCION", nullable = false)
+     @OneToOne(cascade = {javax.persistence.CascadeType.ALL}, fetch = javax.persistence.FetchType.EAGER)
+     @JoinColumn(name = "N_ID_DIRECCION", nullable = false)
+
+
     public contac.modelo.entity.Direccion getDireccion() {
         return direccion;
     }
 
-    /**
+   /**
      * Setear direccion de almacen
      *
      * @param direccion, String

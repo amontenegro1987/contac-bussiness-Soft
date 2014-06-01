@@ -25,6 +25,13 @@ public interface ManagerAdministracionServiceBusiness extends ManagerAdministrac
     public Almacen anularAlmacen(Integer idAlmacen) throws ManagerAdministracionServiceBusinessException, RemoteException;
 
     /**
+     *
+     * Eliminar Registro de Almacen
+     */
+
+    public void eliminarAlmacen(Integer idAlmacen) throws ManagerAdministracionServiceBusinessException, RemoteException;
+
+    /**
      * Activar Registro de Almacen
      */
 
