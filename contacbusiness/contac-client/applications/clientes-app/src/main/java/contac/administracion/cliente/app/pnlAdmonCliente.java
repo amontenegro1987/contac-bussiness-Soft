@@ -139,7 +139,7 @@ public class pnlAdmonCliente extends GenericPanel {
             cmbPais.setSelectedItem(paisModel.searchSelectedItem(controller.getPais().getId()));
         } else {
             cmbPais.setRenderer(rendererPais);
-            cmbPais.setSelectedIndex(-1);
+            cmbPais.setSelectedIndex(153);
         }
         //Estado
         txtEstado.setText(controller.getEstado());
@@ -511,6 +511,7 @@ public class pnlAdmonCliente extends GenericPanel {
         pnlAcciones = new javax.swing.JPanel();
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        btnRegistroRapido = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -710,9 +711,9 @@ public class pnlAdmonCliente extends GenericPanel {
                     .addComponent(lblFax))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(pnlTelefonosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTelefonoOficina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTelefonoMovil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtTelefonoOficina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,                                                    javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTelefonoMovil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,                                                      javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,                                                                javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         frmDatosCliente.add(pnlTelefonos, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 378, -1, -1));
@@ -746,16 +747,26 @@ public class pnlAdmonCliente extends GenericPanel {
             }
         });
 
+        btnRegistroRapido.setText(bundle.getString("CONTAC.FORM.REGISTRORAPIDO")); // NOI18N
+        btnRegistroRapido.setActionCommand("");
+        btnRegistroRapido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistroRapidoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlAccionesLayout = new javax.swing.GroupLayout(pnlAcciones);
         pnlAcciones.setLayout(pnlAccionesLayout);
         pnlAccionesLayout.setHorizontalGroup(
             pnlAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAccionesLayout.createSequentialGroup()
-                .addGap(219, 219, 219)
-                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(511, Short.MAX_VALUE))
+                    .addGap(219, 219, 219)
+                    .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(10, 10, 10)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(10, 10, 10)
+                    .addComponent(btnRegistroRapido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(511, Short.MAX_VALUE))
         );
         pnlAccionesLayout.setVerticalGroup(
             pnlAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -763,7 +774,8 @@ public class pnlAdmonCliente extends GenericPanel {
                 .addContainerGap()
                 .addGroup(pnlAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAceptar)
-                    .addComponent(btnCancelar))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnRegistroRapido))
                 .addContainerGap(106, Short.MAX_VALUE))
         );
 
@@ -903,16 +915,23 @@ public class pnlAdmonCliente extends GenericPanel {
         cargarDatos();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnRegistroRapidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:btnRegistroRapidoActionPerformed
+        txtEstado.setText("Managua");
+        txtCiudad.setText("Managua");
+        txtDireccion.setText("Managua");
+        cmbActividadEconomica.setSelectedIndex(3);
+    }//GEN-LAST:event_btnRegistroRapidoActionPerformed
+
     //<Valida datos del formulario>
     private void validarDatosForm() throws Exception {
 
         //<Nit>
-        if (txtNIT.getText().equals("")) {
+        /*if (txtNIT.getText().equals("")) {
             //Request focus
             txtNIT.requestFocusInWindow();
             //Throw error message
             throw new Exception(messageBundle.getString("CONTAC.FORM.ADMINISTRACLIENTES.NIT.VALIDA"));
-        }
+        }*/
 
         //<Razon Social>
         if (txtRazonSocial.getText().equals("")) {
@@ -978,6 +997,7 @@ public class pnlAdmonCliente extends GenericPanel {
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnRegistroRapido;
     private javax.swing.JComboBox cmbActividadEconomica;
     private javax.swing.JComboBox cmbPais;
     private javax.swing.JPanel frmDatosCliente;

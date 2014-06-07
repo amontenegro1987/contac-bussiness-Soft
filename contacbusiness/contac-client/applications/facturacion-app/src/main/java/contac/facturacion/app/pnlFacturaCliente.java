@@ -456,6 +456,13 @@ public class pnlFacturaCliente extends GenericPanel {
             }
         });
 
+        btnRegistroRapido.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnRegistroRapidoActionPerformed(e);
+            }
+        });
+
         btnBuscarTasaCambio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -626,6 +633,8 @@ public class pnlFacturaCliente extends GenericPanel {
 
         lblSubtotal = new JLabel(messageBundle.getString("CONTAC.FORM.TOTALFACTURACION.SUBTOTAL"));
 
+        lblRegistroCliente = new JLabel(messageBundle.getString("CONTAC.FORM.REGISTROCLIENTE_FACTURA"));
+
         txtSubtotal = new JTextField();
         txtSubtotal.setToolTipText(messageBundle.getString("CONTAC.FORM.TOTALFACTURACION.SUBTOTAL"));
         txtSubtotal.setPreferredSize(new Dimension(120, 23));
@@ -634,6 +643,9 @@ public class pnlFacturaCliente extends GenericPanel {
 
         btnCalcular = new JButton();
         btnCalcular.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/calculator.png")));
+
+        btnRegistroRapido = new JButton();
+        btnRegistroRapido.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/user_ok_256x16.png")));
 
         JPanel pnlAddProducto = new JPanel(new FlowLayout(FlowLayout.LEFT));
         pnlAddProducto.add(txtCodigo);
@@ -645,6 +657,8 @@ public class pnlFacturaCliente extends GenericPanel {
         pnlAddProducto.add(lblSubtotal);
         pnlAddProducto.add(txtSubtotal);
         pnlAddProducto.add(btnCalcular);
+        pnlAddProducto.add(lblRegistroCliente);
+        pnlAddProducto.add(btnRegistroRapido);
 
         //Adding to Main Panel
         JPanel pnlMainOrder = new JPanel(new BorderLayout());
@@ -789,7 +803,18 @@ public class pnlFacturaCliente extends GenericPanel {
         //Mostrar Subtotal de la factura
         txtSubtotal.setText(TextUtil.formatCurrency(controller.getMontoAntesImpuesto().doubleValue()));
 
-    }//GEN-LAST:event_btnCalcularActionPerformed
+    }//GEN-LAST:event_btnRegistroRapidoActionPerformed
+
+    private void btnRegistroRapidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroRapidoActionPerformed
+        //Open formulario de administracion de compania
+        getMDI().getStyle().addPanel("pnlAdmonCliente", "contac.administracion.cliente.app.pnlAdmonCliente");
+
+        //Remove this panel
+        //getMDI().getStyle().removePanel(this);
+
+    }//GEN-LAST:event_btnRegistroRapidoActionPerformed
+
+
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
         //Open pnl busqueda de clientes
@@ -1059,6 +1084,7 @@ public class pnlFacturaCliente extends GenericPanel {
     private javax.swing.JButton btnBuscarProducto;
     private javax.swing.JButton btnBuscarTasaCambio;
     private javax.swing.JButton btnCalcular;
+    private javax.swing.JButton btnRegistroRapido;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditarFechaRegistro;
     private javax.swing.JButton btnEditarNoFactura;
@@ -1079,6 +1105,7 @@ public class pnlFacturaCliente extends GenericPanel {
     private javax.swing.JLabel lblTasaCambio1;
     private javax.swing.JLabel lblTipoFactura;
     private javax.swing.JLabel lblSubtotal;
+    private javax.swing.JLabel lblRegistroCliente;
     private org.jdesktop.swingx.JXTable tblArticulosFactura;
     private javax.swing.JTextField txtAgente;
     private javax.swing.JTextField txtCantidad;

@@ -544,7 +544,11 @@ public class pnlAdmonCompania extends GenericPanel {
         btnAgregarAlmacen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnAgregarAlmacen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarAlmacenActionPerformed(evt);
+                try {
+                    btnAgregarAlmacenActionPerformed(evt);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
         tbAlmacenes.add(btnAgregarAlmacen);
@@ -560,7 +564,11 @@ public class pnlAdmonCompania extends GenericPanel {
         btnEditarAlmacen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnEditarAlmacen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarAlmacenActionPerformed(evt);
+                try {
+                    btnEditarAlmacenActionPerformed(evt);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
         tbAlmacenes.add(btnEditarAlmacen);
@@ -594,7 +602,7 @@ public class pnlAdmonCompania extends GenericPanel {
                 btnEliminarAlmacenActionPerformed(evt);
             }
         });
-        tbAlmacenes.add(btnEliminarAlmacen);
+        //tbAlmacenes.add(btnEliminarAlmacen);
 
         btnActivarAlmacen.setIcon(new ImageIcon(getClass().getResource("/contac/resources/icons/actions/accept.png")));
         btnActivarAlmacen.setToolTipText(bundle.getString("CONTAC.FORM.BTNACTIVARALMACEN")); // NOI18N
@@ -772,30 +780,30 @@ public class pnlAdmonCompania extends GenericPanel {
         almacenSelected = (Almacen) ((BeanTableModel) tblAlmacenes.getModel()).getRow(rowSelected);
     }//GEN-LAST:event_tblAlmacenesMouseClicked
 
-    private void btnAgregarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAlmacenActionPerformed
+    private void btnAgregarAlmacenActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_btnAgregarAlmacenActionPerformed
 
         //Open almacen JDialog for adding almacen
         almacenSelected = new pnlAdmonAlmacen(mdi, true).getAlmacen();
 
         if (almacenSelected != null) {
             //Adding almacenSelected to grid
-            controller.getAlmacenes().add(almacenSelected);
+            controller.getAlmacenesActualizar().add(almacenSelected);
             ((BeanTableModel) tblAlmacenes.getModel()).fireTableDataChanged();
         }
 
     }//GEN-LAST:event_btnAgregarAlmacenActionPerformed
 
-    private void btnEditarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAlmacenActionPerformed
+    private void btnEditarAlmacenActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_btnEditarAlmacenActionPerformed
         if (almacenSelected != null) {
             //Open almacen JDialog for adding almacen
             almacenSelected = new pnlAdmonAlmacen(mdi, almacenSelected, true).getAlmacen();
 
-            for (Almacen almacen : controller.getAlmacenes()) {
+            for (Almacen almacen : controller.getAlmacenesActualizar()) {
                 if (almacen.getCodigo() == almacenSelected.getCodigo()) {
                     //Remover almacen anterior
-                    controller.getAlmacenes().remove(almacen);
+                    controller.getAlmacenesActualizar().remove(almacen);
                     //Agregar nuevo almacen
-                    controller.getAlmacenes().add(almacenSelected);
+                    controller.getAlmacenesActualizar().add(almacenSelected);
                     ((BeanTableModel) tblAlmacenes.getModel()).fireTableDataChanged();
 
                     //Exit for

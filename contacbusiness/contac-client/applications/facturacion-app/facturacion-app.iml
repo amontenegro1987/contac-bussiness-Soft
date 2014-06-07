@@ -94,6 +94,7 @@
     <orderEntry type="library" name="Maven: jgoodies:jgoodies-common:1.2.0" level="project" />
     <orderEntry type="library" name="Maven: org.jdom:jdom:1.1" level="project" />
     <orderEntry type="library" name="Maven: org.swinglabs:swing-layout:1.0.3" level="project" />
+    <orderEntry type="module" module-name="clientes-app" />
   </component>
 </module>
 

@@ -32,6 +32,16 @@ public interface ManagerAdministracionServiceBusiness extends ManagerAdministrac
     public void eliminarAlmacen(Integer idAlmacen) throws ManagerAdministracionServiceBusinessException, RemoteException;
 
     /**
+     * Busca listado de almacenes por compania
+     *
+     * @return List
+     * @throws contac.servicio.administracion.ManagerAdministracionServiceBusiness,
+     *                                   Exception
+     * @throws java.rmi.RemoteException, Exception
+     */
+    public List<Almacen> buscarAlmacenesPorCompania() throws ManagerAdministracionServiceBusinessException, RemoteException;
+
+    /**
      * Activar Registro de Almacen
      */
 
