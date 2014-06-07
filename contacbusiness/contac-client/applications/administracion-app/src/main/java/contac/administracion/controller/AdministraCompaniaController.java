@@ -423,6 +423,32 @@ public class AdministraCompaniaController extends BaseController {
         return null;
     }
 
+    /**
+     * Obtener listado de almacenes
+     *
+     * @return List
+     * @throws Exception, Exception
+     */
+    public List<Almacen> getAlmacenes() throws Exception {
+
+        logger.debug("Obteniendo listado de almacenes...!");
+
+        try {
+
+            //Obtener manager inventario service
+            ManagerAdministracionServiceBusiness mgrAdministracion = getMgrAdministracionService();
+
+            //Retornar listado de almacenes
+            return mgrAdministracion.buscarAlmacenesPorCompania();
+
+        } catch (ManagerAdministracionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+    }
     //*********************************************************************
     //GETTERS AND SETTERS
     //*********************************************************************
@@ -506,9 +532,12 @@ public class AdministraCompaniaController extends BaseController {
         this.clasificadores = clasificadores;
     }
 
-    public List<Almacen> getAlmacenes() {
+
+    public List<Almacen> getAlmacenesActualizar() {
         return almacenes;
     }
+
+
 
     public void setAlmacenes(List<Almacen> almacenes) {
         this.almacenes = almacenes;

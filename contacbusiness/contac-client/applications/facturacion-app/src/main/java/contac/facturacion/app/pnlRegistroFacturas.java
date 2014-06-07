@@ -383,7 +383,7 @@ public class pnlRegistroFacturas extends GenericPanel {
     }
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        //Open formulario de administracion de compania
+        //Open formulario de Factura
         getMDI().getStyle().addPanel("pnlFacturaCliente", "contac.facturacion.app.pnlFacturaCliente");
 
         //Remove this panel

@@ -166,6 +166,40 @@ public class ManagerAdministracionServiceBusinessImpl extends UnicastRemoteObjec
         }
     }
 
+
+    @Override
+    public List<Almacen> buscarAlmacenesPorCompania() throws ManagerAdministracionServiceBusinessException, RemoteException {
+
+        logger.debug("Buscar almacenes");
+
+        //Iniciar servicio authentication
+        boolean value = initBusinessService(Roles.ROLCOMPANIAADMIN.toString());
+
+        try {
+
+            //Obtener compania del usuario
+            Compania compania = mgrSeguridad.buscarUsuarioPorLogin(mgrAutorizacion.getUsername()).getCompania();
+
+            //Obtener listado de almacenes por compania
+            return almacenEAO.findAlmacenesPorCompania(compania.getId());
+
+        } catch (ManagerAutorizacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerAdministracionServiceBusinessException(e.getMessage(), e);
+        } catch (ManagerSeguridadServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerAdministracionServiceBusinessException(e.getMessage(), e);
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerAdministracionServiceBusinessException(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerAdministracionServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(value);
+        }
+    }
+
     @Override
     public void eliminarAlmacen(Integer idAlmacen) throws ManagerAdministracionServiceBusinessException, RemoteException {
         logger.debug("Eliminar almacen con parametros: [idAlmacen]: " + idAlmacen);
