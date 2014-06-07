@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facturas_report" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="822" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" uuid="890b3d28-27c9-480c-b0fd-96727cd2e07f">
 	<property name="ireport.zoom" value="1.8150000000000004"/>
-	<property name="ireport.x" value="77"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA["C:\\desarrollo\\Carpeta nueva\\"]]></defaultValueExpression>
@@ -9,6 +9,7 @@
 	<queryString>
 		<![CDATA[SELECT
     LINEA.c_descripcion,
+          (Select Year(CURDATE())) as anyo_actual,
 	SUM(IF(month(MOV_INVENTARIO.d_ctime) = 1,ABS(MOV_INVENTARIO.N_CANTIDAD * 		MOV_INVENTARIO.N_AFECTACION),0)) AS "ENERO",
           SUM(IF(month(MOV_INVENTARIO.d_ctime) = 2,ABS(MOV_INVENTARIO.N_CANTIDAD * 		MOV_INVENTARIO.N_AFECTACION),0)) AS "FEBRERO",
           SUM(IF(month(MOV_INVENTARIO.d_ctime) = 3,ABS(MOV_INVENTARIO.N_CANTIDAD * 		MOV_INVENTARIO.N_AFECTACION),0)) AS "MARZO",
@@ -39,6 +40,7 @@
 	<field name="c_descripcion" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="anyo_actual" class="java.lang.Integer"/>
 	<field name="ENERO" class="java.math.BigDecimal"/>
 	<field name="FEBRERO" class="java.math.BigDecimal"/>
 	<field name="MARZO" class="java.math.BigDecimal"/>
@@ -97,6 +99,13 @@
 			<rectangle>
 				<reportElement uuid="02e53672-421f-4ecd-85a1-3621684317eb" mode="Transparent" x="524" y="0" width="298" height="96"/>
 			</rectangle>
+			<textField>
+				<reportElement uuid="d4687fb3-05b6-46b5-83f3-53e22fe6cfa0" x="625" y="45" width="179" height="15"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{anyo_actual}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
