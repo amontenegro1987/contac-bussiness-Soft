@@ -806,15 +806,13 @@ public class pnlFacturaCliente extends GenericPanel {
     }//GEN-LAST:event_btnRegistroRapidoActionPerformed
 
     private void btnRegistroRapidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroRapidoActionPerformed
-        //Open formulario de administracion de compania
+        //Open formulario de administracion de Cliente
         getMDI().getStyle().addPanel("pnlAdmonCliente", "contac.administracion.cliente.app.pnlAdmonCliente");
 
         //Remove this panel
         //getMDI().getStyle().removePanel(this);
 
     }//GEN-LAST:event_btnRegistroRapidoActionPerformed
-
-
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
         //Open pnl busqueda de clientes
@@ -864,7 +862,6 @@ public class pnlFacturaCliente extends GenericPanel {
     }
 
     private void btnEditarFechaRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarFechaRegistroActionPerformed
-
         try {
 
             //Evaluar si usuario tiene permiso de edicion de fecha de factura
@@ -879,11 +876,9 @@ public class pnlFacturaCliente extends GenericPanel {
             JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ADVERTENCIA"),
                     e.getMessage());
         }
-
     }//GEN-LAST:event_btnEditarFechaRegistroActionPerformed
 
     private void btnBuscarTasaCambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarTasaCambioActionPerformed
-
         //Open pnl busqueda tasas de cambio
         TasaCambio tasaCambio = new TasasCambioPnl(mdi, true).getTasaCambioSelected();
 
@@ -896,11 +891,9 @@ public class pnlFacturaCliente extends GenericPanel {
             //Setting tasa cambio controller
             controller.setTasaCambio(tasaCambioSelected.getTasaConversion());
         }
-
     }//GEN-LAST:event_btnBuscarTasaCambioActionPerformed
 
     private void txtAgenteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAgenteKeyPressed
-
         try {
 
             if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
@@ -923,7 +916,6 @@ public class pnlFacturaCliente extends GenericPanel {
                     }
                 }
             }
-
         } catch (NumberFormatException e) {
             //Do not show error message for Number format exception
         } catch (Exception e) {
@@ -935,7 +927,6 @@ public class pnlFacturaCliente extends GenericPanel {
     }//GEN-LAST:event_txtAgenteKeyPressed
 
     private void txtCodigoClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoClienteKeyPressed
-
         try {
 
             if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
@@ -959,7 +950,6 @@ public class pnlFacturaCliente extends GenericPanel {
                     }
                 }
             }
-
         } catch (NumberFormatException e) {
             //Do not show error message for Number format exception
         } catch (Exception e) {
@@ -968,7 +958,6 @@ public class pnlFacturaCliente extends GenericPanel {
             JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR.BUSQUEDA"),
                     e.getMessage());
         }
-
     }//GEN-LAST:event_txtCodigoClienteKeyPressed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -980,10 +969,8 @@ public class pnlFacturaCliente extends GenericPanel {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         try {
-
             //Valida datos formulario
             validaDatosForm();
-
             //Setting values
             controller.setNoFactura(txtNoFactura.getText().equals("") ? 0 : Integer.parseInt(txtNoFactura.getText()));
             controller.setTipoFactura((TiposFactura) ((TipoFacturaComboBoxModel) cmbTipoFactura.getModel()).getSelectedItem().getObject());
@@ -1016,7 +1003,6 @@ public class pnlFacturaCliente extends GenericPanel {
                 //Show confirmation message
                 JOptionErrorPane.showMessageInfo(null, messageBundle.getString("CONTAC.FORM.MSG.MODIFICACION.EXITOSO"),
                         messageBundle.getString("CONTAC.FORM.MSG.FACTURACLIENTE.MODIFICACION.EXITOSO"));
-
             }
 
         } catch (Exception e) {
@@ -1027,7 +1013,6 @@ public class pnlFacturaCliente extends GenericPanel {
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void validaDatosForm() throws Exception { //Validate datos form
-
         //Tipo de factura
         if (cmbTipoFactura.getSelectedIndex() == -1) {
             //Request focus
@@ -1119,12 +1104,10 @@ public class pnlFacturaCliente extends GenericPanel {
     private javax.swing.JTextField txtSubtotal;
     private javax.swing.JTextField txtTasaCambio;
     // End of variables declaration//GEN-END:variables
-
     private Cliente clienteSelected;
     private AgenteVentas agenteVentasSelected;
     private TasaCambio tasaCambioSelected;
     private Producto productoSelected;
     private long renglonSelected;
-
     private BeanTableModel<ArticuloFactura> articuloBeanTableModel;
 }
