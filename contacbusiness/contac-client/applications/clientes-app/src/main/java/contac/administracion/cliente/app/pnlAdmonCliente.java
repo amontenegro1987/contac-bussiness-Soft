@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2012 Contac Business Software. All rights reserved.
  * CONTAC PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
@@ -96,7 +96,6 @@ public class pnlAdmonCliente extends GenericPanel {
      * Cargar datos generales del formulario
      */
     private void cargarDatos() {
-
         //*****************************************
         //Init data values components
         //*****************************************
@@ -291,7 +290,6 @@ public class pnlAdmonCliente extends GenericPanel {
                 }
             }
         });
-
 
         txtLimiteCredito.addFocusListener(new FocusListener() {
             @Override
@@ -926,12 +924,12 @@ public class pnlAdmonCliente extends GenericPanel {
     private void validarDatosForm() throws Exception {
 
         //<Nit>
-        /*if (txtNIT.getText().equals("")) {
+        if (txtNIT.getText().equals("")) {
             //Request focus
             txtNIT.requestFocusInWindow();
             //Throw error message
             throw new Exception(messageBundle.getString("CONTAC.FORM.ADMINISTRACLIENTES.NIT.VALIDA"));
-        }*/
+        }
 
         //<Razon Social>
         if (txtRazonSocial.getText().equals("")) {
