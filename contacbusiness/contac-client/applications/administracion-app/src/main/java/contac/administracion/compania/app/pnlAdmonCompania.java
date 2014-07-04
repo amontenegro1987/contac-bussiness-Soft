@@ -679,7 +679,7 @@ public class pnlAdmonCompania extends GenericPanel {
 
             if(confirmation) {
                 controller.setAlmacen(almacenSelected);
-                controller.validarExistenciasAlmacen();
+                //controller.validarExistenciasAlmacen();
                 //Anular Almacen
                 controller.anularAlmacen();
 
