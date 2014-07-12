@@ -617,7 +617,7 @@ public class pnlAdmonCompania extends GenericPanel {
                 btnActivarAlmacenActionPerformed(evt);
             }
         });
-        tbAlmacenes.add(btnActivarAlmacen);
+        //tbAlmacenes.add(btnActivarAlmacen);
 
         pnlAlmacenes.add(tbAlmacenes, java.awt.BorderLayout.PAGE_START);
 

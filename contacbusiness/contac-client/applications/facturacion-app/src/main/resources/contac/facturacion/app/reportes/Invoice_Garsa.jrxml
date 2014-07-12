@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice_Garsa" language="groovy" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3049b755-cab6-48a8-9d65-d0b4184b5742">
 	<property name="ireport.zoom" value="1.610510000000001"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="28"/>
+	<property name="ireport.x" value="210"/>
+	<property name="ireport.y" value="174"/>
 	<property name="ireport.background.image" value="C:\Users\Superalex8\Desktop\FacturaProforma.jpg"/>
 	<property name="ireport.background.image.properties" value="true,false,0.3,-18,-9,7,0,622,489"/>
 	<parameter name="n_id_factura" class="java.lang.Integer"/>
@@ -139,32 +139,44 @@ WHERE F.N_ID = $P{n_id_factura}]]>
 		<band height="19" splitType="Stretch">
 			<textField>
 				<reportElement uuid="87f4be11-ab37-4715-9316-a784266a0541" x="258" y="3" width="43" height="14"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{cantidad_producto}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="cf0f347b-5172-46fe-b951-5df8a1c4072b" x="313" y="4" width="55" height="13"/>
-				<textElement textAlignment="Left"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{unidad_medida}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="a8a90af2-b273-4096-ad3c-ddc8da04560d" x="34" y="3" width="76" height="14"/>
-				<textElement/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{codigo_producto}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="e8595a36-a70c-4ec8-b7ba-02bad68ca17f" x="111" y="3" width="145" height="14"/>
-				<textElement/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 			</textField>
 			<textField pattern="C$###,###.###">
 				<reportElement uuid="6bbdac15-038e-4857-a274-5767ed427557" x="389" y="4" width="63" height="13"/>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{preciobruto}]]></textFieldExpression>
 			</textField>
 			<textField pattern="C$###,###.###">
 				<reportElement uuid="11dde0e3-3048-4948-9114-0185767cfc58" x="463" y="4" width="75" height="13"/>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{totalSinDescuento}]]></textFieldExpression>
 			</textField>
 		</band>
