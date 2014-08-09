@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="inventario_report" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="89f2bef7-c0ab-4e09-8bf6-83f9cac9b4f1">
 	<property name="ireport.zoom" value="1.2396694214876032"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="182"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA["C:\\desarrollo\\Carpeta nueva\\"]]></defaultValueExpression>
@@ -289,17 +289,17 @@ WHERE levantamiento_inventario.N_ID = $P{n_id_orden_levantamiento}]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{UNIDAD_MEDIDA}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="$ #,##0.00">
 				<reportElement uuid="5568a594-e9ad-46df-ae83-f53c9c315285" x="564" y="0" width="56" height="16"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{COSTO_UNITARIO_DETALLE}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="$ #,##0.00">
 				<reportElement uuid="76eef776-d9db-43f9-9686-6448163343cc" x="620" y="0" width="59" height="16"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{COSTO_TOTAL_DETALLE}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="$ #,##0.00">
 				<reportElement uuid="eab7835c-cb61-4272-99d5-6cea0a487241" x="683" y="1" width="69" height="15"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{MONTO_AJUSTE}]]></textFieldExpression>
@@ -359,7 +359,7 @@ WHERE levantamiento_inventario.N_ID = $P{n_id_orden_levantamiento}]]>
 			<line>
 				<reportElement uuid="d1a32351-16dc-4724-bc5d-69ad5e2a3db2" x="1" y="49" width="750" height="1"/>
 			</line>
-			<textField>
+			<textField pattern="$ #,##0.00">
 				<reportElement uuid="70d6188e-bd50-4c18-848e-569ea8d24136" x="665" y="1" width="86" height="18"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>

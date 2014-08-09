@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="inventario_report" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="89f2bef7-c0ab-4e09-8bf6-83f9cac9b4f1">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="411"/>
+	<property name="ireport.y" value="44"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA["C:\\desarrollo\\Carpeta nueva\\"]]></defaultValueExpression>
 	</parameter>
@@ -252,12 +252,12 @@ WHERE IOE.N_ID = $P{n_id_orden_entrada}]]>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{C_UNIDAD_MEDIDA}]]></textFieldExpression>
 			</textField>
-			<textField pattern="C$###,###.###">
+			<textField pattern="$ #,##0.00">
 				<reportElement uuid="33227db0-bde4-4999-832f-36b4ffad33e0" x="581" y="0" width="84" height="16"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{N_COSTOUND}]]></textFieldExpression>
 			</textField>
-			<textField pattern="C$###,###.###">
+			<textField pattern="$ #,##0.00">
 				<reportElement uuid="a3093fb5-0676-42bd-b901-3e237879a1aa" x="665" y="0" width="87" height="16"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{N_COSTOTOTAL}]]></textFieldExpression>
@@ -317,7 +317,7 @@ WHERE IOE.N_ID = $P{n_id_orden_entrada}]]>
 			<line>
 				<reportElement uuid="d1a32351-16dc-4724-bc5d-69ad5e2a3db2" x="1" y="49" width="750" height="1"/>
 			</line>
-			<textField pattern="C$###,###.###">
+			<textField pattern="$ #,##0.00">
 				<reportElement uuid="5033f15e-9c6b-4ad2-8845-e3f491525a26" x="665" y="1" width="86" height="18"/>
 				<textElement textAlignment="Right">
 					<font isBold="true"/>
