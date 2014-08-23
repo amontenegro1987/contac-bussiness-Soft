@@ -555,8 +555,8 @@ public class pnlCobroFacturas extends GenericPanel {
                         getObject());
 
                 //Consultando listado de facturas de clientes por fecha
-                controller.buscarFacturasClientesCobrosPorFechas(fechaDesde, fechaHasta, almacen.getId(),
-                        tiposFactura.getValue());
+                controller.buscarFacturasClientesCobrosPorFechas(fechaDesde, fechaHasta, almacen.getId()/*,
+                        tiposFactura.getValue()*/);
 
             } else {
 

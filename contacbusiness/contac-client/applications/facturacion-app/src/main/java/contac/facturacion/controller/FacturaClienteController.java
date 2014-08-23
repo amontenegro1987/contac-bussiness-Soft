@@ -451,8 +451,9 @@ public class FacturaClienteController extends FacturacionBaseController {
         Date fechaFacturacion = buscarFechaFacturacion();
 
         //Buscar Facturas de Clientes por fechas
-        buscarFacturasClientesCobrosPorFechas(fechaFacturacion, fechaFacturacion, almacen.getId(), 1);
-    }
+        //buscarFacturasClientesCobrosPorFechas(fechaFacturacion, fechaFacturacion, almacen.getId(), 1);
+        buscarFacturasClientesCobrosPorFechas(fechaFacturacion, fechaFacturacion, almacen.getId());
+      }
 
     /**
      * Init registros de factura
@@ -968,7 +969,7 @@ public class FacturaClienteController extends FacturacionBaseController {
      *
      * @throws Exception, Exception
      */
-    public void buscarFacturasClientesCobrosPorFechas(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura)
+    public void buscarFacturasClientesCobrosPorFechas(Date fechaDesde, Date fechaHasta, Integer idAlmacen/*, Integer idTipoFactura*/)
             throws Exception {
         try {
 
@@ -983,8 +984,7 @@ public class FacturaClienteController extends FacturacionBaseController {
             ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
 
             //Buscar facturas
-            List<Factura> facturas = mgrFacturacion.buscarFacturasCobrosPorFecha(fechaDesde, fechaHasta, idAlmacen,
-                    idTipoFactura);
+            List<Factura> facturas = mgrFacturacion.buscarFacturasCobrosPorFecha(fechaDesde, fechaHasta, idAlmacen/*, idTipoFactura*/);
 
             getFacturas().clear();
             getFacturas().addAll(facturas);

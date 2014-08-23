@@ -901,17 +901,21 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
         logger.debug("Eliminar factura con parametros: [idFactura]: " + idFactura);
 
         //Iniciar servicio de autenticacion
-        boolean transaction = initBusinessService(Roles.ROLFACTURACIONADMIN.toString());
+        boolean transaction = initBusinessService(Roles.ROLFACTURACIONELIMINAR.toString());
 
         try {
+            //Obtenemos el usuario autorizado para Anular Factura
+            Usuario usuario = mgrSeguridad.buscarUsuarioPorLogin(mgrAutorizacion.getUsername());
 
             //Preparar el contexto de ejecucion
             Factura factura = facturaEAO.findById(idFactura);
 
             //Validar datos generales de la factura
-            if (!factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado()) &&
-                !factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.ANULADO.getEstado()))
-                throw new ManagerFacturacionServiceBusinessException("Factura no se encuentra en un estado valido para poder eliminar.");
+
+            /*if (!factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado()) &&
+                !factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.ANULADO.getEstado())
+               )
+                throw new ManagerFacturacionServiceBusinessException("Factura no se encuentra en un estado valido para poder eliminar.");*/
 
                 //Eliminar movimientos de inventario de los productos solo si esta INGRESADO
             if (factura.getEstadoMovimiento().getAlias().equals(EstadosMovimiento.INGRESADO.getEstado())) {
@@ -1403,11 +1407,11 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
-    public List<Factura> buscarFacturasCobrosPorFecha(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura)
+    public List<Factura> buscarFacturasCobrosPorFecha(Date fechaDesde, Date fechaHasta, Integer idAlmacen/*, Integer idTipoFactura*/)
             throws ManagerFacturacionServiceBusinessException, RemoteException {
 
         logger.debug("Buscando facturas comerciales por rangos de fecha: [fechaDesde]: " + fechaDesde + ", [fechaHasta]: " +
-                fechaHasta + ", [idAlmacen]: " + idAlmacen + ", [idTipoFactura]: " + idTipoFactura);
+                fechaHasta + ", [idAlmacen]: " + idAlmacen /*+ ", [idTipoFactura]: " + idTipoFactura*/);
 
         //Iniciar servicio de autorizacion
         boolean transaction = initBusinessService(Roles.ROLCAJAADMIN.toString());
@@ -1448,7 +1452,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             gc.set(Calendar.MILLISECOND, 0);
             fechaHasta = gc.getTime();
 
-            return facturaEAO.findByFechas(fechaDesde, fechaHasta, idAlmacen, idTipoFactura, estadosMovimientos);
+            return facturaEAO.findByFechasCobro(fechaDesde, fechaHasta, idAlmacen, /*idTipoFactura,*/ estadosMovimientos);
 
         } catch (GenericPersistenceEAOException e) {
             logger.error(e.getMessage(), e);

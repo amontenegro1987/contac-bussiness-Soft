@@ -128,6 +128,57 @@ public class FacturaEAOPersistence extends GenericPersistenceEAO<Factura, Intege
     }
 
     @Override
+    public List<Factura> findByFechasCobro(Date fechaDesde, Date fechaHasta, Integer idAlmacen, /*Integer idTipoFactura,*/
+                                      List<EstadoMovimiento> estadosMovimiento) throws GenericPersistenceEAOException {
+
+        initService();
+
+        String fromClause = "Select f from Factura f ";
+        String conditionClause = "";
+
+        List<QueryFragment> querySolver = new ArrayList<QueryFragment>();
+
+        //1. Agregando parametro fecha desde
+        querySolver.add(new QueryFragment(fechaDesde != null, "", " f.fechaAlta >= :fechaDesde ", "fechaDesde", fechaDesde));
+
+        //2. Agregando parametro fecha hasta
+        querySolver.add(new QueryFragment(fechaHasta != null, "", " f.fechaAlta <= :fechaHasta ", "fechaHasta", fechaHasta));
+
+        //3. Agregando parametro almacen
+        querySolver.add(new QueryFragment(idAlmacen != null, "", " f.almacen.id = :idAlmacen", "idAlmacen", idAlmacen));
+
+        //4. Agregando parametro tipo de factura
+/*        querySolver.add(new QueryFragment(idTipoFactura != null, "", " f.tipoFactura = :idTipoFactura", "idTipoFactura",
+                idTipoFactura != null ? idTipoFactura.byteValue() : null));*/
+
+        //********************************************************************************************
+        //5. Agregado parametro Estado Movimiento
+        //********************************************************************************************
+
+        StringBuffer estadosQuery = new StringBuffer();
+        estadosQuery.append("(");
+
+        String prefix = "";
+        for (EstadoMovimiento estado : estadosMovimiento) {
+            estadosQuery.append(prefix).append(" f.estadoMovimiento.id = " + estado.getId());
+
+            prefix = " or ";
+        }
+        estadosQuery.append(")");
+
+        querySolver.add(new QueryFragment(true, "", estadosQuery.toString(), null, null));
+
+        //Create EJB Query
+        String ejbQuery = QueryUtils.ejbQLcreator(fromClause, conditionClause, querySolver);
+        ejbQuery = ejbQuery + " " + "order by f.noDocumento ";
+
+        Query query = em.createQuery(ejbQuery);
+
+        return QueryUtils.ejbQLParametersSolver(query, querySolver).getResultList();
+    }
+
+
+    @Override
     public List<Factura> findByFechas(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura)
             throws GenericPersistenceEAOException {
 

@@ -32,6 +32,8 @@ public enum Roles {
     ROLPROVEEDORADMIN,
     //Rol Inventario Administrador
     ROLINVENTARIOADMIN,
+    //Rol Aplicar Traslados
+    ROLAPLICARTRASLADO,
     //Rol Compania Administrador
     ROLCOMPANIAADMIN,
     //Rol Catalogo Producto Consulta
@@ -43,5 +45,7 @@ public enum Roles {
     //Rol Facturacion
     ROLFACTURACION,
     //Rol Facturacion Administrador
-    ROLFACTURACIONADMIN;
+    ROLFACTURACIONADMIN,
+    //Rol para Eliminar Facturas
+    ROLFACTURACIONELIMINAR;
 }
