@@ -338,8 +338,8 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
      * @throws RemoteException, Exception
      */
 
-    public List<Factura> buscarFacturasCobrosPorFecha(Date fechaDesde, Date fechaHasta, Integer idAlmacen,
-                                                      Integer idTipoFactura) throws ManagerFacturacionServiceBusinessException,
+    public List<Factura> buscarFacturasCobrosPorFecha(Date fechaDesde, Date fechaHasta, Integer idAlmacen/*,
+                                                      Integer idTipoFactura*/) throws ManagerFacturacionServiceBusinessException,
             RemoteException;
 
         /**

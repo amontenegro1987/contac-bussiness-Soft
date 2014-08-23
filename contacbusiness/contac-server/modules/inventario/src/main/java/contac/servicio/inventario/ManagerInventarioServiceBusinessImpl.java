@@ -1314,15 +1314,9 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
         logger.debug("Cambiar Estado Orden de Traslado a INGRESADA con parametros: [idOrdenTraslado]: " + idOrdenTraslado);
         String fechas;
         //Iniciar servicio de autenticacion
-        boolean transaction = initBusinessService(Roles.ROLINVENTARIOADMIN.toString());
+        boolean transaction = initBusinessService(Roles.ROLAPLICARTRASLADO.toString());
 
         try {
-            Usuario usuario = mgrSeguridad.buscarUsuarioPorLogin(mgrAutorizacion.getUsername());
-
-            if(!usuario.getUsername().equalsIgnoreCase("SSABALLOS")){
-                throw new ManagerInventarioServiceBusinessException("Usuario incorrecto.");
-            }
-            System.out.println(usuario);
             //Preparar el contexto de ejecucion
             OrdenTraslado ordenTrasladoAplicar = ordenTrasladoEAO.findById(idOrdenTraslado);
 
@@ -1352,10 +1346,6 @@ public class ManagerInventarioServiceBusinessImpl extends UnicastRemoteObject im
         } catch (GenericPersistenceEAOException e) {
             logger.error(e.getMessage(), e);
             throw new ManagerInventarioServiceBusinessException(e.getMessage(), e);
-        } catch (ManagerSeguridadServiceBusinessException e) {
-            e.printStackTrace();
-        } catch (ManagerAutorizacionServiceBusinessException e) {
-            e.printStackTrace();
         } finally {
             stopBusinessService(transaction);
         }
