@@ -2,12 +2,15 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice_Garsa" language="groovy" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3049b755-cab6-48a8-9d65-d0b4184b5742">
 	<property name="ireport.zoom" value="1.610510000000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="204"/>
+	<property name="ireport.y" value="183"/>
 	<property name="ireport.background.image" value="C:\Users\Superalex8\Desktop\FacturaProforma.jpg"/>
 	<property name="ireport.background.image.properties" value="true,false,0.3,-18,-9,7,0,622,489"/>
 	<parameter name="n_id_factura" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT  AV.c_nombre as vendedor,
+        DAYOFMONTH(f.d_fechaalta) as invoice_day,
+        MONTH(f.d_fechaalta) as invoice_month,
+        YEAR(f.d_fechaalta) as invoice_year,
         D.n_retencionfuente as retencionDetalle,
         D.n_retencionmunicipal as retencionMunDetalle,
         F.n_montoneto as netoFactura,
@@ -48,6 +51,9 @@ ON FC.n_id_direccion = DIR.N_ID
 WHERE F.N_ID = $P{n_id_factura}]]>
 	</queryString>
 	<field name="vendedor" class="java.lang.String"/>
+	<field name="invoice_day" class="java.lang.Long"/>
+	<field name="invoice_month" class="java.lang.Long"/>
+	<field name="invoice_year" class="java.lang.Long"/>
 	<field name="retencionDetalle" class="java.math.BigDecimal"/>
 	<field name="retencionMunDetalle" class="java.math.BigDecimal"/>
 	<field name="netoFactura" class="java.math.BigDecimal"/>
@@ -89,26 +95,26 @@ WHERE F.N_ID = $P{n_id_factura}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ruc_ced}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd">
+			<textField pattern="">
 				<reportElement uuid="be00315c-1b8f-4391-89f6-eb21add9586c" x="404" y="18" width="32" height="13"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{invoice_day}]]></textFieldExpression>
 			</textField>
-			<textField pattern="MM">
+			<textField pattern="">
 				<reportElement uuid="35806ccc-2894-4ca5-b3ee-c463b84d3a6c" x="443" y="18" width="49" height="13"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{invoice_month}]]></textFieldExpression>
 			</textField>
-			<textField pattern="yyyy">
+			<textField pattern="">
 				<reportElement uuid="6daab6f9-64d4-4067-84c5-2ce4983ffcff" x="519" y="18" width="35" height="13"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{invoice_year}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="cd8c088b-3c50-4a49-aa65-44a9e3340700" x="57" y="72" width="519" height="15"/>
@@ -235,7 +241,7 @@ WHERE F.N_ID = $P{n_id_factura}]]>
 				<textFieldExpression><![CDATA[$F{retencionMunDetalle}]]></textFieldExpression>
 			</textField>
 			<textField pattern="C$###,###.###">
-				<reportElement uuid="64615b21-6359-41b4-914d-882ee1acdc33" x="470" y="67" width="91" height="15"/>
+				<reportElement uuid="64615b21-6359-41b4-914d-882ee1acdc33" x="470" y="68" width="91" height="15"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" isUnderline="false"/>
 				</textElement>
@@ -249,7 +255,7 @@ WHERE F.N_ID = $P{n_id_factura}]]>
 				<textFieldExpression><![CDATA[$F{venta}]]></textFieldExpression>
 			</textField>
 			<textField pattern="C$###,###.###">
-				<reportElement uuid="0a7ef35c-268a-4f43-a60c-f56c24e14682" x="470" y="55" width="91" height="14"/>
+				<reportElement uuid="0a7ef35c-268a-4f43-a60c-f56c24e14682" x="470" y="56" width="91" height="14"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" isUnderline="false"/>
 				</textElement>
