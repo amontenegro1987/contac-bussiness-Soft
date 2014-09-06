@@ -5,9 +5,11 @@ import contac.commons.form.layout.XYConstraints;
 import contac.commons.form.layout.XYLayout;
 import contac.commons.form.panel.GenericFrame;
 import contac.commons.models.comboBox.TipoPagoComboBoxModel;
+import contac.commons.models.comboBox.TipoTarjetaComboBoxModel;
 import contac.facturacion.controller.FacturaClienteController;
 import contac.internationalization.LanguageLocale;
 import contac.modelo.entity.TiposPago;
+import contac.modelo.entity.TiposTarjeta;
 import contac.text.TextUtil;
 import org.apache.log4j.Logger;
 import org.jdesktop.swingx.JXDatePicker;
@@ -44,18 +46,24 @@ public class pnlPagoFactura extends JDialog {
     private JLabel lblFecha;
     private JLabel lblTotalFactura;
     private JLabel lblImporteRecibido;
+    private JLabel lblTarjetaRecibido;
     private JLabel lblCambio;
     private JLabel lblTipoPago;
+    private JLabel lblTipoTarjeta;
+    private JLabel lblAut;
 
     private JTextField txtFacturaNo;
     private JTextField txtCliente;
     private JTextField txtTotalFactura;
     private JTextField txtImporteRecibido;
+    private JTextField txtImporteTarjeta;
     private JTextField txtCambio;
+    private JTextField txtNumeroAut;
 
     private JXDatePicker dtpFecha;
 
     private JComboBox cmbTipoPago;
+    private JComboBox cmbTipoTarjeta;
 
     private JButton btnAceptar;
     private JButton btnCancelar;
@@ -88,7 +96,7 @@ public class pnlPagoFactura extends JDialog {
         //Set visible
         this.setTitle(messageBundle.getString("CONTAC.FORM.COBROFACTURA.TITLE"));
         this.setLocation(400, 400);
-        this.setSize(new Dimension(350, 320));
+        this.setSize(new Dimension(350, 390));
         this.setVisible(true);
     }
 
@@ -135,16 +143,30 @@ public class pnlPagoFactura extends JDialog {
         lblTipoPago = new JLabel(messageBundle.getString("CONTAC.FORM.COBROFACTURA.TIPOPAGO"));
         lblTipoPago.setHorizontalAlignment(JLabel.RIGHT);
 
+        lblTipoTarjeta = new JLabel(messageBundle.getString("CONTAC.FORM.COBROFACTURA.TIPOTARJETA"));
+        lblTipoTarjeta.setHorizontalAlignment(JLabel.RIGHT);
+
+        lblAut = new JLabel(messageBundle.getString("CONTAC.FORM.COBROFACTURA.AUTORIZACION"));
+        lblAut.setHorizontalAlignment(JLabel.RIGHT);
+
         lblTotalFactura = new JLabel(messageBundle.getString("CONTAC.FORM.COBROFACTURA.TOTAL"));
         lblTotalFactura.setHorizontalAlignment(JLabel.RIGHT);
 
         lblImporteRecibido = new JLabel(messageBundle.getString("CONTAC.FORM.COBROFACTURA.IMPORTE"));
         lblImporteRecibido.setHorizontalAlignment(JLabel.RIGHT);
 
+        lblTarjetaRecibido = new JLabel(messageBundle.getString("CONTAC.FORM.COBROFACTURA.IMPORTETARJETA"));
+        lblTarjetaRecibido.setHorizontalAlignment(JLabel.RIGHT);
+
         lblCambio = new JLabel(messageBundle.getString("CONTAC.FORM.COBROFACTURA.CAMBIO"));
         lblCambio.setHorizontalAlignment(JLabel.RIGHT);
 
         cmbTipoPago = new JComboBox();
+        cmbTipoTarjeta = new JComboBox();
+
+        txtNumeroAut = new JTextField();
+        txtNumeroAut.setHorizontalAlignment(JTextField.RIGHT);
+        txtNumeroAut.setEditable(false);
 
         txtTotalFactura = new JTextField();
         txtTotalFactura.setHorizontalAlignment(JTextField.RIGHT);
@@ -154,6 +176,10 @@ public class pnlPagoFactura extends JDialog {
         txtImporteRecibido.setHorizontalAlignment(JTextField.RIGHT);
         txtImporteRecibido.setEditable(false);
 
+        txtImporteTarjeta = new JTextField();
+        txtImporteTarjeta.setHorizontalAlignment(JTextField.RIGHT);
+        txtImporteTarjeta.setEditable(false);
+
         txtCambio = new JTextField();
         txtCambio.setHorizontalAlignment(JTextField.RIGHT);
         txtCambio.setEditable(false);
@@ -161,12 +187,18 @@ public class pnlPagoFactura extends JDialog {
         JPanel pnlDatosPago = new JPanel(new XYLayout());
         pnlDatosPago.add(lblTipoPago, new XYConstraints(5, 5, 100, 23));
         pnlDatosPago.add(cmbTipoPago, new XYConstraints(113, 5, 200, 23));
-        pnlDatosPago.add(lblTotalFactura, new XYConstraints(5, 33, 100, 23));
-        pnlDatosPago.add(txtTotalFactura, new XYConstraints(113, 33, 200, 23));
-        pnlDatosPago.add(lblImporteRecibido, new XYConstraints(5, 61, 100, 23));
-        pnlDatosPago.add(txtImporteRecibido, new XYConstraints(113, 61, 200, 23));
-        pnlDatosPago.add(lblCambio, new XYConstraints(5, 89, 100, 23));
-        pnlDatosPago.add(txtCambio, new XYConstraints(113, 89, 200, 23));
+        pnlDatosPago.add(lblTipoTarjeta,  new XYConstraints(5, 33, 100, 23));
+        pnlDatosPago.add(cmbTipoTarjeta, new XYConstraints(113,33,200,23));
+        pnlDatosPago.add(lblAut, new XYConstraints(5,61,100,23));
+        pnlDatosPago.add(txtNumeroAut, new XYConstraints(113,61,200,23));
+        pnlDatosPago.add(lblTotalFactura, new XYConstraints(5, 89, 100, 23));
+        pnlDatosPago.add(txtTotalFactura, new XYConstraints(113, 89, 200, 23));
+        pnlDatosPago.add(lblImporteRecibido, new XYConstraints(5, 117, 100, 23));
+        pnlDatosPago.add(txtImporteRecibido, new XYConstraints(113, 117, 200, 23));
+        pnlDatosPago.add(lblTarjetaRecibido, new XYConstraints(5, 145, 100, 23));
+        pnlDatosPago.add(txtImporteTarjeta, new XYConstraints(113,145,200,23));
+        pnlDatosPago.add(lblCambio, new XYConstraints(5, 173, 100, 23));
+        pnlDatosPago.add(txtCambio, new XYConstraints(113, 173, 200, 23));
 
         //**************************************************************************
         //Action Buttons Panel
@@ -213,6 +245,8 @@ public class pnlPagoFactura extends JDialog {
 
         cmbTipoPago.setModel(new TipoPagoComboBoxModel(TiposPago.values()));
         cmbTipoPago.setSelectedIndex(0);
+        cmbTipoTarjeta.setModel(new TipoTarjetaComboBoxModel(TiposTarjeta.values()));
+        cmbTipoTarjeta.setSelectedIndex(1);
     }
 
     /**
@@ -234,12 +268,16 @@ public class pnlPagoFactura extends JDialog {
         txtImporteRecibido.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Integer validarMonto = 1;
                 //Get Monto Neto Factura
                 BigDecimal montoNetoFactura = new BigDecimal(txtTotalFactura.getText());
 
                 //Get Importe Recibido
                 BigDecimal importeRecibido = new BigDecimal(txtImporteRecibido.getText());
+
+                TiposPago tiposPago = (TiposPago) ((TipoPagoComboBoxModel) cmbTipoPago.getModel()).getSelectedItem().getObject();
+
+                if (tiposPago.getValue() != TiposPago.MIXTO.getValue()) {
 
                 if (importeRecibido.doubleValue() < montoNetoFactura.doubleValue()) {
                     JOptionPane.showMessageDialog(frameParent, messageBundle.getString("CONTAC.FORM.COBROFACTURA.VALIDA.IMPORTERECIBIDO"),
@@ -248,6 +286,18 @@ public class pnlPagoFactura extends JDialog {
 
                 if (importeRecibido.doubleValue() >= montoNetoFactura.doubleValue()) {
                     txtCambio.setText(importeRecibido.subtract(montoNetoFactura).doubleValue() + "");
+                }
+                }
+                else{
+                    if (importeRecibido.doubleValue() >= montoNetoFactura.doubleValue()) {
+                        JOptionPane.showMessageDialog(frameParent, messageBundle.getString("CONTAC.FORM.COBROFACTURA.VALIDA.IMPORTERECIBIDO"),
+                                messageBundle.getString("CONTAC.FORM.MSG.ERROR.REGISTRO"), JOptionPane.WARNING_MESSAGE);
+                      validarMonto = 2;
+                    }
+                if(validarMonto !=2){
+                //Get Diferencia (Se utiliza para calcular el Pago Mixto).
+                txtImporteTarjeta.setText(montoNetoFactura.subtract(importeRecibido).doubleValue() + "");
+                }
                 }
             }
         });
@@ -259,16 +309,33 @@ public class pnlPagoFactura extends JDialog {
 
                 if (tiposPago.getValue() == TiposPago.EFECTIVO.getValue()) {
                     txtCambio.setText("0");
+                    txtImporteRecibido.setText("");
+                    txtImporteRecibido.setEditable(true);
+                    cmbTipoTarjeta.setEnabled(false);
+                    cmbTipoTarjeta.setSelectedIndex(-1);
+                    txtImporteRecibido.requestFocusInWindow();
+                    txtNumeroAut.setEditable(false);
+                    txtNumeroAut.setText("");
 
+                } else if(tiposPago.getValue() == TiposPago.MIXTO.getValue()){
+                    txtCambio.setText("0");
+                    cmbTipoTarjeta.setEnabled(true);
+                    cmbTipoTarjeta.setSelectedIndex(1);
+                    txtImporteTarjeta.setText("");
                     txtImporteRecibido.setText("");
                     txtImporteRecibido.setEditable(true);
                     txtImporteRecibido.requestFocusInWindow();
-
-                } else {
+                    txtNumeroAut.setEditable(true);
+                    txtNumeroAut.setText("");
+                }
+                else {
                     txtCambio.setText("0");
-
                     txtImporteRecibido.setText(txtTotalFactura.getText());
+                    cmbTipoTarjeta.setEnabled(true);
+                    cmbTipoTarjeta.setSelectedIndex(1);
                     txtImporteRecibido.setEditable(false);
+                    txtNumeroAut.setEditable(true);
+                    txtNumeroAut.setText("");
                 }
             }
         });
@@ -282,25 +349,52 @@ public class pnlPagoFactura extends JDialog {
                     //Get tipo de pago
                     TiposPago tiposPago = (TiposPago) ((TipoPagoComboBoxModel) cmbTipoPago.getModel()).getSelectedItem().getObject();
 
+                    //Get tipo tarjeta
+                    TiposTarjeta tiposTarjeta = (TiposTarjeta) ((TipoTarjetaComboBoxModel) cmbTipoTarjeta.getModel()).getSelectedItem().getObject();
+
                     //Get total factura
                     BigDecimal totalFactura = new BigDecimal(txtTotalFactura.getText());
 
                     //Get Importe Recibido
                     BigDecimal importeRecibido = new BigDecimal("0");
+
+                    //Get Numero de Autorizacion
+                    String numeroAut = new String(txtNumeroAut.getText());
+
                     if (!txtImporteRecibido.getText().equals("")) {
                         importeRecibido = new BigDecimal(txtImporteRecibido.getText());
                     }
 
+                    //Get Recibido en Tarjeta (Pago Mixto)
+                    BigDecimal importeRecibidoTarjeta;
+
+                    if(txtImporteTarjeta.getText().equals("")){
+                        importeRecibidoTarjeta = new BigDecimal(0);
+                    }
+                    else{
+                        importeRecibidoTarjeta = new BigDecimal(txtImporteTarjeta.getText());
+                    }
+
+                    if(tiposTarjeta.getValue() == TiposTarjeta.NINGUNO.getValue()){
+                        throw new Exception(messageBundle.getString("CONTAC.FORM.COBROFACTURA.VALIDA.TIPOTARJETA_VACIO"));
+                    }
+
+                    if (tiposPago.getValue() != TiposPago.MIXTO.getValue()) {
                     if (importeRecibido.doubleValue() < totalFactura.doubleValue()) {
                         throw new Exception(messageBundle.getString("CONTAC.FORM.COBROFACTURA.VALIDA.IMPORTERECIBIDO"));
                     }
-
-                    //Registrar Pago Factura
-                    controller.registrarPagoFactura(tiposPago.getValue(), importeRecibido);
-
-                    //Close Panel Pago Factura
-                    dispose();
-
+                        //Registrar Pago Factura
+                        controller.registrarPagoFactura(tiposPago.getValue(), importeRecibido, importeRecibidoTarjeta, tiposTarjeta.getValue(), numeroAut);
+                        //Close Panel Pago Factura
+                        dispose();
+                    }
+                    else{
+                        if (importeRecibido.doubleValue() > totalFactura.doubleValue()) {
+                            throw new Exception(messageBundle.getString("CONTAC.FORM.COBROFACTURA.VALIDA.IMPORTERECIBIDO"));
+                        }
+                       controller.registrarPagoFactura(tiposPago.getValue(), importeRecibido, importeRecibidoTarjeta, tiposTarjeta.getValue(), numeroAut);
+                        dispose();
+                    }
                 } catch (Exception e) {
                     logger.error(e.getMessage(), e);
                     JOptionErrorPane.showMessageError(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"),

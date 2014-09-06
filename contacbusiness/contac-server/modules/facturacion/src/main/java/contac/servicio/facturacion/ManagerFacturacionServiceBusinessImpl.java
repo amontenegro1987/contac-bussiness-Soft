@@ -35,6 +35,7 @@ import contac.modelo.eao.tasaCambioEAO.TasaCambioEAO;
 import contac.modelo.eao.tasaCambioEAO.TasaCambioEAOPersistence;
 import contac.modelo.eao.tipoPagoEAO.TipoPagoEAO;
 import contac.modelo.eao.tipoPagoEAO.TipoPagoEAOPersistence;
+import contac.modelo.eao.tipoTarjetaPosEAO.TipoTarjetaPosEAO;
 import contac.modelo.entity.*;
 import contac.servicio.clientes.ManagerClientesServiceBusiness;
 import contac.servicio.clientes.ManagerClientesServiceBusinessImpl;
@@ -74,7 +75,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     protected MonedaEAO monedaEAO;
     protected PagoEAO pagoEAO;
     protected TipoPagoEAO tipoPagoEAO;
-
+    protected TipoTarjetaPosEAO tipoTarjetaPosEAO;
     //Access service manager
     protected ManagerAutorizacionServiceBusiness mgrAutorizacion;
     protected ManagerSeguridadServiceBusiness mgrSeguridad;
@@ -1606,7 +1607,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
-    public Pago registrarPagoFactura(Integer idFactura, Integer idTipoPago, BigDecimal montoRecibido) throws
+    public Pago registrarPagoFactura(Integer idFactura, Integer idTipoPago, BigDecimal montoRecibido, Integer idTipoTarjeta, String numAut) throws
             ManagerFacturacionServiceBusinessException, RemoteException {
 
         logger.debug("Registrar pago de factura : [IdFactura]: " + idFactura);
@@ -1634,10 +1635,11 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             pago.setMontoComision(new BigDecimal("0"));
             pago.setMontoRetencion(new BigDecimal("0"));
             pago.setMontoNetoBanco(new BigDecimal("0"));
+            pago.setTipoTarjeta(idTipoTarjeta);
+            pago.setNumAut(numAut);
             pago.setFactura(factura);
 
             pago = pagoEAO.create(pago);
-
 
             //Cambiar estado de factura a PAGADO
             EstadoMovimiento estadoPagado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.PAGADO.getEstado());
@@ -1656,6 +1658,62 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             stopBusinessService(transaction);
         }
     }
+
+    @Override
+    public Pago registrarPagoFactura(Integer idFactura, Integer idTipoPago, BigDecimal montoRecibido, BigDecimal importeRecibidoTarjeta, Integer tipoTarjeta, String numAut) throws
+            ManagerFacturacionServiceBusinessException, RemoteException {
+
+        logger.debug("Registrar pago de factura Mixto: [IdFactura]: " + idFactura);
+         if(idTipoPago == 1){
+             tipoTarjeta = null;
+         }
+        //Iniciar servicio de autorizacion
+        boolean transaction = initBusinessService(Roles.ROLCAJAADMIN.toString());
+
+        try {
+
+            //Search factura a cliente
+            Factura factura = facturaEAO.findById(idFactura);
+
+            //Search tipo de pago
+            TipoPago tipoPago = tipoPagoEAO.findById(idTipoPago);
+
+            //Crear pago a factura
+            Pago pago = new Pago();
+            pago.setTipoPago(tipoPago);
+            pago.setMoneda(factura.getMoneda());
+            pago.setTasaCambio(factura.getTasaCambio());
+            pago.setMontoCancelar(factura.getMontoNeto());
+            pago.setMontoRecibido(montoRecibido);
+            pago.setMontoConversion(new BigDecimal("0"));
+            pago.setMontoDevuelto(montoRecibido.subtract(factura.getMontoNeto()));
+            pago.setMontoComision(new BigDecimal("0"));
+            pago.setMontoRetencion(new BigDecimal("0"));
+            pago.setMontoNetoBanco(importeRecibidoTarjeta);
+            //pago.setTipoTarjeta(idTipoPago);
+            pago.setFactura(factura);
+            pago.setTipoTarjeta(tipoTarjeta);
+            pago.setNumAut(numAut);
+            pago = pagoEAO.create(pago);
+
+            //Cambiar estado de factura a PAGADO
+            EstadoMovimiento estadoPagado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.PAGADO.getEstado());
+
+            factura.setEstadoMovimiento(estadoPagado);
+            factura.setPago(pago);
+
+            facturaEAO.update(factura);
+
+            return pago;
+
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
 
     //***************************************************************************************
     // UTILITY METHODS

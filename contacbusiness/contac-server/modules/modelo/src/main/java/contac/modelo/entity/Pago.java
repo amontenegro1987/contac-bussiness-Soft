@@ -41,6 +41,13 @@ public class Pago implements Serializable {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * PROPERTY NAME: Tipo de Tarjeta
+     */
+    private Integer tipoTarjeta;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * PROPERTY NAME: Tasa de cambio
      */
     private BigDecimal tasaCambio;
@@ -117,6 +124,12 @@ public class Pago implements Serializable {
      */
     private String muser;
 
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * PROPERTY NAME:  Numero de Autorizacion Tarjeta de Credito
+     */
+    private String numAut;
     // ==================================<METODOS GETTTER AND SETTERS>=================================================
 
     @Id
@@ -139,6 +152,20 @@ public class Pago implements Serializable {
     public void setTipoPago(TipoPago tipoPago) {
         this.tipoPago = tipoPago;
     }
+
+    /*@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "N_ID_TIPO_TARJETA", referencedColumnName = "N_ID", nullable = false)
+    public TipoTarjetaPos getTipoTarjeta() {
+        return tipoTarjeta;
+    }
+
+    public void setTipoTarjeta(Integer tipoTarjeta){
+        this.tipoTarjeta = tipoTarjeta;
+    }*/
+    @Column(name = "N_ID_TIPO_TARJETA", nullable = false)
+    public Integer getTipoTarjeta() { return tipoTarjeta; }
+
+    public void setTipoTarjeta(Integer tipoTarjeta) { this.tipoTarjeta = tipoTarjeta; }
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "N_ID_MONEDA", referencedColumnName = "N_ID", nullable = false)
@@ -323,5 +350,29 @@ public class Pago implements Serializable {
      */
     public void setMuser(String muser) {
         this.muser = muser;
+    }
+
+//
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * Obtener numero de autorizacion de Tarjeta de Credito
+     *
+     * @return String
+     */
+    @Column(name = "C_NUMBER_AUT", nullable = false)
+    public String getNumAut() {
+        return this.numAut;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * Setear Numero de autorizacion de Tarjeta de Credito
+     *
+     */
+    public void setNumAut(String numAut) {
+        this.numAut = numAut;
     }
 }

@@ -11,7 +11,8 @@ public enum TiposPago {
 
     EFECTIVO(1),
     TARJETA(2),
-    CHEQUE(3);
+    CHEQUE(3),
+    MIXTO(4);
 
     public int value;
 
