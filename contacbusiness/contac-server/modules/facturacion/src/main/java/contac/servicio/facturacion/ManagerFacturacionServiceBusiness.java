@@ -405,12 +405,32 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
      * @param idFactura,     Identificador de Factura
      * @param idTipoPago,    Identificador de Tipo de Pago
      * @param montoRecibido, Monto Recibido
+     * @param idTipoTarjeta, Identificador de Tipo de Tarjeta
+     * @param numAut,        Numero de Autorizacion
      * @return Pago
      * @throws ManagerFacturacionServiceBusinessException,
      *                          Exception
      * @throws RemoteException, Exception
      */
-    public Pago registrarPagoFactura(Integer idFactura, Integer idTipoPago, BigDecimal montoRecibido) throws
+    public Pago registrarPagoFactura(Integer idFactura, Integer idTipoPago, BigDecimal montoRecibido, Integer idTipoTarjeta, String numAut) throws
             ManagerFacturacionServiceBusinessException, RemoteException;
+
+
+    /**
+     * Registrar pago a factura Mixta
+     *
+     * @param idFactura,     Identificador de Factura
+     * @param idTipoPago,    Identificador de Tipo de Pago
+     * @param montoRecibido, Monto Recibido
+     * @param importeRecibidoTarjeta, Monto Recibido Tarjeta
+     * @return Pago
+     * @throws ManagerFacturacionServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public Pago registrarPagoFactura(Integer idFactura, Integer idTipoPago, BigDecimal montoRecibido, BigDecimal importeRecibidoTarjeta, Integer tipoTarjeta, String numeroAut) throws
+            ManagerFacturacionServiceBusinessException, RemoteException;
+
+
 }
 
