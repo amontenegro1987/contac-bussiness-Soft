@@ -8,7 +8,7 @@ package contac.modelo.entity;
  *         Time: 12:14 PM
  */
 public enum TiposTarjeta {
-    NINGUNO(0),
+    //NINGUNO(0),
     CREDOMATIC(1),
     BANPRO(2);
 
