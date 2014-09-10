@@ -310,9 +310,10 @@ public class pnlPagoFactura extends JDialog {
                 if (tiposPago.getValue() == TiposPago.EFECTIVO.getValue()) {
                     txtCambio.setText("0");
                     txtImporteRecibido.setText("");
+                    txtImporteTarjeta.setText("");
                     txtImporteRecibido.setEditable(true);
                     cmbTipoTarjeta.setEnabled(false);
-                    cmbTipoTarjeta.setSelectedIndex(-1);
+                    //cmbTipoTarjeta.setSelectedIndex(-1);
                     txtImporteRecibido.requestFocusInWindow();
                     txtNumeroAut.setEditable(false);
                     txtNumeroAut.setText("");
@@ -375,9 +376,9 @@ public class pnlPagoFactura extends JDialog {
                         importeRecibidoTarjeta = new BigDecimal(txtImporteTarjeta.getText());
                     }
 
-                    if(tiposTarjeta.getValue() == TiposTarjeta.NINGUNO.getValue()){
+                    /*if(tiposTarjeta.getValue() == TiposTarjeta.NINGUNO.getValue()){
                         throw new Exception(messageBundle.getString("CONTAC.FORM.COBROFACTURA.VALIDA.TIPOTARJETA_VACIO"));
-                    }
+                    }*/
 
                     if (tiposPago.getValue() != TiposPago.MIXTO.getValue()) {
                     if (importeRecibido.doubleValue() < totalFactura.doubleValue()) {

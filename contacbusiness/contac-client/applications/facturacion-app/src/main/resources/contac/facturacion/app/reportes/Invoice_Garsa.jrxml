@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice_Garsa" language="groovy" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3049b755-cab6-48a8-9d65-d0b4184b5742">
 	<property name="ireport.zoom" value="1.610510000000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="183"/>
+	<property name="ireport.y" value="204"/>
 	<property name="ireport.background.image" value="C:\Users\Superalex8\Desktop\FacturaProforma.jpg"/>
 	<property name="ireport.background.image.properties" value="true,false,0.3,-18,-9,7,0,622,489"/>
 	<parameter name="n_id_factura" class="java.lang.Integer"/>
@@ -11,8 +11,8 @@
         DAYOFMONTH(f.d_fechaalta) as invoice_day,
         MONTH(f.d_fechaalta) as invoice_month,
         YEAR(f.d_fechaalta) as invoice_year,
-        D.n_retencionfuente as retencionDetalle,
-        D.n_retencionmunicipal as retencionMunDetalle,
+        f.n_retencionfuente as retencionDetalle,
+        f.n_retencionmunicipal as retencionMunDetalle,
         F.n_montoneto as netoFactura,
         FC.c_nombrecomercial as nombre_cliente,
         DIR.c_direccion as direccion_cliente,

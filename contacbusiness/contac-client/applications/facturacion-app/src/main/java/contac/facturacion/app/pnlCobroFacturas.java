@@ -21,13 +21,11 @@ import contac.commons.form.render.DecimalFormatRenderer;
 import contac.commons.models.comboBox.AlmacenComboBoxModel;
 import contac.commons.models.comboBox.ComboBoxEmptySelectionRenderer;
 import contac.commons.models.comboBox.TipoFacturaComboBoxModel;
-import contac.commons.models.tables.BeanTableModel;
 import contac.commons.models.tables.NotEditableTableModel;
 import contac.facturacion.controller.FacturaClienteController;
 import contac.internationalization.LanguageLocale;
 import contac.modelo.entity.*;
 import contac.reports.JRPrintReport;
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
@@ -42,7 +40,6 @@ import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.math.BigDecimal;
-import java.rmi.RemoteException;
 import java.text.DateFormat;
 import java.util.*;
 
@@ -173,6 +170,8 @@ public class pnlCobroFacturas extends GenericPanel {
         ImageIcon cobrarIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/payment.png"));
         ImageIcon imprimirIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/print.png"));
         ImageIcon actualizarIco = new ImageIcon(getClass().getResource("/contac/resources/icons/actions/refresh.png"));
+        ImageIcon cierreParcialIco =  new ImageIcon(getClass().getResource("/contac/resources/icons/actions/factura_clientes.png"));
+        ImageIcon cierreTotalIco =  new ImageIcon(getClass().getResource("/contac/resources/icons/actions/datosEmpresa.png"));
 
         btnImprimir = new JButton();
         btnImprimir.setPreferredSize(new Dimension(40, 32));
@@ -189,6 +188,16 @@ public class pnlCobroFacturas extends GenericPanel {
         btnCobrarFactura.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNCOBRARFACTURA"));
         btnCobrarFactura.setIcon(cobrarIco);
 
+        btnCierreFacturacionParcial = new JButton();
+        btnCierreFacturacionParcial.setPreferredSize(new Dimension(40, 32));
+        btnCierreFacturacionParcial.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNCIERREINVENTARIOPARCIAL"));
+        btnCierreFacturacionParcial.setIcon(cierreParcialIco);
+
+        btnCierreFacturacionTotal = new JButton();
+        btnCierreFacturacionTotal.setPreferredSize(new Dimension(40, 32));
+        btnCierreFacturacionTotal.setToolTipText(messageBundle.getString("CONTAC.FORM.BTNCIERREINVENTARIOTOTAL"));
+        btnCierreFacturacionTotal.setIcon(cierreTotalIco);
+
         JToolBar actionToolBar = new JToolBar();
         actionToolBar.setPreferredSize(new Dimension(200, 32));
 
@@ -197,6 +206,10 @@ public class pnlCobroFacturas extends GenericPanel {
         actionToolBar.add(btnImprimir);
         actionToolBar.add(new JToolBar.Separator());
         actionToolBar.add(btnCobrarFactura);
+        actionToolBar.add(new JToolBar.Separator());
+        actionToolBar.add(btnCierreFacturacionParcial);
+        actionToolBar.add(new JToolBar.Separator());
+        actionToolBar.add(btnCierreFacturacionTotal);
 
         //*********************************************************************
         //Create Cantidad Total de Facturas
@@ -274,6 +287,30 @@ public class pnlCobroFacturas extends GenericPanel {
         pnlTotalPagado.add(lblMontoPagado);
 
         //*********************************************************************
+        //Create Estado de Caja Panel
+        //*********************************************************************
+
+        JPanel pnlEstadoCaja = new JPanel(new VerticalLayout());
+        pnlEstadoCaja.setBorder(BorderFactory.createEtchedBorder());
+        pnlEstadoCaja.setPreferredSize(new Dimension(140, 70));
+
+        JLabel lblEstadoCaja = new JLabel();
+        lblEstadoCaja.setText("Estado de Caja");
+        lblEstadoCaja.setHorizontalAlignment(SwingConstants.CENTER);
+        lblEstadoCaja.setFont(newLabelFont);
+
+        lblEstadoActualCaja = new JLabel();
+        lblEstadoActualCaja.setText("ABIERTO");
+        lblEstadoActualCaja.setHorizontalAlignment(SwingConstants.CENTER);
+        lblEstadoActualCaja.setForeground(Color.green);
+        lblEstadoActualCaja.setFont(new Font("Serif", Font.PLAIN, 18));
+        lblEstadoActualCaja.setFont(newLabelFont2);
+
+        pnlEstadoCaja.add(lblEstadoCaja);
+        pnlEstadoCaja.add(lblEstadoActualCaja);
+
+
+        //*********************************************************************
         //Create Monto Total Pendiente Panel
         //*********************************************************************
 
@@ -312,6 +349,7 @@ public class pnlCobroFacturas extends GenericPanel {
         estadisticasPanel.add(pnlTotalFacturado);
         estadisticasPanel.add(pnlTotalPagado);
         estadisticasPanel.add(pnlTotalPendiente);
+        estadisticasPanel.add(pnlEstadoCaja);
 
         JPanel facturasPanel = new JPanel(new BorderLayout());
         facturasPanel.setBorder(BorderFactory.createEtchedBorder());
@@ -502,6 +540,20 @@ public class pnlCobroFacturas extends GenericPanel {
             }
         });
 
+        btnCierreFacturacionParcial.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnCierreFacturacionParcialActionPerformed(e);
+            }
+        });
+
+        btnCierreFacturacionTotal.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnCierreFacturacionTotalActionPerformed(e);
+            }
+        });
+
         tblFacturasClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblFacturasClientesMouseClicked(evt);
@@ -576,6 +628,63 @@ public class pnlCobroFacturas extends GenericPanel {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void btnCierreFacturacionParcialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCierreInventarioParcialActionPerformed
+      /*  try {
+            //Cambiar estado de factura a impresa.
+            controller.imprimirFactura();
+
+            JasperReport report = (JasperReport) JRLoader.loadObject(pnlRegistroFacturas.class.
+                    getResourceAsStream("/contac/facturacion/app/reportes/Invoice_Garsa.jasper"));
+
+            Map parameters = new HashMap();
+            parameters.put("SUBREPORT_DIR", getClass().getClassLoader().getResource("contac/facturacion/app/reportes") + "/");
+            parameters.put("n_id_factura", this.idFactura);
+
+            //Generate Report
+            JasperPrint jasperPrint = controller.getMgrReportesService().generateReport(parameters, report);
+
+            //Print Report Preview
+            JRPrintReport.printPreviewReport(getMDI(), jasperPrint);
+
+            //Reset search Facturas
+            btnBuscarActionPerformed(evt);
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        }*/
+    }//GEN-LAST:event_btnCierreInventarioParcialActionPerformed
+
+    private void btnCierreFacturacionTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCierreInventarioTotalActionPerformed
+        /*try {
+            //Cambiar estado de factura a impresa.
+            controller.imprimirFactura();
+
+            JasperReport report = (JasperReport) JRLoader.loadObject(pnlRegistroFacturas.class.
+                    getResourceAsStream("/contac/facturacion/app/reportes/Invoice_Garsa.jasper"));
+
+            Map parameters = new HashMap();
+            parameters.put("SUBREPORT_DIR", getClass().getClassLoader().getResource("contac/facturacion/app/reportes") + "/");
+            parameters.put("n_id_factura", this.idFactura);
+
+            //Generate Report
+            JasperPrint jasperPrint = controller.getMgrReportesService().generateReport(parameters, report);
+
+            //Print Report Preview
+            JRPrintReport.printPreviewReport(getMDI(), jasperPrint);
+
+            //Reset search Facturas
+            btnBuscarActionPerformed(evt);
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            //Show error message
+            JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"), e.getMessage());
+        }
+*/
+    }//GEN-LAST:event_btnCierreInventarioTotalActionPerformed
+
     private void btnCobrarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobrarFacturaActionPerformed
 
         try {
@@ -649,6 +758,8 @@ public class pnlCobroFacturas extends GenericPanel {
     private JButton btnImprimir;
     private JButton btnActualizar;
     private JButton btnCobrarFactura;
+    private JButton btnCierreFacturacionParcial;
+    private JButton btnCierreFacturacionTotal;
 
     private JComboBox cmbAlmacen;
     private JComboBox cmbTipoFactura;
@@ -665,6 +776,7 @@ public class pnlCobroFacturas extends GenericPanel {
     private JLabel lblCantFacturas;
     private JLabel lblMontoFacturado;
     private JLabel lblMontoPagado;
+    private JLabel lblEstadoActualCaja;
     private JLabel lblMontoPendiente;
 
     private JTextField txtNoFactura;

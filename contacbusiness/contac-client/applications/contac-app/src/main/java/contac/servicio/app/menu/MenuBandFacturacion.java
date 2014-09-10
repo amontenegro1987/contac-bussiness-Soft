@@ -122,9 +122,20 @@ public class MenuBandFacturacion extends MenuBand {
             }
         }) ;
 
+        // ABRIR CAJA
+        JCommandButton mnuCajaAbrir = new JCommandButton(LabelMessage.getInstance().getLabel("CONTAC.SUBMENU.FACTURACION.CAJA_ABRIR"),
+                ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/icons/cash_register.png"), new Dimension(32, 32)));
+
+        mnuCajaAbrir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //style.addPanel("CobroFacturasClientes", "contac.facturacion.app.pnlCobroFacturas");
+            }
+        });
+
         //CAJA
         JCommandButton mnuCaja = new JCommandButton(LabelMessage.getInstance().getLabel("CONTAC.SUBMENU.FACTURACION.CAJA"),
-                ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/icons/cash_register.png"), new Dimension(32, 32)));
+                ImageWrapperResizableIcon.getIcon(getClass().getResource("/contac/resources/icons/money-wallet-icon.png"), new Dimension(32, 32)));
 
         mnuCaja.addActionListener(new ActionListener() {
             @Override
@@ -153,6 +164,7 @@ public class MenuBandFacturacion extends MenuBand {
         addCommandButton(mnuRegistroProforma, RibbonElementPriority.TOP);
         //addCommandButton(mnuDevoluciones, RibbonElementPriority.TOP);
         addCommandButton(mnuAgentesVentes, RibbonElementPriority.TOP);
+        addCommandButton(mnuCajaAbrir, RibbonElementPriority.TOP);
         addCommandButton(mnuCaja, RibbonElementPriority.TOP);
         addCommandButton(mnuReportes, RibbonElementPriority.TOP);
 
