@@ -78,7 +78,6 @@ public class ImageUtils {
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
         }
-
         return null;
     }
 
@@ -93,7 +92,6 @@ public class ImageUtils {
 
         return null;
     }
-
 
     /**
      * Return an ImageIcon, or null if the path was invalid.

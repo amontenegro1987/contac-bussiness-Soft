@@ -49,7 +49,7 @@ public class ContacMainService {
 
         System.out.println("Path source file:");
 
-         //String url file
+        //String url file
         String fileName = "/contacbusiness/log/config/contac-log4j.xml";
 
         //Loading file
@@ -78,8 +78,8 @@ public class ContacMainService {
      * Starting aplicacion base
      */
     private static void startingAplicacionBase() {
-         //Crear aplicacion base
-         AplicacionBaseApp.getInstance();
+        //Crear aplicacion base
+        AplicacionBaseApp.getInstance();
     }
 
     //*****************************************
@@ -119,7 +119,7 @@ public class ContacMainService {
         System.gc();
         System.exit(0);
     }
-        
+
     /**
      * Inicializar servicios del servidor
      *

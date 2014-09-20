@@ -1629,7 +1629,7 @@ public class pnlAdmonProducto extends GenericPanel {
 
             //Load image into JLabel
             ImageIcon imageIcon = new ImageIcon(file.getPath());
-            Image image = imageIcon.getImage().getScaledInstance(465, 413, Image.SCALE_DEFAULT);
+            Image image = imageIcon.getImage().getScaledInstance(310, 340, Image.SCALE_DEFAULT);
             imageIcon.setImage(image);
             lblFotografia.setIcon(imageIcon);
 
