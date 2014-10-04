@@ -66,6 +66,13 @@ public class Producto implements Serializable {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * PROPERTY NAME: codigoFabricante
+     */
+    private String partidaArancelaria;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * PROPERTY NAME: alias
      */
     private String alias;
@@ -132,6 +139,22 @@ public class Producto implements Serializable {
      * PROPERTY NAME: costoFOB
      */
     private BigDecimal costoFOB;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * PROPERTY NAME: costoDAI
+     */
+
+    private BigDecimal costoDAI;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * PROPERTY NAME: costoISC
+     */
+
+    private BigDecimal costoISC;
 
     /**
      * <!-- begin-user-doc -->
@@ -413,6 +436,20 @@ public class Producto implements Serializable {
     }
 
     /**
+     * Obtener codigo de Partida Arancelaria
+     *
+     * @return String
+     */
+    @Column(name = "C_PARTIDAARANCELARIA", nullable = false)
+    public String getPartidaArancelaria() { return partidaArancelaria; }
+
+    /**
+     * Setear Partida Arancelaria
+     *
+     * @param partidaArancelaria, String
+     */
+    public void setPartidaArancelaria(String partidaArancelaria) { this.partidaArancelaria = partidaArancelaria; }
+    /**
      * Obtener alias
      *
      * @return String
@@ -601,6 +638,37 @@ public class Producto implements Serializable {
     public void setCostoFOB(BigDecimal costoFOB) {
         this.costoFOB = costoFOB;
     }
+
+    /**
+     * Obtener costo DAI
+     *
+     * @return BigDecimal
+     */
+    @Column(name = "N_COSTODAI", precision = 19, scale = 4, columnDefinition = "decimal(19,4)", nullable = false)
+    public BigDecimal getCostoDAI() { return costoDAI; }
+
+    /**
+     * Setear costo DAI
+     *
+     * @param costoDAI, BigDecimal
+     */
+    public void setCostoDAI(BigDecimal costoDAI) { this.costoDAI = costoDAI; }
+
+    /**
+     * Obtener costo ISC
+     *
+     * @return BigDecimal
+     */
+    @Column(name = "N_COSTOISC", precision = 19, scale = 4, columnDefinition = "decimal(19,4)", nullable = false)
+    public BigDecimal getCostoISC() { return costoISC; }
+
+    /**
+     * Setear costo ISC
+     *
+     * @param costoISC, BigDecimal
+     */
+    public void setCostoISC(BigDecimal costoISC) {this.costoISC = costoISC; }
+
 
     /**
      * Obtener costo PROM

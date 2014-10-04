@@ -32,6 +32,7 @@ public class AdministraProductoController extends InventarioBaseController {
     private boolean compuesto;
     private String nombre;
     private String codigoFabricante;
+    private String partidaArancelaria;
     private String marca;
     private String modelo;
     private String alias;
@@ -45,6 +46,8 @@ public class AdministraProductoController extends InventarioBaseController {
     private long minimo;
     private long maximo;
     private BigDecimal costoFOB;
+    private BigDecimal costoDAI;
+    private BigDecimal costoISC;
     private BigDecimal costoCIF;
     private BigDecimal costoUND;
     private BigDecimal costoPROM;
@@ -81,7 +84,9 @@ public class AdministraProductoController extends InventarioBaseController {
         setMinimo(VALUE_INT_NOT_DEFINED);
         setMaximo(VALUE_INT_NOT_DEFINED);
         setCostoFOB(null);
+        setCostoDAI(null);
         setCostoCIF(null);
+        setCostoISC(null);
         setCostoUND(null);
         setCostoPROM(null);
         setPrecioEstandar(null);
@@ -117,6 +122,8 @@ public class AdministraProductoController extends InventarioBaseController {
         setMinimo(this.producto.getMinimo());
         setMaximo(this.producto.getMaximo());
         setCostoFOB(this.producto.getCostoFOB());
+        setCostoDAI(this.producto.getCostoDAI());
+        setCostoISC(this.producto.getCostoISC());
         setCostoCIF(this.producto.getCostoCIF());
         setCostoUND(this.producto.getCostoUND());
         setCostoPROM(this.producto.getCostoPROM());
@@ -218,9 +225,9 @@ public class AdministraProductoController extends InventarioBaseController {
             ManagerProductoServiceBusiness mgrProducto = getMgrProductosService();
 
             //Crear producto
-            mgrProducto.crearProducto(this.codigo, this.compuesto, this.nombre, this.codigoFabricante, this.alias,
+            mgrProducto.crearProducto(this.codigo, this.compuesto, this.nombre, this.codigoFabricante, this.partidaArancelaria,   this.alias,
                     this.marca, this.modelo, this.observaciones, this.minimo, this.maximo, this.costoUND, this.costoCIF,
-                    this.costoFOB, this.descuento, this.exento, this.precioEstandar, this.unidadMedida, this.proveedor,
+                    this.costoFOB, this.costoDAI, this.costoISC, this.descuento, this.exento, this.precioEstandar, this.unidadMedida, this.proveedor,
                     this.clasificador, this.linea, this.paisOrigen, this.fotografia, productosSet);
 
             //Init values
@@ -255,9 +262,9 @@ public class AdministraProductoController extends InventarioBaseController {
             System.out.println("Fotografia N2: " + this.fotografia);
 
             //Modificar producto
-            mgrProducto.modificarProducto(producto.getId(), this.codigo, this.compuesto, this.nombre, this.codigoFabricante,
+            mgrProducto.modificarProducto(producto.getId(), this.codigo, this.compuesto, this.nombre, this.codigoFabricante, this.partidaArancelaria,
                     this.alias, this.marca, this.modelo, this.observaciones, this.minimo, this.maximo, this.costoUND,
-                    this.costoCIF, this.costoFOB, this.costoPROM, this.descuento, this.exento, this.precioEstandar,
+                    this.costoCIF, this.costoFOB, this.costoDAI, this.costoISC, this.costoPROM, this.descuento, this.exento, this.precioEstandar,
                     this.unidadMedida, this.proveedor, this.clasificador, this.linea, this.paisOrigen, this.fotografia, productosSet);
 
             //Init values
@@ -504,6 +511,14 @@ public class AdministraProductoController extends InventarioBaseController {
         this.codigoFabricante = codigoFabricante;
     }
 
+    public String getPartidaArancelaria() {
+        return partidaArancelaria;
+    }
+
+    public void setPartidaArancelaria(String partidaArancelaria){
+        this.partidaArancelaria = partidaArancelaria;
+    }
+
     public String getMarca() {
         return marca;
     }
@@ -598,6 +613,22 @@ public class AdministraProductoController extends InventarioBaseController {
 
     public void setMaximo(long maximo) {
         this.maximo = maximo;
+    }
+
+    public BigDecimal getCostoDAI() {
+        return costoDAI;
+    }
+
+    public void setCostoDAI(BigDecimal costoDAI){
+        this.costoDAI = costoDAI;
+    }
+
+    public BigDecimal getCostoISC() {
+        return costoISC;
+    }
+
+    public void setCostoISC(BigDecimal costoISC){
+        this.costoISC = costoISC;
     }
 
     public BigDecimal getCostoFOB() {
@@ -713,6 +744,12 @@ public class AdministraProductoController extends InventarioBaseController {
          * Codigo del fabricante
          */
         private String codigoFabricante;
+
+        /**
+         * Partida Arancelaria
+         */
+        private String partidaArancelaria;
+
         /**
          * Costo Unitario del producto
          */
@@ -764,6 +801,14 @@ public class AdministraProductoController extends InventarioBaseController {
 
         public void setCodigoFabricante(String codigoFabricante) {
             this.codigoFabricante = codigoFabricante;
+        }
+
+        public String getPartidaArancelaria() {
+            return partidaArancelaria;
+        }
+
+        public void setPartidaArancelaria(String partidaArancelaria) {
+            this.partidaArancelaria = partidaArancelaria;
         }
 
         public BigDecimal getCostoUND() {

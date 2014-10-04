@@ -219,9 +219,9 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
                 proforma = proformaEAO.findById(idProforma);
 
             //Validar consistencia de datos
-            if (fechaAlta.after(new Date()))
+            /*if (fechaAlta.after(new Date()))
                 throw new ManagerFacturacionServiceBusinessException("Fecha de alta no puede ser posterior al dia de hoy.");
-
+            */
             if (articulos.isEmpty())
                 throw new ManagerFacturacionServiceBusinessException("Debes ingresar al menos un articulo");
 
@@ -1660,13 +1660,17 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
-    public Pago registrarPagoFactura(Integer idFactura, Integer idTipoPago, BigDecimal montoRecibido, BigDecimal importeRecibidoTarjeta, Integer tipoTarjeta, String numAut) throws
+    public Pago registrarPagoFactura(Integer idFactura, Integer idTipoPago, BigDecimal montoRecibido, BigDecimal importeRecibidoTarjeta, Integer tipoTarjeta, String numAut, BigDecimal importeRecibidoPOS2, Integer tiposPos2) throws
             ManagerFacturacionServiceBusinessException, RemoteException {
-
         logger.debug("Registrar pago de factura Mixto: [IdFactura]: " + idFactura);
          if(idTipoPago == 1){
              tipoTarjeta = null;
+             tiposPos2 = 0;
          }
+        //Setear el POS 2 cuando no se utilice
+        if(idTipoPago !=5){
+            tiposPos2 =0;
+        }
         //Iniciar servicio de autorizacion
         boolean transaction = initBusinessService(Roles.ROLCAJAADMIN.toString());
 
@@ -1685,6 +1689,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             pago.setTasaCambio(factura.getTasaCambio());
             pago.setMontoCancelar(factura.getMontoNeto());
             pago.setMontoRecibido(montoRecibido);
+            pago.setMontoRecibido_2(importeRecibidoPOS2);
             pago.setMontoConversion(new BigDecimal("0"));
             pago.setMontoDevuelto(montoRecibido.subtract(factura.getMontoNeto()));
             pago.setMontoComision(new BigDecimal("0"));
@@ -1693,6 +1698,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             //pago.setTipoTarjeta(idTipoPago);
             pago.setFactura(factura);
             pago.setTipoTarjeta(tipoTarjeta);
+            pago.setTipoTarjeta_2(tiposPos2);
             pago.setNumAut(numAut);
             pago = pagoEAO.create(pago);
 

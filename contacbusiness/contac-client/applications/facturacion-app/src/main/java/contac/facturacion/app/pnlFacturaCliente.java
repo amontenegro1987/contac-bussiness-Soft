@@ -1030,12 +1030,12 @@ public class pnlFacturaCliente extends GenericPanel {
         }
 
         //Fecha alta factura
-        /*if (dtpFechaAlta.getDate() == null) {
+        if (dtpFechaAlta.getDate() == null) {
             //Request focus
             dtpFechaAlta.requestFocusInWindow();
             //Throw error message
             throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.FECHAALTA"));
-        }*/
+        }
 
         //Cliente
         if (txtCodigoCliente.getText().equals("") && txtNombreCliente.getText().equals("")) {

@@ -117,6 +117,7 @@ public interface ManagerProductoServiceBusiness extends ManagerProductoServiceBu
      * @param compuesto,        Producto compuesto
      * @param nombre,           nombre producto
      * @param codigoFabricante, Codigo fabricante
+     * @param partidaArancelaria Partida Arancelaria
      * @param alias,            Alias de producto
      * @param marca,            Marca registrada
      * @param modelo,           Modelo registrado
@@ -126,6 +127,8 @@ public interface ManagerProductoServiceBusiness extends ManagerProductoServiceBu
      * @param costoUND,         Costo Unitario Inventario
      * @param costoCIF,         Costo Unitario con transporte y seguro
      * @param costoFOB,         Costo en factura proveedor
+     * @param costoDAI          Costo DAI Aduana
+     * @param costoISC          Costo ISC Aduana
      * @param descuento,        Tasa de descuento precio
      * @param exento,           Exento pagar impuesto
      * @param precioEstandar,   Precio estandar
@@ -141,9 +144,9 @@ public interface ManagerProductoServiceBusiness extends ManagerProductoServiceBu
      * @throws RemoteException, Exception
      */
 
-    public Producto crearProducto(String codigo, boolean compuesto, String nombre, String codigoFabricante, String alias,
+    public Producto crearProducto(String codigo, boolean compuesto, String nombre, String codigoFabricante, String partidaArancelaria, String alias,
                                   String marca, String modelo, String observaciones, long minimo, long maximo, BigDecimal costoUND,
-                                  BigDecimal costoCIF, BigDecimal costoFOB, BigDecimal descuento, boolean exento, BigDecimal precioEstandar,
+                                  BigDecimal costoCIF, BigDecimal costoFOB, BigDecimal costoDAI, BigDecimal costoISC, BigDecimal descuento, boolean exento, BigDecimal precioEstandar,
                                   UnidadMedida unidadMedida, Proveedor proveedor, Clasificador clasificador, Linea linea, Pais paisOrigen,
                                   byte[] fotografia, Set<ProductoCompuesto> productos) throws ManagerProductoServiceBusinessException, RemoteException;
 
@@ -179,9 +182,10 @@ public interface ManagerProductoServiceBusiness extends ManagerProductoServiceBu
      *
      * @throws RemoteException
      */
-    public Producto modificarProducto(Integer id, String codigo, boolean compuesto, String nombre, String codigoFabricante,
+    public Producto modificarProducto(Integer id, String codigo, boolean compuesto, String nombre, String codigoFabricante, String partidaArancelaria,
                                       String alias, String marca, String modelo, String observaciones, long minimo,
                                       long maximo, BigDecimal costoUND, BigDecimal costoCIF, BigDecimal costoFOB,
+                                      BigDecimal costoDAI, BigDecimal costoISC,
                                       BigDecimal costoPROM, BigDecimal descuento, boolean exento, BigDecimal precioEstandar,
                                       UnidadMedida unidadMedida, Proveedor proveedor, Clasificador clasificador, Linea linea, Pais paisOrigen,
                                       byte[] fotografia, Set<ProductoCompuesto> productos) throws ManagerProductoServiceBusinessException, RemoteException;
