@@ -451,17 +451,18 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
     }
 
     @Override
-    public Producto crearProducto(String codigo, boolean compuesto, String nombre, String codigoFabricante, String alias,
+    public Producto crearProducto(String codigo, boolean compuesto, String nombre, String codigoFabricante, String partidaArancelaria, String alias,
                                   String marca, String modelo, String observaciones, long minimo, long maximo, BigDecimal costoUND,
-                                  BigDecimal costoCIF, BigDecimal costoFOB, BigDecimal descuento, boolean exento, BigDecimal precioEstandar,
+                                  BigDecimal costoCIF, BigDecimal costoFOB, BigDecimal costoDAI, BigDecimal costoISC,BigDecimal descuento, boolean exento, BigDecimal precioEstandar,
                                   UnidadMedida unidadMedida, Proveedor proveedor, Clasificador clasificador, Linea linea, Pais paisOrigen,
                                   byte[] fotografia, Set<ProductoCompuesto> productos)
             throws ManagerProductoServiceBusinessException, RemoteException {
 
         logger.debug("Creando producto con parametros: [codigo]: " + codigo + ", [compuesto]: " + compuesto + ", [nombre]: " +
-                nombre + ", [codigoFabricante]: " + codigoFabricante + ", [alias]: " + alias + ", [marca]: " + marca +
+                nombre + ", [codigoFabricante]: " + codigoFabricante + ", [partidaArancelaria: " + partidaArancelaria + ", [alias]: " +  alias + ", [marca]: " + marca +
                 ", [modelo]: " + modelo + ", [observaciones]: " + observaciones + ", [minimo]: " + minimo + ", [maximo]: " +
-                maximo + ", [costoUND]: " + costoUND + ", [costoCIF]: " + costoCIF + ", [costoFOB]: " + costoFOB + ", [descuento]: " +
+                maximo + ", [costoUND]: " + costoUND + ", [costoCIF]: " + costoCIF + ", [costoFOB]: " + costoFOB +
+                ", [costoDAI]: " + costoDAI + ", [costoISC]: " + costoISC + ", [descuento]: " +
                 descuento + ", [exento]: " + exento + ", [precioEstandar]: " + precioEstandar);
 
         //Init servicio
@@ -497,6 +498,7 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
             entity.setCompuesto(compuesto);
             entity.setNombre(nombre);
             entity.setCodigoFabricante(codigoFabricante);
+            entity.setPartidaArancelaria(partidaArancelaria);
             entity.setAlias(alias);
             entity.setMarca(marca);
             entity.setModelo(modelo);
@@ -507,6 +509,8 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
             entity.setCostoUND(costoUND.setScale(4, BigDecimal.ROUND_HALF_EVEN));
             entity.setCostoCIF(costoCIF.setScale(4, BigDecimal.ROUND_HALF_EVEN));
             entity.setCostoFOB(costoFOB.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            entity.setCostoDAI(costoDAI.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            entity.setCostoISC(costoISC.setScale(4, BigDecimal.ROUND_HALF_EVEN));
             entity.setCostoPROM(costoUND.setScale(4, BigDecimal.ROUND_HALF_EVEN)); //Creacion de producto por primera vez su costo PROM es igual a costo UND
             entity.setDescuento(descuento.setScale(4, BigDecimal.ROUND_HALF_EVEN));
             entity.setExento(exento);
@@ -538,6 +542,8 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
             if (compuesto) {
 
                 double totalCostoFOB = 0.0;
+                double totalCostoDAI = 0.0;
+                double totalCostoISC = 0.0;
                 double totalCostoCIF = 0.0;
                 double totalCostoUND = 0.0;
                 double totalCostoPROM = 0.0;
@@ -547,6 +553,10 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
 
                     //Sumar total costoFOB
                     totalCostoFOB += (producto.getProducto().getCostoFOB().doubleValue() * producto.getCantidad());
+                    //Sumar total costoDAI
+                    totalCostoDAI += (producto.getProducto().getCostoDAI().doubleValue() * producto.getCantidad());
+                    //Sumar total CostoISC
+                    totalCostoISC += (producto.getProducto().getCostoISC().doubleValue() * producto.getCantidad());
                     //Sumar total costoCIF
                     totalCostoCIF += (producto.getProducto().getCostoCIF().doubleValue() * producto.getCantidad());
                     //Sumar total costoUND
@@ -560,6 +570,8 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
                 //Setting listado de productos compuestos y actualizando datos producto principal
                 entity.setProductosCompuestos(productos);
                 entity.setCostoFOB(new BigDecimal(totalCostoFOB).setScale(4, BigDecimal.ROUND_HALF_EVEN));
+                entity.setCostoDAI(new BigDecimal(totalCostoDAI).setScale(4, BigDecimal.ROUND_HALF_EVEN));
+                entity.setCostoISC(new BigDecimal(totalCostoISC).setScale(4, BigDecimal.ROUND_HALF_EVEN));
                 entity.setCostoCIF(new BigDecimal(totalCostoCIF).setScale(4, BigDecimal.ROUND_HALF_EVEN));
                 entity.setCostoUND(new BigDecimal(totalCostoUND).setScale(4, BigDecimal.ROUND_HALF_EVEN));
                 entity.setCostoPROM(new BigDecimal(totalCostoPROM).setScale(4, BigDecimal.ROUND_HALF_EVEN));
@@ -591,17 +603,19 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
 
     @Override
     public Producto modificarProducto(Integer id, String codigo, boolean compuesto, String nombre, String codigoFabricante,
-                                      String alias, String marca, String modelo, String observaciones, long minimo,
-                                      long maximo, BigDecimal costoUND, BigDecimal costoCIF, BigDecimal costoFOB, BigDecimal
-            costoPROM, BigDecimal descuento, boolean exento, BigDecimal precioEstandar,
+                                      String partidaArancelaria, String alias, String marca, String modelo, String observaciones,
+                                      long minimo, long maximo, BigDecimal costoUND, BigDecimal costoCIF, BigDecimal costoFOB,
+                                      BigDecimal costoDAI, BigDecimal costoISC, BigDecimal costoPROM, BigDecimal descuento,
+                                      boolean exento, BigDecimal precioEstandar,
                                       UnidadMedida unidadMedida, Proveedor proveedor, Clasificador clasificador,
                                       Linea linea, Pais paisOrigen, byte[] fotografia, Set<ProductoCompuesto> productos)
             throws ManagerProductoServiceBusinessException, RemoteException {
         System.out.println(" prueba 4: " + fotografia);
         logger.info("Modificando producto con parametros: [codigo]: " + codigo + ", [compuesto]: " + compuesto + ", [nombre]: " +
-                nombre + ", [codigoFabricante]: " + codigoFabricante + ", [alias]: " + alias + ", [marca]: " + marca +
+                nombre + ", [codigoFabricante]: " + codigoFabricante + ", [partidaArancelaria]: " + partidaArancelaria + ", [alias]: " + alias + ", [marca]: " + marca +
                 ", [modelo]: " + modelo + ", [observaciones]: " + observaciones + ", [minimo]: " + minimo + ", [maximo]: " +
-                maximo + ", [costoUND]: " + costoUND + ", [costoCIF]: " + costoCIF + ", [costoFOB]: " + costoFOB + ", [costoPROM]: " +
+                maximo + ", [costoUND]: " + costoUND + ", [costoCIF]: " + costoCIF + ", [costoFOB]: " + costoFOB +
+                ", [costoDAI]: " + costoDAI + ", [costoISC]: " + costoISC + ", [costoPROM]: " +
                 costoPROM + ", [descuento]: " + descuento + ", [exento]: " + exento + ", [precioEstandar]: " + precioEstandar);
 
         //Init servicio
@@ -619,12 +633,12 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
             //<Evaluar si es un producto compuesto el listado de productos no puede ser empty>
             if (compuesto && productos.isEmpty())
                 throw new ManagerProductoServiceBusinessException("Debes registrar los productos compuestos.");
-            System.out.println("Entre Aqui 2");
             //<Registrar producto>
             entity.setCodigo(codigo);
             entity.setCompuesto(compuesto);
             entity.setNombre(nombre);
             entity.setCodigoFabricante(codigoFabricante);
+            entity.setPartidaArancelaria(partidaArancelaria);
             entity.setAlias(alias);
             entity.setMarca(marca);
             entity.setModelo(modelo);
@@ -635,6 +649,8 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
             entity.setCostoUND(costoUND.setScale(4, BigDecimal.ROUND_HALF_EVEN));
             entity.setCostoCIF(costoCIF.setScale(4, BigDecimal.ROUND_HALF_EVEN));
             entity.setCostoFOB(costoFOB.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            entity.setCostoDAI(costoDAI.setScale(4, BigDecimal.ROUND_HALF_EVEN));
+            entity.setCostoISC(costoISC.setScale(4, BigDecimal.ROUND_HALF_EVEN));
             entity.setCostoPROM(costoPROM.setScale(4, BigDecimal.ROUND_HALF_EVEN));
             entity.setDescuento(descuento.setScale(4, BigDecimal.ROUND_HALF_EVEN));
             entity.setExento(exento);
@@ -673,6 +689,8 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
             if (compuesto) {
 
                 double totalCostoFOB = 0.0;
+                double totalCostoDAI = 0.0;
+                double totalCostoISC = 0.0;
                 double totalCostoCIF = 0.0;
                 double totalCostoUND = 0.0;
                 double totalCostoPROM = 0.0;
@@ -682,6 +700,10 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
 
                     //Sumar total costoFOB
                     totalCostoFOB += (producto.getProducto().getCostoFOB().doubleValue() * producto.getCantidad());
+                    //Sumar total CostoDAI
+                    totalCostoDAI += (producto.getProducto().getCostoDAI().doubleValue() * producto.getCantidad());
+                    //Sumar total CostoISC
+                    totalCostoISC += (producto.getProducto().getCostoDAI().doubleValue() * producto.getCantidad());
                     //Sumar total costoCIF
                     totalCostoCIF += (producto.getProducto().getCostoCIF().doubleValue() * producto.getCantidad());
                     //Sumar total costoUND
@@ -695,6 +717,8 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
                 //Setting listado de productos compuestos y actualizando datos producto principal
                 entity.setProductosCompuestos(productos);
                 entity.setCostoFOB(new BigDecimal(totalCostoFOB).setScale(4, BigDecimal.ROUND_HALF_EVEN));
+                entity.setCostoDAI(new BigDecimal(totalCostoDAI).setScale(4, BigDecimal.ROUND_HALF_EVEN));
+                entity.setCostoISC(new BigDecimal(totalCostoISC).setScale(4, BigDecimal.ROUND_HALF_EVEN));
                 entity.setCostoCIF(new BigDecimal(totalCostoCIF).setScale(4, BigDecimal.ROUND_HALF_EVEN));
                 entity.setCostoUND(new BigDecimal(totalCostoUND).setScale(4, BigDecimal.ROUND_HALF_EVEN));
                 entity.setCostoPROM(new BigDecimal(totalCostoPROM).setScale(4, BigDecimal.ROUND_HALF_EVEN));
@@ -702,11 +726,8 @@ public class ManagerProductoServiceBusinessImpl extends UnicastRemoteObject impl
 
                 //Actualizar producto
                 entity = productoEAO.update(entity);
-
             }
-
             return entity;
-
         } catch (PersistenceClassNotFoundException e) {
             logger.error(e.getMessage(), e);
             throw new ManagerProductoServiceBusinessException(e.getMessage(), e);

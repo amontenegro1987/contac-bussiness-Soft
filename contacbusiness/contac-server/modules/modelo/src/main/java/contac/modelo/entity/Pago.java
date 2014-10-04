@@ -48,6 +48,13 @@ public class Pago implements Serializable {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * PROPERTY NAME: Tipo de Tarjeta
+     */
+    private Integer tipoTarjeta_2;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * PROPERTY NAME: Tasa de cambio
      */
     private BigDecimal tasaCambio;
@@ -63,6 +70,14 @@ public class Pago implements Serializable {
      * PROPERTY NAME: Monto recibido
      */
     private BigDecimal montoRecibido;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * PROPERTY NAME: Segundo POS
+     */
+    private BigDecimal montoRecibido_2;
+
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -162,6 +177,13 @@ public class Pago implements Serializable {
     public void setTipoTarjeta(Integer tipoTarjeta){
         this.tipoTarjeta = tipoTarjeta;
     }*/
+    @Column(name = "N_ID_TIPO_TARJETA_2", nullable = false)
+    public Integer getTipoTarjeta_2() { return tipoTarjeta_2; }
+
+    public void setTipoTarjeta_2(Integer tipoTarjeta_2) { this.tipoTarjeta_2 = tipoTarjeta_2; }
+
+
+
     @Column(name = "N_ID_TIPO_TARJETA", nullable = false)
     public Integer getTipoTarjeta() { return tipoTarjeta; }
 
@@ -202,6 +224,15 @@ public class Pago implements Serializable {
 
     public void setMontoRecibido(BigDecimal montoRecibido) {
         this.montoRecibido = montoRecibido;
+    }
+
+    @Column(name = "N_MONTO_RECIBIDO_TARJETA_2", nullable = false)
+    public BigDecimal getMontoRecibido_2() {
+        return montoRecibido_2;
+    }
+
+    public void setMontoRecibido_2(BigDecimal montoRecibido_2){
+        this.montoRecibido_2 = montoRecibido_2;
     }
 
     @Column(name = "N_MONTO_CONVERSION", nullable = false)

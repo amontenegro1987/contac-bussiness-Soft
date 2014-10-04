@@ -428,7 +428,7 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
      *                          Exception
      * @throws RemoteException, Exception
      */
-    public Pago registrarPagoFactura(Integer idFactura, Integer idTipoPago, BigDecimal montoRecibido, BigDecimal importeRecibidoTarjeta, Integer tipoTarjeta, String numeroAut) throws
+    public Pago registrarPagoFactura(Integer idFactura, Integer idTipoPago, BigDecimal montoRecibido, BigDecimal importeRecibidoTarjeta, Integer tipoTarjeta, String numeroAut, BigDecimal importeRecibidoPOS2, Integer tiposPos2) throws
             ManagerFacturacionServiceBusinessException, RemoteException;
 
 

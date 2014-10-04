@@ -676,7 +676,7 @@ public class FacturaClienteController extends FacturacionBaseController {
      * @param tipoTarjeta, Tipo de Tarjeta (POS)
      * @throws Exception, Exception
      */
-    public void registrarPagoFactura(int idTipoPago, BigDecimal montoRecibido, BigDecimal importeRecibidoTarjeta, int tipoTarjeta, String numAut) throws Exception {
+    public void registrarPagoFactura(int idTipoPago, BigDecimal montoRecibido, BigDecimal importeRecibidoTarjeta, int tipoTarjeta, String numAut, BigDecimal importeRecibidoPOS2, int tiposPos2) throws Exception {
 
         logger.debug("Registrar pago de factura Mixto");
 
@@ -685,7 +685,7 @@ public class FacturaClienteController extends FacturacionBaseController {
             ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
 
             //Registrar pago de factura
-            mgrFacturacion.registrarPagoFactura(getFactura().getId(), idTipoPago, montoRecibido, importeRecibidoTarjeta, tipoTarjeta, numAut);
+            mgrFacturacion.registrarPagoFactura(getFactura().getId(), idTipoPago, montoRecibido, importeRecibidoTarjeta, tipoTarjeta, numAut, importeRecibidoPOS2, tiposPos2);
 
         } catch (ManagerFacturacionServiceBusinessException e) {
             logger.error(e.getMessage(), e);
