@@ -33,6 +33,7 @@ public class AdministraUsuarioController extends BaseController {
     private String nombreUsuario;
     private String contrasenia;
     private String confirmaContrasenia;
+    private String contraseniaDescuento;
     private Compania compania;
     private Almacen almacen;
     private boolean activo;
@@ -226,7 +227,7 @@ public class AdministraUsuarioController extends BaseController {
             ManagerSeguridadServiceBusiness mgr = getMgrSeguridadService();
 
             //Registrar usuario
-            Usuario usuario = mgr.crearUsuario(this.nombreUsuario, this.contrasenia, rolesAsignados, this.compania,
+            Usuario usuario = mgr.crearUsuario(this.nombreUsuario, this.contrasenia, this.contraseniaDescuento, rolesAsignados, this.compania,
                     this.almacen);
 
             //Adding user to list
@@ -262,12 +263,13 @@ public class AdministraUsuarioController extends BaseController {
 
             //Modificar usuario
             Usuario usuarioMod = getMgrSeguridadService().modificarUsuario(this.nombreUsuario, this.contrasenia,
-                    rolesAsignados, isActivo(), this.cambiarContrasenia, this.compania, this.almacen);
+                    this.contraseniaDescuento, rolesAsignados, isActivo(), this.cambiarContrasenia, this.compania, this.almacen);
 
             //<Modificar registro de usuarios>
             for (Usuario usuario : this.usuarios) {
                 if (usuario.getUsername().equals(usuarioMod.getUsername())) {
                     usuario.setPassword(usuarioMod.getPassword());
+                    usuario.setPasswordDescuento(usuarioMod.getPasswordDescuento());
                     usuario.setEstado(usuarioMod.getEstado());
                     usuario.setRoles(usuarioMod.getRoles());
                 }
@@ -314,6 +316,10 @@ public class AdministraUsuarioController extends BaseController {
     public void setConfirmaContrasenia(String confirmaContrasenia) {
         this.confirmaContrasenia = confirmaContrasenia;
     }
+
+    public String getContraseniaDescuento() { return contraseniaDescuento; }
+
+    public void setContraseniaDescuento(String contraseniaDescuento) { this.contraseniaDescuento = contraseniaDescuento;}
 
     public Compania getCompania() {
         return compania;

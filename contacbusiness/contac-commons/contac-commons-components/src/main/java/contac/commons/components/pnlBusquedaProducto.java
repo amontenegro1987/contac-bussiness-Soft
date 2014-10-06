@@ -203,7 +203,7 @@ public class pnlBusquedaProducto extends JDialog {
                 "Maximo", "Fecha Vencimiento", "Costo CIF", "Costo UND", "Costo FOB", "Costo PROM", "Descuento", "Exento",
                 "Precio PROMOCION", "Unidad Medida", "Proveedor", "Clasificador", "Linea", "Estado", "Compuesto",
                 "Estatus", "Compania", "Fotografia", "Ctime", "Cuser", "Mtime", "Muser", "Id", "Codigo Cbs", "Marca",
-                "Pais Origen"};
+                "Pais Origen",  "Costo DAI", "Costo ISC", "Partida Arancelaria"};
 
         for (String columnLabel : productoColumnRemove) {
             productoColumnModel.removeColumn(productoColumnModel.getColumn(productoColumnModel.getColumnIndex(columnLabel)));

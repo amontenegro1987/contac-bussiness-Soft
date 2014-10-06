@@ -188,7 +188,7 @@ public class ManagerSeguridadServiceBusinessImpl extends UnicastRemoteObject imp
     }
 
     @Override
-    public Usuario crearUsuario(String login, String password, Set<Rol> roles, Compania compania, Almacen almacen)
+    public Usuario crearUsuario(String login, String password, String contraseniaDescuento, Set<Rol> roles, Compania compania, Almacen almacen)
             throws ManagerSeguridadServiceBusinessException, RemoteException {
 
         logger.debug("Creando usuario con parametros: [login]: " + login + ", [roles]: " + roles);
@@ -219,6 +219,7 @@ public class ManagerSeguridadServiceBusinessImpl extends UnicastRemoteObject imp
 
             //Convertir password a MD-5 BASE-64
             String passwordHash = Security.createPasswordHash(password);
+            String passwordDescuentoHash = Security.createPasswordHash(contraseniaDescuento);
 
             //**********************************************************************************************
             //Evaluar si el usuario contiene el ROLCONTACUSER obligatorio para ejecucion general del usuario
@@ -240,6 +241,7 @@ public class ManagerSeguridadServiceBusinessImpl extends UnicastRemoteObject imp
             Usuario usuario = new Usuario();
             usuario.setUsername(login);
             usuario.setPassword(passwordHash);
+            usuario.setPasswordDescuento(passwordDescuentoHash);
             usuario.setRoles(roles);
             usuario.setCompania(compania);
             usuario.setAlmacen(almacen);
@@ -264,7 +266,7 @@ public class ManagerSeguridadServiceBusinessImpl extends UnicastRemoteObject imp
     }
 
     @Override
-    public Usuario modificarUsuario(String login, String password, Set<Rol> roles, boolean estado, boolean cambiarContrasenia,
+    public Usuario modificarUsuario(String login, String password, String contraseniaDescuento, Set<Rol> roles, boolean estado, boolean cambiarContrasenia,
                                     Compania compania, Almacen almacen) throws ManagerSeguridadServiceBusinessException, RemoteException {
 
         logger.debug("Modificando usuario con parametros: [login]: " + login + ", [roles]: " + roles + ", [estado]: " + estado);
@@ -286,6 +288,7 @@ public class ManagerSeguridadServiceBusinessImpl extends UnicastRemoteObject imp
 
             //Actualizar datos del usuario
             String passwordHash = Security.createPasswordHash(password);
+            String passwordDescuentoHash = Security.createPasswordHash(contraseniaDescuento);
 
             //**********************************************************************************************
             //Evaluar si el usuario contiene el ROLCONTACUSER obligatorio para ejecucion general del usuario
@@ -306,11 +309,11 @@ public class ManagerSeguridadServiceBusinessImpl extends UnicastRemoteObject imp
             //Modificar y persistir datos usuario
             if (cambiarContrasenia)
                 usuario.setPassword(passwordHash);
-
-            usuario.setRoles(roles);
-            usuario.setCompania(compania);
-            usuario.setAlmacen(almacen);
-            usuario.setEstado(estadoString);
+                usuario.setPasswordDescuento(passwordDescuentoHash);
+                usuario.setRoles(roles);
+                usuario.setCompania(compania);
+                usuario.setAlmacen(almacen);
+                usuario.setEstado(estadoString);
 
             return usuarioEAO.update(usuario);
 

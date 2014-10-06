@@ -60,13 +60,14 @@ public interface ManagerSeguridadServiceBusiness extends ManagerSeguridadService
      *
      * @param login,    nombre de usuario de logueo en el sistema
      * @param password, clave del usuario
+     * @param contraseniaDescuento, Autorizacion para Descuento
      * @param roles,    listado de roles
      * @param compania, Compania asociada al usuario
      * @return Usuario
      * @throws ManagerSeguridadServiceBusinessException,
      *          Exception
      */
-    public Usuario crearUsuario(String login, String password, Set<Rol> roles, Compania compania, Almacen almacen)
+    public Usuario crearUsuario(String login, String password, String contraseniaDescuento, Set<Rol> roles, Compania compania, Almacen almacen)
             throws ManagerSeguridadServiceBusinessException, RemoteException;
 
     /**
@@ -74,6 +75,7 @@ public interface ManagerSeguridadServiceBusiness extends ManagerSeguridadService
      *
      * @param login,    nombre de usuario de logueo en el sistema
      * @param password, clave de usuario
+     * @param contraseniaDescuento, Identificacion descuento
      * @param roles,    listado de roles
      * @param estado,   estado del usuario a modificar
      * @param compania, compania asociada al usuario
@@ -81,7 +83,7 @@ public interface ManagerSeguridadServiceBusiness extends ManagerSeguridadService
      * @throws ManagerSeguridadServiceBusinessException,
      *          Exception
      */
-    public Usuario modificarUsuario(String login, String password, Set<Rol> roles, boolean estado, boolean cambiarContrasenia,
+    public Usuario modificarUsuario(String login, String password, String contraseniaDescuento, Set<Rol> roles, boolean estado, boolean cambiarContrasenia,
                                     Compania compania, Almacen almacen) throws ManagerSeguridadServiceBusinessException, RemoteException;
 
     /**
