@@ -37,6 +37,13 @@ public class Usuario implements Serializable {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * PROPERTY NAME: passwordDescuento
+     */
+    private String passwordDescuento;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * PROPERTY NAME: roles
      */
     private Set<contac.modelo.entity.Rol> roles;
@@ -138,6 +145,25 @@ public class Usuario implements Serializable {
     public void setPassword(java.lang.String password) {
         this.password = password;
     }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * Obtener el password del Descuento del Usuario Garsa Business
+     *
+     * @return String
+     */
+    @Column(name ="C_PASSWORDDESCUENTO", nullable = true)
+    public String getPasswordDescuento() { return this.passwordDescuento; }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * Setear el password del descuentoel Usuario Garsa Business
+     *
+     * @param passwordDescuento, clave de usuario en el sistema
+     */
+    public void setPasswordDescuento(java.lang.String passwordDescuento) { this.passwordDescuento = passwordDescuento;}
 
     /**
      * <!-- begin-user-doc -->

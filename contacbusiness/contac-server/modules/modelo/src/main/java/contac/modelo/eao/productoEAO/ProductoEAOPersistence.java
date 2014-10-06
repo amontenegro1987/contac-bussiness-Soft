@@ -169,6 +169,8 @@ public class ProductoEAOPersistence extends GenericPersistenceEAO<Producto, Inte
         final Integer p_id_almacen = idAlmacen;
         final Long p_codigo_proveedor = codigoProveedor;
 
+        System.out.println("Este es el numero de almacen: " + idAlmacen);
+
         final List<Producto> productos = new ArrayList<Producto>();
 
         Session session = em.unwrap(Session.class);
@@ -217,8 +219,11 @@ public class ProductoEAOPersistence extends GenericPersistenceEAO<Producto, Inte
                 }
 
                 if (p_id_almacen > 0) {
-                    query.append("and (almacen_mov.N_ID = ? OR almacen_mov.N_ID= ?) ");
-                }
+                    query.append("and (almacen_mov.N_ID = ? OR almacen_mov.N_ID= ?) and almacen_mov.N_ESTATUS <> 2 ");
+                } /*else {
+                    query.append("and almacen_mov.N_ESTATUS <> 2 ");
+                }*/
+
 
                 query.append("group by prod.N_ID, prod.C_CODIGO, prod.C_NOMBRE, prod.C_CODIGOFABRICANTE ");
                 query.append("order by prod.C_CODIGO ");
