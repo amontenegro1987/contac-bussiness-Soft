@@ -453,7 +453,7 @@ public class FacturaClienteController extends FacturacionBaseController {
         //Buscar Facturas de Clientes por fechas
         //buscarFacturasClientesCobrosPorFechas(fechaFacturacion, fechaFacturacion, almacen.getId(), 1);
         buscarFacturasClientesCobrosPorFechas(fechaFacturacion, fechaFacturacion, almacen.getId());
-      }
+    }
 
     /**
      * Init registros de factura
@@ -670,10 +670,10 @@ public class FacturaClienteController extends FacturacionBaseController {
     /**
      * Registrar Pago factura Mixto
      *
-     * @param idTipoPago,    Identificador de Tipo de Pago
-     * @param montoRecibido, Monto Recibido
+     * @param idTipoPago,             Identificador de Tipo de Pago
+     * @param montoRecibido,          Monto Recibido
      * @param importeRecibidoTarjeta, Monto Recibido Tarjeta Mixto
-     * @param tipoTarjeta, Tipo de Tarjeta (POS)
+     * @param tipoTarjeta,            Tipo de Tarjeta (POS)
      * @throws Exception, Exception
      */
     public void registrarPagoFactura(int idTipoPago, BigDecimal montoRecibido, BigDecimal importeRecibidoTarjeta, int tipoTarjeta, String numAut, BigDecimal importeRecibidoPOS2, int tiposPos2) throws Exception {
@@ -1055,5 +1055,34 @@ public class FacturaClienteController extends FacturacionBaseController {
             logger.error(e.getMessage(), e);
             throw new Exception(e.getMessage(), e);
         }
+    }
+
+    /**
+     * Buscar Contraseña de Descuento por Usuario
+     *
+     * @params @throws Exception, Exception
+     */
+    public boolean buscarContraseniaDescuento(String contraseniaDescuento) throws Exception {
+
+        logger.debug("Buscando Contraseña descuento por usuario");
+
+        try {
+
+            //Obtener Manager de Facturacion
+            Usuario usuario = getMgrFacturacionService().buscarContraseniasDescuento(contraseniaDescuento);
+
+            if (usuario != null) {
+                return true;
+            }
+
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (ManagerFacturacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+
+        return false;
     }
 }

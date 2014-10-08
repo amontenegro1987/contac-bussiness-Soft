@@ -21,6 +21,8 @@ import contac.modelo.eao.estadoMovimientoEAO.EstadoMovimientoEAO;
 import contac.modelo.eao.estadoMovimientoEAO.EstadoMovimientoEAOPersistence;
 import contac.modelo.eao.facturaEAO.FacturaEAO;
 import contac.modelo.eao.facturaEAO.FacturaEAOPersistence;
+import contac.modelo.eao.usuarioEAO.UsuarioEAO;
+import contac.modelo.eao.usuarioEAO.UsuarioEAOPersistence;
 import contac.modelo.eao.genericEAO.GenericPersistenceEAOException;
 import contac.modelo.eao.genericEAO.PersistenceClassNotFoundException;
 import contac.modelo.eao.monedaEAO.MonedaEAO;
@@ -66,6 +68,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     protected AlmacenEAO almacenEAO;
     protected TasaCambioEAO tasaCambioEAO;
     protected FacturaEAO facturaEAO;
+    protected UsuarioEAO usuarioEAO;
     protected ProformaEAO proformaEAO;
     protected ArticuloFacturaEAO articuloFacturaEAO;
     protected ArticuloProformaEAO articuloProformaEAO;
@@ -96,6 +99,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
         almacenEAO = new AlmacenEAOPersistence();
         tasaCambioEAO = new TasaCambioEAOPersistence();
         facturaEAO = new FacturaEAOPersistence();
+        usuarioEAO = new UsuarioEAOPersistence();
         proformaEAO = new ProformaEAOPersistence();
         articuloFacturaEAO = new ArticuloFacturaEAOPersistence();
         articuloProformaEAO = new ArticuloProformaEAOPersistence();
@@ -1712,6 +1716,30 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
 
             return pago;
 
+        } catch (GenericPersistenceEAOException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
+        } finally {
+            stopBusinessService(transaction);
+        }
+    }
+
+    @Override
+    public Usuario buscarContraseniasDescuento(String contraseniaDescuento) throws ManagerFacturacionServiceBusinessException,
+            RemoteException {
+
+        logger.debug("Buscar Contraseña Descuento de Usuario con parametros: [contraseniaDescuento]: " + contraseniaDescuento);
+
+        //Iniciar Servicio de Autorizacion
+        boolean transaction = initBusinessService(Roles.ROLFACTURACION.toString());
+
+        try {
+
+            return this.usuarioEAO.findByContraseniaDescuento(contraseniaDescuento);
+
+        } catch (PersistenceClassNotFoundException e) {
+            logger.error(e.getMessage(), e);
+            throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);
         } catch (GenericPersistenceEAOException e) {
             logger.error(e.getMessage(), e);
             throw new ManagerFacturacionServiceBusinessException(e.getMessage(), e);

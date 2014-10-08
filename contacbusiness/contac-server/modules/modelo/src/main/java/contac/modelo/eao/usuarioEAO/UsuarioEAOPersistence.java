@@ -34,4 +34,20 @@ public class UsuarioEAOPersistence extends GenericPersistenceEAO<Usuario, Intege
         return usuarios.get(0);
 
     }
+
+    @Override
+    public Usuario findByContraseniaDescuento(String contraseniaDescuento) throws PersistenceClassNotFoundException, GenericPersistenceEAOException {
+
+        //Iniciar Servicio
+        initService();
+
+        //Create query
+        List<Usuario> usuarios = em.createQuery("Select u from Usuario u Where u.passwordDescuento = :constraseniaDescuento").
+                setParameter("constraseniaDescuento", contraseniaDescuento).getResultList();
+
+        if (usuarios == null || usuarios.size() < 1){
+            throw new PersistenceClassNotFoundException("No se encontro Codigo Descuento");
+        }
+            return usuarios.get(0);
+        }
 }

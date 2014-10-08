@@ -6,6 +6,7 @@
 package contac.modelo.eao.facturaEAO;
 
 import contac.modelo.eao.genericEAO.GenericEAO;
+import contac.modelo.eao.genericEAO.GenericPersistenceEAO;
 import contac.modelo.eao.genericEAO.GenericPersistenceEAOException;
 import contac.modelo.eao.genericEAO.PersistenceClassNotFoundException;
 import contac.modelo.entity.EstadoMovimiento;

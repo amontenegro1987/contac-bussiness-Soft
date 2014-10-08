@@ -24,4 +24,18 @@ public interface UsuarioEAO extends GenericEAO<Usuario, Integer> {
      */
     public Usuario findByLogin(String login) throws PersistenceClassNotFoundException, GenericPersistenceEAOException;
 
+    /**
+     * Busca contrasenia Descuento
+     *
+     * @param contraseniaDescuento, Codigo
+     * @return Usuario
+     * @throws PersistenceClassNotFoundException,
+     *          Exception
+     * @throws GenericPersistenceEAOException,
+     *          Exception
+     */
+
+    public Usuario findByContraseniaDescuento(String contraseniaDescuento) throws PersistenceClassNotFoundException,
+            GenericPersistenceEAOException;
+
 }

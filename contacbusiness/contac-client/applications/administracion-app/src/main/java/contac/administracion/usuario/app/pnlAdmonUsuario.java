@@ -276,11 +276,11 @@ public class pnlAdmonUsuario extends GenericPanel {
                                                                 .addGap(10, 10, 10)
                                                                 .addComponent(txtConfirmaContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                         .addGroup(pnlFormularioLayout.createSequentialGroup()
-                                                .addGap(10,10,10)
+                                                .addGap(10, 10, 10)
                                                 .addComponent(lblContraseniaDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(10,10,10)
+                                                .addGap(10, 10, 10)
                                                 .addGroup(pnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                     .addComponent(txtContraseniaDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                        .addComponent(txtContraseniaDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGroup(pnlFormularioLayout.createSequentialGroup()
                                                 .addGap(10, 10, 10)
                                                 .addComponent(lblAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -295,7 +295,7 @@ public class pnlAdmonUsuario extends GenericPanel {
                         .addGroup(pnlFormularioLayout.createSequentialGroup()
                                 .addContainerGap()
                                 //.addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                                )
+                        )
         );
         pnlFormularioLayout.setVerticalGroup(
                 pnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,7 +349,7 @@ public class pnlAdmonUsuario extends GenericPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(chkActivo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                //.addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        //.addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(pnlRoles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -377,12 +377,12 @@ public class pnlAdmonUsuario extends GenericPanel {
                 pnlMantenimientoUsuariosFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(pnlMantenimientoUsuariosFormLayout.createSequentialGroup()
                                 .addComponent(pnlFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                //.addGap(18, 18, 18)
+                                        //.addGap(18, 18, 18)
                                 .addGroup(pnlMantenimientoUsuariosFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(btnAceptar)
                                         .addComponent(btnCancelar))
                                 //.addContainerGap(14, Short.MAX_VALUE)
-                                )
+                        )
         );
 
 
@@ -597,13 +597,17 @@ public class pnlAdmonUsuario extends GenericPanel {
 
             //Validar datos form
             validaDatosForm();
+            char[] input = txtContraseniaDescuento.getPassword();
 
+            //throw new Exception(String.valueOf(input));
             //Registrar datos en el controller
             controller.setNombreUsuario(txtNombreUsuario.getText());
             controller.setCambiarContrasenia(chkCambiaContrasenia.isSelected());
             controller.setContrasenia(new String(txtContrasenia.getPassword()));
             controller.setConfirmaContrasenia(txtConfirmaContrasenia.getPassword().toString());
-            controller.setContraseniaDescuento(txtContraseniaDescuento.getPassword().toString());
+            controller.setContraseniaDescuento(String.valueOf(input));
+            //controller.setContraseniaDescuento(txtContraseniaDescuento.getPassword().toStri       
+            
             controller.setCompania(((CompaniaComboBoxModel) cmbCompania.getModel()).getSelectedItem() != null ?
                     (Compania) ((CompaniaComboBoxModel) cmbCompania.getModel()).getSelectedItem().getObject() : null);
             controller.setAlmacen(((AlmacenComboBoxModel) cmbAlmacen.getModel()).getSelectedItem() != null ?

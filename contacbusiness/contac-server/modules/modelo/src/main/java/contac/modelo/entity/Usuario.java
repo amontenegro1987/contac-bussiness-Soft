@@ -115,6 +115,7 @@ public class Usuario implements Serializable {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+
      * Setear el login del Usuario Garsa Business
      *
      * @param username, nombre de usuario en el sistema
@@ -161,7 +162,7 @@ public class Usuario implements Serializable {
      * <!-- end-user-doc -->
      * Setear el password del descuentoel Usuario Garsa Business
      *
-     * @param passwordDescuento, clave de usuario en el sistema
+     * @param passwordDescuento, clave de Descuento en el sistema
      */
     public void setPasswordDescuento(java.lang.String passwordDescuento) { this.passwordDescuento = passwordDescuento;}
 
