@@ -219,7 +219,7 @@ public class ManagerSeguridadServiceBusinessImpl extends UnicastRemoteObject imp
 
             //Convertir password a MD-5 BASE-64
             String passwordHash = Security.createPasswordHash(password);
-            String passwordDescuentoHash = Security.createPasswordHash(contraseniaDescuento);
+            //String passwordDescuentoHash = Security.createPasswordHash(contraseniaDescuento);
 
             //**********************************************************************************************
             //Evaluar si el usuario contiene el ROLCONTACUSER obligatorio para ejecucion general del usuario
@@ -241,7 +241,7 @@ public class ManagerSeguridadServiceBusinessImpl extends UnicastRemoteObject imp
             Usuario usuario = new Usuario();
             usuario.setUsername(login);
             usuario.setPassword(passwordHash);
-            usuario.setPasswordDescuento(passwordDescuentoHash);
+            usuario.setPasswordDescuento(contraseniaDescuento);
             usuario.setRoles(roles);
             usuario.setCompania(compania);
             usuario.setAlmacen(almacen);
@@ -288,7 +288,7 @@ public class ManagerSeguridadServiceBusinessImpl extends UnicastRemoteObject imp
 
             //Actualizar datos del usuario
             String passwordHash = Security.createPasswordHash(password);
-            String passwordDescuentoHash = Security.createPasswordHash(contraseniaDescuento);
+            //String passwordDescuentoHash = Security.createPasswordHash(contraseniaDescuento);
 
             //**********************************************************************************************
             //Evaluar si el usuario contiene el ROLCONTACUSER obligatorio para ejecucion general del usuario
@@ -309,7 +309,7 @@ public class ManagerSeguridadServiceBusinessImpl extends UnicastRemoteObject imp
             //Modificar y persistir datos usuario
             if (cambiarContrasenia)
                 usuario.setPassword(passwordHash);
-                usuario.setPasswordDescuento(passwordDescuentoHash);
+                usuario.setPasswordDescuento(contraseniaDescuento);
                 usuario.setRoles(roles);
                 usuario.setCompania(compania);
                 usuario.setAlmacen(almacen);

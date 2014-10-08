@@ -5,6 +5,7 @@
 
 package contac.servicio.facturacion;
 
+import contac.modelo.eao.genericEAO.PersistenceClassNotFoundException;
 import contac.modelo.entity.*;
 
 import java.math.BigDecimal;
@@ -415,8 +416,7 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
     public Pago registrarPagoFactura(Integer idFactura, Integer idTipoPago, BigDecimal montoRecibido, Integer idTipoTarjeta, String numAut) throws
             ManagerFacturacionServiceBusinessException, RemoteException;
 
-
-    /**
+   /**
      * Registrar pago a factura Mixta
      *
      * @param idFactura,     Identificador de Factura
@@ -431,6 +431,16 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
     public Pago registrarPagoFactura(Integer idFactura, Integer idTipoPago, BigDecimal montoRecibido, BigDecimal importeRecibidoTarjeta, Integer tipoTarjeta, String numeroAut, BigDecimal importeRecibidoPOS2, Integer tiposPos2) throws
             ManagerFacturacionServiceBusinessException, RemoteException;
 
+    /**
+     * Buscar Contraseña Descuento
+     * @param contraseniaDescuento,     Identificador Descuento de Factura
+     * @return Factura
+     * @throws ManagerFacturacionServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public Usuario buscarContraseniasDescuento(String contraseniaDescuento) throws ManagerFacturacionServiceBusinessException,
+            RemoteException;
 
 }
 

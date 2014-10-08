@@ -177,7 +177,6 @@ public class FacturaEAOPersistence extends GenericPersistenceEAO<Factura, Intege
         return QueryUtils.ejbQLParametersSolver(query, querySolver).getResultList();
     }
 
-
     @Override
     public List<Factura> findByFechas(Date fechaDesde, Date fechaHasta, Integer idAlmacen, Integer idTipoFactura)
             throws GenericPersistenceEAOException {

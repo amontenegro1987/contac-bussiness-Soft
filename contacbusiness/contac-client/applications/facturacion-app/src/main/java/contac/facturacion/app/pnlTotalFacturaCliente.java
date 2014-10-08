@@ -124,10 +124,10 @@ public class pnlTotalFacturaCliente extends JDialog {
 
                         //Setting descuento global
                         controller.setPorcDescuento(new BigDecimal(porcDescuento));
-                        
+
                         //Recalcular factura
                         controller.calcularTotalFactura();
-                        
+
                         //Init components values
                         initComponentsValues();
 
@@ -155,7 +155,52 @@ public class pnlTotalFacturaCliente extends JDialog {
                 txtDescuento.selectAll();
             }
         });
-        
+
+        txtCodeDescuento.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (!TextUtil.isValidDigitCurrency(e.getKeyChar())) {
+                    e.consume();
+                }
+
+                if (KeyEvent.VK_ENTER == e.getKeyChar()) {
+                    try {
+                        //Getting password Descuento
+                        char[] contraseniaDescuento = txtCodeDescuento.getPassword();
+
+                        if (String.valueOf(contraseniaDescuento) == "") {
+                            throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.DESCUENTOPASSWORD"));
+                        } else {
+                            //Buscar contrasenia del Password por Usuario
+                            boolean valid = controller.buscarContraseniaDescuento(String.valueOf(contraseniaDescuento));
+
+                            if (valid) {
+                                txtDescuento.setEditable(true);
+                            }
+                        }
+
+                    } catch (NumberFormatException ex) {
+                        logger.error(ex.getMessage(), ex);
+                        //Show confirmation message
+                        JOptionErrorPane.showMessageError(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"),
+                                ex.getMessage());
+                    } catch (Exception ex) {
+                        logger.error(ex.getMessage(), ex);
+                        //Show confirmation message
+                        JOptionErrorPane.showMessageError(null, messageBundle.getString("CONTAC.FORM.MSG.ERROR"),
+                                ex.getMessage());
+                    }
+                }
+            }
+        });
+
+        txtDescuento.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                txtDescuento.selectAll();
+            }
+        });
+
         chkRetencionFuente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
@@ -247,22 +292,22 @@ public class pnlTotalFacturaCliente extends JDialog {
 
             }
         });
-        
+
         rbExonerado.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
                 JRadioButton radioButton = (JRadioButton) event.getSource();
-                
+
                 try {
-                    
+
                     if (radioButton.isSelected()) {
                         //Setting exonerada true
                         controller.setExonerada(true);
-                        
+
                         //Setting checkBox calcular IVA false
                         rbCalcularIVA.setSelected(false);
                         rbExonerado.setSelected(true);
-                        
+
                         //Recalcular factura
                         controller.calcularTotalFactura();
 
@@ -295,7 +340,6 @@ public class pnlTotalFacturaCliente extends JDialog {
         lblSubtotal = new javax.swing.JLabel();
         txtSubtotal = new javax.swing.JTextField();
         lblDescuento = new javax.swing.JLabel();
-        lblCodeDescuento = new javax.swing.JLabel();
         txtDescuento = new javax.swing.JTextField();
         txtCodeDescuento = new javax.swing.JPasswordField();
         lblRetencionFuente = new javax.swing.JLabel();
@@ -331,9 +375,6 @@ public class pnlTotalFacturaCliente extends JDialog {
         lblDescuento.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblDescuento.setText(bundle.getString("CONTAC.FORM.TOTALFACTURACION.DESCUENTO")); // NOI18N
 
-        lblCodeDescuento.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCodeDescuento.setText(bundle.getString("CONTAC.FORM.TOTALFACTURACION.CODEDESCUENTO")); // NOI18N
-
         txtDescuento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtDescuento.setEditable(false);
 
@@ -368,8 +409,8 @@ public class pnlTotalFacturaCliente extends JDialog {
         javax.swing.GroupLayout jXRadioGroup1Layout = new javax.swing.GroupLayout(jXRadioGroup1);
         jXRadioGroup1.setLayout(jXRadioGroup1Layout);
         jXRadioGroup1Layout.setHorizontalGroup(
-            jXRadioGroup1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 184, Short.MAX_VALUE)
+                jXRadioGroup1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 184, Short.MAX_VALUE)
         );
         jXRadioGroup1Layout.setVerticalGroup(
                 jXRadioGroup1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,87 +433,84 @@ public class pnlTotalFacturaCliente extends JDialog {
         javax.swing.GroupLayout totalFacturaFrmLayout = new javax.swing.GroupLayout(totalFacturaFrm);
         totalFacturaFrm.setLayout(totalFacturaFrmLayout);
         totalFacturaFrmLayout.setHorizontalGroup(
-            totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, totalFacturaFrmLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblSubtotal2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblRetencionFuente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                            .addComponent(lblSubtotal, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                            .addComponent(lblDescuento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                                    //.addComponent(lblCodeDescuento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
-                            .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                            .addComponent(lblRetencionMunicipal, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                            .addComponent(lblIVA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
-                    .addGap(10, 10, 10)
-                    .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtSubtotalAntesImpuesto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                            .addComponent(txtTotalFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                            .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtSubtotal, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                                    .addComponent(txtDescuento, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
-                            .addComponent(txtIVA, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                            .addComponent(txtRetencion_munc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                            .addComponent(txtRetencion_Fuente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(totalFacturaFrmLayout.createSequentialGroup()
-                                    .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblCodeDescuento)
-                                            .addComponent(txtCodeDescuento)
-                                            .addComponent(chkRetencionFuente)
-                                            .addComponent(chkRetencionMunicipal))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jXRadioGroup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(totalFacturaFrmLayout.createSequentialGroup()
-                                    .addComponent(rbCalcularIVA)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(rbExonerado)))
-                    .addGap(21, 21, 21))
+                totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, totalFacturaFrmLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblSubtotal2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblRetencionFuente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                                        .addComponent(lblSubtotal, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                                        .addComponent(lblDescuento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                                        .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                                        .addComponent(lblRetencionMunicipal, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                                        .addComponent(lblIVA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
+                                .addGap(10, 10, 10)
+                                .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtSubtotalAntesImpuesto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                        .addComponent(txtTotalFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                        .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(txtSubtotal, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                                .addComponent(txtDescuento, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+                                        .addComponent(txtIVA, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                        .addComponent(txtRetencion_munc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                        .addComponent(txtRetencion_Fuente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(totalFacturaFrmLayout.createSequentialGroup()
+                                                .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(txtCodeDescuento)
+                                                        .addComponent(chkRetencionFuente)
+                                                        .addComponent(chkRetencionMunicipal))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jXRadioGroup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(totalFacturaFrmLayout.createSequentialGroup()
+                                                .addComponent(rbCalcularIVA)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(rbExonerado)))
+                                .addGap(21, 21, 21))
         );
         totalFacturaFrmLayout.setVerticalGroup(
-            totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(totalFacturaFrmLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCodeDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCodeDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, totalFacturaFrmLayout.createSequentialGroup()
-                                    .addGap(58, 58, 58)
-                                    .addComponent(jXRadioGroup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(totalFacturaFrmLayout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(txtSubtotalAntesImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblSubtotal2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(txtRetencion_Fuente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(chkRetencionFuente)
-                                            .addComponent(lblRetencionFuente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(txtRetencion_munc, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblRetencionMunicipal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(chkRetencionMunicipal))))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtIVA, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-                            .addComponent(rbCalcularIVA)
-                            .addComponent(rbExonerado)
-                            .addComponent(lblIVA, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtTotalFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(36, 36, 36))
+                totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(totalFacturaFrmLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtCodeDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, totalFacturaFrmLayout.createSequentialGroup()
+                                                .addGap(58, 58, 58)
+                                                .addComponent(jXRadioGroup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(totalFacturaFrmLayout.createSequentialGroup()
+                                                .addGap(6, 6, 6)
+                                                .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(txtSubtotalAntesImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(lblSubtotal2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(txtRetencion_Fuente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(chkRetencionFuente)
+                                                        .addComponent(lblRetencionFuente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(txtRetencion_munc, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(lblRetencionMunicipal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(chkRetencionMunicipal))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txtIVA, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                                        .addComponent(rbCalcularIVA)
+                                        .addComponent(rbExonerado)
+                                        .addComponent(lblIVA, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(totalFacturaFrmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txtTotalFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(36, 36, 36))
         );
 
         getContentPane().add(totalFacturaFrm, java.awt.BorderLayout.CENTER);
@@ -488,7 +526,6 @@ public class pnlTotalFacturaCliente extends JDialog {
     private javax.swing.JLabel lblRetencionMunicipal;
     private javax.swing.JLabel lblSubtotal;
     private javax.swing.JLabel lblDescuento;
-    private javax.swing.JLabel lblCodeDescuento;
     private javax.swing.JLabel lblSubtotal2;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JRadioButton rbCalcularIVA;
