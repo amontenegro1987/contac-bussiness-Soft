@@ -2,6 +2,7 @@ package contac.facturacion.controller;
 
 import contac.internationalization.LanguageLocale;
 import contac.modelo.entity.*;
+import contac.servicio.administracion.ManagerAdministracionServiceBusinessException;
 import contac.servicio.facturacion.ManagerFacturacionServiceBusiness;
 import contac.servicio.facturacion.ManagerFacturacionServiceBusinessException;
 import org.apache.log4j.Logger;
@@ -71,6 +72,22 @@ public class FacturaClienteController extends FacturacionBaseController {
 
     public long getNoFactura() {
         return noFactura;
+    }
+
+    /**
+     * Retorna listado de monedas
+     * @return List
+     */
+    public List<Moneda> getMonedas() {
+        try {
+            return getMgrAdministracionService().buscarMonedas();
+        } catch (ManagerAdministracionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+        }
+
+        return null;
     }
 
     public void setNoFactura(long noFactura) {
@@ -359,6 +376,9 @@ public class FacturaClienteController extends FacturacionBaseController {
             //Setting almacenes registrados
             setAlmacenes(buscarAlmacenes());
 
+            //Setting Precio de Producto
+
+
             //Setting almacen del usuario
             setAlmacen(buscarAlmacenUsuario());
 
@@ -426,6 +446,39 @@ public class FacturaClienteController extends FacturacionBaseController {
             logger.error(e.getMessage(), e);
         }
     }
+
+    /**
+     * Editar Precios de Factura
+     *
+     * @throws Exception, Exception
+     */
+    public boolean accessToEditPrice() throws Exception {
+
+        logger.debug("Verificar Rol de Usuario para Editar Precios de Productos en Factura");
+
+        try {
+
+            //Obtener manager de Facturacion
+            //ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
+            String usuario = getMgrFacturacionService().checkRolEditInvoicePrice();
+             System.out.println("return statement: " + usuario);
+
+            if(usuario == null){
+                return true;
+            }
+            //Verificar Rol
+            //mgrFacturacion.checkRolEditInvoicePrice();
+
+        } catch (ManagerFacturacionServiceBusinessException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        } catch (RemoteException e) {
+            logger.error(e.getMessage(), e);
+            throw new Exception(e.getMessage(), e);
+        }
+        return false;
+    }
+
 
     /**
      * Init Cobro de factura
@@ -676,7 +729,7 @@ public class FacturaClienteController extends FacturacionBaseController {
      * @param tipoTarjeta,            Tipo de Tarjeta (POS)
      * @throws Exception, Exception
      */
-    public void registrarPagoFactura(int idTipoPago, BigDecimal montoRecibido, BigDecimal importeRecibidoTarjeta, int tipoTarjeta, String numAut, BigDecimal importeRecibidoPOS2, int tiposPos2) throws Exception {
+    public void registrarPagoFactura(int idTipoPago, BigDecimal montoRecibido, BigDecimal importeRecibidoTarjeta, int tipoTarjeta, String numAut, BigDecimal importeRecibidoPOS2, int tiposPos2, int tipoMonedaPago) throws Exception {
 
         logger.debug("Registrar pago de factura Mixto");
 
@@ -685,7 +738,7 @@ public class FacturaClienteController extends FacturacionBaseController {
             ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
 
             //Registrar pago de factura
-            mgrFacturacion.registrarPagoFactura(getFactura().getId(), idTipoPago, montoRecibido, importeRecibidoTarjeta, tipoTarjeta, numAut, importeRecibidoPOS2, tiposPos2);
+            mgrFacturacion.registrarPagoFactura(getFactura().getId(), idTipoPago, montoRecibido, importeRecibidoTarjeta, tipoTarjeta, numAut, importeRecibidoPOS2, tiposPos2, tipoMonedaPago);
 
         } catch (ManagerFacturacionServiceBusinessException e) {
             logger.error(e.getMessage(), e);

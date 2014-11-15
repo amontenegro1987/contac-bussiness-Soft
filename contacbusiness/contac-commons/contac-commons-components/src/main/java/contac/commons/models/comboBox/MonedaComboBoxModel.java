@@ -1,6 +1,7 @@
 package contac.commons.models.comboBox;
 
 import contac.modelo.entity.Moneda;
+import contac.modelo.entity.TiposMoneda;
 
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;

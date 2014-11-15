@@ -1664,7 +1664,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     }
 
     @Override
-    public Pago registrarPagoFactura(Integer idFactura, Integer idTipoPago, BigDecimal montoRecibido, BigDecimal importeRecibidoTarjeta, Integer tipoTarjeta, String numAut, BigDecimal importeRecibidoPOS2, Integer tiposPos2) throws
+    public Pago registrarPagoFactura(Integer idFactura, Integer idTipoPago, BigDecimal montoRecibido, BigDecimal importeRecibidoTarjeta, Integer tipoTarjeta, String numAut, BigDecimal importeRecibidoPOS2, Integer tiposPos2, Integer tipoMonedaPago) throws
             ManagerFacturacionServiceBusinessException, RemoteException {
         logger.debug("Registrar pago de factura Mixto: [IdFactura]: " + idFactura);
          if(idTipoPago == 1){
@@ -1703,6 +1703,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             pago.setFactura(factura);
             pago.setTipoTarjeta(tipoTarjeta);
             pago.setTipoTarjeta_2(tiposPos2);
+            pago.setTipoPagoMoneda(tipoMonedaPago);
             pago.setNumAut(numAut);
             pago = pagoEAO.create(pago);
 
@@ -1748,6 +1749,43 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
         }
     }
 
+    @Override
+    public String checkRolEditInvoicePrice() throws ManagerFacturacionServiceBusinessException, RemoteException {
+
+        logger.debug("Verificar si el Usuario puede realizar Cambio de Precios en la Factura");
+
+        //Iniciar servicio de autenticacion
+        boolean transaction = initBusinessService(Roles.ROLEDITAPRECFACTURA.toString());
+
+        try {
+            //Preparar el contexto de ejecucion
+            //OrdenTraslado ordenTrasladoAplicar = ordenTrasladoEAO.findById(idOrdenTraslado);
+
+            //EstadoMovimiento estadoIngresado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.INGRESADO.getEstado());
+
+            //Validar datos generales de la Orden de Traslado
+            /*if (!ordenTrasladoAplicar.getEstado().getAlias().equals(EstadosMovimiento.PENDIENTE.getEstado()))
+                throw new ManagerInventarioServiceBusinessException("Orden de Traslado no se encuentra en un estado valido para poder Aplicar.");*/
+
+            //Eliminar movimientos de inventario de los articulos
+            /*for (ArticuloTraslado articulo : ordenTrasladoAplicar.getArticulos()) {
+                for (MovimientoInventario movimiento : articulo.getMovimientosInventario()) {
+                    movimiento.setEstado(estadoIngresado);
+                }
+
+            }*/
+
+            //Setting Estado Movimiento Impreso
+            //ordenTrasladoAplicar.setEstado(estadoIngresado);
+
+            //Update OrdenTraslado
+            //ordenTrasladoEAO.update(ordenTrasladoAplicar);
+
+        } finally {
+            stopBusinessService(transaction);
+        }
+        return null;
+    }
 
     //***************************************************************************************
     // UTILITY METHODS

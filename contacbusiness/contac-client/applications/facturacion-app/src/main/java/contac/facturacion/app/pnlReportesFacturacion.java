@@ -111,7 +111,7 @@ public class pnlReportesFacturacion extends GenericPanel {
         frmDetalleReporteFacturacion = new javax.swing.JPanel();
         scrollPane = new javax.swing.JScrollPane();
 
-        String subject[]={"Venta de Productos Mensual", "Venta de productos Por Línea"};
+        String subject[]={"Venta de Productos Mensual", "Venta de productos Por Línea", "Informe de Comisiones"};
 
         listReportes = new javax.swing.JList(subject);
 
@@ -157,7 +157,6 @@ public class pnlReportesFacturacion extends GenericPanel {
         header.setTitle(bundle.getString("CONTAC.FORM.REPORTESFACTURACION.TITTLE")); // NOI18N
         header.setTitleForeground(new java.awt.Color(255, 153, 0));
         add(header, java.awt.BorderLayout.PAGE_START);
-
 
         frmReportesFacturacion.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("CONTAC.FORM.REPORTEFACTURACION.PARAMETROS"))); // NOI18N
 
