@@ -47,5 +47,7 @@ public enum Roles {
     //Rol Facturacion Administrador
     ROLFACTURACIONADMIN,
     //Rol para Eliminar Facturas
-    ROLFACTURACIONELIMINAR;
+    ROLFACTURACIONELIMINAR,
+    //Rol para Editar Precio a Facturas
+    ROLEDITAPRECFACTURA;
 }

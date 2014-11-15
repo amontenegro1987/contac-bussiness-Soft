@@ -63,7 +63,7 @@ public class pnlFacturaCliente extends GenericPanel {
     /**
      * Creates new form pnlFacturaCompra
      */
-    public pnlFacturaCliente(GenericFrame frame) {
+    public pnlFacturaCliente(GenericFrame frame) throws Exception {
 
         //Call super constructor
         super(frame, "facturaClientes", "Factura Clientes", true, "contac/facturacion/app/mensajes/Mensajes",
@@ -358,7 +358,7 @@ public class pnlFacturaCliente extends GenericPanel {
                 if (KeyEvent.VK_ENTER == e.getKeyChar()) {
                     txtDescuento.requestFocusInWindow();
                     txtDescuento.selectAll();
-                }
+              }
             }
         });
 
@@ -400,6 +400,7 @@ public class pnlFacturaCliente extends GenericPanel {
                 txtNombreProducto.setText(articuloFactura.getProducto().getNombre());
                 txtCantidad.setText(String.valueOf(articuloFactura.getCantidad()));
                 txtPrecio.setText(articuloFactura.getPrecioBruto().toString());
+                txtPrecio.setEnabled(false);
                 txtDescuento.setText(articuloFactura.getPorcDescuento().toString());
 
                 //Setting values to process
@@ -417,7 +418,11 @@ public class pnlFacturaCliente extends GenericPanel {
         btnBuscarProducto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                btnBuscarProductoActionPerformed(e);
+                try {
+                    btnBuscarProductoActionPerformed(e);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
             }
         });
 
@@ -716,7 +721,7 @@ public class pnlFacturaCliente extends GenericPanel {
         }
     }//GEN-LAST:event_txtCodigoKeyPressed
 
-    private void btnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProductoActionPerformed
+    private void btnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_btnBuscarProductoActionPerformed
 
         //--<Open Busqueda producto JDialog for selecting clasificador>
         Producto producto = new pnlBusquedaProducto(mdi, true).getProductoSelected();
@@ -731,6 +736,13 @@ public class pnlFacturaCliente extends GenericPanel {
             //Updating producto selected
             productoSelected = producto;
             renglonSelected = 0;
+
+            //Check if user has permission to update price
+            boolean valid = controller.accessToEditPrice();
+
+            if(valid = true) {
+                txtPrecio.setEnabled(true);
+            }
         }
     }//GEN-LAST:event_btnBuscarProductoActionPerformed
 

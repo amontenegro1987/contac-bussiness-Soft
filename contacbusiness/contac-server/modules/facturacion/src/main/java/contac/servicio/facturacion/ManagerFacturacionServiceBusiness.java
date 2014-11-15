@@ -51,6 +51,17 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
                                 Integer idProforma, List<ArticuloFactura> articulos)
             throws ManagerFacturacionServiceBusinessException, RemoteException;
 
+
+    /**
+     * Verificar Rol para Editar Precio de Facturas
+     *
+     * @return OrdenTraslado
+     * @throws ManagerFacturacionServiceBusinessException,
+     *                          Exception
+     * @throws RemoteException, Exception
+     */
+    public String checkRolEditInvoicePrice() throws ManagerFacturacionServiceBusinessException, RemoteException;
+
     /**
      * Modificar factura cliente
      *
@@ -423,12 +434,13 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
      * @param idTipoPago,    Identificador de Tipo de Pago
      * @param montoRecibido, Monto Recibido
      * @param importeRecibidoTarjeta, Monto Recibido Tarjeta
+    *  @param tipoMonedaPago, Moneda Pago Recibido
      * @return Pago
      * @throws ManagerFacturacionServiceBusinessException,
      *                          Exception
      * @throws RemoteException, Exception
      */
-    public Pago registrarPagoFactura(Integer idFactura, Integer idTipoPago, BigDecimal montoRecibido, BigDecimal importeRecibidoTarjeta, Integer tipoTarjeta, String numeroAut, BigDecimal importeRecibidoPOS2, Integer tiposPos2) throws
+    public Pago registrarPagoFactura(Integer idFactura, Integer idTipoPago, BigDecimal montoRecibido, BigDecimal importeRecibidoTarjeta, Integer tipoTarjeta, String numeroAut, BigDecimal importeRecibidoPOS2, Integer tiposPos2, Integer tipoMonedaPago) throws
             ManagerFacturacionServiceBusinessException, RemoteException;
 
     /**

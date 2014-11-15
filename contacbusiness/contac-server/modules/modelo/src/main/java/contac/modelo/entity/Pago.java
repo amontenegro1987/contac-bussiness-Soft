@@ -55,6 +55,14 @@ public class Pago implements Serializable {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * PROPERTY NAME: Moneda de Pago de la Factura
+     */
+
+    private Integer tipoPagoMoneda;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * PROPERTY NAME: Tasa de cambio
      */
     private BigDecimal tasaCambio;
@@ -168,20 +176,15 @@ public class Pago implements Serializable {
         this.tipoPago = tipoPago;
     }
 
-    /*@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "N_ID_TIPO_TARJETA", referencedColumnName = "N_ID", nullable = false)
-    public TipoTarjetaPos getTipoTarjeta() {
-        return tipoTarjeta;
-    }
-
-    public void setTipoTarjeta(Integer tipoTarjeta){
-        this.tipoTarjeta = tipoTarjeta;
-    }*/
     @Column(name = "N_ID_TIPO_TARJETA_2", nullable = false)
     public Integer getTipoTarjeta_2() { return tipoTarjeta_2; }
 
     public void setTipoTarjeta_2(Integer tipoTarjeta_2) { this.tipoTarjeta_2 = tipoTarjeta_2; }
 
+    @Column(name = "N_ID_TIPO_PAGO_MONEDA", nullable = false)
+    public Integer getTipoPagoMoneda() { return tipoPagoMoneda; }
+
+    public void setTipoPagoMoneda(Integer tipoPagoMoneda) { this.tipoPagoMoneda = tipoPagoMoneda;}
 
 
     @Column(name = "N_ID_TIPO_TARJETA", nullable = false)

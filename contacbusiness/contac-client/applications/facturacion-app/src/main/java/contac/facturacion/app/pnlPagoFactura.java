@@ -4,10 +4,14 @@ import contac.commons.form.label.JOptionErrorPane;
 import contac.commons.form.layout.XYConstraints;
 import contac.commons.form.layout.XYLayout;
 import contac.commons.form.panel.GenericFrame;
+import contac.commons.models.comboBox.ComboBoxEmptySelectionRenderer;
+import contac.commons.models.comboBox.MonedaComboBoxModel;
 import contac.commons.models.comboBox.TipoPagoComboBoxModel;
 import contac.commons.models.comboBox.TipoTarjetaComboBoxModel;
 import contac.facturacion.controller.FacturaClienteController;
 import contac.internationalization.LanguageLocale;
+import contac.modelo.entity.Moneda;
+import contac.modelo.entity.TiposMoneda;
 import contac.modelo.entity.TiposPago;
 import contac.modelo.entity.TiposTarjeta;
 import contac.text.TextUtil;
@@ -21,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ResourceBundle;
 
 /**
@@ -48,6 +53,7 @@ public class pnlPagoFactura extends JDialog {
     private JLabel lblImporteRecibido;
     private JLabel lblTarjetaRecibido;
     private JLabel lblTarjetaRecibidoPOS;
+    private JLabel lblMoneda;
     private JLabel lblCambio;
     private JLabel lblTipoPago;
     private JLabel lblTipoTarjeta;
@@ -68,6 +74,7 @@ public class pnlPagoFactura extends JDialog {
     private JComboBox cmbTipoPago;
     private JComboBox cmbTipoTarjeta;
     private JComboBox cmbTipoTarjeta2;
+    private JComboBox cmbMoneda;
 
     private JButton btnAceptar;
     private JButton btnCancelar;
@@ -99,8 +106,8 @@ public class pnlPagoFactura extends JDialog {
 
         //Set visible
         this.setTitle(messageBundle.getString("CONTAC.FORM.COBROFACTURA.TITLE"));
-        this.setLocation(550, 200);
-        this.setSize(new Dimension(350, 450));
+        this.setLocation(550, 190);
+        this.setSize(new Dimension(350, 480));
         this.setVisible(true);
     }
 
@@ -168,12 +175,16 @@ public class pnlPagoFactura extends JDialog {
         lblTarjetaRecibidoPOS = new JLabel(messageBundle.getString("CONTAC.FORM.COBROFACTURA.IMPORTETARJETA2"));
         lblTarjetaRecibidoPOS.setHorizontalAlignment(JLabel.RIGHT);
 
+        lblMoneda = new JLabel(messageBundle.getString("CONTAC.FORM.COBROFACTURA.MONEDA"));
+        lblMoneda.setHorizontalAlignment(JLabel.RIGHT);
+
         lblCambio = new JLabel(messageBundle.getString("CONTAC.FORM.COBROFACTURA.CAMBIO"));
         lblCambio.setHorizontalAlignment(JLabel.RIGHT);
 
         cmbTipoPago = new JComboBox();
         cmbTipoTarjeta = new JComboBox();
         cmbTipoTarjeta2 = new JComboBox();
+        cmbMoneda = new JComboBox();
 
         txtNumeroAut = new JTextField();
         txtNumeroAut.setHorizontalAlignment(JTextField.RIGHT);
@@ -206,18 +217,20 @@ public class pnlPagoFactura extends JDialog {
         pnlDatosPago.add(cmbTipoTarjeta, new XYConstraints(113,33,200,23));
         pnlDatosPago.add(lblTipoTarjeta2,  new XYConstraints(5, 61, 100, 23));
         pnlDatosPago.add(cmbTipoTarjeta2, new XYConstraints(113,61,200,23));
-        pnlDatosPago.add(lblAut, new XYConstraints(5,89,100,23));
-        pnlDatosPago.add(txtNumeroAut, new XYConstraints(113,89,200,23));
-        pnlDatosPago.add(lblTotalFactura, new XYConstraints(5, 117, 100, 23));
-        pnlDatosPago.add(txtTotalFactura, new XYConstraints(113, 117, 200, 23));
-        pnlDatosPago.add(lblImporteRecibido, new XYConstraints(5, 145, 100, 23));
-        pnlDatosPago.add(txtImporteRecibido, new XYConstraints(113, 145, 200, 23));
-        pnlDatosPago.add(lblTarjetaRecibido, new XYConstraints(5, 173, 100, 23));
-        pnlDatosPago.add(txtImporteTarjeta, new XYConstraints(113,173,200,23));
-        pnlDatosPago.add(lblTarjetaRecibidoPOS, new XYConstraints(5,201,100,23));
-        pnlDatosPago.add(txtImporteTarjetaPOS, new XYConstraints(113,201,200,23));
-        pnlDatosPago.add(lblCambio, new XYConstraints(5, 229, 100, 23));
-        pnlDatosPago.add(txtCambio, new XYConstraints(113, 229, 200, 23));
+        pnlDatosPago.add(lblMoneda, new XYConstraints(5,89,100,23));
+        pnlDatosPago.add(cmbMoneda, new XYConstraints(113,89,200,23));
+        pnlDatosPago.add(lblAut, new XYConstraints(5,117,100,23));
+        pnlDatosPago.add(txtNumeroAut, new XYConstraints(113,117,200,23));
+        pnlDatosPago.add(lblTotalFactura, new XYConstraints(5, 145, 100, 23));
+        pnlDatosPago.add(txtTotalFactura, new XYConstraints(113, 145, 200, 23));
+        pnlDatosPago.add(lblImporteRecibido, new XYConstraints(5, 173, 100, 23));
+        pnlDatosPago.add(txtImporteRecibido, new XYConstraints(113, 173, 200, 23));
+        pnlDatosPago.add(lblTarjetaRecibido, new XYConstraints(5, 201, 100, 23));
+        pnlDatosPago.add(txtImporteTarjeta, new XYConstraints(113,201,200,23));
+        pnlDatosPago.add(lblTarjetaRecibidoPOS, new XYConstraints(5,229,100,23));
+        pnlDatosPago.add(txtImporteTarjetaPOS, new XYConstraints(113,229,200,23));
+        pnlDatosPago.add(lblCambio, new XYConstraints(5, 257, 100, 23));
+        pnlDatosPago.add(txtCambio, new XYConstraints(113, 257, 200, 23));
 
         //**************************************************************************
         //Action Buttons Panel
@@ -266,6 +279,8 @@ public class pnlPagoFactura extends JDialog {
         cmbTipoPago.setSelectedIndex(0);
         cmbTipoTarjeta.setModel(new TipoTarjetaComboBoxModel(TiposTarjeta.values()));
         cmbTipoTarjeta.setSelectedIndex(1);
+
+        cmbMoneda.setModel(new MonedaComboBoxModel(controller.getMonedas()));
 
         cmbTipoTarjeta2.setModel(new TipoTarjetaComboBoxModel(TiposTarjeta.values()));
         cmbTipoTarjeta2.setSelectedIndex(0);
@@ -344,7 +359,7 @@ public class pnlPagoFactura extends JDialog {
                 else{
                     if (importeRecibido.doubleValue() >= montoNetoFactura.doubleValue()) {
                         JOptionPane.showMessageDialog(frameParent, messageBundle.getString("CONTAC.FORM.COBROFACTURA.VALIDA.IMPORTERECIBIDO"),
-                                messageBundle.getString("CONTAC.FORM.MSG.ERROR.REGISTRO"), JOptionPane.WARNING_MESSAGE);
+                            messageBundle.getString("CONTAC.FORM.MSG.ERROR.REGISTRO"), JOptionPane.WARNING_MESSAGE);
                       validarMonto = 2;
                     }
                 if(validarMonto !=2){
@@ -353,6 +368,37 @@ public class pnlPagoFactura extends JDialog {
                 }
                 }
             }
+        });
+
+        cmbMoneda.addActionListener(new ActionListener() {
+            @Override
+        public void actionPerformed(ActionEvent e) {
+                BigDecimal montoNetoFactura = new BigDecimal(controller.getFactura().getMontoNeto().toString());
+                BigDecimal tasaCambio = new BigDecimal(controller.getFactura().getTasaCambio().toString());
+
+                MonedaComboBoxModel monedaModel = (MonedaComboBoxModel) cmbMoneda.getModel();
+                if(monedaModel.getSelectedId()==1){
+                    txtTotalFactura.setText(montoNetoFactura + "");
+                    txtImporteRecibido.setText("");
+                    txtImporteTarjeta.setText("");
+                    txtImporteTarjetaPOS.setText("");
+                    txtCambio.setText("");
+                    txtNumeroAut.setText("");
+                }
+                else if(monedaModel.getSelectedId()==2){
+                    txtTotalFactura.setText(montoNetoFactura.divide(tasaCambio,4, RoundingMode.HALF_UP).doubleValue() + "");
+                    txtImporteRecibido.setText("");
+                    txtImporteTarjeta.setText("");
+                    txtImporteTarjetaPOS.setText("");
+                    txtCambio.setText("");
+                    txtNumeroAut.setText("");
+                }
+                else{
+                    JOptionPane.showMessageDialog(frameParent, messageBundle.getString("CONTAC.FORM.COBROFACTURA.VALIDA.MONEDANOVALIDA"),
+                            messageBundle.getString("CONTAC.FORM.MSG.ERROR.REGISTRO"), JOptionPane.WARNING_MESSAGE);
+                    cmbMoneda.setSelectedIndex(0);
+                }
+              }
         });
 
         cmbTipoPago.addActionListener(new ActionListener() {
@@ -452,8 +498,12 @@ public class pnlPagoFactura extends JDialog {
                     TiposTarjeta tiposTarjeta = (TiposTarjeta) ((TipoTarjetaComboBoxModel) cmbTipoTarjeta.getModel()).getSelectedItem().getObject();
 
                     TiposTarjeta tiposPos2 = (TiposTarjeta) ((TipoTarjetaComboBoxModel) cmbTipoTarjeta2.getModel()).getSelectedItem().getObject();
+
                     //Get total factura
                     BigDecimal totalFactura = new BigDecimal(txtTotalFactura.getText());
+
+                    //Get Moneda de Pago
+                    MonedaComboBoxModel monedaModel = (MonedaComboBoxModel) cmbMoneda.getModel();
 
                     //Get Importe Recibido
                     BigDecimal importeRecibido = new BigDecimal("0");
@@ -500,7 +550,7 @@ public class pnlPagoFactura extends JDialog {
                         throw new Exception(messageBundle.getString("CONTAC.FORM.COBROFACTURA.VALIDA.IMPORTERECIBIDO"));
                     }
                         //Registrar Pago Factura
-                        controller.registrarPagoFactura(tiposPago.getValue(), importeRecibido, importeRecibidoTarjeta, tiposTarjeta.getValue(), numeroAut, importeRecibidoPOS2, tiposPos2.getValue());
+                        controller.registrarPagoFactura(tiposPago.getValue(), importeRecibido, importeRecibidoTarjeta, tiposTarjeta.getValue(), numeroAut, importeRecibidoPOS2, tiposPos2.getValue(), monedaModel.getSelectedId());
                         //Close Panel Pago Factura
                         dispose();
                     }
@@ -508,7 +558,7 @@ public class pnlPagoFactura extends JDialog {
                         if (importeRecibido.doubleValue() > totalFactura.doubleValue()) {
                             throw new Exception(messageBundle.getString("CONTAC.FORM.COBROFACTURA.VALIDA.IMPORTERECIBIDO"));
                         }
-                       controller.registrarPagoFactura(tiposPago.getValue(), importeRecibido, importeRecibidoTarjeta, tiposTarjeta.getValue(), numeroAut, importeRecibidoPOS2, tiposPago.getValue());
+                       controller.registrarPagoFactura(tiposPago.getValue(), importeRecibido, importeRecibidoTarjeta, tiposTarjeta.getValue(), numeroAut, importeRecibidoPOS2, tiposPago.getValue(), monedaModel.getSelectedId());
                         dispose();
                     }
                 } catch (Exception e) {
