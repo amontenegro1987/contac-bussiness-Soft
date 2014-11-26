@@ -70,6 +70,7 @@
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: qdox:qdox:1.5" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: bsh:bsh:2.0b1" level="project" />
+    <orderEntry type="library" name="poi-3.10" level="project" />
   </component>
 </module>
 

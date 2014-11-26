@@ -95,6 +95,7 @@
     <orderEntry type="library" name="Maven: org.jdom:jdom:1.1" level="project" />
     <orderEntry type="library" name="Maven: org.swinglabs:swing-layout:1.0.3" level="project" />
     <orderEntry type="module" module-name="facturacion-app" />
+    <orderEntry type="library" name="poi-3.10" level="project" />
   </component>
 </module>
 

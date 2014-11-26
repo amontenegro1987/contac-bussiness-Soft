@@ -70,6 +70,7 @@
     <orderEntry type="module" module-name="inventario" />
     <orderEntry type="module" module-name="catalogo" />
     <orderEntry type="module" module-name="clientes" />
+    <orderEntry type="library" name="poi-3.10" level="project" />
   </component>
 </module>
 
