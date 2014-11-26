@@ -74,6 +74,7 @@
     <orderEntry type="module" module-name="clientes" />
     <orderEntry type="module" module-name="facturacion" />
     <orderEntry type="module" module-name="reportes" />
+    <orderEntry type="library" name="poi-3.10" level="project" />
   </component>
 </module>
 

@@ -67,6 +67,7 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-jdk14:1.5.8" level="project" />
     <orderEntry type="module" module-name="seguridad" />
     <orderEntry type="module" module-name="catalogo" />
+    <orderEntry type="library" name="poi-3.10" level="project" />
   </component>
 </module>
 

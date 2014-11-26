@@ -99,6 +99,7 @@
     <orderEntry type="module" module-name="inventarios-app" />
     <orderEntry type="module" module-name="clientes-app" />
     <orderEntry type="module" module-name="facturacion-app" />
+    <orderEntry type="library" name="poi-3.10" level="project" />
   </component>
 </module>
 

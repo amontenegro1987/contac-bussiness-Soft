@@ -65,6 +65,7 @@
     <orderEntry type="library" name="Maven: aspectj:aspectjtools:1.5.2" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.6" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-jdk14:1.5.8" level="project" />
+    <orderEntry type="library" name="poi-3.10" level="project" />
   </component>
 </module>
 
