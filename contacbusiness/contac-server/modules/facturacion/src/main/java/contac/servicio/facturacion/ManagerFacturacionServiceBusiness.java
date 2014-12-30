@@ -86,7 +86,7 @@ public interface ManagerFacturacionServiceBusiness extends ManagerFacturacionSer
     public Factura modificarFactura(Integer idFactura, BigDecimal tasaCambio, Direccion direccionEntrega,
                                     BigDecimal porcDescuento, BigDecimal porcIva, BigDecimal porcRetFuente,
                                     BigDecimal porcRetMunicipal, Date fechaAlta, boolean exonerada, boolean retencionFuente,
-                                    boolean retencionMunicipal, Integer idProforma, List<ArticuloFactura> articulos)
+                                    boolean retencionMunicipal, Integer idProforma, List<ArticuloFactura> articulos, Long numFactura)
             throws ManagerFacturacionServiceBusinessException, RemoteException;
 
     /**

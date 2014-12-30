@@ -630,6 +630,7 @@ public class pnlFacturaCliente extends GenericPanel {
         txtPrecio.setToolTipText(messageBundle.getString("CONTAC.FORM.FACTURACION.PRECIO"));
         txtPrecio.setPreferredSize(new Dimension(90, 23));
         txtPrecio.setHorizontalAlignment(JTextField.RIGHT);
+        txtPrecio.setEditable(false);
 
         txtDescuento = new JTextField();
         txtDescuento.setToolTipText(messageBundle.getString("CONTAC.FORM.FACTURACION.DESCUENTO"));
@@ -740,8 +741,8 @@ public class pnlFacturaCliente extends GenericPanel {
             //Check if user has permission to update price
             boolean valid = controller.accessToEditPrice();
 
-            if(valid = true) {
-                txtPrecio.setEnabled(true);
+            if(valid == true) {
+                txtPrecio.setEditable(true);
             }
         }
     }//GEN-LAST:event_btnBuscarProductoActionPerformed
@@ -856,7 +857,7 @@ public class pnlFacturaCliente extends GenericPanel {
     private void btnEditarNoFacturaActionPerformed(ActionEvent evt) {
         try {
 
-            if (!controller.is_edit()) {
+            if (controller.is_edit()) {
 
                 //Evaluar si usuario tiene permiso de edicion de no de factura
                 controller.editarDatosFactura();

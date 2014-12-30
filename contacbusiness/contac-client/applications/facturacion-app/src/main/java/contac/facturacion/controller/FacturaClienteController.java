@@ -585,7 +585,7 @@ public class FacturaClienteController extends FacturacionBaseController {
             //Creamos registro de factura
             Factura factura = mgrFacturacion.modificarFactura(getFactura().getId(), getTasaCambio(), getDireccionEntrega(),
                     getPorcDescuento(), getPorcIVA(), getPorcRetFuente(), getPorcRetMunicipal(), getFechaAlta(),
-                    isExonerada(), isRetFuente(), isRetMunicipal(), null, getArticulos());
+                    isExonerada(), isRetFuente(), isRetMunicipal(), null, getArticulos(), getNoFactura());
 
             //Guardar factura;
             setFactura(factura);

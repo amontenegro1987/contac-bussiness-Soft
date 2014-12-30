@@ -42,7 +42,7 @@ public class UsuarioEAOPersistence extends GenericPersistenceEAO<Usuario, Intege
         initService();
 
         //Create query
-        List<Usuario> usuarios = em.createQuery("Select u from Usuario u Where u.passwordDescuento = :constraseniaDescuento").
+        List<Usuario> usuarios = em.createQuery("Select u from Usuario u Where u.passwordDescuento = :constraseniaDescuento and u.passwordDescuento <> '' ").
                 setParameter("constraseniaDescuento", contraseniaDescuento).getResultList();
 
         if (usuarios == null || usuarios.size() < 1){

@@ -707,7 +707,6 @@ public class pnlCobroFacturas extends GenericPanel {
                 btnBuscarActionPerformed(evt);
             }
 
-
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
 
@@ -719,12 +718,10 @@ public class pnlCobroFacturas extends GenericPanel {
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
 
         try {
-
             // Si no ha seleccionado ninguna Factura a Imprimir
             if (idFactura == 0) {
                 throw new Exception(messageBundle.getString("CONTAC.FORM.FACTURACION.VALIDA.REPORTEFACTURA"));
             }
-
             //Cambiar estado de factura a impresa.
             controller.imprimirFactura();
 
