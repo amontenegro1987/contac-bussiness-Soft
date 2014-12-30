@@ -727,7 +727,7 @@ public class pnlAdmonCliente extends GenericPanel {
 
         pnlDatosGenerales.add(frmDatosCliente, java.awt.BorderLayout.CENTER);
 
-        pnlAcciones.setPreferredSize(new java.awt.Dimension(965, 140));
+        pnlAcciones.setPreferredSize(new java.awt.Dimension(650, 60));
 
         btnAceptar.setText(bundle.getString("CONTAC.FORM.BTNACEPTAR")); // NOI18N
         btnAceptar.setActionCommand("");
@@ -779,7 +779,7 @@ public class pnlAdmonCliente extends GenericPanel {
 
         btnAceptar.getAccessibleContext().setAccessibleName("");
 
-        pnlDatosGenerales.add(pnlAcciones, java.awt.BorderLayout.PAGE_END);
+        pnlDatosGenerales.add(pnlAcciones, java.awt.BorderLayout.EAST);
 
         add(pnlDatosGenerales, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents

@@ -292,6 +292,37 @@ public class pnlPagoFactura extends JDialog {
     private void initActionListeners() {
 
         //Para Tipo de Pago Tarjetas (Varias Tarjetas)
+
+        txtImporteTarjeta.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+                if (!TextUtil.isValidDigitCurrency(e.getKeyChar())) {
+                    e.consume();
+                }
+            }
+        });
+
+        txtImporteTarjeta.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Obtener Monto Total de la Factura
+                BigDecimal montoNetoFactura = new BigDecimal(txtTotalFactura.getText());
+
+                //Obtener el Pago del Segundo POS
+                BigDecimal importePos = new BigDecimal(txtImporteTarjeta.getText());
+
+
+                if (importePos.doubleValue() > montoNetoFactura.doubleValue()) {
+                    JOptionPane.showMessageDialog(frameParent, messageBundle.getString("CONTAC.FORM.COBROFACTURA.VALIDA.IMPORTERECIBIDO"),
+                            messageBundle.getString("CONTAC.FORM.MSG.ERROR.REGISTRO"), JOptionPane.WARNING_MESSAGE);
+                }
+                else{
+                    txtImporteTarjetaPOS.setText(montoNetoFactura.subtract(importePos).doubleValue() + "");
+                }
+            }
+        });
+
         txtImporteTarjetaPOS.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -429,9 +460,11 @@ public class pnlPagoFactura extends JDialog {
                     cmbTipoTarjeta.setSelectedIndex(1);
                     cmbTipoTarjeta2.setSelectedIndex(0);
                     txtImporteRecibido.setEditable(false);
-                    txtImporteTarjeta.setEnabled(false);
+                    txtImporteTarjeta.setEnabled(true);
+                    txtImporteTarjeta.setText("");
                     txtImporteTarjetaPOS.setEnabled(true);
-                    txtImporteTarjeta.setEditable(false);
+                    txtImporteTarjetaPOS.setText("");
+                    txtImporteTarjeta.setEditable(true);
                     txtImporteTarjetaPOS.setEditable(true);
                     txtNumeroAut.setEditable(true);
                     txtNumeroAut.setText("");

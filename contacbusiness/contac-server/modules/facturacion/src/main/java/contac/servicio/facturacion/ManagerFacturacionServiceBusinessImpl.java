@@ -549,12 +549,12 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
     public Factura modificarFactura(Integer idFactura, BigDecimal tasaCambio, Direccion direccionEntrega, BigDecimal porcDescuento,
                                     BigDecimal porcIva, BigDecimal porcRetFuente, BigDecimal porcRetMunicipal,
                                     Date fechaAlta, boolean exonerada, boolean retencionFuente, boolean retencionMunicipal,
-                                    Integer idProforma, List<ArticuloFactura> articulos)
+                                    Integer idProforma, List<ArticuloFactura> articulos, Long numFactura)
             throws ManagerFacturacionServiceBusinessException, RemoteException {
 
         logger.debug("Modificar factura con parametros: [idFactura]: " + idFactura + ", [tasaCambio]: " + tasaCambio +
                 ", [direccionEntrega]: " + direccionEntrega + ", [exonerada]: " + exonerada + ", [retencionFuente]: " +
-                retencionFuente + ", [retencionMunicipal]: " + retencionMunicipal);
+                retencionFuente + ", [retencionMunicipal]: " + retencionMunicipal + ", [numFactura]: " + numFactura);
 
         //Iniciar servicio de autenticacion
         boolean transaction = initBusinessService(Roles.ROLFACTURACIONADMIN.toString());
@@ -583,6 +583,7 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
             factura.setRetencionF(retencionFuente);
             factura.setRetencionM(retencionMunicipal);
             factura.setProforma(proforma);
+            factura.setNoDocumento(numFactura);
 
             //<Persistir articulos de factura>
             BigDecimal montoTotalAntesImpuesto = new BigDecimal("0.00");
