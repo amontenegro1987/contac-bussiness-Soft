@@ -238,7 +238,7 @@ public class pnlFacturaCliente extends GenericPanel {
         String[] articuloColumnRemove = new String[]{"Id", "Producto", "Factura", "Movimiento Inventario", "Renglon",
                 "Ctime", "Cuser", "Mtime", "Muser", "Create", "Update", "Exento", "Costo", "Costo Total", "Retencion Fuente",
                 "Cantidad Anterior", "Retencion Municipal", "Porc Retencion Fuente", "Porc Retencion Municipal",
-                "Porc Iva", "Porc Descuento", "Precio Promocion", "Precio Neto", "Iva", "No Factura"};
+                "Porc Iva", "Porc Descuento", "Precio Promocion", "Precio Neto", "Iva", "No Factura", "Codigo Fabricante", "Descuento"};
 
         for (String columnLabel : articuloColumnRemove) {
             columnModel.removeColumn(columnModel.getColumn(columnModel.getColumnIndex(columnLabel)));
@@ -246,10 +246,10 @@ public class pnlFacturaCliente extends GenericPanel {
 
         //Ordering table columns
         columnModel.moveColumn(1, 0); //Codigo producto
-        columnModel.moveColumn(4, 1); //Nombre producto
+        columnModel.moveColumn(3, 1); //Nombre producto
         columnModel.moveColumn(3, 2); //Codigo de fabricante
-        columnModel.moveColumn(7, 4); //Unidad de medida
-        columnModel.moveColumn(7, 5); //Precio bruto
+        columnModel.moveColumn(6, 3); //Unidad de medida
+        columnModel.moveColumn(6, 5); //Precio bruto
 
         //Setting prefered sized
         columnModel.getColumn(0).setPreferredWidth(30);
@@ -264,7 +264,7 @@ public class pnlFacturaCliente extends GenericPanel {
         decimalFormatRenderer.setHorizontalAlignment(JLabel.RIGHT);
         columnModel.getColumn(5).setCellRenderer(decimalFormatRenderer);
         columnModel.getColumn(6).setCellRenderer(decimalFormatRenderer);
-        columnModel.getColumn(7).setCellRenderer(decimalFormatRenderer);
+        //columnModel.getColumn(7).setCellRenderer(decimalFormatRenderer);
     }
 
     /**

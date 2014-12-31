@@ -199,7 +199,7 @@ public class pnlBusquedaProducto extends JDialog {
         //Obteniendo table column model y removiendo columnas innecesarias
         TableColumnModel productoColumnModel = tblProductos.getColumnModel();
 
-        String[] productoColumnRemove = new String[]{"Codigo Barra", "Alias", "Modelo", "Observaciones", "Minimo",
+        String[] productoColumnRemove = new String[]{"Codigo Barra", "Alias", "Codigo Fabricante", "Observaciones", "Minimo",
                 "Maximo", "Fecha Vencimiento", "Costo CIF", "Costo UND", "Costo FOB", "Costo PROM", "Descuento", "Exento",
                 "Precio PROMOCION", "Unidad Medida", "Proveedor", "Clasificador", "Linea", "Estado", "Compuesto",
                 "Estatus", "Compania", "Fotografia", "Ctime", "Cuser", "Mtime", "Muser", "Id", "Codigo Cbs", "Marca",
