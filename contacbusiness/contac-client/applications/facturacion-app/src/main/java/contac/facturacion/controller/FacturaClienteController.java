@@ -911,6 +911,7 @@ public class FacturaClienteController extends FacturacionBaseController {
             articulo.setCodigo(producto.getCodigo());
             articulo.setNombre(producto.getNombre());
             articulo.setCodigoFabricante(producto.getCodigoFabricante());
+            articulo.setModelo(producto.getModelo());
             articulo.setCosto(producto.getCostoPROM().multiply(getTasaCambio()));
             articulo.setCantidad(cantidad);
             articulo.setCostoTotal(producto.getCostoPROM().multiply(getTasaCambio()).multiply(new BigDecimal(cantidad)));

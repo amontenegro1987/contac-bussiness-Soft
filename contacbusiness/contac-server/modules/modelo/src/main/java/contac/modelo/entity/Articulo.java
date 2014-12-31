@@ -55,6 +55,13 @@ public abstract class Articulo implements java.io.Serializable {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * PROPERTY NAME: modelo
+     */
+    private String modelo;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      */
     private String unidadMedida;
 
@@ -208,6 +215,25 @@ public abstract class Articulo implements java.io.Serializable {
      */
     public void setCodigoFabricante(String codigoFabricante) {
         this.codigoFabricante = codigoFabricante;
+    }
+
+    /**
+     * Obtener modelo
+     *
+     * @return String
+     */
+    @Column(name = "C_MODELO")
+    public String getModelo() {
+        return modelo;
+    }
+
+    /**
+     * Setear modelo
+     *
+     * @param modelo, String
+     */
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
 
     /**

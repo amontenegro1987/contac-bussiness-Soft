@@ -14,6 +14,7 @@ import java.util.List;
  * Date: 25/09/11
  * Time: 9:16
  */
+
 public class BusquedaProductoController extends BaseController {
 
     //log4j

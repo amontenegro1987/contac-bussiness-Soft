@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice_Garsa" language="groovy" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3049b755-cab6-48a8-9d65-d0b4184b5742">
 	<property name="ireport.zoom" value="1.610510000000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="204"/>
+	<property name="ireport.y" value="57"/>
 	<property name="ireport.background.image" value="C:\Users\Superalex8\Desktop\FacturaProforma.jpg"/>
 	<property name="ireport.background.image.properties" value="true,false,0.3,-18,-9,7,0,622,489"/>
 	<parameter name="n_id_factura" class="java.lang.Integer"/>
@@ -34,7 +34,8 @@
         b.venta,
         F.n_montodescuento as descuento,
         F.n_montobruto as subtotal_factura,
-        d.c_codigofabricante as codigo_fabricante
+        d.c_codigofabricante as codigo_fabricante,
+        d.c_modelo as modelo
 FROM fac_factura F
 CROSS JOIN
 (
@@ -76,6 +77,7 @@ WHERE F.N_ID = $P{n_id_factura}]]>
 	<field name="descuento" class="java.math.BigDecimal"/>
 	<field name="subtotal_factura" class="java.math.BigDecimal"/>
 	<field name="codigo_fabricante" class="java.lang.String"/>
+	<field name="modelo" class="java.lang.String"/>
 	<title>
 		<band height="97" splitType="Stretch"/>
 	</title>
@@ -213,7 +215,7 @@ WHERE F.N_ID = $P{n_id_factura}]]>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{codigo_fabricante}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{modelo}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="7713d0fe-df5f-4176-bde2-3b2d8a3e48a5" x="134" y="15" width="16" height="14"/>

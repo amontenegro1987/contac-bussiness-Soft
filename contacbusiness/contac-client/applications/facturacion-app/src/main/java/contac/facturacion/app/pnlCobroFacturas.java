@@ -399,7 +399,7 @@ public class pnlCobroFacturas extends GenericPanel {
         //***************************************************************************
         cmbTipoFactura.setModel(new TipoFacturaComboBoxModel(TiposFactura.values()));
         cmbTipoFactura.setSelectedIndex(0);
-        cmbTipoFactura.setEnabled(false);
+        //cmbTipoFactura.setEnabled(false);
 
         //***************************************************************************
         //Combo box almacen
