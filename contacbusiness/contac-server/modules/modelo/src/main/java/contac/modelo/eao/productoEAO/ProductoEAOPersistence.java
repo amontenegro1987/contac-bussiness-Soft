@@ -179,7 +179,7 @@ public class ProductoEAOPersistence extends GenericPersistenceEAO<Producto, Inte
             public void execute(Connection connection) throws SQLException {
 
                 StringBuffer query = new StringBuffer();
-                query.append("select prod.N_ID, prod.C_CODIGO, prod.C_NOMBRE, prod.C_CODIGOFABRICANTE, ");
+                query.append("select prod.N_ID, prod.C_CODIGO, prod.C_NOMBRE, prod.C_CODIGOFABRICANTE, prod.C_MODELO, ");
                 query.append("sum(mov_inventario.N_CANTIDAD * mov_inventario.N_AFECTACION) as EXISTENCIA, sum(prod_existencia.N_CANTIDAD) as PROD_EXISTENCIA, ");
                 query.append("unidadmed.C_NOMBRE, prod.N_COSTOFOB, prod.N_COSTOPROM, prod.N_COSTOUND, prod.N_PRECIOESTANDAR ");
                 query.append("FROM INV_PRODUCTO as prod left join INV_MOV_INVENTARIO as mov_inventario ");
@@ -224,7 +224,6 @@ public class ProductoEAOPersistence extends GenericPersistenceEAO<Producto, Inte
                     query.append("and almacen_mov.N_ESTATUS <> 2 ");
                 }*/
 
-
                 query.append("group by prod.N_ID, prod.C_CODIGO, prod.C_NOMBRE, prod.C_CODIGOFABRICANTE ");
                 query.append("order by prod.C_CODIGO ");
 
@@ -247,6 +246,7 @@ public class ProductoEAOPersistence extends GenericPersistenceEAO<Producto, Inte
                     producto.setCodigo(rs.getString("C_CODIGO"));
                     producto.setNombre(rs.getString("C_NOMBRE"));
                     producto.setCodigoFabricante(rs.getString("C_CODIGOFABRICANTE"));
+                    producto.setModelo(rs.getString("C_MODELO"));
                     producto.setCostoFOB(rs.getBigDecimal("N_COSTOFOB"));
                     producto.setCostoPROM(rs.getBigDecimal("N_COSTOPROM"));
                     producto.setCostoUND(rs.getBigDecimal("N_COSTOUND"));
@@ -274,12 +274,9 @@ public class ProductoEAOPersistence extends GenericPersistenceEAO<Producto, Inte
                     //Agregando producto al listado
                     productos.add(producto);
                 }
-
             }
         });
-
         return productos;
-
     }
 
     @Override

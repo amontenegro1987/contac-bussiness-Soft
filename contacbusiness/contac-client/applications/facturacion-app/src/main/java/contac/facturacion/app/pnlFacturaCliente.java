@@ -400,7 +400,7 @@ public class pnlFacturaCliente extends GenericPanel {
                 txtNombreProducto.setText(articuloFactura.getProducto().getNombre());
                 txtCantidad.setText(String.valueOf(articuloFactura.getCantidad()));
                 txtPrecio.setText(articuloFactura.getPrecioBruto().toString());
-                txtPrecio.setEnabled(false);
+                /*txtPrecio.setEnabled(false);*/
                 txtDescuento.setText(articuloFactura.getPorcDescuento().toString());
 
                 //Setting values to process
@@ -412,6 +412,19 @@ public class pnlFacturaCliente extends GenericPanel {
 
                 //Setting request focus
                 txtCantidad.requestFocusInWindow();
+
+                //Check if user has permission to update price
+                boolean valid = false;
+                try {
+                    valid = controller.accessToEditPrice();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+
+                if(valid == true) {
+                    txtPrecio.setEditable(true);
+                }
+
             }
         });
 
@@ -712,6 +725,13 @@ public class pnlFacturaCliente extends GenericPanel {
                     //Actualizar producto selected
                     productoSelected = producto;
                     renglonSelected = 0;
+
+                    //Check if user has permission to update price
+                    boolean valid = controller.accessToEditPrice();
+
+                    if(valid == true) {
+                        txtPrecio.setEditable(true);
+                    }
                 }
             }
 
@@ -863,6 +883,9 @@ public class pnlFacturaCliente extends GenericPanel {
                 controller.editarDatosFactura();
 
                 //Habilitar campo de no de factura
+                txtNoFactura.setEditable(true);
+            }
+            else{
                 txtNoFactura.setEditable(true);
             }
 

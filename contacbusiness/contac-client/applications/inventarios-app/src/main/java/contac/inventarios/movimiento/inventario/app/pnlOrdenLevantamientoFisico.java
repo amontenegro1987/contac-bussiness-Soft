@@ -197,7 +197,7 @@ public class pnlOrdenLevantamientoFisico extends GenericPanel {
         //Obteniendo table column model y removiendo columnas innecesarias
         TableColumnModel columnModel = tblArticulos.getColumnModel();
 
-        String[] articuloColumnRemove = new String[]{"Id", "Producto", "Orden Levantamiento Fisico", "Movimiento Inventario",
+        String[] articuloColumnRemove = new String[]{"Id", "Producto", "Orden Levantamiento Fisico", "Movimiento Inventario", "Codigo Fabricante",
                 "Renglon", "Cantidad Anterior", "Ctime", "Cuser", "Mtime", "Muser", "Create", "Update", "Cantidad Ajuste", "Cantidad Existencia",
                 "No Movimiento", "Monto Ajuste"};
 
@@ -208,7 +208,7 @@ public class pnlOrdenLevantamientoFisico extends GenericPanel {
         //Ordering table columns
         columnModel.moveColumn(1, 0); //Codigo producto
         columnModel.moveColumn(5, 1); //Nombre producto
-        columnModel.moveColumn(3, 2); //Codigo fabricante
+        //columnModel.moveColumn(3, 2); //Codigo fabricante
         columnModel.moveColumn(6, 4); //Unidad de medida
 
         //Setting prefered sized
@@ -222,9 +222,8 @@ public class pnlOrdenLevantamientoFisico extends GenericPanel {
 
         DecimalFormatRenderer decimalFormatRenderer = new DecimalFormatRenderer();
         decimalFormatRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        columnModel.getColumn(3).setCellRenderer(decimalFormatRenderer);
         columnModel.getColumn(5).setCellRenderer(decimalFormatRenderer);
-        columnModel.getColumn(6).setCellRenderer(decimalFormatRenderer);
-
 
         //Ir ultimo registro tabla
         tblArticulos.scrollRectToVisible(tblArticulos.getCellRect(tblArticulos.getRowCount() - 1, 0, true));
