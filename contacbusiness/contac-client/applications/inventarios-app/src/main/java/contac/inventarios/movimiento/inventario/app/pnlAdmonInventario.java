@@ -271,7 +271,7 @@ public class pnlAdmonInventario extends GenericPanel {
         if (chkMostrarCostos.isSelected()) {
 
             //Column names JTable
-            String[] columnNames = {"Id", "Codigo", "Nombre", "Codigo Fabricante", "Existencia", "Costo PROM", "Costo UND", "Precio"};
+            String[] columnNames = {"Id", "Codigo", "Nombre", "Modelo", "Existencia", "Costo PROM", "Costo UND", "Precio"};
             DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
             for (Producto producto : controller.getProductos()) {
@@ -279,7 +279,8 @@ public class pnlAdmonInventario extends GenericPanel {
                 row[0] = producto.getId();
                 row[1] = producto.getCodigo();
                 row[2] = producto.getNombre();
-                row[3] = producto.getCodigoFabricante();
+                //row[3] = producto.getCodigoFabricante();
+                row[3] = producto.getModelo();
 
                 long _cant_existencia = 0;
                 for (ProductoExistencia existencia : producto.getExistencias()) {
@@ -315,7 +316,7 @@ public class pnlAdmonInventario extends GenericPanel {
         if (!chkMostrarCostos.isSelected()) {
 
             //Column names JTable
-            String[] columnNames = {"Id", "Codigo", "Nombre", "Codigo Fabricante", "Existencia", "Precio"};
+            String[] columnNames = {"Id", "Codigo", "Nombre", "Modelo", "Existencia", "Precio"};
             DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
             for (Producto producto : controller.getProductos()) {
@@ -323,7 +324,8 @@ public class pnlAdmonInventario extends GenericPanel {
                 row[0] = producto.getId();
                 row[1] = producto.getCodigo();
                 row[2] = producto.getNombre();
-                row[3] = producto.getCodigoFabricante();
+                //row[3] = producto.getCodigoFabricante();
+                row[3] = producto.getModelo();
 
                 long _cant_existencia = 0;
                 for (ProductoExistencia existencia : producto.getExistencias()) {

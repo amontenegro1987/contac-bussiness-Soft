@@ -461,7 +461,6 @@ public class FacturaClienteController extends FacturacionBaseController {
             //Obtener manager de Facturacion
             //ManagerFacturacionServiceBusiness mgrFacturacion = getMgrFacturacionService();
             String usuario = getMgrFacturacionService().checkRolEditInvoicePrice();
-             System.out.println("return statement: " + usuario);
 
             if(usuario == null){
                 return true;
