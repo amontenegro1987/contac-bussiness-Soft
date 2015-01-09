@@ -727,7 +727,12 @@ public class pnlFacturaCliente extends GenericPanel {
                     renglonSelected = 0;
 
                     //Check if user has permission to update price
-                    boolean valid = controller.accessToEditPrice();
+                    boolean valid = false;
+                    try {
+                        valid = controller.accessToEditPrice();
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
 
                     if(valid == true) {
                         txtPrecio.setEditable(true);

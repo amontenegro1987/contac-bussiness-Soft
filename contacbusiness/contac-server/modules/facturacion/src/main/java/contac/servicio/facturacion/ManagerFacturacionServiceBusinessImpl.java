@@ -1759,28 +1759,6 @@ public class ManagerFacturacionServiceBusinessImpl extends UnicastRemoteObject i
         boolean transaction = initBusinessService(Roles.ROLEDITAPRECFACTURA.toString());
 
         try {
-            //Preparar el contexto de ejecucion
-            //OrdenTraslado ordenTrasladoAplicar = ordenTrasladoEAO.findById(idOrdenTraslado);
-
-            //EstadoMovimiento estadoIngresado = estadoMovimientoEAO.findByAlias(EstadosMovimiento.INGRESADO.getEstado());
-
-            //Validar datos generales de la Orden de Traslado
-            /*if (!ordenTrasladoAplicar.getEstado().getAlias().equals(EstadosMovimiento.PENDIENTE.getEstado()))
-                throw new ManagerInventarioServiceBusinessException("Orden de Traslado no se encuentra en un estado valido para poder Aplicar.");*/
-
-            //Eliminar movimientos de inventario de los articulos
-            /*for (ArticuloTraslado articulo : ordenTrasladoAplicar.getArticulos()) {
-                for (MovimientoInventario movimiento : articulo.getMovimientosInventario()) {
-                    movimiento.setEstado(estadoIngresado);
-                }
-
-            }*/
-
-            //Setting Estado Movimiento Impreso
-            //ordenTrasladoAplicar.setEstado(estadoIngresado);
-
-            //Update OrdenTraslado
-            //ordenTrasladoEAO.update(ordenTrasladoAplicar);
 
         } finally {
             stopBusinessService(transaction);

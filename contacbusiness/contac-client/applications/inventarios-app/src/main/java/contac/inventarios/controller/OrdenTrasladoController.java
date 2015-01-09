@@ -437,6 +437,7 @@ public class OrdenTrasladoController extends InventarioBaseController {
                 articulo.setCodigo(producto.getCodigo());
                 articulo.setNombre(producto.getNombre());
                 articulo.setCodigoFabricante(producto.getCodigoFabricante());
+                articulo.setModelo(producto.getModelo());
                 articulo.setCosto(producto.getCostoPROM());
                 articulo.setCantidad(cantidad);
                 articulo.setCostoTotal(articulo.getCosto().multiply(new BigDecimal(cantidad)));
@@ -449,6 +450,7 @@ public class OrdenTrasladoController extends InventarioBaseController {
                 articulo.setCodigo(producto.getCodigo());
                 articulo.setNombre(producto.getNombre());
                 articulo.setCodigoFabricante(producto.getCodigoFabricante());
+                articulo.setModelo(producto.getModelo());
                 articulo.setCosto(producto.getCostoPROM());
                 articulo.setCantidad(cantidad);
                 articulo.setCostoTotal(articulo.getCosto().multiply(new BigDecimal(cantidad)));

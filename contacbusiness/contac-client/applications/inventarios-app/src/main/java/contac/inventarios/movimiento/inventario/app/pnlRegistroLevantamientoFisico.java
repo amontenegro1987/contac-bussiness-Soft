@@ -120,7 +120,7 @@ public class pnlRegistroLevantamientoFisico extends GenericPanel {
         tableColumnModel.getColumn(7).setCellRenderer(new TipoActualizacionInventarioRenderer());
 
         //Ordering table columns
-        tableColumnModel.moveColumn(6, 1); //No Movimiento
+        tableColumnModel.moveColumn(6, 0); //No Movimiento
         tableColumnModel.moveColumn(3, 2); //Estado Movimiento
 
         //Setting prefered size

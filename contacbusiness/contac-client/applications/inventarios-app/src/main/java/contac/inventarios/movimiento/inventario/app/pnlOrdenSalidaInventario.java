@@ -180,7 +180,7 @@ public class pnlOrdenSalidaInventario extends GenericPanel {
         TableColumnModel columnModel = tblArticulos.getColumnModel();
 
         String[] articuloColumnRemove = new String[]{"Id", "Producto", "Orden Salida", "Movimiento Inventario", "Renglon",
-                "No Documento", "Cantidad Anterior", "Ctime", "Cuser", "Mtime", "Muser", "Create", "Update"};
+                "No Documento", "Cantidad Anterior", "Ctime", "Cuser", "Mtime", "Muser", "Create", "Update", "Codigo Fabricante"};
 
         for (String columnLabel : articuloColumnRemove) {
             columnModel.removeColumn(columnModel.getColumn(columnModel.getColumnIndex(columnLabel)));
@@ -189,7 +189,7 @@ public class pnlOrdenSalidaInventario extends GenericPanel {
         //Ordering table columns
         columnModel.moveColumn(1, 0); //Codigo producto
         columnModel.moveColumn(5, 1); //Nombre producto
-        columnModel.moveColumn(3, 2); //Codigo fabricante
+        /*columnModel.moveColumn(3, 2);*/ //Codigo fabricante
         columnModel.moveColumn(6, 4); //Unidad de medida
 
         //Setting prefered sized
@@ -203,8 +203,8 @@ public class pnlOrdenSalidaInventario extends GenericPanel {
 
         DecimalFormatRenderer decimalFormatRenderer = new DecimalFormatRenderer();
         decimalFormatRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        columnModel.getColumn(3).setCellRenderer(decimalFormatRenderer);
         columnModel.getColumn(5).setCellRenderer(decimalFormatRenderer);
-        columnModel.getColumn(6).setCellRenderer(decimalFormatRenderer);
 
         //Ir ultimo registro tabla
         tblArticulos.scrollRectToVisible(tblArticulos.getCellRect(tblArticulos.getRowCount() - 1, 0, true));

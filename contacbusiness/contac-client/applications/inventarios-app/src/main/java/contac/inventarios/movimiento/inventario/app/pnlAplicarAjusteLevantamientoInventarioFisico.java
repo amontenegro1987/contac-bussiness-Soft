@@ -113,7 +113,7 @@ public class pnlAplicarAjusteLevantamientoInventarioFisico extends GenericPanel 
         //Obteniendo table column model y removiendo columnas innecesarias
         TableColumnModel columnModel = tblArticulos.getColumnModel();
 
-        String[] articuloColumnRemove = new String[]{"Id", "Producto", "Orden Levantamiento Fisico", "Movimiento Inventario",
+        String[] articuloColumnRemove = new String[]{"Id", "Producto", "Orden Levantamiento Fisico", "Movimiento Inventario", "Codigo Fabricante",
                 "Renglon", "Cantidad Anterior", "Ctime", "Cuser", "Mtime", "Muser", "Create", "Update", "No Movimiento"};
 
         for (String columnLabel : articuloColumnRemove) {
@@ -123,9 +123,9 @@ public class pnlAplicarAjusteLevantamientoInventarioFisico extends GenericPanel 
         //Ordering table columns
         columnModel.moveColumn(3, 0); //Codigo producto
         columnModel.moveColumn(8, 1); //Nombre producto
-        columnModel.moveColumn(5, 2); //Codigo fabricante
-        columnModel.moveColumn(9, 6); //Unidad de medida
-        columnModel.moveColumn(5, 4); //Cantidad existencia
+        //columnModel.moveColumn(5, 2); //Codigo fabricante
+        columnModel.moveColumn(9, 5); //Unidad de medida
+        columnModel.moveColumn(5, 4); //Cantidad existencia*/
 
         //Setting prefered sized
         columnModel.getColumn(0).setPreferredWidth(45);
@@ -134,17 +134,18 @@ public class pnlAplicarAjusteLevantamientoInventarioFisico extends GenericPanel 
         //Adding cell renderer class
         DefaultTableCellRenderer centerAlignment = new DefaultTableCellRenderer();
         centerAlignment.setHorizontalAlignment(JLabel.CENTER);
-        columnModel.getColumn(6).setCellRenderer(centerAlignment);
+        columnModel.getColumn(5).setCellRenderer(centerAlignment);
 
         //Adding cell status class
         EstatusCellRenderer estatusCellRenderer = new EstatusCellRenderer();
         estatusCellRenderer.setHorizontalAlignment(JLabel.RIGHT);
+
         columnModel.getColumn(5).setCellRenderer(estatusCellRenderer);
 
         DecimalFormatRenderer decimalFormatRenderer = new DecimalFormatRenderer();
         decimalFormatRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        columnModel.getColumn(6).setCellRenderer(decimalFormatRenderer);
         columnModel.getColumn(7).setCellRenderer(decimalFormatRenderer);
-        columnModel.getColumn(8).setCellRenderer(decimalFormatRenderer);
         columnModel.getColumn(9).setCellRenderer(decimalFormatRenderer);
 
         //Ir ultimo registro tabla
