@@ -279,7 +279,7 @@ $F{N_COSTOUND}]]></variableExpression>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{UNIDAD_MEDIDA}]]></textFieldExpression>
 			</textField>
-			<textField pattern="$ #,##0.00">
+			<textField pattern="">
 				<reportElement uuid="7c63c264-6f6d-412c-8cb1-b7462193a97a" x="496" y="0" width="59" height="18"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
