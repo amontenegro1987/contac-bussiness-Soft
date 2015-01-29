@@ -295,14 +295,14 @@ $F{N_COSTOUND}]]></variableExpression>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{UNIDAD_MEDIDA}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00">
+			<textField pattern="">
 				<reportElement uuid="c0dd3a6a-e5bd-432d-a2d1-b2c31743b8b7" x="559" y="0" width="66" height="18"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{N_COSTOUND}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00">
+			<textField pattern="">
 				<reportElement uuid="02355a29-1208-49a6-ad94-2de17ad2d91c" x="684" y="0" width="68" height="18"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
@@ -311,14 +311,14 @@ $F{N_COSTOUND}]]></variableExpression>
 ($F{PROD_EXISTENCIA} == null ? 0 : $F{PROD_EXISTENCIA})) *
 $F{N_COSTOUND}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00">
+			<textField pattern="">
 				<reportElement uuid="7c63c264-6f6d-412c-8cb1-b7462193a97a" x="625" y="0" width="59" height="18"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{N_PRECIOESTANDAR}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00">
+			<textField pattern="">
 				<reportElement uuid="c7316dfd-e87d-433d-a801-e98c637dc0ae" x="503" y="0" width="56" height="18"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
@@ -366,7 +366,7 @@ $F{N_COSTOUND}]]></textFieldExpression>
 					<pen lineWidth="2.0" lineStyle="Double"/>
 				</graphicElement>
 			</line>
-			<textField pattern="#,##0.00">
+			<textField pattern="">
 				<reportElement uuid="ba396b92-9271-4474-856b-066e0583b796" x="684" y="1" width="68" height="18"/>
 				<textElement textAlignment="Right">
 					<font size="8" isBold="true"/>
