@@ -779,6 +779,13 @@ public class pnlFacturaCliente extends GenericPanel {
 
                 if (!txtCantidad.getText().equals("") && !txtPrecio.getText().equals("") && productoSelected != null) {
 
+                    //Setting max numbers of items per invoice -07-03-2015 A.Montenegro
+                    if(articuloBeanTableModel.getRowCount() > 14){
+                        JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ADVERTENCIA"),
+                                messageBundle.getString("CONTAC.FORM.MSG.ERROR.MAXIMO"));
+                    }
+                    else{
+
                     //Setting descuento default si valor esta vacio
                     if (txtDescuento.getText().equals(""))
                         txtDescuento.setText(TextUtil.formatCurrency(0));
@@ -786,7 +793,11 @@ public class pnlFacturaCliente extends GenericPanel {
                     BigDecimal precioBruto = new BigDecimal(TextUtil.parseCurrency(txtPrecio.getText()));
                     BigDecimal porcDescuento = new BigDecimal(txtDescuento.getText());
 
+
+
+
                     //Agregar articulo
+
                     controller.agregarArticulo(productoSelected, renglonSelected, Integer.parseInt(txtCantidad.getText()),
                             precioBruto, porcDescuento);
 
@@ -810,7 +821,7 @@ public class pnlFacturaCliente extends GenericPanel {
                     //Request focus in window
                     txtCodigo.setEditable(true);
                     txtCodigo.requestFocusInWindow();
-
+                    }
                 } else {
                     //Show error message
                     JOptionErrorPane.showMessageWarning(null, messageBundle.getString("CONTAC.FORM.MSG.ADVERTENCIA"),
