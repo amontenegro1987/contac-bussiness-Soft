@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="inventario_report" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="89f2bef7-c0ab-4e09-8bf6-83f9cac9b4f1">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="411"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA["C:\\desarrollo\\Carpeta nueva\\"]]></defaultValueExpression>
@@ -16,11 +16,11 @@
        IA.C_DESCRIPCION AS ALMACEN_ENTRADA,
        IA_SALIDA.C_DESCRIPCION AS ALMACEN_SALIDA,
        IDT.C_CODIGO,
-       INV_PROD.C_NOMBRE,
+       IDT.C_NOMBRE,
        IDT.C_CODIGOFABRICANTE,
        IDT.N_CANTIDAD,
-       INV_PROD.N_ID_COMPANIA,
-       INV_PROD.N_PRECIOESTANDAR
+       1 AS N_ID_COMPANIA,
+       IDT.N_COSTOUND AS N_PRECIOESTANDAR
 FROM INV_ORDEN_TRASLADO AS IOT
 INNER JOIN INV_DETALLE_TRASLADO AS IDT
 ON IOT.N_ID = IDT.N_ID_TRASLADO
@@ -28,8 +28,6 @@ INNER JOIN INV_ALMACEN AS IA
 ON IOT.N_ID_ALMACEN_ENTRADA = IA.N_ID
 INNER JOIN INV_ALMACEN AS IA_SALIDA
 ON IOT.N_ID_ALMACEN_SALIDA = IA_SALIDA.N_ID
-INNER JOIN INV_PRODUCTO AS INV_PROD
-ON IDT.C_CODIGO = INV_PROD.C_CODIGO
 WHERE IOT.N_ID = $P{n_id_traslado}]]>
 	</queryString>
 	<field name="N_ID" class="java.lang.Integer">
@@ -64,9 +62,7 @@ WHERE IOT.N_ID = $P{n_id_traslado}]]>
 	<field name="N_ID_COMPANIA" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="N_PRECIOESTANDAR" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
+	<field name="N_PRECIOESTANDAR" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -76,7 +72,7 @@ WHERE IOT.N_ID = $P{n_id_traslado}]]>
 				<reportElement uuid="539ac276-0ef3-484c-8f55-d23253abe3d4" mode="Transparent" x="476" y="3" width="275" height="110"/>
 			</rectangle>
 			<subreport>
-				<reportElement uuid="96e490c2-f9c7-43b5-8f61-ab192b89bdcd" x="0" y="3" width="476" height="110"/>
+				<reportElement uuid="96e490c2-f9c7-43b5-8f61-ab192b89bdcd" x="0" y="0" width="476" height="110"/>
 				<subreportParameter name="p_codigo_compania">
 					<subreportParameterExpression><![CDATA[$F{N_ID_COMPANIA}]]></subreportParameterExpression>
 				</subreportParameter>

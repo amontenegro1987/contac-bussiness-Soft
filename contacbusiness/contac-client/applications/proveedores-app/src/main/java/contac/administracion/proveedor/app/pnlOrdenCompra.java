@@ -10,20 +10,18 @@
  * Created on 01/02/2014, 10:23:52 AM
  */
 package contac.administracion.proveedor.app;
+
 import contac.administracion.controller.OrdenCompraController;
 import contac.commons.app.BaseController;
-import contac.commons.components.pnlBusquedaProveedor;
 import contac.commons.components.pnlBusquedaProducto;
+import contac.commons.components.pnlBusquedaProveedor;
 import contac.commons.form.label.JOptionErrorPane;
 import contac.commons.form.layout.XYConstraints;
 import contac.commons.form.layout.XYLayout;
 import contac.commons.form.panel.GenericFrame;
 import contac.commons.form.panel.GenericPanel;
 import contac.commons.form.render.DecimalFormatRenderer;
-import contac.commons.models.comboBox.AlmacenComboBoxModel;
-import contac.commons.models.comboBox.ComboBoxEmptySelectionRenderer;
 import contac.commons.models.tables.BeanTableModel;
-import contac.facturacion.app.pnlTotalFacturaCliente;
 import contac.internationalization.LanguageLocale;
 import contac.modelo.entity.*;
 import contac.text.TextUtil;

@@ -1871,7 +1871,7 @@ public class pnlAdmonProducto extends GenericPanel {
             txtPrecioPromocion.setEnabled(true);
 
             //Cargar datos originales
-            cargarDatos();
+            //cargarDatos();
 
         }
 
@@ -2111,7 +2111,6 @@ public class pnlAdmonProducto extends GenericPanel {
 
     //--<Limpiar datos producto compuesto>
     private void limpiarDatosProductoCompuesto() {
-
         //Limpiar datos de producto
         txtCodigoCompuesto.setText("");
         txtNombreCompuesto.setText("");
