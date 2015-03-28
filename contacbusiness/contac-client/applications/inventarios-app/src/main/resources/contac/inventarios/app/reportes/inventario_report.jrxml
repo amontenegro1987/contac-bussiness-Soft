@@ -18,6 +18,9 @@
 	<parameter name="p_id_almacen" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\desarrollo\\Carpeta nueva\\"]]></defaultValueExpression>
+	</parameter>
 	<parameter name="p_query" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[(($P{p_codigo_desde}.equals("-1") ? " PROD.C_CODIGO <> '-1' " : " PROD.C_CODIGO >= '" + $P{p_codigo_desde} + "'")
 +
@@ -31,14 +34,12 @@
 +
 ($P{p_id_almacen} > 0 ? " OR ALMACEN_PROD.N_ID = " + $P{p_id_almacen} + ")": "")))]]></defaultValueExpression>
 	</parameter>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String">
-		<defaultValueExpression><![CDATA["C:\\desarrollo\\Carpeta nueva\\"]]></defaultValueExpression>
-	</parameter>
 	<queryString>
 		<![CDATA[SELECT 	PROD.N_ID,
 	PROD.C_CODIGO,
 	PROD.C_NOMBRE,
 	PROD.C_CODIGOFABRICANTE,
+          PROD.C_MODELO,
 	SUM(MOV_INVENTARIO.N_CANTIDAD * MOV_INVENTARIO.N_AFECTACION) AS EXISTENCIA,
 	SUM(PROD_EXISTENCIA.N_CANTIDAD) AS PROD_EXISTENCIA,
 	UNIDADMED.C_NOMBRE AS UNIDAD_MEDIDA,
@@ -58,6 +59,7 @@ FROM 	INV_PRODUCTO AS PROD LEFT JOIN INV_MOV_INVENTARIO MOV_INVENTARIO ON PROD.N
 	INNER JOIN INV_LINEA LINEA ON PROD.N_ID_LINEA = LINEA.N_ID
 	INNER JOIN CMP_PROVEEDOR PROVEEDOR ON PROD.N_ID_PROVEEDOR = PROVEEDOR.N_ID
 WHERE $P!{p_query}
+and almacen_mov.N_ESTATUS <> 2
 GROUP BY PROD.N_ID, PROD.C_CODIGO, PROD.C_NOMBRE, PROD.C_CODIGOFABRICANTE
 ORDER BY PROD.C_CODIGO]]>
 	</queryString>
@@ -73,13 +75,16 @@ ORDER BY PROD.C_CODIGO]]>
 	<field name="C_CODIGOFABRICANTE" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="C_MODELO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="EXISTENCIA" class="java.math.BigDecimal">
 		<property name="default" value="0"/>
-		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="PROD_EXISTENCIA" class="java.math.BigDecimal">
 		<property name="default" value="0"/>
 	</field>
+	<field name="UNIDAD_MEDIDA" class="java.lang.String"/>
 	<field name="N_COSTOFOB" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -89,8 +94,9 @@ ORDER BY PROD.C_CODIGO]]>
 	<field name="N_PRECIOESTANDAR" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="UNIDAD_MEDIDA" class="java.lang.String"/>
-	<field name="N_ID_COMPANIA" class="java.lang.Integer"/>
+	<field name="N_ID_COMPANIA" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="LINEA_DESC" class="java.lang.String"/>
 	<field name="PROVEEDOR_DESC" class="java.lang.String"/>
 	<field name="ALMACEN_DESC" class="java.lang.String"/>
@@ -205,7 +211,7 @@ $F{N_COSTOUND}]]></variableExpression>
 				<textElement textAlignment="Left">
 					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Codigo Fabricante]]></text>
+				<text><![CDATA[Modelo]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="957aedf3-721f-41d8-b38c-f852abc23696" x="401" y="2" width="53" height="18"/>
@@ -278,7 +284,7 @@ $F{N_COSTOUND}]]></variableExpression>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{C_CODIGOFABRICANTE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{C_MODELO}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="ae77285a-4dca-4d2a-a32d-88463a574356" x="401" y="0" width="53" height="18"/>
