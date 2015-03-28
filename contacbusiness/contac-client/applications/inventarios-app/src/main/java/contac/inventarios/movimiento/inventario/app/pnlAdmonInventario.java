@@ -564,7 +564,9 @@ public class pnlAdmonInventario extends GenericPanel {
             controller.setCodigoHasta(txtCodigoHasta.getText().equals("") ? "-1" : txtCodigoHasta.getText());
             controller.setProveedor(cmbProveedor.getSelectedIndex() != -1 ?
                     (Proveedor) ((ProveedorComboBoxModel) cmbProveedor.getModel()).getSelectedItem().getObject() : null);
-
+            controller.setLinea(cmbLinea.getSelectedIndex() != -1 ?
+                    (Linea) ((LineaComboBoxModel) cmbLinea.getModel()).getSelectedItem().getObject() : null);controller.setLinea(cmbLinea.getSelectedIndex() != -1 ?
+                    (Linea) ((LineaComboBoxModel) cmbLinea.getModel()).getSelectedItem().getObject() : null);
             //controller.setExistencias(true);
 
             // Prepared Jasper Report
@@ -577,6 +579,7 @@ public class pnlAdmonInventario extends GenericPanel {
             parameters.put("SUBREPORT_DIR", getClass().getClassLoader().getResource("contac/inventarios/app/reportes") + "/");
             parameters.put("p_codigo_desde", controller.getCodigoDesde());
             parameters.put("p_codigo_hasta", controller.getCodigoHasta());
+            parameters.put("p_id_linea", controller.getLinea() != null ? controller.getLinea().getId() : -1);
             parameters.put("p_codigo_proveedor", controller.getProveedor() != null ? controller.getProveedor().getCodigo() : -1);
 
             //Generate Report

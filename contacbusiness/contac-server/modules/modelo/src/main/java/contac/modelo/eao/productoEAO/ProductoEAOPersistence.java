@@ -220,10 +220,10 @@ public class ProductoEAOPersistence extends GenericPersistenceEAO<Producto, Inte
 
                 if (p_id_almacen > 0) {
                     query.append("and (almacen_mov.N_ID = ? OR almacen_mov.N_ID= ?) and almacen_mov.N_ESTATUS <> 2 ");
-                } /*else {
-                    query.append("and almacen_mov.N_ESTATUS <> 2 ");
-                }*/
-
+                } else {
+                    query.append("and almacen_mov.N_ESTATUS <> 2 "); //
+                }
+                //query.append("and mov_inventario..N_ID_ESTADO <> 2");
                 query.append("group by prod.N_ID, prod.C_CODIGO, prod.C_NOMBRE, prod.C_CODIGOFABRICANTE ");
                 query.append("order by prod.C_CODIGO ");
 
